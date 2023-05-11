@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GreenCircle : MonoBehaviour
+public class Circle : MonoBehaviour
 {
     [SerializeField] private float pushPower = 5.0f;
     [SerializeField] private float upPower = 15.0f;
+    GameObject[] circle;
 
     private Rigidbody2D rb;
 

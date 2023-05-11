@@ -5,7 +5,7 @@ using UnityEngine;
 public class Generator : MonoBehaviour
 {
     // Start is called before the first frame update
-    public GameObject[] fruits;
+    public GameObject fruit;
     float span = 2.0f;
     float delta = 0;
 
@@ -21,7 +21,6 @@ public class Generator : MonoBehaviour
         if(delta > span)
         {
             delta = 0;
-            GameObject fruit = Instantiate(fruits[Random.Range(0, fruits.Length)]);
             fruit.transform.position = new Vector3(0, 0, 0); //ø©±‚ πŸ≤„¡‡æﬂµ 
         }
     }
