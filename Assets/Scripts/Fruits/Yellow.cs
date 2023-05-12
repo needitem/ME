@@ -1,12 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Circle : MonoBehaviour
+public class Yellow : MonoBehaviour
 {
     [SerializeField] private float pushPower = 5.0f;
     [SerializeField] private float upPower = 15.0f;
-    GameObject[] circle;
 
     private Rigidbody2D rb;
 
@@ -39,18 +36,5 @@ public class Circle : MonoBehaviour
 
         // apply the initial velocity to the rigidbody
         rb.velocity = launchVelocity;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            GameDirector.hp--;
-            Destroy(gameObject);
-        }
-        else if (collision.gameObject.tag == "AttackRange")
-        {
-            Destroy(gameObject);
-        }
     }
 }

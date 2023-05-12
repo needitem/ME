@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 7735950727535672684}
   - component: {fileID: 7252604147634500442}
   - component: {fileID: -3433874522540790065}
+  - component: {fileID: -5742995475274919118}
   m_Layer: 0
-  m_Name: Fruit3
+  m_Name: Yellow
   m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.09018624, g: 0.754717, b: 0.21495591, a: 1}
+  m_Color: {r: 1, g: 0.9215687, b: 0.20000002, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -99,8 +100,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee2e59a5c03444d4197c0316783ab229, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushPower: 5
-  upPower: 6
 --- !u!50 &7252604147634500442
 Rigidbody2D:
   serializedVersion: 4
@@ -138,3 +137,17 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &-5742995475274919118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4342519158331969454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16d9da985d0c5744ea96f16ebd9ff72c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pushPower: 5
+  upPower: 15

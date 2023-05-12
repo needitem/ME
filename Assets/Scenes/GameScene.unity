@@ -618,10 +618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c69ce6fbe7af44449a92f094e63a0cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fruits:
-  - {fileID: 4259332154934891365, guid: 51f6bdf2bb9cbfa4ba253055627d4916, type: 3}
-  - {fileID: 8793102923506927407, guid: d4212e2b61a3a3a45b27a891541a9bb7, type: 3}
-  - {fileID: 4342519158331969454, guid: f395defde21a8a843a4a8286cb0aacba, type: 3}
+  fruits: []
 --- !u!4 &2079621017
 Transform:
   m_ObjectHideFlags: 0
