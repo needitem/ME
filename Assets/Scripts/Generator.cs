@@ -6,29 +6,30 @@ public class Generator : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject[] fruits;
-    float span = 2.0f;
-    float delta = 0;
+    private float timeElapsed = 0f;
+    private float span = 2.0f;
 
+    private int difficulty = 1;
     void Start()
     {
-        fruits = new GameObject[] { Resources.Load<GameObject>("Prefabs/Green"), Resources.Load<GameObject>("Prefabs/Yellow") };
+        fruits = Resources.LoadAll<GameObject>("Prefabs");
     }
 
     // Update is called once per frame
     void Update()
     {
-        delta += Time.deltaTime;
-        if(delta > span)
+        timeElapsed += Time.deltaTime;
+        if (timeElapsed >= span)
         {
-            delta += Time.deltaTime;
-            if (delta > span)
-            {
-                delta = 0;
-
-                // instantiate a random circle prefab at position (0,0,0)
-                int randomIndex = Random.Range(0, fruits.Length);
-                Instantiate(fruits[randomIndex], new Vector3(0, 0, 0), Quaternion.identity);
-            }
+            SpawnFruit();
+            timeElapsed = 0f;
         }
+    }
+
+    private void SpawnFruit()
+    {
+        int randomIndex = Random.Range(0, fruits.Length);
+        Vector3 spawnPosition = Vector3.zero;
+        Instantiate(fruits[randomIndex], spawnPosition, Quaternion.identity);
     }
 }
