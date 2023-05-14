@@ -827,12 +827,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff209550a2e348a458514f5cd33df103, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curTime: 0
-  coolTime: 0.5
+  pushPower: 30
   boxSize: {x: 5, y: 3}
   pos: {fileID: 1762957462}
   animator: {fileID: 0}
-  pushPower: 30
 --- !u!61 &1185035490
 BoxCollider2D:
   m_ObjectHideFlags: 0

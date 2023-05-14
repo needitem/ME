@@ -3,7 +3,7 @@ using UnityEngine;
 public class Green : MonoBehaviour {
     [SerializeField] private float pushPower = 5.0f;
     [SerializeField] private float upPower = 15.0f;
-
+    [SerializeField] public int hp = 2;
     private Rigidbody2D rb;
 
     void Start()
@@ -24,6 +24,11 @@ public class Green : MonoBehaviour {
         // add the up force
         Vector2 upForce = transform.up * upPower;
         rb.AddForce(upForce);
+
+        if (hp <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     void Launch()

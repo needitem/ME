@@ -5,38 +5,33 @@ using System.Linq;
 
 public class PlayerControler : MonoBehaviour
 {
-
-    [SerializeField] private float curTime;
-    public float coolTime = 0.2f;
+    private float coolTime = 1.0f;
+    [SerializeField] private float pushPower = 30.0f;
     private bool hasAttacked = false;
+    private float lastAttackTime = -1f;
+    private float doubleAttackTimeWindow = 0.3f;
     private Animator anim;
     public Vector2 boxSize;
     public Transform pos;
     public Animator animator;
+    private Rigidbody2D rb;
+    private void Start() {
+        animator = GetComponent<Animator>();
+    }
     void Update()
     {
-        if (Input.GetButtonDown("Jump") && curTime <= 0)
+        if (Input.GetButtonDown("Jump"))
         {
             Attack();
-            curTime = coolTime;
         }
         else if (Input.GetButtonDown("Fire1"))
         {
             PunchBackColliders();
         }
-        curTime -= Time.deltaTime;
-    }
-    private void DestroyColliders()
-    {
-        var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
-        foreach (Collider2D collider in colliders)
-        {
-            Destroy(collider.gameObject);            
-        }
     }
 
-    private Rigidbody2D rb;
-    [SerializeField] private float pushPower = 30.0f;
+
+
     private void PunchBackColliders()
     {
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
@@ -52,19 +47,22 @@ public class PlayerControler : MonoBehaviour
 
     public void Attack()
     {
-        if (!hasAttacked)
+        float currentTime = Time.time;
+        if (hasAttacked && (currentTime - lastAttackTime) <= doubleAttackTimeWindow)
         {
-            //anim.SetTrigger("attack");
-            hasAttacked = true;
-            StartCoroutine(ResetAttack());
-        }
-        else
-        {
+            Debug.Log("doubleAttack");
             //anim.SetTrigger("doubleAttack");
             hasAttacked = false;
         }
+        else if(!hasAttacked)
+        {
+            Debug.Log("Attack");
+            //anim.SetTrigger("attack");
+            hasAttacked = true;
+            lastAttackTime = currentTime;
+            StartCoroutine(ResetAttack());
+        }
     }
-
     IEnumerator ResetAttack()
     {
         yield return new WaitForSeconds(coolTime);
