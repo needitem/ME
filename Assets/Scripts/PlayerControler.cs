@@ -7,8 +7,8 @@ public class PlayerControler : MonoBehaviour
 
     void Start()
     {
-    }
 
+    }
     void Update()
     {
         transform.GetChild(0).gameObject.SetActive(false);
@@ -16,9 +16,5 @@ public class PlayerControler : MonoBehaviour
         {
             transform.GetChild(0).gameObject.SetActive(true);
         }
-        
     }
-
-
-
 }
