@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Yellow : MonoBehaviour
 {
-    [SerializeField] private float pushPower = 0.5f;
+    [SerializeField] private float pushPower;
     private Rigidbody2D rb;
 
     void Start()
