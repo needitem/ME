@@ -1,60 +1,37 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 using UnityEngine;
 
 public class Recipe : MonoBehaviour
 {
-    // Define ingredients
-    private int i1;
-    private int i2;
-    private int i3;
-    private int i4;
-    private int i5;
-
+    const int ingredientAmt = 5;
     // Define recipes
-    private int r1;
-    private int r2;
-    private int r3;
-
-    // Randomly generate ingredient values between 1 and 10
-    private void GenerateIngredients()
-    {
-        System.Random random = new System.Random();
-        i1 = random.Next(1, 11);
-        i2 = random.Next(1, 11);
-        i3 = random.Next(1, 11);
-        i4 = random.Next(1, 11);
-        i5 = random.Next(1, 11);
-    }
-
-    // Randomly generate recipe values between 1 and 10
-    private void GenerateRecipes()
-    {
-        System.Random random = new System.Random();
-        r1 = random.Next(1, 11);
-        r2 = random.Next(1, 11);
-        r3 = random.Next(1, 11);
-    }
+    private int[] r1 = new int[ingredientAmt] { 1, 2, 3, 4, 5 };
+    private int[] r2 = new int[ingredientAmt] { 3, 2, 1, 5, 4 };
+    private int[] r3 = new int[ingredientAmt] { 6, 5, 4, 2, 3 };
 
     // Check if the recipe is complete based on ingredient values
-    private bool IsRecipeComplete()
+    public bool IsRecipeComplete(int[] recipe)
     {
-        return (i1 >= r1 && i2 >= r2 && i3 >= r3);
+        foreach (int r in recipe)
+        {
+            if (r>0) return false;
+        }
+        return true;
     }
-
-    // Start is called before the first frame update
-    private void Start()
+    public int[] RandomRecipe()
     {
-        GenerateIngredients();
-        GenerateRecipes();
+        int randomIndex = Random.Range(1, 4);
+        int[] randomRecipe = new int[ingredientAmt];
 
-        if (IsRecipeComplete())
+        switch (randomIndex)
         {
-            Debug.Log("Recipe is complete!");
+            case 0: randomRecipe = r1; break;
+            case 1: randomRecipe = r2; break;
+            case 2: randomRecipe = r3; break;
+
         }
-        else
-        {
-            Debug.Log("Recipe is incomplete.");
-        }
+        return randomRecipe;
     }
 }
