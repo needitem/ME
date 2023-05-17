@@ -13,7 +13,7 @@ public class Yellow : MonoBehaviour
     void FixedUpdate()
     {
         // Move the object to the right
-        Vector2 movement = new Vector2(3, 2);
+        Vector2 movement = new Vector2(-3, 2);
         rb.AddForce(movement * pushPower, ForceMode2D.Impulse);
     }
 }

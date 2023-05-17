@@ -15,10 +15,10 @@ public class Red : MonoBehaviour
     void FixedUpdate()
     {
         // Check if the object is on the ground
-        if (Physics2D.Raycast(transform.position, Vector2.down, 1.0f))
+        if (Physics2D.Raycast(transform.position, Vector2.down, -1.0f))
         {
             // Add a force to the right
-            rb.AddForce(Vector2.right * 10.0f, ForceMode2D.Impulse);
+            rb.AddForce(Vector2.left * 10.0f, ForceMode2D.Impulse);
 
             // Add an upward force to make the object bounce
             rb.AddForce(Vector2.up * 20.0f, ForceMode2D.Impulse);
