@@ -9,7 +9,7 @@ public class Generator : MonoBehaviour
     private float timeElapsed = 0f;
     private float span = 1.5f;
 
-    private int difficulty = 1;
+    //private int difficulty = 1;
     void Start()
     {
         fruits = Resources.LoadAll<GameObject>("Prefabs");
