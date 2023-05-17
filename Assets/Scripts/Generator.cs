@@ -29,7 +29,7 @@ public class Generator : MonoBehaviour
     private void SpawnFruit()
     {
         int randomIndex = Random.Range(0, fruits.Length);
-        Vector3 spawnPosition = Vector3.zero;
+        Vector3 spawnPosition = new Vector3(15, 1.5f, 1);
         Instantiate(fruits[randomIndex], spawnPosition, Quaternion.identity);
     }
 }

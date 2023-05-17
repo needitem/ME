@@ -22,15 +22,7 @@ public class Yellow : MonoBehaviour
     void FixedUpdate()
     {
         // Move the object to the right
-/*        Vector2 movement = new Vector2(3, 2);
-        rb.AddForce(movement * pushPower, ForceMode2D.Impulse);*/
-
-        m_rate += Time.deltaTime;
-        transform.position = GetComponent<BezierCurve_Controller>().BezierCurve();
-
-        if (m_rate >= 1f)
-        {
-            m_rate = 0f;
-        }
+        Vector2 movement = new Vector2(-3, 2);
+        rb.AddForce(movement * pushPower, ForceMode2D.Impulse);
     }
 }
