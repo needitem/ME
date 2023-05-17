@@ -43,7 +43,6 @@ public class PlayerControler : MonoBehaviour
     }
 
 
-
     private void PunchBackColliders()
     {
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
@@ -98,6 +97,7 @@ public class PlayerControler : MonoBehaviour
             StartCoroutine(ResetAttack());
         }
     }
+
     IEnumerator ResetAttack()
     {
         yield return new WaitForSeconds(coolTime);
@@ -117,5 +117,4 @@ public class PlayerControler : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(pos.position, boxSize);
     }
-
 }
