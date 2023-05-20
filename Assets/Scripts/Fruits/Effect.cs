@@ -3,7 +3,7 @@ using UnityEngine;
 public class Effect : MonoBehaviour {
     public static void Upscale()
     {
-
+#if false
         if (isUpScale == true)
         {
             //ƨ�ܳ��� 2d���� z������ ƨ�ܳ��⿡ ���ٹ��� ����Ͽ� �ð����� ��ü���� �ش�.
@@ -19,6 +19,6 @@ public class Effect : MonoBehaviour {
             fUpSize = 0.2f;
             isUpScale = false;
         }
-
+#endif
     }
 }
