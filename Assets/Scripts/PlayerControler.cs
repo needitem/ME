@@ -23,7 +23,8 @@ public class PlayerControler : MonoBehaviour
 
 
 
-    private void Start() {
+    private void Start()
+    {
         animator = GetComponent<Animator>();
         fUpSize = 0.2f;
     }
@@ -38,7 +39,7 @@ public class PlayerControler : MonoBehaviour
             PunchBackColliders();
         }
 
-       
+
         Upscale();
     }
 
@@ -49,18 +50,19 @@ public class PlayerControler : MonoBehaviour
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
         foreach (Collider2D collider in colliders)
         {
-            
+
             Rigidbody2D rigidbody = collider.GetComponent<Rigidbody2D>();
             if (rigidbody != null)
             {
-                rigidbody.AddForce(new Vector2(1,1) * pushPower, ForceMode2D.Impulse);
+                rigidbody.AddForce(new Vector2(1, 1) * pushPower, ForceMode2D.Impulse);
                 this.gBackFruit = collider.gameObject;
                 isUpScale = true;
             }
         }
     }
 
-    void Upscale() {
+    void Upscale()
+    {
 
         if (isUpScale == true)
         {
@@ -77,7 +79,7 @@ public class PlayerControler : MonoBehaviour
             fUpSize = 0.2f;
             isUpScale = false;
         }
-       
+
     }
 
     public void Attack()
@@ -89,7 +91,7 @@ public class PlayerControler : MonoBehaviour
             //anim.SetTrigger("doubleAttack");
             hasAttacked = false;
         }
-        else if(!hasAttacked)
+        else if (!hasAttacked)
         {
             Debug.Log("Attack");
             //anim.SetTrigger("attack");
@@ -105,7 +107,8 @@ public class PlayerControler : MonoBehaviour
     }
 
     //onHit
-    private void OnTriggerEnter2D(Collider2D collider) {
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
         if (collider.tag == "Target")
         {
             Destroy(collider.gameObject);
