@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-
 public class PlayerControler : MonoBehaviour
 {
     private float coolTime = 1.0f;
@@ -17,13 +16,16 @@ public class PlayerControler : MonoBehaviour
     public Animator animator;
     private Rigidbody2D rb;
 
-    //ï¿½ï¿½ï¿½ï¿½
-    float fUpSize; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //½ÂÇ¥
+    bool isdoubleAttack = false; // ´õºí¾îÅÃÁßÀÎÁö ¾Æ´ÑÁö º¸´Â º¯¼ö
+
+
+    //±âÁØ
+    float fUpSize; //Áõ°¡½ÃÅ³ »çÀÌÁî
     bool isUpScale = false;
     GameObject gBackFruit;
 
 
-    private void Start() {
 
     private void Start()
     {
@@ -42,13 +44,6 @@ public class PlayerControler : MonoBehaviour
             PunchBackColliders();
             //Upscale();
         }
-        else if (Input.GetKeyDown(KeyCode.K))
-        {
-        
-        }
-
-
-        Upscale();
     }
 
     private void PunchBackColliders()
@@ -56,12 +51,10 @@ public class PlayerControler : MonoBehaviour
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
         foreach (Collider2D collider in colliders)
         {
-
             Rigidbody2D rigidbody = collider.GetComponent<Rigidbody2D>();
             if (rigidbody != null)
             {
-                rigidbody.AddForce(new Vector2(-1,1) * pushPower, ForceMode2D.Impulse);
-                rigidbody.AddForce(new Vector2(1, 1) * pushPower, ForceMode2D.Impulse);
+                rigidbody.AddForce(new Vector2(-1, 1) * pushPower, ForceMode2D.Impulse);
                 this.gBackFruit = collider.gameObject;
                 isUpScale = true;
             }
@@ -73,9 +66,9 @@ public class PlayerControler : MonoBehaviour
 
         if (isUpScale == true)
         {
-            //Æ¨ï¿½Ü³ï¿½ï¿½ï¿½ 2dï¿½ï¿½ï¿½ï¿½ zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ¨ï¿½Ü³ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½Ù¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½.
+            //Æ¨°Ü³»¸é 2dÁö¸¸ zÃàÀ¸·Î Æ¨°Ü³»±â¿¡ ¿ø±Ù¹ýÀ» »ç¿ëÇÏ¿© ½Ã°¢ÀûÀÎ ÀÔÃ¼°¨À» ÁØ´Ù.
             gBackFruit.transform.localScale = new Vector3(fUpSize, fUpSize, 0);
-            fUpSize += 0.1f; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            fUpSize += 0.1f; //»çÀÌÁî Áõ°¡
         }
 
         if (fUpSize >= 3)
@@ -84,73 +77,66 @@ public class PlayerControler : MonoBehaviour
             fUpSize = 0.2f;
             isUpScale = false;
         }
-
     }
 
-    public void Attack() // ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, 2È¸ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+
+
+
+    public void Attack() // ÀÏ¹Ý °ø°ÝÀÎÁö, 2È¸ ¿¬¼Ó °ø°ÝÀÎÁö ±¸ºÐ
     {
         float currentTime = Time.time;
-        if (!isdoubleAttack) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+        if (!isdoubleAttack) // ´õºí¾îÅÃÀ» »ç¿ëÇÏÁö ¾Ê¾Ò´Ù¸é ½ÇÇà
         {
-            if (hasAttacked && (currentTime - lastAttackTime) <= doubleAttackTimeWindow) // 1ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½Ù¸ï¿½ ï¿½Î¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½, ï¿½Î¹ï¿½Â° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½(currentTime)ï¿½ï¿½ï¿½ï¿½ 
-            {                                                                            // Ã¹ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½(lastAttackTime) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ 0.3ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Û´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-                                                                                         // (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0.3ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+            if (hasAttacked && (currentTime - lastAttackTime) <= doubleAttackTimeWindow) // 1ÃÊ ¾È¿¡ ½ºÆäÀÌ½º¹Ù¸¦ µÎ¹ø ´©¸¥»óÅÂÀÌ°í, µÎ¹øÂ° °ø°ÝÀ» ´©¸¥½Ã°£(currentTime)¿¡¼­ 
+            {                                                                            // Ã¹¹øÂ° °ø°ÝÀ» ´©¸¥½Ã°£(lastAttackTime) »çÀÌÀÇ ½Ã°£Â÷ÀÌ°¡ 0.3ÃÊ º¸´Ù ÀÛ´Ù¸é ´õºí¾îÅÃ ½ÇÇà
+                                                                                         // (½±°Ô ¸»ÇØ ½ºÆäÀÌ½º µû´Ú ´©¸¥½Ã°£ÀÇ °£°ÝÀÌ 0.3º¸´Ù ÀÛÀ¸¸é ½ÇÇà)
 
-                isdoubleAttack = true; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß´Ù´ï¿½ ï¿½ï¿½                                 
-                
-                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½      
-                Debug.Log("doubleAttack");            
+                isdoubleAttack = true; // ´õºí¾îÅÃÀ» »ç¿ëÇß´Ù´Â ¶æ                                 
+
+                // ´õºí ¾îÅÃ ½ÇÇà      
+                Debug.Log("doubleAttack");
                 //anim.SetTrigger("doubleAttack");           
-                Invoke("Delay", 1f); // 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                Invoke("Delay", 1f); // 1ÃÊÈÄ ½ÇÇà
 
 
             }
             else if (!hasAttacked)
             {
-                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-                Debug.Log("Attack");            
+                // ¾îÅÃ ½ÇÇà
+                Debug.Log("Attack");
                 //anim.SetTrigger("attack");
                 hasAttacked = true;
-                lastAttackTime = currentTime; // Ã¹ï¿½ï¿½Â° ï¿½ï¿½ï¿½Ý½Ã°ï¿½ï¿½ï¿½ lastAttackTimeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-                Invoke("Delay", 1f); // 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½                     
+                lastAttackTime = currentTime; // Ã¹¹øÂ° °ø°Ý½Ã°£À» lastAttackTime¿¡ ÀúÀå
+                Invoke("Delay", 1f); // 1ÃÊÈÄ ½ÇÇà
+                Debug.Log("===============================");
             }
         }
-        else // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+        else // ´õºí¾îÅÃÀ» »ç¿ëÇß´Ù¸é ½ÇÇà
         {
-            Invoke("TransIsdoubleAttack", 1f); // 1ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
-            Debug.Log("doubleAttack");
-            //anim.SetTrigger("doubleAttack");
-            hasAttacked = false;
-        }
-        else if (!hasAttacked)
-        {
-            Debug.Log("Attack");
-            //anim.SetTrigger("attack");
-            hasAttacked = true;
-            lastAttackTime = currentTime;
-            StartCoroutine(ResetAttack());
+            Invoke("TransIsdoubleAttack", 1f); // 1ÃÊÈÄ ½ÇÇà
         }
     }
 
-    void Delay() // hasAttackedï¿½ï¿½ falseï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    void Delay() // hasAttacked¸¦ false·Î º¯°æ
     {
         hasAttacked = false;
     }
 
-    void TransIsdoubleAttack() // isdoubleAttackï¿½ï¿½ falseï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    void TransIsdoubleAttack() // isdoubleAttackÀ» false·Î º¯°æ
     {
         isdoubleAttack = false;
     }
 
-    //IEnumerator ResetAttack() // ï¿½Ú·ï¿½Æ¾ ï¿½Ô¼ï¿½
+    //IEnumerator ResetAttack() // ÄÚ·çÆ¾ ÇÔ¼ö
     //{
-    //    yield return new WaitForSeconds(coolTime); // 1ï¿½ï¿½ ï¿½ï¿½ hasAttacked ï¿½ï¿½ falseï¿½ï¿½ ï¿½Ù²Ù°Ú´ï¿½.
+    //    yield return new WaitForSeconds(coolTime); // 1ÃÊ ÈÄ hasAttacked ¸¦ false·Î ¹Ù²Ù°Ú´Ù.
 
     //    hasAttacked = false;
     //}
 
     //onHit
-    private void OnTriggerEnter2D(Collider2D collider) {
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
         if (collider.tag == "Target")
         {
             Destroy(collider.gameObject);
