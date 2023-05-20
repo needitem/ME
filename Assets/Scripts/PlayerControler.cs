@@ -6,7 +6,7 @@ using System.Linq;
 public class PlayerControler : MonoBehaviour
 {
     private float coolTime = 1.0f;
-    [SerializeField] private float pushPower = 30.0f;
+    [SerializeField] private float pushPower = 1000.0f;
     private bool hasAttacked = false;
     private float lastAttackTime = -1f;
     private float doubleAttackTimeWindow = 0.3f;

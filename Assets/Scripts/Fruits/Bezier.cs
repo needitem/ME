@@ -7,13 +7,13 @@ public class Bezier : MonoBehaviour
 {
     // 선형보간이 0~1까지 표현됨
     [Range (0f,1f)] public float rate;
-    
+
     // 곡선을 그리기 위해 저장해야할 위치
     public Vector2[] controllPosition;
     Vector2 pushForce = Vector2.left * 250.0f;
-
+   
     private Rigidbody2D rb;
-
+ 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -23,15 +23,18 @@ public class Bezier : MonoBehaviour
     { 
         // 오브젝트가 선형구간을 지나가기위한 프레임 간 시간 저장
         rate += Time.deltaTime;
+
         // 오브젝트 이동
         transform.position = BezierTest(controllPosition[0], controllPosition[1], controllPosition[2], controllPosition[3], rate);
         // 베지어 곡선은 종료지점에 도달전까지는 다른 충돌 및 이벤트 발생 불가하므로
         // 종료지점에 도착 후 충돌 및 이벤트 가능하게 하는 구간
+
         if (rate >= 1f)
         {
             // 종료 지점 이후 힘을 주어 오브젝트를 이동
             // (좀 가라긴해? 이거 종료지점에 도착하기전에 이벤트 구현 가능한지 더 찾아봄)
             rb.AddForce(pushForce);
+            
         }
         /*if (rate > 1.3f)
         {
