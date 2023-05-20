@@ -16,8 +16,8 @@ public class PlayerControler : MonoBehaviour
     public Animator animator;
     private Rigidbody2D rb;
 
-    //±âÁØ
-    float fUpSize; //Áõ°¡½ÃÅ³ »çÀÌÁî
+    //ï¿½ï¿½ï¿½ï¿½
+    float fUpSize; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     bool isUpScale = false;
     GameObject gBackFruit;
 
@@ -37,9 +37,6 @@ public class PlayerControler : MonoBehaviour
         {
             PunchBackColliders();
         }
-
-       
-        Upscale();
     }
 
 
@@ -59,25 +56,7 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
-    void Upscale() {
 
-        if (isUpScale == true)
-        {
-            //Æ¨°Ü³»¸é 2dÁö¸¸ zÃàÀ¸·Î Æ¨°Ü³»±â¿¡ ¿ø±Ù¹ýÀ» »ç¿ëÇÏ¿© ½Ã°¢ÀûÀÎ ÀÔÃ¼°¨À» ÁØ´Ù.
-            gBackFruit.transform.localScale = new Vector3(fUpSize, fUpSize, 0);
-
-            fUpSize += 0.1f; //»çÀÌÁî Áõ°¡
-        }
-
-
-        if (fUpSize >= 6)
-        {
-            Destroy(gBackFruit);
-            fUpSize = 0.2f;
-            isUpScale = false;
-        }
-       
-    }
 
     public void Attack()
     {
