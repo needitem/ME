@@ -10,7 +10,8 @@ public class Bezier : MonoBehaviour
     
     // 곡선을 그리기 위해 저장해야할 위치
     public Vector2[] controllPosition;
-   
+    Vector2 pushForce = Vector2.left * 250.0f;
+
     private Rigidbody2D rb;
 
     private void Start()
@@ -30,7 +31,6 @@ public class Bezier : MonoBehaviour
         {
             // 종료 지점 이후 힘을 주어 오브젝트를 이동
             // (좀 가라긴해? 이거 종료지점에 도착하기전에 이벤트 구현 가능한지 더 찾아봄)
-            Vector2 pushForce = Vector2.left * 250.0f;
             rb.AddForce(pushForce);
         }
         /*if (rate > 1.3f)

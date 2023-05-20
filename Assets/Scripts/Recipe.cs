@@ -20,6 +20,7 @@ public class Recipe : MonoBehaviour
         }
         return true;
     }
+
     public int[] RandomRecipe()
     {
         int randomIndex = Random.Range(1, 4);
@@ -30,7 +31,6 @@ public class Recipe : MonoBehaviour
             case 0: randomRecipe = r1; break;
             case 1: randomRecipe = r2; break;
             case 2: randomRecipe = r3; break;
-
         }
         return randomRecipe;
     }
