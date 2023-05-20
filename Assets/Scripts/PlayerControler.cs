@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-
 public class PlayerControler : MonoBehaviour
 {
     private float coolTime = 1.0f;
@@ -17,13 +16,19 @@ public class PlayerControler : MonoBehaviour
     public Animator animator;
     private Rigidbody2D rb;
 
+    //��ǥ
+    bool isdoubleAttack = false; // �������������� �ƴ��� ���� ����
+
+
     //����
     float fUpSize; //������ų ������
     bool isUpScale = false;
     GameObject gBackFruit;
 
 
-    private void Start() {
+
+    private void Start()
+    {
         animator = GetComponent<Animator>();
         fUpSize = 0.2f;
     }
@@ -37,11 +42,7 @@ public class PlayerControler : MonoBehaviour
         else if (Input.GetButtonDown("Fire1"))
         {
             PunchBackColliders();
-            //Upscale();
-        }
-        else if (Input.GetKeyDown(KeyCode.K))
-        {
-        
+            Upscale();
         }
     }
 
@@ -53,14 +54,15 @@ public class PlayerControler : MonoBehaviour
             Rigidbody2D rigidbody = collider.GetComponent<Rigidbody2D>();
             if (rigidbody != null)
             {
-                rigidbody.AddForce(new Vector2(-1,1) * pushPower, ForceMode2D.Impulse);
+                rigidbody.AddForce(new Vector2(-1, 1) * pushPower, ForceMode2D.Impulse);
                 this.gBackFruit = collider.gameObject;
                 isUpScale = true;
             }
         }
     }
 
-    void Upscale() {
+    void Upscale()
+    {
 
         if (isUpScale == true)
         {
@@ -77,33 +79,64 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
-    public void Attack()
+
+
+
+    public void Attack() // �Ϲ� ��������, 2ȸ ���� �������� ����
     {
         float currentTime = Time.time;
-        if (hasAttacked && (currentTime - lastAttackTime) <= doubleAttackTimeWindow)
+        if (!isdoubleAttack) // ���������� ������� �ʾҴٸ� ����
         {
-            Debug.Log("doubleAttack");
-            //anim.SetTrigger("doubleAttack");
-            hasAttacked = false;
+            if (hasAttacked && (currentTime - lastAttackTime) <= doubleAttackTimeWindow) // 1�� �ȿ� �����̽��ٸ� �ι� ���������̰�, �ι�° ������ �����ð�(currentTime)���� 
+            {                                                                            // ù��° ������ �����ð�(lastAttackTime) ������ �ð����̰� 0.3�� ���� �۴ٸ� �������� ����
+                                                                                         // (���� ���� �����̽� ���� �����ð��� ������ 0.3���� ������ ����)
+
+                isdoubleAttack = true; // ���������� ����ߴٴ� ��                                 
+
+                // ���� ���� ����      
+                Debug.Log("doubleAttack");
+                //anim.SetTrigger("doubleAttack");           
+                Invoke("Delay", 1f); // 1���� ����
+
+
+            }
+            else if (!hasAttacked)
+            {
+                // ���� ����
+                Debug.Log("Attack");
+                //anim.SetTrigger("attack");
+                hasAttacked = true;
+                lastAttackTime = currentTime; // ù��° ���ݽð��� lastAttackTime�� ����
+                Invoke("Delay", 1f); // 1���� ����
+                Debug.Log("===============================");
+            }
         }
-        else if(!hasAttacked)
+        else // ���������� ����ߴٸ� ����
         {
-            Debug.Log("Attack");
-            //anim.SetTrigger("attack");
-            hasAttacked = true;
-            lastAttackTime = currentTime;
-            StartCoroutine(ResetAttack());
+            Invoke("TransIsdoubleAttack", 1f); // 1���� ����
         }
     }
 
-    IEnumerator ResetAttack()
+    void Delay() // hasAttacked�� false�� ����
     {
-        yield return new WaitForSeconds(coolTime);
         hasAttacked = false;
     }
 
+    void TransIsdoubleAttack() // isdoubleAttack�� false�� ����
+    {
+        isdoubleAttack = false;
+    }
+
+    //IEnumerator ResetAttack() // �ڷ�ƾ �Լ�
+    //{
+    //    yield return new WaitForSeconds(coolTime); // 1�� �� hasAttacked �� false�� �ٲٰڴ�.
+
+    //    hasAttacked = false;
+    //}
+
     //onHit
-    private void OnTriggerEnter2D(Collider2D collider) {
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
         if (collider.tag == "Target")
         {
             Destroy(collider.gameObject);
