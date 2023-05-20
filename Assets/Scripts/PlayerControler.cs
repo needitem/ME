@@ -27,6 +27,7 @@ public class PlayerControler : MonoBehaviour
         animator = GetComponent<Animator>();
         fUpSize = 0.2f;
     }
+
     void Update()
     {
         if (Input.GetButtonDown("Jump"))
@@ -36,23 +37,19 @@ public class PlayerControler : MonoBehaviour
         else if (Input.GetButtonDown("Fire1"))
         {
             PunchBackColliders();
+            Upscale();
         }
-
-       
-        Upscale();
     }
-
 
     private void PunchBackColliders()
     {
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
         foreach (Collider2D collider in colliders)
         {
-            
             Rigidbody2D rigidbody = collider.GetComponent<Rigidbody2D>();
             if (rigidbody != null)
             {
-                rigidbody.AddForce(new Vector2(1,1) * pushPower, ForceMode2D.Impulse);
+                rigidbody.AddForce(new Vector2(-1,1) * pushPower, ForceMode2D.Impulse);
                 this.gBackFruit = collider.gameObject;
                 isUpScale = true;
             }
@@ -65,18 +62,15 @@ public class PlayerControler : MonoBehaviour
         {
             //튕겨내면 2d지만 z축으로 튕겨내기에 원근법을 사용하여 시각적인 입체감을 준다.
             gBackFruit.transform.localScale = new Vector3(fUpSize, fUpSize, 0);
-
             fUpSize += 0.1f; //사이즈 증가
         }
 
-
-        if (fUpSize >= 6)
+        if (fUpSize >= 3)
         {
             Destroy(gBackFruit);
             fUpSize = 0.2f;
             isUpScale = false;
         }
-       
     }
 
     public void Attack()
