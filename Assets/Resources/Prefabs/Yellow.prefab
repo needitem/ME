@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7281135729660457134}
   - component: {fileID: 7252604147634500442}
   - component: {fileID: 7961578607998578139}
+  - component: {fileID: -5742995475274919118}
   m_Layer: 0
   m_Name: Yellow
   m_TagString: Target
@@ -123,3 +124,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &-5742995475274919118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4342519158331969454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16d9da985d0c5744ea96f16ebd9ff72c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pushPower: 0.4
+  m_rate: 0
+  moveSpeed: 1
+  m_p_Start: {fileID: 6441753159618329996, guid: 6138fe512ed19fc459c61b5e0594b5d1, type: 3}
+  m_p_End: {fileID: 7709644627956663714, guid: 35164ee4aff40a442b46440c85c6b9a3, type: 3}
+  m_pos_Num:
+  - {fileID: 3528770091780816626, guid: 1f7bba88924cf7745988dc299268ff3c, type: 3}
+  - {fileID: 1078557963460280181, guid: 65cf8017230300249a1e5d6e3d2e0b6b, type: 3}
