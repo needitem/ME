@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: f1d496dca0ba34043bae1151deabd39d
+guid: e176c4368e6e0034b98779dbf58d0f0f
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -129,7 +129,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: attack_0
+      name: DoubleAttack_0
       rect:
         serializedVersion: 2
         x: 0
@@ -143,14 +143,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 01eb372500e696148b35c16da8dce92c
-      internalID: 1568245378
+      spriteID: d700c3c6d26dd934fabad738bf760161
+      internalID: 599791412
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_1
+      name: DoubleAttack_1
       rect:
         serializedVersion: 2
         x: 64
@@ -164,14 +164,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 92939f1c1fcfce1458f7124233527cbc
-      internalID: 1308916206
+      spriteID: fb2d87c85aa0ab54bbd08b94bb60bc43
+      internalID: -79313702
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_2
+      name: DoubleAttack_2
       rect:
         serializedVersion: 2
         x: 128
@@ -185,14 +185,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cda8f487625e1dc489e082fd0ddedff9
-      internalID: 609173122
+      spriteID: db45ef936c3f27b4f9b4c268119a979f
+      internalID: 31849677
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_3
+      name: DoubleAttack_3
       rect:
         serializedVersion: 2
         x: 192
@@ -206,14 +206,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 370f24e1de6ae8a4b9d9f936f77df5d1
-      internalID: -165705430
+      spriteID: 4cdfc4354e6daaa4ca730461d0fcafb3
+      internalID: 181721665
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_4
+      name: DoubleAttack_4
       rect:
         serializedVersion: 2
         x: 256
@@ -227,14 +227,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: add7afa0eea729a49a4c4ac9d2a0fecd
-      internalID: -1459364468
+      spriteID: c50445c60cf007e4cb60e6e2a62cce43
+      internalID: 1727836586
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_5
+      name: DoubleAttack_5
       rect:
         serializedVersion: 2
         x: 320
@@ -248,14 +248,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5bcaa2cf188ef8148925d9fb9398556e
-      internalID: -1159982351
+      spriteID: c8800e80ea759d84ba9e4f65fa43d8bf
+      internalID: -1117344766
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: attack_6
+      name: DoubleAttack_6
       rect:
         serializedVersion: 2
         x: 384
@@ -269,8 +269,176 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 18e83935e7027fc43956f6b02f5102f4
-      internalID: -2063876858
+      spriteID: 6920c9a70edec9b429f7940d055d756a
+      internalID: 130148916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoubleAttack_7
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d41a2c8f2dc156a498689c264129d4e9
+      internalID: 1727216618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoubleAttack_8
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea1a573196cfe3f42bfedad934cf8feb
+      internalID: 1434005838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoubleAttack_9
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92eb493f8db733b498db85de60704c43
+      internalID: -1830740890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoubleAttack_10
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 275369221c10b2142a24e099ef169e8d
+      internalID: -1940045129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoubleAttack_11
+      rect:
+        serializedVersion: 2
+        x: 704
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9e15d849f8a7e544a60daa650459f51
+      internalID: 1224611182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoubleAttack_12
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56df9525b15eadd4b8f8d2f54b304c01
+      internalID: -1868597615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoubleAttack_13
+      rect:
+        serializedVersion: 2
+        x: 832
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b253913aacfd84f48a1b9e5f2b03ec9d
+      internalID: -1728425401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoubleAttack_14
+      rect:
+        serializedVersion: 2
+        x: 896
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b804d74c6f28ab478cbb72c646d6fa1
+      internalID: -814328919
       vertices: []
       indices: 
       edges: []
@@ -286,13 +454,21 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      attack_0: 1568245378
-      attack_1: 1308916206
-      attack_2: 609173122
-      attack_3: -165705430
-      attack_4: -1459364468
-      attack_5: -1159982351
-      attack_6: -2063876858
+      DoubleAttack_0: 599791412
+      DoubleAttack_1: -79313702
+      DoubleAttack_10: -1940045129
+      DoubleAttack_11: 1224611182
+      DoubleAttack_12: -1868597615
+      DoubleAttack_13: -1728425401
+      DoubleAttack_14: -814328919
+      DoubleAttack_2: 31849677
+      DoubleAttack_3: 181721665
+      DoubleAttack_4: 1727836586
+      DoubleAttack_5: -1117344766
+      DoubleAttack_6: 130148916
+      DoubleAttack_7: 1727216618
+      DoubleAttack_8: 1434005838
+      DoubleAttack_9: -1830740890
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
