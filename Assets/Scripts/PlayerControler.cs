@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+
 public class PlayerControler : MonoBehaviour
 {
     private float coolTime = 1.0f;
@@ -22,11 +23,11 @@ public class PlayerControler : MonoBehaviour
     GameObject gBackFruit;
 
 
-
     private void Start() {
         animator = GetComponent<Animator>();
         fUpSize = 0.2f;
     }
+
     void Update()
     {
         if (Input.GetButtonDown("Jump"))
@@ -36,27 +37,45 @@ public class PlayerControler : MonoBehaviour
         else if (Input.GetButtonDown("Fire1"))
         {
             PunchBackColliders();
+            //Upscale();
+        }
+        else if (Input.GetKeyDown(KeyCode.K))
+        {
+        
         }
     }
-
 
     private void PunchBackColliders()
     {
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
         foreach (Collider2D collider in colliders)
         {
-            
             Rigidbody2D rigidbody = collider.GetComponent<Rigidbody2D>();
             if (rigidbody != null)
             {
-                rigidbody.AddForce(new Vector2(1,1) * pushPower, ForceMode2D.Impulse);
+                rigidbody.AddForce(new Vector2(-1,1) * pushPower, ForceMode2D.Impulse);
                 this.gBackFruit = collider.gameObject;
                 isUpScale = true;
             }
         }
     }
 
+    void Upscale() {
 
+        if (isUpScale == true)
+        {
+            //ƨ�ܳ��� 2d���� z������ ƨ�ܳ��⿡ ���ٹ��� ����Ͽ� �ð����� ��ü���� �ش�.
+            gBackFruit.transform.localScale = new Vector3(fUpSize, fUpSize, 0);
+            fUpSize += 0.1f; //������ ����
+        }
+
+        if (fUpSize >= 3)
+        {
+            Destroy(gBackFruit);
+            fUpSize = 0.2f;
+            isUpScale = false;
+        }
+    }
 
     public void Attack()
     {
