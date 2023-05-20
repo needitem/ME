@@ -121,12 +121,12 @@ public class PlayerControler : MonoBehaviour
         isdoubleAttack = false;
     }
 
-    IEnumerator ResetAttack() // 코루틴 함수
-    {
-        yield return new WaitForSeconds(coolTime); // 1초 후 hasAttacked 를 false로 바꾸겠다.
+    //IEnumerator ResetAttack() // 코루틴 함수
+    //{
+    //    yield return new WaitForSeconds(coolTime); // 1초 후 hasAttacked 를 false로 바꾸겠다.
 
-        hasAttacked = false;
-    }
+    //    hasAttacked = false;
+    //}
 
     //onHit
     private void OnTriggerEnter2D(Collider2D collider) {
