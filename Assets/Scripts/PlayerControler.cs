@@ -37,7 +37,7 @@ public class PlayerControler : MonoBehaviour
         else if (Input.GetButtonDown("Fire1"))
         {
             PunchBackColliders();
-            Upscale();
+            //Upscale();
         }
     }
 
