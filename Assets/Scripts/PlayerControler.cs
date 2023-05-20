@@ -73,11 +73,14 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
-    public void Attack()
+    public void Attack() // 일반 공격인지, 2회 연속 공격 판단함수
+
     {
         float currentTime = Time.time;
-        if (hasAttacked && (currentTime - lastAttackTime) <= doubleAttackTimeWindow)
+        if (hasAttacked && (currentTime - lastAttackTime) <= doubleAttackTimeWindow) // 1초 안에 스페이스바를 두번 누른상태이고, 두번째 공격을 누른시간(currentTime)에서 
+                                                                                     // 첫번째 공격을 누른시간(lastAttackTime) 사이의 시간차이가 0.3초 보다 작다면 더블어택 실행
         {
+            // 더블 어택 실행
             Debug.Log("doubleAttack");
             //anim.SetTrigger("doubleAttack");
             hasAttacked = false;
@@ -87,14 +90,16 @@ public class PlayerControler : MonoBehaviour
             Debug.Log("Attack");
             //anim.SetTrigger("attack");
             hasAttacked = true;
-            lastAttackTime = currentTime;
-            StartCoroutine(ResetAttack());
+            lastAttackTime = currentTime; // 첫번째 공격시간을 lastAttackTime에 저장
+            StartCoroutine(ResetAttack()); // 코루틴 함수 호출, 1초 후 hasAttacked를 false로 바꾼다는 의미
+
         }
     }
 
-    IEnumerator ResetAttack()
+    IEnumerator ResetAttack() // 코루틴 함수
     {
-        yield return new WaitForSeconds(coolTime);
+        yield return new WaitForSeconds(coolTime); // 1초 후 hasAttacked 를 false로 바꾸겠다.
+
         hasAttacked = false;
     }
 
