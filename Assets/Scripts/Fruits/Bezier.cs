@@ -1,3 +1,5 @@
+
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,11 +8,11 @@ using UnityEditor;
 public class Bezier : MonoBehaviour
 {
     // ���������� 0~1���� ǥ����
-    [Range(0f, 1f)] public float rate;
-
+    [Range (0f,1f)] public float rate;
+    //testtesttest
     // ��� �׸��� ���� �����ؾ��� ��ġ
     public Vector2[] controllPosition;
-
+   
     private Rigidbody2D rb;
 
     private void Start()
@@ -19,7 +21,7 @@ public class Bezier : MonoBehaviour
     }
 
     private void FixedUpdate()
-    {
+    { 
         // ������Ʈ�� ���������� ������������ ������ �� �ð� ����
         rate += Time.deltaTime;
         // ������Ʈ �̵�
@@ -52,7 +54,7 @@ public class Bezier : MonoBehaviour
         Vector2 E = Vector2.Lerp(B, C, value);
 
         Vector2 F = Vector2.Lerp(D, E, value);
-        return F;
+        return F; 
     }
 }
 

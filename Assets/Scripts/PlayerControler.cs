@@ -41,6 +41,7 @@ public class PlayerControler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Attack();
+           
         }
         
         if (Input.GetKeyDown(KeyCode.LeftControl))
@@ -88,9 +89,6 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
-
-
-
     public void Attack() // �Ϲ� ��������, 2ȸ ���� �������� ����
     {
         float currentTime = Time.time;
@@ -105,8 +103,8 @@ public class PlayerControler : MonoBehaviour
                 // ���� ���� ����      
                 Debug.Log("doubleAttack");
                 //anim.SetTrigger("doubleAttack");           
-                Invoke("Delay", 0.5f); // 1���� ����
-
+                
+                hasAttacked = false;
 
             }
             else if (!hasAttacked)
@@ -117,13 +115,16 @@ public class PlayerControler : MonoBehaviour
                 //anim.SetTrigger("attack");
                 hasAttacked = true;
                 lastAttackTime = currentTime; // ù��° ���ݽð��� lastAttackTime�� ����
-                Invoke("Delay", 0.5f); // 0.5���� ����
-                Debug.Log("===============================");
+                Invoke("Delay", 0.4f); // 0.5���� ����
+
+                
             }
         }
-        else // ���������� ����ߴٸ� ����
+        //else // ���������� ����ߴٸ� ����
+        if (isdoubleAttack == true) ;
         {
-            Invoke("TransIsdoubleAttack", 0.5f); // 0.5���� ����
+            isdoubleAttack = false;
+            
         }
     }
 
@@ -132,10 +133,11 @@ public class PlayerControler : MonoBehaviour
         hasAttacked = false;
     }
 
-    void TransIsdoubleAttack() // isdoubleAttack�� false�� ����
-    {
-        isdoubleAttack = false;
-    }
+    //void TransIsdoubleAttack() // isdoubleAttack�� false�� ����
+    //{
+    //    isdoubleAttack = false;
+    //}
+
 
     //IEnumerator ResetAttack() // �ڷ�ƾ �Լ�
     //{
@@ -143,6 +145,8 @@ public class PlayerControler : MonoBehaviour
 
     //    hasAttacked = false;
     //}
+
+
 
     //onHit
     private void OnTriggerEnter2D(Collider2D collider)
