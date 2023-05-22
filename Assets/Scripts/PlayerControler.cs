@@ -16,28 +16,43 @@ public class PlayerControler : MonoBehaviour
     public Animator animator;
     private Rigidbody2D rb;
 
-    //±âÁØ
-    float fUpSize; //Áõ°¡½ÃÅ³ »çÀÌÁî
+    //ï¿½ï¿½Ç¥
+    bool isdoubleAttack = false; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+
+
+    //ï¿½ï¿½ï¿½ï¿½
+    float fUpSize; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     bool isUpScale = false;
     GameObject gBackFruit;
+    Animator PlayerAnimator; // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
-
-    private void Start() {
+    private void Start()
+    {
         animator = GetComponent<Animator>();
-        fUpSize = 0.2f;
+        fUpSize = 1.1f;
+        this.PlayerAnimator = GetComponent<Animator>(); // ï¿½Ö´Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
+        
     }
 
     void Update()
     {
-        if (Input.GetButtonDown("Jump"))
+
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             Attack();
+           
         }
-        else if (Input.GetButtonDown("Fire1"))
+        
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             PunchBackColliders();
-            //Upscale();
+            this.PlayerAnimator.SetTrigger("punch");
+           
+        }
+
+        if (isUpScale == true) {
+            Upscale();
         }
     }
 
@@ -49,57 +64,93 @@ public class PlayerControler : MonoBehaviour
             Rigidbody2D rigidbody = collider.GetComponent<Rigidbody2D>();
             if (rigidbody != null)
             {
-                rigidbody.AddForce(new Vector2(-1,1) * pushPower, ForceMode2D.Impulse);
+                rigidbody.AddForce(new Vector2(1, 1) * pushPower, ForceMode2D.Impulse);
                 this.gBackFruit = collider.gameObject;
                 isUpScale = true;
             }
         }
     }
 
-    void Upscale() {
+    void Upscale()
+    {
 
-        if (isUpScale == true)
+        if (isUpScale == true && gBackFruit != null)
         {
-            //Æ¨°Ü³»¸é 2dÁö¸¸ zÃàÀ¸·Î Æ¨°Ü³»±â¿¡ ¿ø±Ù¹ýÀ» »ç¿ëÇÏ¿© ½Ã°¢ÀûÀÎ ÀÔÃ¼°¨À» ÁØ´Ù.
+            //Æ¨ï¿½Ü³ï¿½ï¿½ï¿½ 2dï¿½ï¿½ï¿½ï¿½ zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ¨ï¿½Ü³ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½Ù¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½.
             gBackFruit.transform.localScale = new Vector3(fUpSize, fUpSize, 0);
-            fUpSize += 0.1f; //»çÀÌÁî Áõ°¡
+            fUpSize += 0.05f; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
 
-        if (fUpSize >= 3)
+        if (fUpSize >= 5)
         {
             Destroy(gBackFruit);
-            fUpSize = 0.2f;
+            fUpSize = 1.1f;
             isUpScale = false;
         }
     }
 
-    public void Attack()
+    public void Attack() // ï¿½Ï¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, 2È¸ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         float currentTime = Time.time;
-        if (hasAttacked && (currentTime - lastAttackTime) <= doubleAttackTimeWindow)
+        if (!isdoubleAttack) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Ò´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½
         {
-            Debug.Log("doubleAttack");
-            //anim.SetTrigger("doubleAttack");
-            hasAttacked = false;
+            if (hasAttacked && (currentTime - lastAttackTime) <= doubleAttackTimeWindow) // 0.5ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ï¿½Ù¸ï¿½ ï¿½Î¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½, ï¿½Î¹ï¿½Â° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½(currentTime)ï¿½ï¿½ï¿½ï¿½ 
+            {                                                                            // Ã¹ï¿½ï¿½Â° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½(lastAttackTime) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ 0.3ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Û´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                                                                                         // (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0.3ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
+                this.PlayerAnimator.SetTrigger("double_attack");
+                isdoubleAttack = true; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß´Ù´ï¿½ ï¿½ï¿½                                 
+
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½      
+                Debug.Log("doubleAttack");
+                //anim.SetTrigger("doubleAttack");           
+                
+                hasAttacked = false;
+
+            }
+            else if (!hasAttacked)
+            {
+                this.PlayerAnimator.SetTrigger("attack");
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                Debug.Log("Attack");
+                //anim.SetTrigger("attack");
+                hasAttacked = true;
+                lastAttackTime = currentTime; // Ã¹ï¿½ï¿½Â° ï¿½ï¿½ï¿½Ý½Ã°ï¿½ï¿½ï¿½ lastAttackTimeï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                Invoke("Delay", 0.4f); // 0.5ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+
+                
+            }
         }
-        else if(!hasAttacked)
+        //else // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ß´Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½
+        if (isdoubleAttack == true) ;
         {
-            Debug.Log("Attack");
-            //anim.SetTrigger("attack");
-            hasAttacked = true;
-            lastAttackTime = currentTime;
-            StartCoroutine(ResetAttack());
+            isdoubleAttack = false;
+            
         }
     }
 
-    IEnumerator ResetAttack()
+    void Delay() // hasAttackedï¿½ï¿½ falseï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
-        yield return new WaitForSeconds(coolTime);
         hasAttacked = false;
     }
 
+    //void TransIsdoubleAttack() // isdoubleAttackï¿½ï¿½ falseï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    //{
+    //    isdoubleAttack = false;
+    //}
+
+
+    //IEnumerator ResetAttack() // ï¿½Ú·ï¿½Æ¾ ï¿½Ô¼ï¿½
+    //{
+    //    yield return new WaitForSeconds(coolTime); // 1ï¿½ï¿½ ï¿½ï¿½ hasAttacked ï¿½ï¿½ falseï¿½ï¿½ ï¿½Ù²Ù°Ú´ï¿½.
+
+    //    hasAttacked = false;
+    //}
+
+
+
     //onHit
-    private void OnTriggerEnter2D(Collider2D collider) {
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
         if (collider.tag == "Target")
         {
             Destroy(collider.gameObject);
