@@ -5,7 +5,7 @@ using System.Linq;
 
 public class PlayerControler : MonoBehaviour
 {
-    private float coolTime = 1.0f;
+  //  private float coolTime = 1.0f;
     [SerializeField] private float pushPower = 30.0f;
     private bool hasAttacked = false;
     private float lastAttackTime = -1f;
@@ -54,6 +54,14 @@ public class PlayerControler : MonoBehaviour
         if (isUpScale == true) {
             Upscale();
         }
+
+
+        //hp가 0이하라면 게임오버 애니매이션 트리거 발동 
+        // 추후 함수로 만들어 사용해야 한다!!!!!
+        if(GameDirector.hp <= 0) 
+        {
+            this.PlayerAnimator.SetTrigger("game_over");
+        }
     }
 
     private void PunchBackColliders()
@@ -78,7 +86,7 @@ public class PlayerControler : MonoBehaviour
         {
             //ƨ�ܳ��� 2d���� z������ ƨ�ܳ��⿡ ���ٹ��� ����Ͽ� �ð����� ��ü���� �ش�.
             gBackFruit.transform.localScale = new Vector3(fUpSize, fUpSize, 0);
-            fUpSize += 0.05f; //������ ����
+            fUpSize += 0.1f; //������ ����
         }
 
         if (fUpSize >= 5)
@@ -121,7 +129,7 @@ public class PlayerControler : MonoBehaviour
             }
         }
         //else // ���������� ����ߴٸ� ����
-        if (isdoubleAttack == true) ;
+        if (isdoubleAttack == true) 
         {
             isdoubleAttack = false;
             
@@ -155,6 +163,7 @@ public class PlayerControler : MonoBehaviour
         {
             Destroy(collider.gameObject);
             GameDirector.hp--;
+            this.PlayerAnimator.SetTrigger("damaged"); // 음식에 맞는 애니메이션 실행
         }
     }
     private void OnDrawGizmos()
