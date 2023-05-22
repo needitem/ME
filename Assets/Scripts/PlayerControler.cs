@@ -9,7 +9,7 @@ public class PlayerControler : MonoBehaviour
     [SerializeField] private float pushPower = 30.0f;
     private bool hasAttacked = false;
     private float lastAttackTime = -1f;
-    private float doubleAttackTimeWindow = 0.3f;
+    private float doubleAttackTimeWindow = 0.2f;
     private Animator anim;
     public Vector2 boxSize;
     public Transform pos;
@@ -18,7 +18,7 @@ public class PlayerControler : MonoBehaviour
 
     //��ǥ
     bool isdoubleAttack = false; // �������������� �ƴ��� ���� ����
-
+    bool isPunched = false; //punching?
 
     //����
     float fUpSize; //������ų ������
@@ -38,17 +38,16 @@ public class PlayerControler : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !isPunched)
         {
             Attack();
            
         }
-        
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+
+        if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked)
         {
-            PunchBackColliders();
-            this.PlayerAnimator.SetTrigger("punch");
-           
+            PunchBack();
+            
         }
 
         if (isUpScale == true) {
@@ -88,6 +87,29 @@ public class PlayerControler : MonoBehaviour
             isUpScale = false;
         }
     }
+    bool PunchDelay1 = true;
+    public void PunchBack()
+    {
+       
+        isPunched = true;
+        PunchBackColliders();
+
+        if (PunchDelay1 == true)
+        {
+            PunchDelay1 = false;
+            this.PlayerAnimator.SetTrigger("punch");
+            Invoke("Al", 0.4f);
+            
+        }
+        Invoke("PunchDelay", 0.4f);
+
+       
+    }
+
+    public void Al()
+    {
+        PunchDelay1 = true;
+    }
 
     public void Attack() // �Ϲ� ��������, 2ȸ ���� �������� ����
     {
@@ -96,15 +118,16 @@ public class PlayerControler : MonoBehaviour
         {
             if (hasAttacked && (currentTime - lastAttackTime) <= doubleAttackTimeWindow) // 0.5�� �ȿ� �����̽��ٸ� �ι� ���������̰�, �ι�° ������ �����ð�(currentTime)���� 
             {                                                                            // ù��° ������ �����ð�(lastAttackTime) ������ �ð����̰� 0.3�� ���� �۴ٸ� �������� ����
-                                                                                         // (���� ���� �����̽� ���� �����ð��� ������ 0.3���� ������ ����)
+                hasAttacked = true;                                                                                   // (���� ���� �����̽� ���� �����ð��� ������ 0.3���� ������ ����)
                 this.PlayerAnimator.SetTrigger("double_attack");
                 isdoubleAttack = true; // ���������� ����ߴٴ� ��                                 
 
                 // ���� ���� ����      
                 Debug.Log("doubleAttack");
                 //anim.SetTrigger("doubleAttack");           
-                
-                hasAttacked = false;
+
+                //hasAttacked = false;
+                Invoke("AttackDelay", 0.4f);
 
             }
             else if (!hasAttacked)
@@ -115,7 +138,7 @@ public class PlayerControler : MonoBehaviour
                 //anim.SetTrigger("attack");
                 hasAttacked = true;
                 lastAttackTime = currentTime; // ù��° ���ݽð��� lastAttackTime�� ����
-                Invoke("Delay", 0.4f); // 0.5���� ����
+                Invoke("AttackDelay", 0.4f); // 0.5���� ����
 
                 
             }
@@ -128,9 +151,17 @@ public class PlayerControler : MonoBehaviour
         }
     }
 
-    void Delay() // hasAttacked�� false�� ����
+  
+    void AttackDelay() // hasAttacked�� false�� ����
     {
         hasAttacked = false;
+
+    }
+
+    void PunchDelay() // 튕겨내기 중인가?
+    {
+        isPunched = false;
+
     }
 
     //void TransIsdoubleAttack() // isdoubleAttack�� false�� ����
