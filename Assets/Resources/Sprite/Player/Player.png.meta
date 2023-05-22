@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c1ee5ff35f89646459289cf55492d0e1
+guid: f558558b5a54e134f8d90a6c895631c4
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -125,11 +125,23 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Punch_0
+      name: Player_0
       rect:
         serializedVersion: 2
         x: 0
@@ -143,14 +155,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 465f11f75010bd842900eb60a20128d6
-      internalID: -210520023
+      spriteID: 57d4fbcba6921ff4d85df1343cc39f37
+      internalID: -2056580887
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Punch_1
+      name: Player_1
       rect:
         serializedVersion: 2
         x: 64
@@ -164,14 +176,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 97d9cbb216507c04a947d1bcfbc7d734
-      internalID: -930652631
+      spriteID: b39fcd8f68b259d4d9b32e5a05f1874c
+      internalID: -1329725432
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Punch_2
+      name: Player_2
       rect:
         serializedVersion: 2
         x: 128
@@ -185,14 +197,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fef4492359bb5014895b8db42896a8f8
-      internalID: -657166484
+      spriteID: d827b446c6146174f97e7f39c673d72d
+      internalID: -353048342
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Punch_3
+      name: Player_3
       rect:
         serializedVersion: 2
         x: 192
@@ -206,71 +218,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6ae07f89ef707da4db524481f3903760
-      internalID: -1186441034
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Punch_4
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6664a740aad501048980def90b4bfa60
-      internalID: -274176628
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Punch_5
-      rect:
-        serializedVersion: 2
-        x: 320
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3d3e232b8d8d3fe4880c2da87ed7afb2
-      internalID: -1064784056
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Punch_6
-      rect:
-        serializedVersion: 2
-        x: 384
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cfc98052076a9e84aa99ec64db50d1c0
-      internalID: -115235501
+      spriteID: 2f3b909a7d8dfbc40865025b7f733103
+      internalID: -1372919086
       vertices: []
       indices: 
       edges: []
@@ -286,13 +235,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Punch_0: -210520023
-      Punch_1: -930652631
-      Punch_2: -657166484
-      Punch_3: -1186441034
-      Punch_4: -274176628
-      Punch_5: -1064784056
-      Punch_6: -115235501
+      Player_0: -2056580887
+      Player_1: -1329725432
+      Player_2: -353048342
+      Player_3: -1372919086
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

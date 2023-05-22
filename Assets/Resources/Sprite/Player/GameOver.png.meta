@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e176c4368e6e0034b98779dbf58d0f0f
+guid: d869211f205e6ff4a8676dce0375b1b6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -129,12 +129,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: DoubleAttack_0
+      name: GameOver_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 64
+        width: 80
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -143,19 +143,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d700c3c6d26dd934fabad738bf760161
-      internalID: 599791412
+      spriteID: adbbdde83dcdcd04f97e185af452244e
+      internalID: -2086635035
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DoubleAttack_1
+      name: GameOver_1
       rect:
         serializedVersion: 2
-        x: 64
+        x: 80
         y: 0
-        width: 64
+        width: 80
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -164,19 +164,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb2d87c85aa0ab54bbd08b94bb60bc43
-      internalID: -79313702
+      spriteID: 2fd0a326d0bd1d84a99324293c85a868
+      internalID: -42429234
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DoubleAttack_2
+      name: GameOver_2
       rect:
         serializedVersion: 2
-        x: 128
+        x: 160
         y: 0
-        width: 64
+        width: 80
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -185,19 +185,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: db45ef936c3f27b4f9b4c268119a979f
-      internalID: 31849677
+      spriteID: 2a532568e9410c040af193cb4edf48ac
+      internalID: 1995100800
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DoubleAttack_3
+      name: GameOver_3
       rect:
         serializedVersion: 2
-        x: 192
+        x: 240
         y: 0
-        width: 64
+        width: 80
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -206,40 +206,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4cdfc4354e6daaa4ca730461d0fcafb3
-      internalID: 181721665
+      spriteID: 31d3dbd430f0180478aff08513bcba4e
+      internalID: 2074695862
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DoubleAttack_4
-      rect:
-        serializedVersion: 2
-        x: 256
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c50445c60cf007e4cb60e6e2a62cce43
-      internalID: 1727836586
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DoubleAttack_5
+      name: GameOver_4
       rect:
         serializedVersion: 2
         x: 320
         y: 0
-        width: 64
+        width: 80
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -248,19 +227,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c8800e80ea759d84ba9e4f65fa43d8bf
-      internalID: -1117344766
+      spriteID: 043cd04f341ae0c45b566fe465840c8d
+      internalID: 1481961916
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DoubleAttack_6
+      name: GameOver_5
       rect:
         serializedVersion: 2
-        x: 384
+        x: 400
         y: 0
-        width: 64
+        width: 80
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -269,19 +248,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6920c9a70edec9b429f7940d055d756a
-      internalID: 130148916
+      spriteID: 33940220023e64846b1091c62520d262
+      internalID: 1806231307
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DoubleAttack_7
+      name: GameOver_6
       rect:
         serializedVersion: 2
-        x: 448
+        x: 480
         y: 0
-        width: 64
+        width: 80
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -290,19 +269,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d41a2c8f2dc156a498689c264129d4e9
-      internalID: 1727216618
+      spriteID: 1ac0abe9a060ed74c968ced434ec5b85
+      internalID: -371368712
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DoubleAttack_8
+      name: GameOver_7
       rect:
         serializedVersion: 2
-        x: 512
+        x: 560
         y: 0
-        width: 64
+        width: 80
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -311,40 +290,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ea1a573196cfe3f42bfedad934cf8feb
-      internalID: 1434005838
+      spriteID: 7ddec4e400f48eb4c96a5386438cfe93
+      internalID: -860535197
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DoubleAttack_9
-      rect:
-        serializedVersion: 2
-        x: 576
-        y: 0
-        width: 64
-        height: 64
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 92eb493f8db733b498db85de60704c43
-      internalID: -1830740890
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: DoubleAttack_10
+      name: GameOver_8
       rect:
         serializedVersion: 2
         x: 640
         y: 0
-        width: 64
+        width: 80
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -353,19 +311,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 275369221c10b2142a24e099ef169e8d
-      internalID: -1940045129
+      spriteID: 368c114b8dff36a4e89e6bf12b3cb386
+      internalID: -2058312437
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DoubleAttack_11
+      name: GameOver_9
       rect:
         serializedVersion: 2
-        x: 704
+        x: 720
         y: 0
-        width: 64
+        width: 80
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -374,19 +332,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: e9e15d849f8a7e544a60daa650459f51
-      internalID: 1224611182
+      spriteID: 6f6aa430f49661046a8397ce124c1d83
+      internalID: -1945599426
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DoubleAttack_12
+      name: GameOver_10
       rect:
         serializedVersion: 2
-        x: 768
+        x: 800
         y: 0
-        width: 64
+        width: 80
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -395,19 +353,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 56df9525b15eadd4b8f8d2f54b304c01
-      internalID: -1868597615
+      spriteID: 306df72a463d32a42b4794ffb500191e
+      internalID: 105291018
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DoubleAttack_13
+      name: GameOver_11
       rect:
         serializedVersion: 2
-        x: 832
+        x: 880
         y: 0
-        width: 64
+        width: 80
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -416,19 +374,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b253913aacfd84f48a1b9e5f2b03ec9d
-      internalID: -1728425401
+      spriteID: f1a9a11831807484caf34f6f6717afdc
+      internalID: -2118036790
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: DoubleAttack_14
+      name: GameOver_12
       rect:
         serializedVersion: 2
-        x: 896
+        x: 960
         y: 0
-        width: 64
+        width: 80
         height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -437,8 +395,176 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0b804d74c6f28ab478cbb72c646d6fa1
-      internalID: -814328919
+      spriteID: c7ec19719e94e5b46bcdf487812ee574
+      internalID: 1360019187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameOver_13
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 0
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecf77f605e1d59e428a96dd588dc8b6e
+      internalID: -1183799047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameOver_14
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 0
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca681af87cfa00141afe32e4cd9058e7
+      internalID: -1376021158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameOver_15
+      rect:
+        serializedVersion: 2
+        x: 1200
+        y: 0
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ea2d040ea4d3474cbb5f097a17fd2cf
+      internalID: -1566737172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameOver_16
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 0
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4e3e612be37938429a97edfd383ef50
+      internalID: -375638699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameOver_17
+      rect:
+        serializedVersion: 2
+        x: 1360
+        y: 0
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce72b71c01781894daa81f88d5ac602b
+      internalID: -1900739136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameOver_18
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 0
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83566c05f294aa74a8554e82346f6552
+      internalID: 324832846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameOver_19
+      rect:
+        serializedVersion: 2
+        x: 1520
+        y: 0
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 748dd8dd0bdffd8498521e4bd045ce93
+      internalID: -1379058077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GameOver_20
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 0
+        width: 80
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc19ce20affa37e4188d1060f083d111
+      internalID: -2045405780
       vertices: []
       indices: 
       edges: []
@@ -454,21 +580,27 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      DoubleAttack_0: 599791412
-      DoubleAttack_1: -79313702
-      DoubleAttack_10: -1940045129
-      DoubleAttack_11: 1224611182
-      DoubleAttack_12: -1868597615
-      DoubleAttack_13: -1728425401
-      DoubleAttack_14: -814328919
-      DoubleAttack_2: 31849677
-      DoubleAttack_3: 181721665
-      DoubleAttack_4: 1727836586
-      DoubleAttack_5: -1117344766
-      DoubleAttack_6: 130148916
-      DoubleAttack_7: 1727216618
-      DoubleAttack_8: 1434005838
-      DoubleAttack_9: -1830740890
+      GameOver_0: -2086635035
+      GameOver_1: -42429234
+      GameOver_10: 105291018
+      GameOver_11: -2118036790
+      GameOver_12: 1360019187
+      GameOver_13: -1183799047
+      GameOver_14: -1376021158
+      GameOver_15: -1566737172
+      GameOver_16: -375638699
+      GameOver_17: -1900739136
+      GameOver_18: 324832846
+      GameOver_19: -1379058077
+      GameOver_2: 1995100800
+      GameOver_20: -2045405780
+      GameOver_3: 2074695862
+      GameOver_4: 1481961916
+      GameOver_5: 1806231307
+      GameOver_6: -371368712
+      GameOver_7: -860535197
+      GameOver_8: -2058312437
+      GameOver_9: -1945599426
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
