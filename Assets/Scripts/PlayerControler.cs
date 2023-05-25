@@ -5,11 +5,11 @@ using System.Linq;
 
 public class PlayerControler : MonoBehaviour
 {
-    private float coolTime = 1.0f;
+  //  private float coolTime = 1.0f;
     [SerializeField] private float pushPower = 30.0f;
     private bool hasAttacked = false;
     private float lastAttackTime = -1f;
-    private float doubleAttackTimeWindow = 0.3f;
+    private float doubleAttackTimeWindow = 0.2f;
     private Animator anim;
     public Vector2 boxSize;
     public Transform pos;
@@ -18,7 +18,7 @@ public class PlayerControler : MonoBehaviour
 
     //��ǥ
     bool isdoubleAttack = false; // �������������� �ƴ��� ���� ����
-
+    bool isPunched = false; //punching?
 
     //����
     float fUpSize; //������ų ������
@@ -38,21 +38,28 @@ public class PlayerControler : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && !isPunched)
         {
             Attack();
            
         }
-        
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+
+        if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked)
         {
-            PunchBackColliders();
-            this.PlayerAnimator.SetTrigger("punch");
-           
+            PunchBack();
+            
         }
 
         if (isUpScale == true) {
             Upscale();
+        }
+
+
+        //hp가 0이하라면 게임오버 애니매이션 트리거 발동 
+        // 추후 함수로 만들어 사용해야 한다!!!!!
+        if(GameDirector.hp <= 0) 
+        {
+            this.PlayerAnimator.SetTrigger("game_over");
         }
     }
 
@@ -78,7 +85,7 @@ public class PlayerControler : MonoBehaviour
         {
             //ƨ�ܳ��� 2d���� z������ ƨ�ܳ��⿡ ���ٹ��� ����Ͽ� �ð����� ��ü���� �ش�.
             gBackFruit.transform.localScale = new Vector3(fUpSize, fUpSize, 0);
-            fUpSize += 0.05f; //������ ����
+            fUpSize += 0.1f; //������ ����
         }
 
         if (fUpSize >= 5)
@@ -88,6 +95,29 @@ public class PlayerControler : MonoBehaviour
             isUpScale = false;
         }
     }
+    bool PunchDelay1 = true;
+    public void PunchBack()
+    {
+       
+        isPunched = true;
+        PunchBackColliders();
+
+        if (PunchDelay1 == true)
+        {
+            PunchDelay1 = false;
+            this.PlayerAnimator.SetTrigger("punch");
+            Invoke("Al", 0.4f);
+            
+        }
+        Invoke("PunchDelay", 0.4f);
+
+       
+    }
+
+    public void Al()
+    {
+        PunchDelay1 = true;
+    }
 
     public void Attack() // �Ϲ� ��������, 2ȸ ���� �������� ����
     {
@@ -96,15 +126,16 @@ public class PlayerControler : MonoBehaviour
         {
             if (hasAttacked && (currentTime - lastAttackTime) <= doubleAttackTimeWindow) // 0.5�� �ȿ� �����̽��ٸ� �ι� ���������̰�, �ι�° ������ �����ð�(currentTime)���� 
             {                                                                            // ù��° ������ �����ð�(lastAttackTime) ������ �ð����̰� 0.3�� ���� �۴ٸ� �������� ����
-                                                                                         // (���� ���� �����̽� ���� �����ð��� ������ 0.3���� ������ ����)
+                hasAttacked = true;                                                                                   // (���� ���� �����̽� ���� �����ð��� ������ 0.3���� ������ ����)
                 this.PlayerAnimator.SetTrigger("double_attack");
                 isdoubleAttack = true; // ���������� ����ߴٴ� ��                                 
 
                 // ���� ���� ����      
                 Debug.Log("doubleAttack");
                 //anim.SetTrigger("doubleAttack");           
-                
-                hasAttacked = false;
+
+                //hasAttacked = false;
+                Invoke("AttackDelay", 0.4f);
 
             }
             else if (!hasAttacked)
@@ -115,22 +146,30 @@ public class PlayerControler : MonoBehaviour
                 //anim.SetTrigger("attack");
                 hasAttacked = true;
                 lastAttackTime = currentTime; // ù��° ���ݽð��� lastAttackTime�� ����
-                Invoke("Delay", 0.4f); // 0.5���� ����
+                Invoke("AttackDelay", 0.4f); // 0.5���� ����
 
                 
             }
         }
         //else // ���������� ����ߴٸ� ����
-        if (isdoubleAttack == true) ;
+        if (isdoubleAttack == true) 
         {
             isdoubleAttack = false;
             
         }
     }
 
-    void Delay() // hasAttacked�� false�� ����
+  
+    void AttackDelay() // hasAttacked�� false�� ����
     {
         hasAttacked = false;
+
+    }
+
+    void PunchDelay() // 튕겨내기 중인가?
+    {
+        isPunched = false;
+
     }
 
     //void TransIsdoubleAttack() // isdoubleAttack�� false�� ����
@@ -155,6 +194,7 @@ public class PlayerControler : MonoBehaviour
         {
             Destroy(collider.gameObject);
             GameDirector.hp--;
+            this.PlayerAnimator.SetTrigger("damaged"); // 음식에 맞는 애니메이션 실행
         }
     }
     private void OnDrawGizmos()
