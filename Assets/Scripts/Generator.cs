@@ -7,9 +7,9 @@ public class Generator : MonoBehaviour
     // Start is called before the first frame update
     public GameObject[] fruits;
     private float timeElapsed = 0f;
-    private float span = 1.5f;
+    public float span = 4f;
 
-    private int difficulty = 1;
+    //private int difficulty = 1;
     void Start()
     {
         fruits = Resources.LoadAll<GameObject>("Prefabs");
@@ -24,6 +24,12 @@ public class Generator : MonoBehaviour
             SpawnFruit();
             timeElapsed = 0f;
         }
+
+        /*       if (timeElapsed >= 60d/ span)
+                {
+                    SpawnFruit();
+                    timeElapsed -= 60d / span;
+                }*/
     }
 
     private void SpawnFruit()

@@ -5,111 +5,184 @@ using System.Linq;
 
 public class PlayerControler : MonoBehaviour
 {
-    private float coolTime = 1.0f;
+  //  private float coolTime = 1.0f;
     [SerializeField] private float pushPower = 30.0f;
     private bool hasAttacked = false;
     private float lastAttackTime = -1f;
-    private float doubleAttackTimeWindow = 0.3f;
+    private float doubleAttackTimeWindow = 0.2f;
     private Animator anim;
     public Vector2 boxSize;
     public Transform pos;
     public Animator animator;
     private Rigidbody2D rb;
 
-    //±âÁØ
-    float fUpSize; //Áõ°¡½ÃÅ³ »çÀÌÁî
+    //ï¿½ï¿½Ç¥
+    bool isPunched = false; //punching?
+    public bool isDelay = false; //attack delay
+    bool PunchDelay = false; // punchdelay
+
+    //ï¿½ï¿½ï¿½ï¿½
+    float fUpSize; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     bool isUpScale = false;
     GameObject gBackFruit;
+    Animator PlayerAnimator; // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
-
-    private void Start() {
+    private void Start()
+    {
         animator = GetComponent<Animator>();
-        fUpSize = 0.2f;
+        fUpSize = 1.1f;
+        this.PlayerAnimator = GetComponent<Animator>(); // ï¿½Ö´Ï¸ï¿½ï¿½ï¿½ï¿½ï¿½  ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Â´ï¿½.
+        
     }
+
     void Update()
     {
-        if (Input.GetButtonDown("Jump"))
+      
+
+        if (Input.GetKeyDown(KeyCode.Space) && !isPunched)
         {
             Attack();
+
         }
-        else if (Input.GetButtonDown("Fire1"))
+
+        if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked)
         {
-            PunchBackColliders();
+            PunchBack();
+            
         }
 
-       
-        Upscale();
+        if (isUpScale == true) {
+            Upscale();
+        }
+
+
+        //hpê°€ 0ì´í•˜ë¼ë©´ ê²Œì„ì˜¤ë²„ ì• ë‹ˆë§¤ì´ì…˜ íŠ¸ë¦¬ê±° ë°œë™ 
+        // ì¶”í›„ í•¨ìˆ˜ë¡œ ë§Œë“¤ì–´ ì‚¬ìš©í•´ì•¼ í•œë‹¤!!!!!
+        if(GameDirector.hp <= 0) 
+        {
+            this.PlayerAnimator.SetTrigger("game_over");
+        }
     }
-
-
 
     private void PunchBackColliders()
     {
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
         foreach (Collider2D collider in colliders)
         {
-            
             Rigidbody2D rigidbody = collider.GetComponent<Rigidbody2D>();
             if (rigidbody != null)
             {
-                rigidbody.AddForce(new Vector2(1,1) * pushPower, ForceMode2D.Impulse);
+                rigidbody.AddForce(new Vector2(1, 1) * pushPower, ForceMode2D.Impulse);
                 this.gBackFruit = collider.gameObject;
                 isUpScale = true;
             }
         }
     }
 
-    void Upscale() {
+    void Upscale()
+    {
 
-        if (isUpScale == true)
+        if (isUpScale == true && gBackFruit != null)
         {
-            //Æ¨°Ü³»¸é 2dÁö¸¸ zÃàÀ¸·Î Æ¨°Ü³»±â¿¡ ¿ø±Ù¹ıÀ» »ç¿ëÇÏ¿© ½Ã°¢ÀûÀÎ ÀÔÃ¼°¨À» ÁØ´Ù.
+            //Æ¨ï¿½Ü³ï¿½ï¿½ï¿½ 2dï¿½ï¿½ï¿½ï¿½ zï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ¨ï¿½Ü³ï¿½ï¿½â¿¡ ï¿½ï¿½ï¿½Ù¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½.
             gBackFruit.transform.localScale = new Vector3(fUpSize, fUpSize, 0);
-
-            fUpSize += 0.1f; //»çÀÌÁî Áõ°¡
+            fUpSize += 0.1f; //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         }
 
-
-        if (fUpSize >= 6)
+        if (fUpSize >= 5)
         {
             Destroy(gBackFruit);
-            fUpSize = 0.2f;
+            fUpSize = 1.1f;
             isUpScale = false;
         }
+    }
+    
+    public void PunchBack()
+    {
+       
+        isPunched = true;
+        PunchBackColliders();
+
+        if (!PunchDelay)
+        {
+            PunchDelay = true;
+            this.PlayerAnimator.SetTrigger("punch");
+            StartCoroutine(CountPunchDelay());
+        }
+        else
+        {
+            Debug.Log("íŠ•ê²¨ë‚´ê¸° ë”œë ˆì´");
+
+        }
+        StartCoroutine(CountPunchDelay2());
        
     }
 
+    IEnumerator CountPunchDelay()
+    {
+        yield return new WaitForSeconds(0.4f);
+        PunchDelay = false;
+    }
+
+    IEnumerator CountPunchDelay2()
+    {
+        yield return new WaitForSeconds(0.2f);
+        isPunched = false;
+    }
+
+
     public void Attack()
     {
-        float currentTime = Time.time;
-        if (hasAttacked && (currentTime - lastAttackTime) <= doubleAttackTimeWindow)
+        hasAttacked = true;
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("doubleAttack");
-            //anim.SetTrigger("doubleAttack");
-            hasAttacked = false;
-        }
-        else if(!hasAttacked)
-        {
-            Debug.Log("Attack");
-            //anim.SetTrigger("attack");
-            hasAttacked = true;
-            lastAttackTime = currentTime;
-            StartCoroutine(ResetAttack());
+            float currentTime = Time.time;
+            if (!isDelay)
+            {
+                this.PlayerAnimator.SetTrigger("attack");
+                isDelay = true;
+                Debug.Log("ê³µê²©");
+                lastAttackTime = currentTime;
+                StartCoroutine(CountAttackDelay());
+            }            
+            else if((currentTime - lastAttackTime) <= doubleAttackTimeWindow)
+            {
+                this.PlayerAnimator.SetTrigger("double_attack");
+                isDelay = true;
+                Debug.Log("ë”ë¸”ê³µê²©");
+                
+            }
+            else
+            {
+                Debug.Log("ë”œë ˆì´");
+                
+            }
+            StartCoroutine(CountAttackDelay2());
         }
     }
-    IEnumerator ResetAttack()
+
+    IEnumerator CountAttackDelay()
     {
-        yield return new WaitForSeconds(coolTime);
+        yield return new WaitForSeconds(0.4f);
+        isDelay = false;
+        hasAttacked = false;
+    }
+
+    IEnumerator CountAttackDelay2()
+    {
+        yield return new WaitForSeconds(0.2f);
         hasAttacked = false;
     }
 
     //onHit
-    private void OnTriggerEnter2D(Collider2D collider) {
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
         if (collider.tag == "Target")
         {
             Destroy(collider.gameObject);
             GameDirector.hp--;
+            this.PlayerAnimator.SetTrigger("damaged"); // ìŒì‹ì— ë§ëŠ” ì• ë‹ˆë©”ì´ì…˜ ì‹¤í–‰
         }
     }
     private void OnDrawGizmos()
@@ -117,5 +190,4 @@ public class PlayerControler : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(pos.position, boxSize);
     }
-
 }

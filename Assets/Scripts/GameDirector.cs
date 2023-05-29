@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class GameDirector : MonoBehaviour
 {
-
+//testesttest
 
     [SerializeField] private Slider hpBar;
     [SerializeField] private int maxHp = 10;
