@@ -5,12 +5,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
-public class Bezier : MonoBehaviour
+public class ItemController : MonoBehaviour
 {
-    // ���������� 0~1���� ǥ����
     [Range (0f,1f)] public float rate;
-    //testtesttest
-    // ��� �׸��� ���� �����ؾ��� ��ġ
+
     public Vector2[] controllPosition;
    
     private Rigidbody2D rb;
@@ -22,28 +20,17 @@ public class Bezier : MonoBehaviour
 
     private void FixedUpdate()
     { 
-        // ������Ʈ�� ���������� ������������ ������ �� �ð� ����
         rate += Time.deltaTime;
-        // ������Ʈ �̵�
         transform.position = BezierTest(controllPosition[0], controllPosition[1], controllPosition[2], controllPosition[3], rate);
-        // ������ ��� ���������� ������������ �ٸ� �浹 �� �̺�Ʈ �߻� �Ұ��ϹǷ�
-        // ���������� ���� �� �浹 �� �̺�Ʈ �����ϰ� �ϴ� ����
+
         if (rate >= 1f)
         {
-            // ���� ���� ���� ���� �־� ������Ʈ�� �̵�
-            // (�� �������? �̰� ���������� �����ϱ����� �̺�Ʈ ���� �������� �� ã�ƺ�)
             Vector2 pushForce = Vector2.left * 250.0f;
             rb.AddForce(pushForce);
         }
-        /*if (rate > 1.3f)
-        {
-            // �������� ������ �� �߰� ���� ó��
-            rate = 0f;
-        }*/
     }
 
-    // ���������� ���������� �����ִ� ����
-    // (https://www.youtube.com/watch?v=KTEX2L4T4zE) ����
+    // https://www.youtube.com/watch?v=KTEX2L4T4zE
     public Vector2 BezierTest(Vector2 P_1, Vector2 P_2, Vector2 P_3, Vector2 P_4, float value)
     {
         Vector2 A = Vector2.Lerp(P_1, P_2, value);
@@ -59,16 +46,13 @@ public class Bezier : MonoBehaviour
 }
 
 
-
-// �� �κ��� ������Ʈ ��ġ �����ϱ� �������� ���� ����.
-// �������� ���� ���� ����.
 [CanEditMultipleObjects]
-[CustomEditor(typeof(Bezier))]
+[CustomEditor(typeof(ItemController))]
 public class Test_Editor : Editor
 {
     private void OnSceneGUI()
     {
-        Bezier Generator = (Bezier)target;
+        ItemController Generator = (ItemController)target;
 
         Generator.controllPosition[0] = Handles.PositionHandle(Generator.controllPosition[0], Quaternion.identity);
         Generator.controllPosition[1] = Handles.PositionHandle(Generator.controllPosition[1], Quaternion.identity);
