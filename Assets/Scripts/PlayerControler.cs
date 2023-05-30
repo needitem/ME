@@ -17,8 +17,9 @@ public class PlayerControler : MonoBehaviour
     private Rigidbody2D rb;
 
     //��ǥ
-    bool isdoubleAttack = false; // �������������� �ƴ��� ���� ����
     bool isPunched = false; //punching?
+    public bool isDelay = false; //attack delay
+    bool PunchDelay = false; // punchdelay
 
     //����
     float fUpSize; //������ų ������
@@ -37,11 +38,12 @@ public class PlayerControler : MonoBehaviour
 
     void Update()
     {
+      
 
         if (Input.GetKeyDown(KeyCode.Space) && !isPunched)
         {
             Attack();
-           
+
         }
 
         if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked)
@@ -61,6 +63,7 @@ public class PlayerControler : MonoBehaviour
         {
             this.PlayerAnimator.SetTrigger("game_over");
         }
+
     }
 
     private void PunchBackColliders()
@@ -76,6 +79,17 @@ public class PlayerControler : MonoBehaviour
                 isUpScale = true;
             }
         }
+
+        //Collider2D[] colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
+        //foreach (Collider2D collider in colliders)
+        //{
+        //    if (collider.TryGetComponent<Rigidbody2D>(out Rigidbody2D rigidbody))
+        //    {
+        //        rigidbody.AddForce(new Vector2(1, 1) * pushPower, ForceMode2D.Impulse);
+        //        gBackFruit = collider.gameObject;
+        //        isUpScale = true;
+        //    }
+        //}
     }
 
     void Upscale()
@@ -95,97 +109,83 @@ public class PlayerControler : MonoBehaviour
             isUpScale = false;
         }
     }
-    bool PunchDelay1 = true;
+    
     public void PunchBack()
     {
        
         isPunched = true;
         PunchBackColliders();
 
-        if (PunchDelay1 == true)
+        if (!PunchDelay)
         {
-            PunchDelay1 = false;
+            PunchDelay = true;
             this.PlayerAnimator.SetTrigger("punch");
-            Invoke("Al", 0.4f);
-            
+            StartCoroutine(CountPunchDelay());
         }
-        Invoke("PunchDelay", 0.4f);
+        else
+        {
+            Debug.Log("튕겨내기 딜레이");
 
+        }
+        StartCoroutine(CountPunchDelay2());
        
     }
 
-    public void Al()
+    IEnumerator CountPunchDelay()
     {
-        PunchDelay1 = true;
+        yield return new WaitForSeconds(0.4f);
+        PunchDelay = false;
     }
 
-    public void Attack() // �Ϲ� ��������, 2ȸ ���� �������� ����
+    IEnumerator CountPunchDelay2()
     {
-        float currentTime = Time.time;
-        if (!isdoubleAttack) // ���������� ������� �ʾҴٸ� ����
+        yield return new WaitForSeconds(0.2f);
+        isPunched = false;
+    }
+
+
+    public void Attack()
+    {
+        hasAttacked = true;
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            if (hasAttacked && (currentTime - lastAttackTime) <= doubleAttackTimeWindow) // 0.5�� �ȿ� �����̽��ٸ� �ι� ���������̰�, �ι�° ������ �����ð�(currentTime)���� 
-            {                                                                            // ù��° ������ �����ð�(lastAttackTime) ������ �ð����̰� 0.3�� ���� �۴ٸ� �������� ����
-                hasAttacked = true;                                                                                   // (���� ���� �����̽� ���� �����ð��� ������ 0.3���� ������ ����)
-                this.PlayerAnimator.SetTrigger("double_attack");
-                isdoubleAttack = true; // ���������� ����ߴٴ� ��                                 
-
-                // ���� ���� ����      
-                Debug.Log("doubleAttack");
-                //anim.SetTrigger("doubleAttack");           
-
-                //hasAttacked = false;
-                Invoke("AttackDelay", 0.4f);
-
-            }
-            else if (!hasAttacked)
+            float currentTime = Time.time;
+            if (!isDelay)
             {
                 this.PlayerAnimator.SetTrigger("attack");
-                // ���� ����
-                Debug.Log("Attack");
-                //anim.SetTrigger("attack");
-                hasAttacked = true;
-                lastAttackTime = currentTime; // ù��° ���ݽð��� lastAttackTime�� ����
-                Invoke("AttackDelay", 0.4f); // 0.5���� ����
-
+                isDelay = true;
+                Debug.Log("공격");
+                lastAttackTime = currentTime;
+                StartCoroutine(CountAttackDelay());
+            }            
+            else if((currentTime - lastAttackTime) <= doubleAttackTimeWindow)
+            {
+                this.PlayerAnimator.SetTrigger("double_attack");
+                isDelay = true;
+                Debug.Log("더블공격");
                 
             }
-        }
-        //else // ���������� ����ߴٸ� ����
-        if (isdoubleAttack == true) 
-        {
-            isdoubleAttack = false;
-            
+            else
+            {
+                Debug.Log("딜레이");
+                
+            }
+            StartCoroutine(CountAttackDelay2());
         }
     }
 
-  
-    void AttackDelay() // hasAttacked�� false�� ����
+    IEnumerator CountAttackDelay()
     {
+        yield return new WaitForSeconds(0.4f);
+        isDelay = false;
         hasAttacked = false;
-
     }
 
-    void PunchDelay() // 튕겨내기 중인가?
+    IEnumerator CountAttackDelay2()
     {
-        isPunched = false;
-
+        yield return new WaitForSeconds(0.2f);
+        hasAttacked = false;
     }
-
-    //void TransIsdoubleAttack() // isdoubleAttack�� false�� ����
-    //{
-    //    isdoubleAttack = false;
-    //}
-
-
-    //IEnumerator ResetAttack() // �ڷ�ƾ �Լ�
-    //{
-    //    yield return new WaitForSeconds(coolTime); // 1�� �� hasAttacked �� false�� �ٲٰڴ�.
-
-    //    hasAttacked = false;
-    //}
-
-
 
     //onHit
     private void OnTriggerEnter2D(Collider2D collider)
@@ -202,4 +202,6 @@ public class PlayerControler : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(pos.position, boxSize);
     }
+
+    
 }
