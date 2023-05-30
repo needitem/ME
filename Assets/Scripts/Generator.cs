@@ -9,8 +9,13 @@ public class Generator : MonoBehaviour
     System.Random rRand = new System.Random();
     // Start is called before the first frame update
     public GameObject[] fruits;
+<<<<<<< HEAD
     private double dtimeElapsed = 0.0d;
     public double dbpm = 0.0d; // bpm 
+=======
+    private float timeElapsed = 0f;
+    public float span = 1f;
+>>>>>>> c19c9918a2ba0105fac707fbca1db0f6026f07e5
 
     //private int difficulty = 1;
     void Start()
