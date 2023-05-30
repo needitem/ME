@@ -1,7 +1,7 @@
 @echo off
-git checkout Kijun
+git checkout jin
 git add -A
-git commit
+git commit -m '.'
 git push
 git pull origin main
 git merge origin/main

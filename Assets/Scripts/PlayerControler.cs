@@ -5,57 +5,53 @@ using System.Linq;
 
 public class PlayerControler : MonoBehaviour
 {
-  //  private float coolTime = 1.0f;
+    //private float coolTime = 1.0f;
     [SerializeField] private float pushPower = 30.0f;
     private bool hasAttacked = false;
     private float lastAttackTime = -1f;
     private float doubleAttackTimeWindow = 0.2f;
-    private Animator anim;
+
     public Vector2 boxSize;
     public Transform pos;
     public Animator animator;
-    private Rigidbody2D rb;
 
-    //��ǥ
+    
+
+    bool isdoubleAttack = false;
     bool isPunched = false; //punching?
-    public bool isDelay = false; //attack delay
-    bool PunchDelay = false; // punchdelay
 
-    //����
-    float fUpSize; //������ų ������
+  
+    float fUpSize; 
     bool isUpScale = false;
     GameObject gBackFruit;
-    Animator PlayerAnimator; // �÷��̾� �ִϸ�����
-
+    Animator PlayerAnimator;
+    GameObject RecipeCollision;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
+        this.PlayerAnimator = GetComponent<Animator>();
+        this.RecipeCollision = GameObject.Find("RecipeCollision");
         fUpSize = 1.1f;
-        this.PlayerAnimator = GetComponent<Animator>(); // �ִϸ�����  ������Ʈ�� �����´�.
         
     }
 
-    void Update()
+    private void Update()
     {
-      
-
         if (Input.GetKeyDown(KeyCode.Space) && !isPunched)
         {
+            RecipeCollision.GetComponent<Recipe>().OnRecipeCollision();
             Attack();
-
         }
 
         if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked)
         {
             PunchBack();
-            
         }
 
         if (isUpScale == true) {
             Upscale();
         }
-
 
         //hp가 0이하라면 게임오버 애니매이션 트리거 발동 
         // 추후 함수로 만들어 사용해야 한다!!!!!
@@ -63,7 +59,6 @@ public class PlayerControler : MonoBehaviour
         {
             this.PlayerAnimator.SetTrigger("game_over");
         }
-
     }
 
     private void PunchBackColliders()
@@ -79,27 +74,15 @@ public class PlayerControler : MonoBehaviour
                 isUpScale = true;
             }
         }
-
-        //Collider2D[] colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
-        //foreach (Collider2D collider in colliders)
-        //{
-        //    if (collider.TryGetComponent<Rigidbody2D>(out Rigidbody2D rigidbody))
-        //    {
-        //        rigidbody.AddForce(new Vector2(1, 1) * pushPower, ForceMode2D.Impulse);
-        //        gBackFruit = collider.gameObject;
-        //        isUpScale = true;
-        //    }
-        //}
     }
 
     void Upscale()
     {
-
         if (isUpScale == true && gBackFruit != null)
         {
-            //ƨ�ܳ��� 2d���� z������ ƨ�ܳ��⿡ ���ٹ��� ����Ͽ� �ð����� ��ü���� �ش�.
+   
             gBackFruit.transform.localScale = new Vector3(fUpSize, fUpSize, 0);
-            fUpSize += 0.1f; //������ ����
+            fUpSize += 0.1f; 
         }
 
         if (fUpSize >= 5)
@@ -109,83 +92,87 @@ public class PlayerControler : MonoBehaviour
             isUpScale = false;
         }
     }
-    
+
+    bool PunchDelay1 = true;
     public void PunchBack()
     {
-       
         isPunched = true;
         PunchBackColliders();
 
-        if (!PunchDelay)
+        if (PunchDelay1 == true)
         {
-            PunchDelay = true;
+            PunchDelay1 = false;
             this.PlayerAnimator.SetTrigger("punch");
-            StartCoroutine(CountPunchDelay());
+            Invoke("Al", 0.4f);
         }
-        else
+        Invoke("PunchDelay", 0.4f); 
+    }
+
+    public void Al()
+    {
+        PunchDelay1 = true;
+    }
+
+    public void Attack() 
+    {
+        float currentTime = Time.time;
+        if (!isdoubleAttack) 
         {
-            Debug.Log("튕겨내기 딜레이");
+            if (hasAttacked && (currentTime - lastAttackTime) <= doubleAttackTimeWindow) 
+            {                                                                            
+                hasAttacked = true;                                                                                 
+                this.PlayerAnimator.SetTrigger("double_attack");
+                isdoubleAttack = true;                                
 
-        }
-        StartCoroutine(CountPunchDelay2());
-       
-    }
+                Debug.Log("doubleAttack");
+                //anim.SetTrigger("doubleAttack");           
 
-    IEnumerator CountPunchDelay()
-    {
-        yield return new WaitForSeconds(0.4f);
-        PunchDelay = false;
-    }
+                //hasAttacked = false;
+                Invoke("AttackDelay", 0.4f);
 
-    IEnumerator CountPunchDelay2()
-    {
-        yield return new WaitForSeconds(0.2f);
-        isPunched = false;
-    }
-
-
-    public void Attack()
-    {
-        hasAttacked = true;
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            float currentTime = Time.time;
-            if (!isDelay)
+            }
+            else if (!hasAttacked)
             {
                 this.PlayerAnimator.SetTrigger("attack");
-                isDelay = true;
-                Debug.Log("공격");
+                Debug.Log("Attack");
+                //anim.SetTrigger("attack");
+                hasAttacked = true;
                 lastAttackTime = currentTime;
-                StartCoroutine(CountAttackDelay());
-            }            
-            else if((currentTime - lastAttackTime) <= doubleAttackTimeWindow)
-            {
-                this.PlayerAnimator.SetTrigger("double_attack");
-                isDelay = true;
-                Debug.Log("더블공격");
-                
+                Invoke("AttackDelay", 0.4f); 
             }
-            else
-            {
-                Debug.Log("딜레이");
-                
-            }
-            StartCoroutine(CountAttackDelay2());
+        }
+
+        if (isdoubleAttack == true) 
+        {
+            isdoubleAttack = false;
         }
     }
 
-    IEnumerator CountAttackDelay()
+    void AttackDelay() 
     {
-        yield return new WaitForSeconds(0.4f);
-        isDelay = false;
         hasAttacked = false;
     }
 
-    IEnumerator CountAttackDelay2()
+    void PunchDelay() // 튕겨내기 중인가?
     {
-        yield return new WaitForSeconds(0.2f);
-        hasAttacked = false;
+        isPunched = false;
+
     }
+
+    //void TransIsdoubleAttack() // isdoubleAttack�� false�� ����
+    //{
+    //    isdoubleAttack = false;
+    //}
+
+
+    //IEnumerator ResetAttack() // �ڷ�ƾ �Լ�
+    //{
+    //    yield return new WaitForSeconds(coolTime); // 1�� �� hasAttacked �� false�� �ٲٰڴ�.
+
+    //    hasAttacked = false;
+    //}
+
+
 
     //onHit
     private void OnTriggerEnter2D(Collider2D collider)
@@ -197,11 +184,10 @@ public class PlayerControler : MonoBehaviour
             this.PlayerAnimator.SetTrigger("damaged"); // 음식에 맞는 애니메이션 실행
         }
     }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(pos.position, boxSize);
     }
-
-    
 }
