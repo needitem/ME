@@ -32,7 +32,8 @@ public class Generator : MonoBehaviour
         Instantiate(fruits[randomIndex], spawnPosition, Quaternion.identity);
     }
 
-    public void ObjectThrow()
+    public void ObjectThrow() // 던졌을 때 true 값으로 받기
+
     {
         dtimeElapsed += Time.deltaTime;
         dbpm = Random.Range(120, 150); 
