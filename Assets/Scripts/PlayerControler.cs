@@ -74,6 +74,7 @@ public class PlayerControler : MonoBehaviour
             Rigidbody2D rigidbody = collider.GetComponent<Rigidbody2D>();
             if (rigidbody != null)
             {
+                collider.enabled = false;
                 rigidbody.AddForce(new Vector2(1, 1) * pushPower, ForceMode2D.Impulse);
                 this.gBackFruit = collider.gameObject;
                 isUpScale = true;
