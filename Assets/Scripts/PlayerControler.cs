@@ -63,6 +63,7 @@ public class PlayerControler : MonoBehaviour
         {
             this.PlayerAnimator.SetTrigger("game_over");
         }
+
     }
 
     private void PunchBackColliders()
@@ -78,6 +79,17 @@ public class PlayerControler : MonoBehaviour
                 isUpScale = true;
             }
         }
+
+        //Collider2D[] colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0);
+        //foreach (Collider2D collider in colliders)
+        //{
+        //    if (collider.TryGetComponent<Rigidbody2D>(out Rigidbody2D rigidbody))
+        //    {
+        //        rigidbody.AddForce(new Vector2(1, 1) * pushPower, ForceMode2D.Impulse);
+        //        gBackFruit = collider.gameObject;
+        //        isUpScale = true;
+        //    }
+        //}
     }
 
     void Upscale()
@@ -190,4 +202,6 @@ public class PlayerControler : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(pos.position, boxSize);
     }
+
+    
 }
