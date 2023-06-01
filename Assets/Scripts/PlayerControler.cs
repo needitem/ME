@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class PlayerControler : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
-    //private float coolTime = 1.0f;
+    Effect effect = new Effect();
     [SerializeField] private float pushPower = 30.0f;
     private bool hasAttacked = false;
     private float lastAttackTime = -1f;
@@ -15,265 +15,87 @@ public class PlayerControler : MonoBehaviour
     public Transform pos;
     public Animator animator;
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-    //��ǥ
-    bool isdoubleAttack = false; // �������������� �ƴ��� ���� ����
-=======
-    
+    bool isDoubleAttack = false;
+    bool isPunched = false;
 
-    bool isdoubleAttack = false;
->>>>>>> Stashed changes
-=======
-    
-
-    bool isdoubleAttack = false;
->>>>>>> df4eba86258a655afcded2c17c9e47f4e97b794f
-    bool isPunched = false; //punching?
-
-  
-    float fUpSize; 
+    float upSize;
     bool isUpScale = false;
-    GameObject gBackFruit;
-    Animator PlayerAnimator;
-    GameObject RecipeCollision;
+    GameObject backFruit;
+    Animator playerAnimator;
+    GameObject recipeCollision;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
-        this.PlayerAnimator = GetComponent<Animator>();
-        this.RecipeCollision = GameObject.Find("RecipeCollision");
-        fUpSize = 1.1f;
-        
+        playerAnimator = GetComponent<Animator>();
+        recipeCollision = GameObject.Find("RecipeCollision");
+        upSize = 1.1f;
     }
 
     private void Update()
     {
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> df4eba86258a655afcded2c17c9e47f4e97b794f
         if (Input.GetKeyDown(KeyCode.Space) && !isPunched)
         {
-            RecipeCollision.GetComponent<Recipe>().OnRecipeCollision();
+            recipeCollision.GetComponent<Recipe>().OnRecipeCollision();
             Attack();
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-           
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> df4eba86258a655afcded2c17c9e47f4e97b794f
         }
-
-        if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked)
+        else if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked)
         {
-            PunchBack();
-        }
-
-        if (isUpScale == true) {
-            Upscale();
-        }
-
-        //hp가 0이하라면 게임오버 애니매이션 트리거 발동 
-        // 추후 함수로 만들어 사용해야 한다!!!!!
-        if(GameDirector.hp <= 0) 
-        {
-            this.PlayerAnimator.SetTrigger("game_over");
-        }
-    }
-
-    private void PunchBackColliders()
-    {
-        var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
-        foreach (Collider2D collider in colliders)
-        {
-            Rigidbody2D rigidbody = collider.GetComponent<Rigidbody2D>();
-            if (rigidbody != null)
+            var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
+            foreach (Collider2D collider in colliders)
             {
-                rigidbody.AddForce(new Vector2(1, 1) * pushPower, ForceMode2D.Impulse);
-                this.gBackFruit = collider.gameObject;
-                isUpScale = true;
+                GameObject target = collider.GetComponent<GameObject>();
+                if (target != null)
+                {
+                    effect.PunchBack(target);
+                }
             }
         }
-    }
 
-    void Upscale()
-    {
-        if (isUpScale == true && gBackFruit != null)
-        {
-   
-            gBackFruit.transform.localScale = new Vector3(fUpSize, fUpSize, 0);
-            fUpSize += 0.1f; 
-        }
 
-        if (fUpSize >= 5)
+        if (GameDirector.hp <= 0)
         {
-            Destroy(gBackFruit);
-            fUpSize = 1.1f;
-            isUpScale = false;
+            playerAnimator.SetTrigger("game_over");
         }
     }
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
-=======
-
->>>>>>> df4eba86258a655afcded2c17c9e47f4e97b794f
-    bool PunchDelay1 = true;
-    public void PunchBack()
+    public void Attack()
     {
-        isPunched = true;
-        PunchBackColliders();
-
-        if (PunchDelay1 == true)
+        if (isDoubleAttack)
         {
-            PunchDelay1 = false;
-            this.PlayerAnimator.SetTrigger("punch");
-            Invoke("Al", 0.4f);
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-            
-=======
->>>>>>> df4eba86258a655afcded2c17c9e47f4e97b794f
+            isDoubleAttack = false;
+            return;
         }
-        Invoke("PunchDelay", 0.4f); 
-    }
 
-    public void Al()
-    {
-        PunchDelay1 = true;
-    }
-
-    public void Attack() 
-    {
         float currentTime = Time.time;
-        if (!isdoubleAttack) 
+
+        if (hasAttacked && (currentTime - lastAttackTime) <= doubleAttackTimeWindow)
         {
-            if (hasAttacked && (currentTime - lastAttackTime) <= doubleAttackTimeWindow) 
-            {                                                                            
-                hasAttacked = true;                                                                                 
-                this.PlayerAnimator.SetTrigger("double_attack");
-                isdoubleAttack = true;                                
-
-                Debug.Log("doubleAttack");
-                //anim.SetTrigger("doubleAttack");           
-
-                //hasAttacked = false;
-                Invoke("AttackDelay", 0.4f);
-
-=======
+            playerAnimator.SetTrigger("double_attack");
+            isDoubleAttack = true;
         }
-        Invoke("PunchDelay", 0.4f); 
+        else if (!hasAttacked)
+        {
+            playerAnimator.SetTrigger("attack");
+            lastAttackTime = currentTime;
+        }
+
+        Invoke("ResetAttackDelay", 0.4f);
     }
 
-    public void Al()
-    {
-        PunchDelay1 = true;
-    }
-
-    public void Attack() 
-    {
-        float currentTime = Time.time;
-        if (!isdoubleAttack) 
-        {
-            if (hasAttacked && (currentTime - lastAttackTime) <= doubleAttackTimeWindow) 
-            {                                                                            
-                hasAttacked = true;                                                                                 
-                this.PlayerAnimator.SetTrigger("double_attack");
-                isdoubleAttack = true;                                
-
-                Debug.Log("doubleAttack");
-                //anim.SetTrigger("doubleAttack");           
-
-                //hasAttacked = false;
-                Invoke("AttackDelay", 0.4f);
-
->>>>>>> Stashed changes
-            }
-            else if (!hasAttacked)
-            {
-                this.PlayerAnimator.SetTrigger("attack");
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-                // ���� ����
-=======
->>>>>>> df4eba86258a655afcded2c17c9e47f4e97b794f
-                Debug.Log("Attack");
-                //anim.SetTrigger("attack");
-                hasAttacked = true;
-                lastAttackTime = currentTime;
-                Invoke("AttackDelay", 0.4f); 
-            }
-        }
-
-        if (isdoubleAttack == true) 
-        {
-            isdoubleAttack = false;
-        }
-    }
-
-<<<<<<< HEAD
-  
-    void AttackDelay() // hasAttacked�� false�� ����
-=======
-                Debug.Log("Attack");
-                //anim.SetTrigger("attack");
-                hasAttacked = true;
-                lastAttackTime = currentTime;
-                Invoke("AttackDelay", 0.4f); 
-            }
-        }
-
-        if (isdoubleAttack == true) 
-        {
-            isdoubleAttack = false;
-        }
-    }
-
-    void AttackDelay() 
->>>>>>> Stashed changes
-=======
-    void AttackDelay() 
->>>>>>> df4eba86258a655afcded2c17c9e47f4e97b794f
+    void ResetAttackDelay()
     {
         hasAttacked = false;
+        lastAttackTime = -1f;
     }
 
-    void PunchDelay() // 튕겨내기 중인가?
-    {
-        isPunched = false;
-
-    }
-
-    //void TransIsdoubleAttack() // isdoubleAttack�� false�� ����
-    //{
-    //    isdoubleAttack = false;
-    //}
-
-
-    //IEnumerator ResetAttack() // �ڷ�ƾ �Լ�
-    //{
-    //    yield return new WaitForSeconds(coolTime); // 1�� �� hasAttacked �� false�� �ٲٰڴ�.
-
-    //    hasAttacked = false;
-    //}
-
-
-
-    //onHit
-    private void OnTriggerEnter2D(Collider2D collider)
+    void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.tag == "Target")
         {
             Destroy(collider.gameObject);
             GameDirector.hp--;
-            this.PlayerAnimator.SetTrigger("damaged"); // 음식에 맞는 애니메이션 실행
+            playerAnimator.SetTrigger("damaged");
         }
     }
 

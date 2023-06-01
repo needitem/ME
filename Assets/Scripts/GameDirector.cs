@@ -26,7 +26,7 @@ public class GameDirector : MonoBehaviour
 
         if (hp == 0)
         {
-            SceneChange();
+            changeSceneTo("FinishScene");
         }
     }
 
@@ -34,14 +34,8 @@ public class GameDirector : MonoBehaviour
     {
         hpBar.value = (float)hp / (float)maxHp;
     }
-
-    public void OnClickRestart()
+    public void changeSceneTo(string sceneName)
     {
-        
-    }
-
-    public void SceneChange()
-    {
-        SceneManager.LoadScene("FinishScene");
+        SceneManager.LoadScene(sceneName);
     }
 }

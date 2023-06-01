@@ -1,24 +1,17 @@
 using UnityEngine;
 
 public class Effect : MonoBehaviour {
-    public static void Upscale()
+    public void PunchBack(GameObject target)
     {
-#if false
-        if (isUpScale == true)
+        float pushPower = 5.0f;
+        float fUpSize = 0.2f;
+
+        target.GetComponent<Rigidbody2D>().AddForce(new Vector2(1, 1) * pushPower, ForceMode2D.Impulse);
+        while(fUpSize >= 6)
         {
-            //ƨ�ܳ��� 2d���� z������ ƨ�ܳ��⿡ ���ٹ��� ����Ͽ� �ð����� ��ü���� �ش�.
-            gBackFruit.transform.localScale = new Vector3(fUpSize, fUpSize, 0);
-
-            fUpSize += 0.1f; //������ ����
+            target.transform.localScale = new Vector3(fUpSize, fUpSize, 0);
+            fUpSize += 0.1f;
         }
-
-
-        if (fUpSize >= 6)
-        {
-            Destroy(gBackFruit);
-            fUpSize = 0.2f;
-            isUpScale = false;
-        }
-#endif
     }
+
 }

@@ -42,7 +42,7 @@ public class Recipe : MonoBehaviour
         return bit;
     }
 
-    public void RandomRecipe()
+    public void createRandomRecipe()
     {
         int randomIndex = Random.Range(0, 3);
 
@@ -90,18 +90,14 @@ public class Recipe : MonoBehaviour
     private void Start()
     {
         OffRecipeCollision();
-        RandomRecipe();
-        Debug.Log(randomRecipe[0] + randomRecipe[1] + randomRecipe[2]);
+        createRandomRecipe();
     }
 
     private void Update()
     {
-        this.Complete = IsRecipeComplete(randomRecipe);
-
-        if (this.Complete >= 1)
+        if (IsRecipeComplete(randomRecipe) >= 1)
         {
-            this.Complete = 0;
-            RandomRecipe();
+            createRandomRecipe();
             Debug.Log(randomRecipe[0] + randomRecipe[1] + randomRecipe[2]);
         }  
     }
