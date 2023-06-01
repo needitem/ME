@@ -7,7 +7,7 @@ public class Generator : MonoBehaviour
     // Start is called before the first frame update
     public GameObject[] fruits;
     private float timeElapsed = 0f;
-    public float span = 4f;
+    public float span = 1f;
 
     //private int difficulty = 1;
     void Start()
