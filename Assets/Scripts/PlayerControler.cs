@@ -15,6 +15,7 @@ public class PlayerControler : MonoBehaviour
     public Transform pos;
     public Animator animator;
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     //��ǥ
     bool isdoubleAttack = false; // �������������� �ƴ��� ���� ����
@@ -23,6 +24,11 @@ public class PlayerControler : MonoBehaviour
 
     bool isdoubleAttack = false;
 >>>>>>> Stashed changes
+=======
+    
+
+    bool isdoubleAttack = false;
+>>>>>>> df4eba86258a655afcded2c17c9e47f4e97b794f
     bool isPunched = false; //punching?
 
   
@@ -43,18 +49,24 @@ public class PlayerControler : MonoBehaviour
 
     private void Update()
     {
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> df4eba86258a655afcded2c17c9e47f4e97b794f
         if (Input.GetKeyDown(KeyCode.Space) && !isPunched)
         {
             RecipeCollision.GetComponent<Recipe>().OnRecipeCollision();
             Attack();
+<<<<<<< HEAD
 <<<<<<< Updated upstream
            
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> df4eba86258a655afcded2c17c9e47f4e97b794f
         }
 
         if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked)
@@ -105,10 +117,14 @@ public class PlayerControler : MonoBehaviour
             isUpScale = false;
         }
     }
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 =======
 
 >>>>>>> Stashed changes
+=======
+
+>>>>>>> df4eba86258a655afcded2c17c9e47f4e97b794f
     bool PunchDelay1 = true;
     public void PunchBack()
     {
@@ -120,12 +136,13 @@ public class PlayerControler : MonoBehaviour
             PunchDelay1 = false;
             this.PlayerAnimator.SetTrigger("punch");
             Invoke("Al", 0.4f);
+<<<<<<< HEAD
 <<<<<<< Updated upstream
             
+=======
+>>>>>>> df4eba86258a655afcded2c17c9e47f4e97b794f
         }
-        Invoke("PunchDelay", 0.4f);
-
-       
+        Invoke("PunchDelay", 0.4f); 
     }
 
     public void Al()
@@ -133,18 +150,17 @@ public class PlayerControler : MonoBehaviour
         PunchDelay1 = true;
     }
 
-    public void Attack() // �Ϲ� ��������, 2ȸ ���� �������� ����
+    public void Attack() 
     {
         float currentTime = Time.time;
-        if (!isdoubleAttack) // ���������� ������� �ʾҴٸ� ����
+        if (!isdoubleAttack) 
         {
-            if (hasAttacked && (currentTime - lastAttackTime) <= doubleAttackTimeWindow) // 0.5�� �ȿ� �����̽��ٸ� �ι� ���������̰�, �ι�° ������ �����ð�(currentTime)���� 
-            {                                                                            // ù��° ������ �����ð�(lastAttackTime) ������ �ð����̰� 0.3�� ���� �۴ٸ� �������� ����
-                hasAttacked = true;                                                                                   // (���� ���� �����̽� ���� �����ð��� ������ 0.3���� ������ ����)
+            if (hasAttacked && (currentTime - lastAttackTime) <= doubleAttackTimeWindow) 
+            {                                                                            
+                hasAttacked = true;                                                                                 
                 this.PlayerAnimator.SetTrigger("double_attack");
-                isdoubleAttack = true; // ���������� ����ߴٴ� ��                                 
+                isdoubleAttack = true;                                
 
-                // ���� ���� ����      
                 Debug.Log("doubleAttack");
                 //anim.SetTrigger("doubleAttack");           
 
@@ -183,25 +199,26 @@ public class PlayerControler : MonoBehaviour
             else if (!hasAttacked)
             {
                 this.PlayerAnimator.SetTrigger("attack");
+<<<<<<< HEAD
 <<<<<<< Updated upstream
                 // ���� ����
+=======
+>>>>>>> df4eba86258a655afcded2c17c9e47f4e97b794f
                 Debug.Log("Attack");
                 //anim.SetTrigger("attack");
                 hasAttacked = true;
-                lastAttackTime = currentTime; // ù��° ���ݽð��� lastAttackTime�� ����
-                Invoke("AttackDelay", 0.4f); // 0.5���� ����
-
-                
+                lastAttackTime = currentTime;
+                Invoke("AttackDelay", 0.4f); 
             }
         }
-        //else // ���������� ����ߴٸ� ����
+
         if (isdoubleAttack == true) 
         {
             isdoubleAttack = false;
-            
         }
     }
 
+<<<<<<< HEAD
   
     void AttackDelay() // hasAttacked�� false�� ����
 =======
@@ -221,9 +238,11 @@ public class PlayerControler : MonoBehaviour
 
     void AttackDelay() 
 >>>>>>> Stashed changes
+=======
+    void AttackDelay() 
+>>>>>>> df4eba86258a655afcded2c17c9e47f4e97b794f
     {
         hasAttacked = false;
-
     }
 
     void PunchDelay() // 튕겨내기 중인가?
