@@ -18,9 +18,6 @@ public class PlayerController : MonoBehaviour
     bool isDoubleAttack = false;
     bool isPunched = false;
 
-    float upSize;
-    bool isUpScale = false;
-    GameObject backFruit;
     Animator playerAnimator;
     GameObject recipeCollision;
 
@@ -29,7 +26,6 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         playerAnimator = GetComponent<Animator>();
         recipeCollision = GameObject.Find("RecipeCollision");
-        upSize = 1.1f;
     }
 
     private void Update()
@@ -37,6 +33,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !isPunched)
         {
             recipeCollision.GetComponent<Recipe>().OnRecipeCollision();
+            Debug.Log("attack");
             Attack();
         }
         else if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked)
