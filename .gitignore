@@ -59,7 +59,10 @@ sysinfo.txt
 crashlytics-build.properties
 
 Library/
+<<<<<<< HEAD
 Temp/
-
+=======
+Temp/
+>>>>>>> c99e4147051d47f6c1a57f8884fc932089001d7e
+Logs/
 UserSettings/Layouts/default-2021.dwlt
-DownloadFromMain.bat
