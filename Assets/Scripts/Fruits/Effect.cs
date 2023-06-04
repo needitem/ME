@@ -1,38 +1,28 @@
 using UnityEngine;
 
-public class Effect : MonoBehaviour {
-<<<<<<< HEAD
+public class Effect : MonoBehaviour
+{
     
-=======
-
- 
     public static GameObject leftHalf;
     public static GameObject rightHalf;
     static Sprite[] sprite = Resources.LoadAll<Sprite>("SlicePrefabs");
     public static GameObject half = new GameObject("halfPrefab");
 
-
->>>>>>> 5100ccaa54fdbd80480c73e57468d20f0142c306
     public static void PunchBack(Collider2D target)
     {
-  
+
         float pushPower = 5.0f;
         float fUpSize = 0.2f;
-        
+
         target.GetComponent<Rigidbody2D>().AddForce(new Vector2(1, 1) * pushPower, ForceMode2D.Impulse);
-<<<<<<< HEAD
-        while(fUpSize <= 6)
-=======
-        
+
         while (fUpSize <= 6)
->>>>>>> 5100ccaa54fdbd80480c73e57468d20f0142c306
         {
-     
+
             target.transform.localScale = new Vector3(fUpSize, fUpSize, 0);
             fUpSize += 0.1f;
-            
+
         }
-       
 
     }
 
@@ -41,34 +31,32 @@ public class Effect : MonoBehaviour {
     {
         Vector3 delPosition = Vector3.zero;
 
-      
         if (Generator.spawn != null && Generator.randomIndex != 2)
         {
-            
+
             delPosition = Generator.spawn.transform.position;
             Destroy(Generator.spawn);
-            
+
             LeftHalf(delPosition, Generator.randomIndex);
             RightHalf(delPosition, Generator.randomIndex);
 
         }
         else if (Generator.spawn != null && Generator.randomIndex == 2 && PlayerController.AtackCount == 2)
         {
-            
+
             delPosition = Generator.spawn.transform.position;
             Destroy(Generator.spawn);
-            
+
             LeftHalf(delPosition, Generator.randomIndex);
             RightHalf(delPosition, Generator.randomIndex);
         }
-       
-    }
 
+    }
 
     public static void LeftHalf(Vector3 delPosition, int iRandom)
     {
         leftHalf = Instantiate(half, delPosition, Quaternion.identity);
-        
+
         SpriteRenderer spriteRendererInstance = leftHalf.AddComponent<SpriteRenderer>();
         spriteRendererInstance.sprite = sprite[iRandom * 2];
         Rigidbody2D rb = leftHalf.GetComponent<Rigidbody2D>();
