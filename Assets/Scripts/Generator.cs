@@ -24,12 +24,6 @@ public class Generator : MonoBehaviour
             SpawnFruit();
             timeElapsed = 0f;
         }
-
-        /*       if (timeElapsed >= 60d/ span)
-                {
-                    SpawnFruit();
-                    timeElapsed -= 60d / span;
-                }*/
     }
 
     private void SpawnFruit()
