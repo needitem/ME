@@ -23,14 +23,18 @@ public class PlayerController : MonoBehaviour
 
     Animator playerAnimator;
     GameObject recipeCollision;
-    GameObject gGenerator;
+    GameObject gEffect;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         playerAnimator = GetComponent<Animator>();
         recipeCollision = GameObject.Find("RecipeCollision");
+<<<<<<< HEAD
         gGenerator = GameObject.Find("Generator");
+=======
+        gEffect = GameObject.Find("gEffect");
+>>>>>>> 5100ccaa54fdbd80480c73e57468d20f0142c306
         attackCollider.enabled = false;
 
 
@@ -52,6 +56,7 @@ public class PlayerController : MonoBehaviour
             var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
             foreach (Collider2D collider in colliders)
             {
+<<<<<<< HEAD
 
                 if (collider.tag == "Target")//collider != null)
                 {
@@ -63,6 +68,29 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(CountAttackDelay(0.4f));
 
 
+=======
+       
+                if (collider.tag == "Target")
+                {
+                    Effect.PunchBack(collider);
+                    
+                }
+               
+            }
+            StartCoroutine(CountAttackDelay(0.4f));
+            
+            
+        }
+
+        if (Effect.leftHalf != null && Effect.leftHalf.transform.position.y <= -6.0f)
+        {
+            Destroy(Effect.leftHalf);
+        }
+
+        if (Effect.rightHalf != null && Effect.rightHalf.transform.position.y <= -6.0f)
+        {
+            Destroy(Effect.rightHalf);
+>>>>>>> 5100ccaa54fdbd80480c73e57468d20f0142c306
         }
 
 
@@ -85,8 +113,7 @@ public class PlayerController : MonoBehaviour
         if (!isDelay)
         {
             StartAttack();
-            AtackCount = 1;
-            Debug.Log("어택 카운트 1");
+            AtackCount = 1;   
             playerAnimator.SetTrigger("attack");
 
             isDelay = true;
@@ -98,7 +125,6 @@ public class PlayerController : MonoBehaviour
         {
             StartAttack();
             AtackCount = 2;
-            Debug.Log("어택 카운트 2");
             playerAnimator.SetTrigger("double_attack");
 
             isDelay = true;
@@ -110,9 +136,15 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(delayTime);
         isDelay = false;
+<<<<<<< HEAD
 
         isPunched = false;
 
+=======
+        
+        isPunched = false;
+        
+>>>>>>> 5100ccaa54fdbd80480c73e57468d20f0142c306
         hasAttacked = false;
 
     }
@@ -144,7 +176,8 @@ public class PlayerController : MonoBehaviour
         }
         else if (collider.tag == "Target" && attackCollider.enabled == true)
         {
-            gGenerator.GetComponent<Generator>().Destroyfruits();
+
+            Effect.Destroyfruits();
         }
 
     }

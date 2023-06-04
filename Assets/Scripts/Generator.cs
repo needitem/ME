@@ -8,16 +8,10 @@ public class Generator : MonoBehaviour
     public GameObject[] fruits;
 
 
-    //====================
-    public GameObject spawn;
-    public GameObject leftHalf;
-    public GameObject rightHalf;
-    public GameObject half;
-    Sprite[] sprite;
-    Vector3 delPosition = Vector3.zero;
-    //public GameObject[] halfFruits;
-    public int randomIndex;
-    //===================
+
+    public static GameObject spawn;
+    public static int randomIndex;
+
 
 
     private float timeElapsed = 0f;
@@ -29,8 +23,6 @@ public class Generator : MonoBehaviour
         fruits = Resources.LoadAll<GameObject>("Prefabs");
 
 
-        sprite = Resources.LoadAll<Sprite>("SlicePrefabs");
-        half = new GameObject("halfPrefab");
 
     }
 
@@ -43,6 +35,7 @@ public class Generator : MonoBehaviour
             SpawnFruit();
             timeElapsed = 0f;
         }
+<<<<<<< HEAD
         if (leftHalf != null && leftHalf.transform.position.y <= -6.0f)
         {
             Destroy(leftHalf);
@@ -52,6 +45,16 @@ public class Generator : MonoBehaviour
         {
             Destroy(rightHalf);
         }
+=======
+
+        /*       if (timeElapsed >= 60d/ span)
+                {
+                    SpawnFruit();
+                    timeElapsed -= 60d / span;
+                }*/
+
+      
+>>>>>>> 5100ccaa54fdbd80480c73e57468d20f0142c306
     }
 
     public int getRandom()
@@ -62,13 +65,14 @@ public class Generator : MonoBehaviour
 
     private void SpawnFruit()
     {
-        //int randomIndex = Random.Range(0, fruits.Length);
+        
         randomIndex = getRandom();
         Vector3 spawnPosition = new Vector3(15, 1.5f, 1);
         spawn = Instantiate(fruits[randomIndex], spawnPosition, Quaternion.identity);
         
     }
 
+<<<<<<< HEAD
     public void Destroyfruits()
     {
         if (spawn != null && randomIndex != 2)
@@ -120,6 +124,9 @@ public class Generator : MonoBehaviour
         }
     }
 
+=======
+  
+>>>>>>> 5100ccaa54fdbd80480c73e57468d20f0142c306
 
 }
 
