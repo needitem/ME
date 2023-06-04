@@ -2352,7 +2352,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.23385966, y: 0.030975252}
+  m_Offset: {x: 0.23385966, y: 0.049430966}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2363,7 +2363,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.32091498, y: 0.31350976}
+  m_Size: {x: 0.32091498, y: 0.3504212}
   m_EdgeRadius: 0
 --- !u!1001 &1714096367
 PrefabInstance:
@@ -2901,11 +2901,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fruits: []
-  spawn: {fileID: 0}
-  leftHalf: {fileID: 0}
-  rightHalf: {fileID: 0}
-  half: {fileID: 0}
-  randomIndex: 0
   span: 4
 --- !u!4 &2079621017
 Transform:
