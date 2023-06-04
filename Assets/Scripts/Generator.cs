@@ -37,31 +37,20 @@ public class Generator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-
         timeElapsed += Time.deltaTime;
         if (timeElapsed >= span)
         {
             SpawnFruit();
             timeElapsed = 0f;
         }
-
-        /*       if (timeElapsed >= 60d/ span)
-                {
-                    SpawnFruit();
-                    timeElapsed -= 60d / span;
-                }*/
-
         if (leftHalf != null && leftHalf.transform.position.y <= -6.0f)
         {
             Destroy(leftHalf);
-            //Debug.Log("left삭제");
         }
 
         if (rightHalf != null && rightHalf.transform.position.y <= -6.0f)
         {
             Destroy(rightHalf);
-            //Debug.Log("right삭제");
         }
     }
 
@@ -82,14 +71,8 @@ public class Generator : MonoBehaviour
 
     public void Destroyfruits()
     {
-       // Debug.Log("============================");
-        //Debug.Log("어택카운트 : " + PlayerController.AtackCount);
-        //Debug.Log("랜덤인덱스 : " + randomIndex);
-       // Debug.Log("============================");
-
         if (spawn != null && randomIndex != 2)
         {
-            Debug.Log("한번칼질 해야해");
             delPosition = spawn.transform.position;
             Destroy(spawn);
             LeftHalf(delPosition, randomIndex);
@@ -98,18 +81,11 @@ public class Generator : MonoBehaviour
         }
         else if(spawn != null && randomIndex == 2 && PlayerController.AtackCount == 2)
         {
-            Debug.Log("두번칼질 해야해");
             delPosition = spawn.transform.position;
             Destroy(spawn);
             LeftHalf(delPosition, randomIndex);
             RightHalf(delPosition, randomIndex);
         }
-        else
-        {
-            Debug.Log("칼질");
-        }
-
-
     }
 
     public void LeftHalf(Vector3 delPosition, int iRandom)
