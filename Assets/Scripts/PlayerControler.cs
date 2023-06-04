@@ -169,7 +169,9 @@ public class PlayerControler : MonoBehaviour
         hasAttacked = false;
     }
 
-    IEnumerator CountAttackDelay2()
+
+    // 어택 후 후라이팬 안나가게
+    IEnumerator CountAttackDelay2() 
     {
         yield return new WaitForSeconds(0.2f);
         hasAttacked = false;
