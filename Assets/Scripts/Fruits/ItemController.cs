@@ -1,5 +1,3 @@
-
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +5,11 @@ using UnityEditor;
 
 public class ItemController : MonoBehaviour
 {
+    // Bezier rate
     [Range (0f,1f)] public float rate;
-
+    // Bezier position
     public Vector2[] controllPosition;
-   
+    // End Bezier and Force
     private Rigidbody2D rb;
 
     private void Start()
@@ -26,7 +25,7 @@ public class ItemController : MonoBehaviour
         if (rate >= 1f)
         {
             Vector2 pushForce = Vector2.left * 250.0f;
-            rb.AddForce(pushForce);
+            rb.AddForce(pushForce);          
         }
     }
 
@@ -45,23 +44,28 @@ public class ItemController : MonoBehaviour
     }
 }
 
-
+// Bezier graphic area
 [CanEditMultipleObjects]
 [CustomEditor(typeof(ItemController))]
 public class Test_Editor : Editor
 {
     private void OnSceneGUI()
     {
+        // Current Object Reference
         ItemController Generator = (ItemController)target;
 
+        // Object Control 
         Generator.controllPosition[0] = Handles.PositionHandle(Generator.controllPosition[0], Quaternion.identity);
         Generator.controllPosition[1] = Handles.PositionHandle(Generator.controllPosition[1], Quaternion.identity);
         Generator.controllPosition[2] = Handles.PositionHandle(Generator.controllPosition[2], Quaternion.identity);
         Generator.controllPosition[3] = Handles.PositionHandle(Generator.controllPosition[3], Quaternion.identity);
 
+        // pos[0], pos[1] connetion
         Handles.DrawLine(Generator.controllPosition[0], Generator.controllPosition[1]);
+        // pos[2], pos[3] connetion
         Handles.DrawLine(Generator.controllPosition[2], Generator.controllPosition[3]);
 
+        // It gets smoother as the count goes up.
         int Count = 50;
         for (float i = 0; i < Count; i++)
         {
