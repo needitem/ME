@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Effect : MonoBehaviour
 {
+    
     public static GameObject leftHalf;
     public static GameObject rightHalf;
     static Sprite[] sprite = Resources.LoadAll<Sprite>("SlicePrefabs");
