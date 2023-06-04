@@ -23,14 +23,13 @@ public class PlayerController : MonoBehaviour
 
     Animator playerAnimator;
     GameObject recipeCollision;
-    GameObject gEffect;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         playerAnimator = GetComponent<Animator>();
         recipeCollision = GameObject.Find("RecipeCollision");
-        gEffect = GameObject.Find("gEffect");
+        
         attackCollider.enabled = false;
 
 
@@ -52,17 +51,17 @@ public class PlayerController : MonoBehaviour
             var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
             foreach (Collider2D collider in colliders)
             {
-       
+
                 if (collider.tag == "Target")
                 {
                     Effect.PunchBack(collider);
-                    
+
                 }
-               
+
             }
             StartCoroutine(CountAttackDelay(0.4f));
-            
-            
+
+
         }
 
         if (Effect.leftHalf != null && Effect.leftHalf.transform.position.y <= -6.0f)
@@ -86,16 +85,14 @@ public class PlayerController : MonoBehaviour
 
 
     public void Attack()
-    {
-        hasAttacked = true;
-
+    {  
         hasAttacked = true;
         float currentTime = Time.time;
         
         if (!isDelay)
         {
             StartAttack();
-            AtackCount = 1;   
+            AtackCount = 1;
             playerAnimator.SetTrigger("attack");
             
             isDelay = true;
@@ -118,9 +115,9 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(delayTime);
         isDelay = false;
-        
-        isPunched = false;
-        
+       
+        isPunched = false;    
+
         hasAttacked = false;
         
     }

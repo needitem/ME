@@ -29,7 +29,7 @@ public class Generator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
 
         timeElapsed += Time.deltaTime;
         if (timeElapsed >= span)
@@ -44,7 +44,6 @@ public class Generator : MonoBehaviour
                     timeElapsed -= 60d / span;
                 }*/
 
-      
     }
 
     public int getRandom()
@@ -55,17 +54,16 @@ public class Generator : MonoBehaviour
 
     private void SpawnFruit()
     {
-        
+
         randomIndex = getRandom();
         Vector3 spawnPosition = new Vector3(15, 1.5f, 1);
         spawn = Instantiate(fruits[randomIndex], spawnPosition, Quaternion.identity);
-        
+
     }
 
-  
+
 
 }
-
 
 
 
