@@ -1,18 +1,13 @@
 using UnityEngine;
 
 public class Effect : MonoBehaviour {
-<<<<<<< HEAD
-    
-=======
 
- 
     public static GameObject leftHalf;
     public static GameObject rightHalf;
     static Sprite[] sprite = Resources.LoadAll<Sprite>("SlicePrefabs");
     public static GameObject half = new GameObject("halfPrefab");
 
 
->>>>>>> 5100ccaa54fdbd80480c73e57468d20f0142c306
     public static void PunchBack(Collider2D target)
     {
   
@@ -20,12 +15,8 @@ public class Effect : MonoBehaviour {
         float fUpSize = 0.2f;
         
         target.GetComponent<Rigidbody2D>().AddForce(new Vector2(1, 1) * pushPower, ForceMode2D.Impulse);
-<<<<<<< HEAD
-        while(fUpSize <= 6)
-=======
         
         while (fUpSize <= 6)
->>>>>>> 5100ccaa54fdbd80480c73e57468d20f0142c306
         {
      
             target.transform.localScale = new Vector3(fUpSize, fUpSize, 0);
