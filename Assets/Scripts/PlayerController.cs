@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
 
     public Vector2 boxSize;
     public Transform pos;
-    public Animator animator;
 
     bool isPunched = false;
     public bool isDelay = false; //attack delay
@@ -22,7 +21,6 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
         playerAnimator = GetComponent<Animator>();
         recipeCollision = GameObject.Find("RecipeCollision");
     }

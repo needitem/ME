@@ -2333,10 +2333,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff209550a2e348a458514f5cd33df103, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pushPower: 30
   boxSize: {x: 5, y: 5}
   pos: {fileID: 1105456520}
   animator: {fileID: 1675816004}
+  isDelay: 0
 --- !u!1001 &1714096367
 PrefabInstance:
   m_ObjectHideFlags: 0
