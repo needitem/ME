@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using NAudio.Wave;
 using NAudio.Dsp;
+using NAudio.Wave;
 
 namespace NAudioBPM
 {
