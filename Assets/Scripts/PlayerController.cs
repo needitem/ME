@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     public Collider2D attackCollider;
     public static int AtackCount = 0;
 
-
+    GameObject gEffect;
 
     Animator playerAnimator;
     GameObject recipeCollision;
@@ -29,7 +29,8 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         playerAnimator = GetComponent<Animator>();
         recipeCollision = GameObject.Find("RecipeCollision");
-        
+        gEffect = GameObject.Find("gEffect");
+
         attackCollider.enabled = false;
 
 
@@ -124,8 +125,16 @@ public class PlayerController : MonoBehaviour
 
     private void StartAttack()
     {
+
+        StartCoroutine(EnableAttackColliderForDuration(0.1f)); // 공격 콜라이더를 0.1초 동안 활성화
+       
+    }
+
+    private IEnumerator EnableAttackColliderForDuration(float duration)
+    {
         attackCollider.enabled = true; // 공격 콜라이더를 활성화
 
+        yield return new WaitForSeconds(duration);
 
         attackCollider.enabled = false; // 공격 콜라이더를 비활성화
         AtackCount = 0;
@@ -133,7 +142,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-
+        Debug.Log("이미지22");
         if (collider.tag == "Target" && attackCollider.enabled == false)
         {
             Destroy(collider.gameObject);
@@ -143,7 +152,7 @@ public class PlayerController : MonoBehaviour
         }
         else if (collider.tag == "Target" && attackCollider.enabled == true)
         {
-
+            Debug.Log("이미지");
             Effect.Destroyfruits();
         }
 
