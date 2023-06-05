@@ -67,11 +67,13 @@ public class PlayerController : MonoBehaviour
 
         if (Effect.leftHalf != null && Effect.leftHalf.transform.position.y <= -6.0f)
         {
+            
             Destroy(Effect.leftHalf);
         }
 
         if (Effect.rightHalf != null && Effect.rightHalf.transform.position.y <= -6.0f)
         {
+            
             Destroy(Effect.rightHalf);
         }
 
@@ -142,9 +144,9 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("이미지22");
         if (collider.tag == "Target" && attackCollider.enabled == false)
         {
+            
             Destroy(collider.gameObject);
             GameDirector.hp--;
             playerAnimator.SetTrigger("damaged");
@@ -152,7 +154,6 @@ public class PlayerController : MonoBehaviour
         }
         else if (collider.tag == "Target" && attackCollider.enabled == true)
         {
-            Debug.Log("이미지");
             Effect.Destroyfruits();
         }
 

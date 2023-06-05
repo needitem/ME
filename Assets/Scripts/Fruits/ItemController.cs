@@ -12,6 +12,8 @@ public class ItemController : MonoBehaviour
     // End Bezier and Force
     private Rigidbody2D rb;
 
+    public int itemHp;
+
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -27,6 +29,10 @@ public class ItemController : MonoBehaviour
             Vector2 pushForce = Vector2.left * 250.0f;
             rb.AddForce(pushForce);          
         }
+
+
+
+
     }
 
     // https://www.youtube.com/watch?v=KTEX2L4T4zE

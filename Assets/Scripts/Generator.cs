@@ -2,27 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Generator : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject[] fruits;
 
+    public GameObject[] mainfood;
+    public GameObject[] subfood;
 
 
+   
     public static GameObject spawn;
-    public static int randomIndex;
+    //public static int randomIndex;
+    public static int MainRandomIndex;
+    public static int SubRandomIndex;
 
 
 
     private float timeElapsed = 0f;
-    public float span = 1f;
+    public float span = 0.3f;
 
     //private int difficulty = 1;
     void Start()
     {
         fruits = Resources.LoadAll<GameObject>("Prefabs");
 
+        mainfood = Resources.LoadAll<GameObject>("MainFood");
+        subfood = Resources.LoadAll<GameObject>("SubFood");
 
+       
 
     }
 
@@ -34,7 +43,8 @@ public class Generator : MonoBehaviour
         timeElapsed += Time.deltaTime;
         if (timeElapsed >= span)
         {
-            SpawnFruit();
+            SpawnFood();
+            //SpawnFruit();
             timeElapsed = 0f;
         }
 
@@ -46,21 +56,57 @@ public class Generator : MonoBehaviour
 
     }
 
-    public int getRandom()
+    public int getMainFoodRandom()
     {
-        int randomIndex = Random.Range(0, fruits.Length);
-        return randomIndex;
+        int MainRandomIndex = Random.Range(0, mainfood.Length);     
+        return MainRandomIndex;
     }
 
-    private void SpawnFruit()
+    public int getSubFoodRandom()
+    {        
+        int SubRandomIndex = Random.Range(0, subfood.Length);
+        return SubRandomIndex;
+    }
+
+    //private void SpawnFruit()
+    //{
+
+    //    randomIndex = getRandom();
+    //    Vector3 spawnPosition = new Vector3(15, 1.5f, 1);
+    //    spawn = Instantiate(fruits[randomIndex], spawnPosition, Quaternion.identity);
+
+    //}
+
+    public void SpawnFood()
     {
 
-        randomIndex = getRandom();
         Vector3 spawnPosition = new Vector3(15, 1.5f, 1);
-        spawn = Instantiate(fruits[randomIndex], spawnPosition, Quaternion.identity);
+        
+       
+        MainRandomIndex = getMainFoodRandom();
+        SubRandomIndex = getSubFoodRandom();
 
+        Debug.Log("¸ÞÀÎ·£´ý : " + MainRandomIndex + "    ·£´ý.±æÀÌ :" + mainfood.Length );
+        Debug.Log("¼­ºê·£´ý : " + SubRandomIndex + "    ·£´ý.±æÀÌ :" + subfood.Length);
+
+        switch (Random.Range(0, 3))
+        {
+
+            case 0:
+                spawn = Instantiate(mainfood[MainRandomIndex], spawnPosition, Quaternion.identity);
+                spawn.GetComponent<ItemController>().itemHp = 2;
+                Debug.Log("Ã¼·Â : " + spawn.GetComponent<ItemController>().itemHp);
+                break;
+            default:
+                spawn = Instantiate(subfood[SubRandomIndex], spawnPosition, Quaternion.identity);
+                spawn.GetComponent<ItemController>().itemHp = 1;
+                Debug.Log("Ã¼·Â : " + spawn.GetComponent<ItemController>().itemHp);
+                break;
+        }
+
+
+        
     }
-
 
 
 }
