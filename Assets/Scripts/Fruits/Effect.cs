@@ -1,22 +1,17 @@
 using UnityEngine;
+using System.Collections.Generic;
+using System.Collections;
 
 public class Effect : MonoBehaviour
 {
-    public static void PunchBack(Collider2D target)
+
+    public float growthRate = 0.2f;
+    public float maxScale = 6f;
+
+    public void PunchBack(Collider2D target)
     {
 
-        float pushPower = 50.0f;
-        float fUpSize = 0.2f;
-
-        target.GetComponent<Rigidbody2D>().AddForce(new Vector2(1, 1) * pushPower, ForceMode2D.Impulse);
-
-        while (fUpSize <= 6)
-        {
-
-            target.transform.localScale = new Vector3(fUpSize, fUpSize, 0);
-            fUpSize += 0.001f;
-
-        }
+        StartCoroutine(ScaleTarget(target));
 
     }
 
@@ -26,6 +21,22 @@ public class Effect : MonoBehaviour
         //Play Animation here
         //Destroy(gameObject);
 
+    }
+
+
+    public IEnumerator ScaleTarget(Collider2D target)
+    {
+        float currentScale = 1f;
+
+        while (currentScale <= maxScale)
+        {
+            transform.localScale = new Vector3(currentScale, currentScale, 1f);
+            currentScale += growthRate;
+            yield return null; // Wait for one frame
+        }
+
+        // Scaling completed
+        Debug.Log("Scaling completed!");
     }
     
 }

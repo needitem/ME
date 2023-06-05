@@ -52,7 +52,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (collider.tag == "Target")
                 {
-                    Effect.PunchBack(collider);
+                    effect.PunchBack(collider);
                 }
             }
             StartCoroutine(CountAttackDelay(0.4f));

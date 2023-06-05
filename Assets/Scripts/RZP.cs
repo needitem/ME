@@ -11,11 +11,11 @@ namespace RZP
         private string filename = null;
         private short[] leftChn;
         private short[] rightChn;
-        private double BPM;
-        private double sampleRate = 44100;
-        private double trackLength = 0;
+        private float BPM;
+        private float sampleRate = 44100;
+        private float trackLength = 0;
 
-        public double getBPM()
+        public float getBPM()
         {
             return BPM;
         }

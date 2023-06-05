@@ -33,6 +33,7 @@ public class ItemController : MonoBehaviour
         {
             Effect.Destroyfruits(this.gameObject);
             //execute animation
+            
         }
     }
 
