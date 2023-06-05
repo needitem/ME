@@ -18,12 +18,16 @@ public class Generator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timeElapsed += Time.deltaTime;
-        if (timeElapsed >= span)
+        if(GameDirector.hp != 0)
         {
-            SpawnFruit();
-            timeElapsed = 0f;
+            timeElapsed += Time.deltaTime;
+            if (timeElapsed >= span)
+            {
+                SpawnFruit();
+                timeElapsed = 0f;
+            }
         }
+ 
 
         /*       if (timeElapsed >= 60d/ span)
                 {

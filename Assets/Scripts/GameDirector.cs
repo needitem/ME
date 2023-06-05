@@ -8,11 +8,13 @@ public class GameDirector : MonoBehaviour
 {
     [SerializeField] public Slider hpBar;
     [SerializeField] public int maxHp = 10;
+    [SerializeField] public GameObject Score_Panel = null;
 
     static public int hp;
     // Start is called before the first frame update
     void Start()
     {
+        Score_Panel.SetActive(false);
         hp = maxHp;
         hpBar.value = (float)hp / (float)maxHp;
         Time.timeScale = 1;
@@ -25,13 +27,18 @@ public class GameDirector : MonoBehaviour
 
         if (hp == 0)
         {
-            Invoke("changeScene2", 3f);
+            Invoke("ActivateScorePanel", 3f);
         }
     }
 
     public void HandleHp()
     {
         hpBar.value = (float)hp / (float)maxHp;
+    }
+
+    public void ActivateScorePanel()
+    {
+        Score_Panel.SetActive(true);
     }
 
     public void changeScene1()
