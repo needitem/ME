@@ -41,7 +41,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && !isPunched)
         {
             //gGenerator.GetComponent<Generator>().Destroyfruits();
-            recipeCollision.GetComponent<Recipe>().OnRecipeCollision();
+            //recipeCollision.GetComponent<Recipe>().OnRecipeCollision();
             Attack();
         }
 
@@ -74,32 +74,46 @@ public class PlayerController : MonoBehaviour
 
 
     public void Attack()
-    {  
+    {
+
         float currentTime = Time.time;
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
-        foreach (Collider2D collider in colliders)
+
+
+        if (!isDelay)
         {
-            if (collider.tag == "Target")
+
+            playerAnimator.SetTrigger("attack");
+            foreach (Collider2D collider in colliders)
             {
-                if (!isDelay)
-                {
-                    playerAnimator.SetTrigger("attack");
-                    collider.gameObject.GetComponent<ItemController>().itemHp--;
-                    isDelay = true;
-                    lastAttackTime = currentTime;
-                    StartCoroutine(CountAttackDelay(0.4f));
 
-                }
-                else if ((currentTime - lastAttackTime) <= doubleAttackTimeWindow)
+                if (collider.tag == "Target")
                 {
-                    playerAnimator.SetTrigger("double_attack");
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
-                    isDelay = true;
+                    Debug.Log("Hp : " + collider.gameObject.GetComponent<ItemController>().itemHp);
                 }
-                StartCoroutine(CountAttackDelay(0.2f));
-
             }
+            isDelay = true;
+            lastAttackTime = currentTime;
+            StartCoroutine(CountAttackDelay(0.4f));
+
         }
+        else if ((currentTime - lastAttackTime) <= doubleAttackTimeWindow)
+        {
+            playerAnimator.SetTrigger("double_attack");
+            foreach (Collider2D collider in colliders)
+            {
+                if (collider.tag == "Target")
+                {
+                    collider.gameObject.GetComponent<ItemController>().itemHp--;
+                    Debug.Log("Hp : " + collider.gameObject.GetComponent<ItemController>().itemHp);
+                }
+            }
+            isDelay = true;
+            StartCoroutine(CountAttackDelay(0.2f));
+        }
+
+
 
     }
 
@@ -107,20 +121,26 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(delayTime);
         isDelay = false;
-        isPunched = false;    
+        isPunched = false;
         hasAttacked = false;
 
     }
     void OnTriggerEnter2D(Collider2D collider)
     {
-        Debug.Log("¿ÃπÃ¡ˆ22");
+
         if (collider.tag == "Target")
         {
-            
+
             Destroy(collider.gameObject);
             GameDirector.hp--;
             playerAnimator.SetTrigger("damaged");
 
         }
     }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(pos.position, boxSize);
+    }
+
 }
