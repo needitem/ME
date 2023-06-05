@@ -7,12 +7,8 @@ public class Generator : MonoBehaviour
     // Start is called before the first frame update
     public GameObject[] fruits;
 
-
-
     public static GameObject spawn;
     public static int randomIndex;
-
-
 
     private float timeElapsed = 0f;
     public float span = 1f;
