@@ -40,8 +40,6 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isPunched)
         {
-            //gGenerator.GetComponent<Generator>().Destroyfruits();
-            //recipeCollision.GetComponent<Recipe>().OnRecipeCollision();
             Attack();
         }
 
@@ -55,12 +53,9 @@ public class PlayerController : MonoBehaviour
                 if (collider.tag == "Target")
                 {
                     Effect.PunchBack(collider);
-
                 }
             }
             StartCoroutine(CountAttackDelay(0.4f));
-
-
         }
 
         if (GameDirector.hp <= 0)
@@ -79,24 +74,19 @@ public class PlayerController : MonoBehaviour
         float currentTime = Time.time;
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
 
-
         if (!isDelay)
         {
-
             playerAnimator.SetTrigger("attack");
             foreach (Collider2D collider in colliders)
             {
-
                 if (collider.tag == "Target")
                 {
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
-                    Debug.Log("Hp : " + collider.gameObject.GetComponent<ItemController>().itemHp);
                 }
             }
             isDelay = true;
             lastAttackTime = currentTime;
             StartCoroutine(CountAttackDelay(0.4f));
-
         }
         else if ((currentTime - lastAttackTime) <= doubleAttackTimeWindow)
         {
@@ -106,15 +96,11 @@ public class PlayerController : MonoBehaviour
                 if (collider.tag == "Target")
                 {
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
-                    Debug.Log("Hp : " + collider.gameObject.GetComponent<ItemController>().itemHp);
                 }
             }
             isDelay = true;
             StartCoroutine(CountAttackDelay(0.2f));
         }
-
-
-
     }
     
 
@@ -124,14 +110,11 @@ public class PlayerController : MonoBehaviour
         isDelay = false;
         isPunched = false;
         hasAttacked = false;
-
     }
     void OnTriggerEnter2D(Collider2D collider)
     {
-
         if (collider.tag == "Target")
         {
-
             Destroy(collider.gameObject);
             GameDirector.hp--;
             playerAnimator.SetTrigger("damaged");

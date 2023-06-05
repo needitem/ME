@@ -62,45 +62,9 @@ public class Recipe : MonoBehaviour
             case 2: randomRecipe = this.r3; break;
         }
     }
-
-    // Conflict with recipe
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.GetComponent<Collider2D>().name.Contains("Yellow") == true)
-        {
-            randomRecipe[0] += -1;
-            Debug.Log("[0] : " + randomRecipe[0]);
-        }
-
-        if (other.GetComponent<Collider2D>().name.Contains("Green") == true)
-        {
-            randomRecipe[1] += -1;
-            Debug.Log("[1] : " + randomRecipe[1]);
-        }
-
-        if (other.GetComponent<Collider2D>().name.Contains("Red") == true)
-        {
-            randomRecipe[2] += -1;
-            Debug.Log("[2] : " + randomRecipe[2]);
-        }
-        Destroy(other.gameObject);
-    }
-
-    // Recipe Collision ON/OFF Method
-    public void OffRecipeCollision()
-    {
-        GetComponent<BoxCollider2D>().enabled = false;
-    }
-    public void OnRecipeCollision()
-    {
-        GetComponent<BoxCollider2D>().enabled = true;
-        Invoke("OffRecipeCollision", 0.4f);
-    }
-
     private void Start()
     {
         player = GameObject.Find("Player");
-        OffRecipeCollision();
         createRandomRecipe();
     }
 
