@@ -19,7 +19,7 @@ public class PlayerController : MonoBehaviour
     public Collider2D attackCollider;
     public static int AtackCount = 0;
 
-
+    GameObject gEffect;
 
     Animator playerAnimator;
     GameObject recipeCollision;
@@ -29,7 +29,8 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         playerAnimator = GetComponent<Animator>();
         recipeCollision = GameObject.Find("RecipeCollision");
-        
+        gEffect = GameObject.Find("gEffect");
+
         attackCollider.enabled = false;
 
 
@@ -43,7 +44,7 @@ public class PlayerController : MonoBehaviour
             recipeCollision.GetComponent<Recipe>().OnRecipeCollision();
             Attack();
         }
-        
+
         else if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked)
         {
             isPunched = true;
@@ -88,24 +89,24 @@ public class PlayerController : MonoBehaviour
     {  
         hasAttacked = true;
         float currentTime = Time.time;
-        
+
         if (!isDelay)
         {
             StartAttack();
             AtackCount = 1;
             playerAnimator.SetTrigger("attack");
-            
+
             isDelay = true;
             lastAttackTime = currentTime;
             StartCoroutine(CountAttackDelay(0.4f));
-            
+
         }
         else if ((currentTime - lastAttackTime) <= doubleAttackTimeWindow)
         {
             StartAttack();
             AtackCount = 2;
             playerAnimator.SetTrigger("double_attack");
-            
+
             isDelay = true;
         }
         StartCoroutine(CountAttackDelay(0.2f));
@@ -119,12 +120,14 @@ public class PlayerController : MonoBehaviour
         isPunched = false;    
 
         hasAttacked = false;
-        
+
     }
 
     private void StartAttack()
     {
+
         StartCoroutine(EnableAttackColliderForDuration(0.1f)); // 공격 콜라이더를 0.1초 동안 활성화
+       
     }
 
     private IEnumerator EnableAttackColliderForDuration(float duration)
@@ -139,24 +142,19 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-
+        Debug.Log("이미지22");
         if (collider.tag == "Target" && attackCollider.enabled == false)
         {
             Destroy(collider.gameObject);
             GameDirector.hp--;
             playerAnimator.SetTrigger("damaged");
 
-        }else if (collider.tag == "Target" && attackCollider.enabled == true)
+        }
+        else if (collider.tag == "Target" && attackCollider.enabled == true)
         {
-
+            Debug.Log("이미지");
             Effect.Destroyfruits();
         }
 
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(pos.position, boxSize);
     }
 }
