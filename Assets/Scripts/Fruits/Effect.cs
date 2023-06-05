@@ -2,16 +2,10 @@ using UnityEngine;
 
 public class Effect : MonoBehaviour
 {
-    
-    public static GameObject leftHalf;
-    public static GameObject rightHalf;
-    static Sprite[] sprite = Resources.LoadAll<Sprite>("SlicePrefabs");
-    public static GameObject half = new GameObject("halfPrefab");
-
     public static void PunchBack(Collider2D target)
     {
 
-        float pushPower = 5.0f;
+        float pushPower = 50.0f;
         float fUpSize = 0.2f;
 
         target.GetComponent<Rigidbody2D>().AddForce(new Vector2(1, 1) * pushPower, ForceMode2D.Impulse);
@@ -20,19 +14,17 @@ public class Effect : MonoBehaviour
         {
 
             target.transform.localScale = new Vector3(fUpSize, fUpSize, 0);
-            fUpSize += 0.1f;
+            fUpSize += 0.001f;
 
         }
 
     }
 
 
-    public static void Destroyfruits()
+    public static void Destroyfruits(GameObject gameObject)
     {
-        
+        //Play Animation here
+        Destroy(gameObject);
 
     }
-
-    
-
 }

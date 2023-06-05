@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public static int AtackCount = 0;
 
     GameObject gEffect;
-
+    ItemController item;
     Animator playerAnimator;
     GameObject recipeCollision;
 
@@ -52,35 +52,21 @@ public class PlayerController : MonoBehaviour
             var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
             foreach (Collider2D collider in colliders)
             {
-
                 if (collider.tag == "Target")
                 {
                     Effect.PunchBack(collider);
 
                 }
-
             }
             StartCoroutine(CountAttackDelay(0.4f));
 
 
         }
 
-        if (Effect.leftHalf != null && Effect.leftHalf.transform.position.y <= -6.0f)
-        {
-            
-            Destroy(Effect.leftHalf);
-        }
-
-        if (Effect.rightHalf != null && Effect.rightHalf.transform.position.y <= -6.0f)
-        {
-            
-            Destroy(Effect.rightHalf);
-        }
-
-
         if (GameDirector.hp <= 0)
         {
             playerAnimator.SetTrigger("game_over");
+            //Change to Gameover Scene
         }
 
     }
@@ -89,62 +75,46 @@ public class PlayerController : MonoBehaviour
 
     public void Attack()
     {  
-        hasAttacked = true;
         float currentTime = Time.time;
-
-        if (!isDelay)
+        var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
+        foreach (Collider2D collider in colliders)
         {
-            StartAttack();
-            AtackCount = 1;
-            playerAnimator.SetTrigger("attack");
+            if (collider.tag == "Target")
+            {
+                if (!isDelay)
+                {
+                    playerAnimator.SetTrigger("attack");
+                    collider.gameObject.GetComponent<ItemController>().itemHp--;
+                    isDelay = true;
+                    lastAttackTime = currentTime;
+                    StartCoroutine(CountAttackDelay(0.4f));
 
-            isDelay = true;
-            lastAttackTime = currentTime;
-            StartCoroutine(CountAttackDelay(0.4f));
+                }
+                else if ((currentTime - lastAttackTime) <= doubleAttackTimeWindow)
+                {
+                    playerAnimator.SetTrigger("double_attack");
+                    collider.gameObject.GetComponent<ItemController>().itemHp--;
+                    isDelay = true;
+                }
+                StartCoroutine(CountAttackDelay(0.2f));
 
+            }
         }
-        else if ((currentTime - lastAttackTime) <= doubleAttackTimeWindow)
-        {
-            StartAttack();
-            AtackCount = 2;
-            playerAnimator.SetTrigger("double_attack");
 
-            isDelay = true;
-        }
-        StartCoroutine(CountAttackDelay(0.2f));
     }
 
     IEnumerator CountAttackDelay(float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
         isDelay = false;
-       
         isPunched = false;    
-
         hasAttacked = false;
 
     }
-
-    private void StartAttack()
-    {
-
-        StartCoroutine(EnableAttackColliderForDuration(0.1f)); // 공격 콜라이더를 0.1초 동안 활성화
-       
-    }
-
-    private IEnumerator EnableAttackColliderForDuration(float duration)
-    {
-        attackCollider.enabled = true; // 공격 콜라이더를 활성화
-
-        yield return new WaitForSeconds(duration);
-
-        attackCollider.enabled = false; // 공격 콜라이더를 비활성화
-        AtackCount = 0;
-    }
-
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Target" && attackCollider.enabled == false)
+        Debug.Log("이미지22");
+        if (collider.tag == "Target")
         {
             
             Destroy(collider.gameObject);
@@ -152,10 +122,5 @@ public class PlayerController : MonoBehaviour
             playerAnimator.SetTrigger("damaged");
 
         }
-        else if (collider.tag == "Target" && attackCollider.enabled == true)
-        {
-            Effect.Destroyfruits();
-        }
-
     }
 }

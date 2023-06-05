@@ -7,6 +7,7 @@ public class Generator : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject[] fruits;
+    public GameObject[] meats;
 
     public GameObject[] mainfood;
     public GameObject[] subfood;
@@ -27,19 +28,13 @@ public class Generator : MonoBehaviour
     void Start()
     {
         fruits = Resources.LoadAll<GameObject>("Prefabs");
-
         mainfood = Resources.LoadAll<GameObject>("MainFood");
         subfood = Resources.LoadAll<GameObject>("SubFood");
-
-       
-
     }
 
     // Update is called once per frame
     void Update()
     {
-
-
         timeElapsed += Time.deltaTime;
         if (timeElapsed >= span)
         {
@@ -47,13 +42,6 @@ public class Generator : MonoBehaviour
             //SpawnFruit();
             timeElapsed = 0f;
         }
-
-        /*       if (timeElapsed >= 60d/ span)
-                {
-                    SpawnFruit();
-                    timeElapsed -= 60d / span;
-                }*/
-
     }
 
     public int getMainFoodRandom()
@@ -79,15 +67,11 @@ public class Generator : MonoBehaviour
 
     public void SpawnFood()
     {
-
         Vector3 spawnPosition = new Vector3(15, 1.5f, 1);
         
        
         MainRandomIndex = getMainFoodRandom();
         SubRandomIndex = getSubFoodRandom();
-
-        Debug.Log("¸ÞÀÎ·£´ý : " + MainRandomIndex + "    ·£´ý.±æÀÌ :" + mainfood.Length );
-        Debug.Log("¼­ºê·£´ý : " + SubRandomIndex + "    ·£´ý.±æÀÌ :" + subfood.Length);
 
         switch (Random.Range(0, 3))
         {
@@ -95,12 +79,10 @@ public class Generator : MonoBehaviour
             case 0:
                 spawn = Instantiate(mainfood[MainRandomIndex], spawnPosition, Quaternion.identity);
                 spawn.GetComponent<ItemController>().itemHp = 2;
-                Debug.Log("Ã¼·Â : " + spawn.GetComponent<ItemController>().itemHp);
                 break;
             default:
                 spawn = Instantiate(subfood[SubRandomIndex], spawnPosition, Quaternion.identity);
                 spawn.GetComponent<ItemController>().itemHp = 1;
-                Debug.Log("Ã¼·Â : " + spawn.GetComponent<ItemController>().itemHp);
                 break;
         }
 
