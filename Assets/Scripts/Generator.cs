@@ -1,52 +1,53 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
+using RZP;
 
 public class Generator : MonoBehaviour
 {
-    System.Random rRand = new System.Random();
-    // Start is called before the first frame update
     public GameObject[] fruits;
-<<<<<<< HEAD
-    private double dtimeElapsed = 0.0d;
-    public double dbpm = 0.0d; // bpm 
-=======
-    private float timeElapsed = 0f;
-    public float span = 1f;
->>>>>>> c19c9918a2ba0105fac707fbca1db0f6026f07e5
 
-    //private int difficulty = 1;
+    private double timeElapsed = 0.0d;
+
+    public double span = 0.0d;
+    private BPMDetector bPMDetector;
+
     void Start()
     {
         fruits = Resources.LoadAll<GameObject>("Prefabs");
+        bPMDetector = new BPMDetector("C:\\Users\\추영호\\Desktop\\music1 (online-audio-converter.com).wav");
+        StartCoroutine(MeasureBPM());
     }
 
-    // Update is called once per frame
+    IEnumerator MeasureBPM()
+    {
+        // 음원을 로드하고 BPM을 측정하는 데에 필요한 시간을 대기합니다.
+        yield return new WaitForSeconds(1f);
+
+        double bpm = bPMDetector.getBPM();
+
+        span = 60d / bpm;
+
+        // BPM 측정이 완료되면 노드를 생성합니다.
+        SpawnFruit();
+    }
+
     void Update()
     {
-        ObjectThrow();
+        print(span);
+        timeElapsed += Time.deltaTime;
 
+        if (timeElapsed >= span)
+        {
+            SpawnFruit();
+            timeElapsed -= span;
+        }
     }
 
     private void SpawnFruit()
     {
         int randomIndex = Random.Range(0, fruits.Length);
-        Vector3 spawnPosition = new Vector3(15, 1.5f, 1);
+        Vector3 spawnPosition = new Vector3(15f, 1.5f, 1f);
         Instantiate(fruits[randomIndex], spawnPosition, Quaternion.identity);
-    }
-
-    public void ObjectThrow() // 던졌을 때 true 값으로 받기
-
-    {
-        dtimeElapsed += Time.deltaTime;
-        dbpm = Random.Range(120, 150); 
-        if (dtimeElapsed >= 60d / dbpm) // 1초당 나오는 노트수 ex) 120 bpm이면 1초당 2개
-        {
-            SpawnFruit();
-            dtimeElapsed -= 60d / dbpm;
-
-        }
     }
 }
