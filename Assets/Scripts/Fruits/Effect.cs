@@ -1,30 +1,55 @@
+
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+
 
 public class Effect : MonoBehaviour
 {
-    public static void PunchBack(Collider2D target)
+    public static float growthRate = 0.2f;
+    public static float maxScale = 6f;
+    private static Effect et;
+    static float pushPower = 20.0f;
+
+    // https://www.youtube.com/watch?v=lty5EXXkFRQ&t=14s //Âü°í
+    private void Awake()
     {
-
-        float pushPower = 50.0f;
-        float fUpSize = 0.2f;
-
-        target.GetComponent<Rigidbody2D>().AddForce(new Vector2(1, 1) * pushPower, ForceMode2D.Impulse);
-
-        while (fUpSize <= 6)
-        {
-
-            target.transform.localScale = new Vector3(fUpSize, fUpSize, 0);
-            fUpSize += 0.001f;
-
-        }
-
+        et = this;
     }
 
+    public static void Apply(GameObject target)
+    {
+        et.StartCoroutine(ScaleTarget(target));
+    }
+
+    public static IEnumerator ScaleTarget(GameObject target)
+    {
+     
+        
+        float currentScale = 1f;
+        target.GetComponent<Collider2D>().enabled = false;
+        while (currentScale <= maxScale)
+        {
+            target.GetComponent<Rigidbody2D>().AddForce(new Vector2(1, 1) * pushPower, ForceMode2D.Impulse);
+
+            target.transform.localScale = new Vector3(currentScale, currentScale, 1f);
+            currentScale += growthRate;
+            yield return null; // Wait for one frame
+        }
+
+        if(currentScale >= 5)
+        {
+            Destroy(target);
+        }
+       
+    }
 
     public static void Destroyfruits(GameObject gameObject)
     {
         //Play Animation here
-        //Destroy(gameObject);
+        Destroy(gameObject);
 
     }
+
 }

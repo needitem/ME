@@ -29,7 +29,9 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         playerAnimator = GetComponent<Animator>();
         recipeCollision = GameObject.Find("RecipeCollision");
-        gEffect = GameObject.Find("gEffect");
+
+        gEffect = GameObject.Find("Effect");
+        
 
         attackCollider.enabled = false;
 
@@ -47,20 +49,26 @@ public class PlayerController : MonoBehaviour
 
         else if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked)
         {
-            isPunched = true;
-            playerAnimator.SetTrigger("punch");
-            var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
-            foreach (Collider2D collider in colliders)
-            {
-                if (collider.tag == "Target")
-                {
-                    Effect.PunchBack(collider);
+            //isPunched = true;
+            //playerAnimator.SetTrigger("punch");
 
-                }
-            }
-            StartCoroutine(CountAttackDelay(0.4f));
+            //var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
+            //foreach (Collider2D collider in colliders)
+            //{
+            //    if (collider.tag == "Target")
+            //    {
+            //        //gEffect.PunchBack(collider);
+
+            //        gEffect.GetComponent<Effect>().PunchBack(collider);
 
 
+            //    }
+            //}
+            //StartCoroutine(CountAttackDelay(0.4f));
+            Pch();
+
+        }else if (Input.GetKeyDown(KeyCode.A)){
+            //
         }
 
         if (GameDirector.hp <= 0)
@@ -71,7 +79,27 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    public void Pch()
+    {
+        isPunched = true;
+        playerAnimator.SetTrigger("punch");
 
+        var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.tag == "Target")
+            {
+                Debug.Log("º¯¼ö : " + collider.gameObject);
+                //gEffect.PunchBack(collider);
+                //gEffect.GetComponent<Effect>().PunchBack(collider.gameObject);
+                //Effect.PunchBack(collider);
+
+                Effect.Apply(collider.gameObject);
+
+            }
+        }
+        StartCoroutine(CountAttackDelay(0.4f));
+    }
 
     public void Attack()
     {
@@ -90,7 +118,7 @@ public class PlayerController : MonoBehaviour
                 if (collider.tag == "Target")
                 {
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
-                    Debug.Log("Hp : " + collider.gameObject.GetComponent<ItemController>().itemHp);
+                    //Debug.Log("Hp : " + collider.gameObject.GetComponent<ItemController>().itemHp);
                 }
             }
             isDelay = true;
@@ -106,7 +134,7 @@ public class PlayerController : MonoBehaviour
                 if (collider.tag == "Target")
                 {
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
-                    Debug.Log("Hp : " + collider.gameObject.GetComponent<ItemController>().itemHp);
+                    //Debug.Log("Hp : " + collider.gameObject.GetComponent<ItemController>().itemHp);
                 }
             }
             isDelay = true;
