@@ -27,4 +27,5 @@ public class Effect : MonoBehaviour
         Destroy(gameObject);
 
     }
+    
 }

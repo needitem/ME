@@ -79,29 +79,27 @@ public class PlayerController : MonoBehaviour
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
         foreach (Collider2D collider in colliders)
         {
-            if (collider.tag == "Target")
+            if (!isDelay)
             {
-                if (!isDelay)
-                {
-                    playerAnimator.SetTrigger("attack");
-                    collider.gameObject.GetComponent<ItemController>().itemHp--;
-                    isDelay = true;
-                    lastAttackTime = currentTime;
-                    StartCoroutine(CountAttackDelay(0.4f));
-
-                }
-                else if ((currentTime - lastAttackTime) <= doubleAttackTimeWindow)
-                {
-                    playerAnimator.SetTrigger("double_attack");
-                    collider.gameObject.GetComponent<ItemController>().itemHp--;
-                    isDelay = true;
-                }
-                StartCoroutine(CountAttackDelay(0.2f));
+                playerAnimator.SetTrigger("attack");
+                collider.gameObject.GetComponent<ItemController>().itemHp--;
+                isDelay = true;
+                lastAttackTime = currentTime;
+                StartCoroutine(CountAttackDelay(0.4f));
 
             }
+            else if ((currentTime - lastAttackTime) <= doubleAttackTimeWindow)
+            {
+                playerAnimator.SetTrigger("double_attack");
+                collider.gameObject.GetComponent<ItemController>().itemHp--;
+                isDelay = true;
+            }
+            StartCoroutine(CountAttackDelay(0.2f));
+
         }
 
     }
+    
 
     IEnumerator CountAttackDelay(float delayTime)
     {
