@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using NAudioBPM;
+
 
 public class Generator : MonoBehaviour
 {
@@ -11,6 +11,8 @@ public class Generator : MonoBehaviour
     public static GameObject spawn;
     public static int randomIndex;
 
+ 
+
     private float timeElapsed = 0f;
     public float span = 1f;
 
@@ -18,7 +20,7 @@ public class Generator : MonoBehaviour
     void Start()
     {
         fruits = Resources.LoadAll<GameObject>("Prefabs");
-
+       
 
 
     }
@@ -55,6 +57,7 @@ public class Generator : MonoBehaviour
         randomIndex = getRandom();
         Vector3 spawnPosition = new Vector3(15, 1.5f, 1);
         spawn = Instantiate(fruits[randomIndex], spawnPosition, Quaternion.identity);
+        NPCController.isDrawing = true; // 프리팹이 인스턴스 되면 NPC컨트롤러의 isDrawing을 true를 주어 던지는 애니메이션이 나오게 한다.
 
     }
 

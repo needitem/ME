@@ -5,7 +5,7 @@ using System.Linq;
 
 public class PlayerController : MonoBehaviour
 {
-    Effect effect;
+    
     private bool hasAttacked = false;
     private float lastAttackTime = -1f;
     private float doubleAttackTimeWindow = 0.2f;
@@ -44,6 +44,8 @@ public class PlayerController : MonoBehaviour
             recipeCollision.GetComponent<Recipe>().OnRecipeCollision();
             Attack();
         }
+
+       
 
         else if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked)
         {
