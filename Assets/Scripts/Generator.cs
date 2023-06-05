@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using RZP;
 
 public class Generator : MonoBehaviour
 {
@@ -11,9 +11,9 @@ public class Generator : MonoBehaviour
 
     public GameObject[] mainfood;
     public GameObject[] subfood;
+    private BPMDetector bPMDetector;
 
 
-   
     public static GameObject spawn;
     //public static int randomIndex;
     public static int MainRandomIndex;
@@ -30,20 +30,37 @@ public class Generator : MonoBehaviour
         fruits = Resources.LoadAll<GameObject>("Prefabs");
         mainfood = Resources.LoadAll<GameObject>("MainFood");
         subfood = Resources.LoadAll<GameObject>("SubFood");
+
+        bPMDetector = new BPMDetector("C:\\Users\\user\\Desktop\\music1 (online-audio-converter.com).wav");
+        StartCoroutine(MeasureBPM());
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        timeElapsed += Time.deltaTime;
-        if (timeElapsed >= span)
+        if(GameDirector.hp != 0 && timeElapsed >= span)
         {
-            SpawnFood();
-            //SpawnFruit();
-            timeElapsed = 0f;
+            timeElapsed += Time.deltaTime;
+            if (timeElapsed >= span)
+            {
+                SpawnFood();
+                timeElapsed = 0f;
+            }
         }
     }
+    IEnumerator MeasureBPM()
+    {
+        // 음원을 로드하고 BPM을 측정하는 데에 필요한 시간을 대기합니다.
+        yield return new WaitForSeconds(1f);
 
+        float bpm = bPMDetector.getBPM();
+
+        span = 60f / bpm;
+
+        // BPM 측정이 완료되면 노드를 생성합니다.
+        SpawnFood();
+    }
     public int getMainFoodRandom()
     {
         int MainRandomIndex = Random.Range(0, mainfood.Length);     
@@ -55,15 +72,6 @@ public class Generator : MonoBehaviour
         int SubRandomIndex = Random.Range(0, subfood.Length);
         return SubRandomIndex;
     }
-
-    //private void SpawnFruit()
-    //{
-
-    //    randomIndex = getRandom();
-    //    Vector3 spawnPosition = new Vector3(15, 1.5f, 1);
-    //    spawn = Instantiate(fruits[randomIndex], spawnPosition, Quaternion.identity);
-
-    //}
 
     public void SpawnFood()
     {
@@ -84,13 +92,8 @@ public class Generator : MonoBehaviour
                 spawn = Instantiate(subfood[SubRandomIndex], spawnPosition, Quaternion.identity);
                 spawn.GetComponent<ItemController>().itemHp = 1;
                 break;
-        }
-
-
-        
+        }  
     }
-
-
 }
 
 

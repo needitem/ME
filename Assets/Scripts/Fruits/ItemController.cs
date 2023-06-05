@@ -7,7 +7,6 @@ public class ItemController : MonoBehaviour
 {
     [SerializeField] public int itemHp;
 
-
     // Bezier rate
     [Range (0f,1f)] public float rate;
     // Bezier position
@@ -34,6 +33,7 @@ public class ItemController : MonoBehaviour
         {
             Effect.Destroyfruits(this.gameObject);
             //execute animation
+            
         }
     }
 
