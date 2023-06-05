@@ -5,19 +5,19 @@ using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
-    public GameObject Panel_menu = null;
+    public GameObject Menu_Panel = null;
     // Start is called before the first frame update
 
     public void Click_Menu()
     {
         Time.timeScale = 0;
-        Panel_menu.SetActive(true);
+        Menu_Panel.SetActive(true);
     }
 
     public void Click_Continue()
     {
         Time.timeScale = 1;
-        Panel_menu.SetActive(false);
+        Menu_Panel.SetActive(false);
     }
 
     public void Click_Exit()
@@ -32,7 +32,7 @@ public class MenuController : MonoBehaviour
 
     void Start()
     {
-        Panel_menu.SetActive(false);
+        Menu_Panel.SetActive(false);
     }
 
     // Update is called once per frame

@@ -35,8 +35,7 @@ public class Generator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timeElapsed += Time.deltaTime;
-        if (timeElapsed >= span)
+        if(GameDirector.hp != 0)
         {
             SpawnFood();
             //SpawnFruit();
