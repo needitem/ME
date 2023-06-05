@@ -12,7 +12,6 @@ public class ItemController : MonoBehaviour
     public Vector2[] controllPosition;
     // End Bezier and Force
     private Rigidbody2D rb;
-
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();

@@ -116,6 +116,7 @@ public class PlayerController : MonoBehaviour
         Debug.Log("¿ÃπÃ¡ˆ22");
         if (collider.tag == "Target")
         {
+            
             Destroy(collider.gameObject);
             GameDirector.hp--;
             playerAnimator.SetTrigger("damaged");
