@@ -5,7 +5,6 @@ using System.Linq;
 
 public class PlayerController : MonoBehaviour
 {
-    Effect effect;
     private bool hasAttacked = false;
     private float lastAttackTime = -1f;
     private float doubleAttackTimeWindow = 0.2f;
@@ -16,24 +15,15 @@ public class PlayerController : MonoBehaviour
 
     bool isPunched = false;
     public bool isDelay = false; //attack delay
-    public Collider2D attackCollider;
-    public static int AtackCount = 0;
-
-    GameObject gEffect;
-    ItemController item;
     Animator playerAnimator;
     GameObject recipeCollision;
+    Effect effect;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         playerAnimator = GetComponent<Animator>();
-        recipeCollision = GameObject.Find("RecipeCollision");
-        gEffect = GameObject.Find("gEffect");
-
-        attackCollider.enabled = false;
-
-
+        effect = GetComponent<Effect>();
     }
 
     private void Update()
@@ -51,8 +41,9 @@ public class PlayerController : MonoBehaviour
             foreach (Collider2D collider in colliders)
             {
                 if (collider.tag == "Target")
-                {
-                    effect.PunchBack(collider);
+                {           
+                    Debug.Log(collider);  
+                    effect.PunchBack(collider);       
                 }
             }
             StartCoroutine(CountAttackDelay(0.4f));
@@ -120,11 +111,6 @@ public class PlayerController : MonoBehaviour
             playerAnimator.SetTrigger("damaged");
 
         }
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(pos.position, boxSize);
     }
 
 }
