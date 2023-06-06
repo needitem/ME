@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Recipe : MonoBehaviour
 {
     // to reduce hp
-    GameObject player = null;
+    private GameObject player;
 
     // Define recipes
     const int ingredientAmt = 3;
-    private int[] r1 = new int[ingredientAmt] { 1, 2, 3 };
-    private int[] r2 = new int[ingredientAmt] { 1, 2, 3 };
-    private int[] r3 = new int[ingredientAmt] { 1, 2, 3 };
-    private int[] randomRecipe = new int[ingredientAmt];
+    private int[] r1;
+    private int[] r2;
+    private int[] r3;
+    private int[] randomRecipe;
 
     //  recipe reset
     public void init()
@@ -27,21 +25,16 @@ public class Recipe : MonoBehaviour
     // Recipe Completion status
     public int IsRecipeComplete(int[] randomRecipe)
     {
-        int[] bit_array = { 0, 0, 0 };
         int bit = 0;
         
         // Recipe check 
-        for (int i = 0; i < bit_array.Length; i++)
+        for (int i = 0; i < randomRecipe.Length; i++)
         {
             if (randomRecipe[i] < 0)
             {
-                bit_array[i] = 1;
+                bit++;
             }
-            else bit_array[i] = 0;
         }
-
-        bit = bit_array[0] + bit_array[1] + bit_array[2];
-        
         // Recipe Success
         if (randomRecipe[0] == 0 && randomRecipe[1] == 0 && randomRecipe[2] == 0)
         {
@@ -57,9 +50,9 @@ public class Recipe : MonoBehaviour
 
         switch (randomIndex)
         {
-            case 0: randomRecipe = this.r1; break; 
-            case 1: randomRecipe = this.r2; break;
-            case 2: randomRecipe = this.r3; break;
+            case 0: randomRecipe = r1; break; 
+            case 1: randomRecipe = r2; break;
+            case 2: randomRecipe = r3; break;
         }
     }
     private void Start()
@@ -81,3 +74,5 @@ public class Recipe : MonoBehaviour
         }
     }
 }
+
+
