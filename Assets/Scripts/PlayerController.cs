@@ -31,10 +31,8 @@ public class PlayerController : MonoBehaviour
         recipeCollision = GameObject.Find("RecipeCollision");
 
         gEffect = GameObject.Find("Effect");
-        
 
         attackCollider.enabled = false;
-
 
     }
 
@@ -49,26 +47,9 @@ public class PlayerController : MonoBehaviour
 
         else if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked)
         {
-            //isPunched = true;
-            //playerAnimator.SetTrigger("punch");
+            
+            PunchBack();
 
-            //var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
-            //foreach (Collider2D collider in colliders)
-            //{
-            //    if (collider.tag == "Target")
-            //    {
-            //        //gEffect.PunchBack(collider);
-
-            //        gEffect.GetComponent<Effect>().PunchBack(collider);
-
-
-            //    }
-            //}
-            //StartCoroutine(CountAttackDelay(0.4f));
-            Pch();
-
-        }else if (Input.GetKeyDown(KeyCode.A)){
-            //
         }
 
         if (GameDirector.hp <= 0)
@@ -79,7 +60,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public void Pch()
+    public void PunchBack()
     {
         isPunched = true;
         playerAnimator.SetTrigger("punch");
@@ -90,9 +71,7 @@ public class PlayerController : MonoBehaviour
             if (collider.tag == "Target")
             {
                 Debug.Log("º¯¼ö : " + collider.gameObject);
-                //gEffect.PunchBack(collider);
-                //gEffect.GetComponent<Effect>().PunchBack(collider.gameObject);
-                //Effect.PunchBack(collider);
+                //gEffect.PunchBack(collider);     
 
                 Effect.Apply(collider.gameObject);
 

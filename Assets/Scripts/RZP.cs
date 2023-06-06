@@ -62,7 +62,7 @@ namespace RZP
 
             // 0.1s window ... 0.1*44100 = 4410 samples, lets adjust this to 3600 
             int sampleStep = 3600;
-            
+
             // calculate energy over windows of size sampleSetep
             List<double> energies = new List<double>();
             for (int i = 0; i < leftChn.Length - sampleStep - 1; i += sampleStep)
