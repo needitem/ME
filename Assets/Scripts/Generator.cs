@@ -31,8 +31,8 @@ public class Generator : MonoBehaviour
         mainfood = Resources.LoadAll<GameObject>("MainFood");
         subfood = Resources.LoadAll<GameObject>("SubFood");
 
-        bPMDetector = new BPMDetector("C:\\Users\\user\\Desktop\\music1 (online-audio-converter.com).wav");
-        StartCoroutine(MeasureBPM());
+       // bPMDetector = new BPMDetector("C:\\Users\\user\\Desktop\\music1 (online-audio-converter.com).wav");
+        //StartCoroutine(MeasureBPM());
 
     }
 
