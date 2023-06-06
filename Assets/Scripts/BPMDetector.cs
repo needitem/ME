@@ -11,11 +11,11 @@ namespace RZP
         private string filename = null;
         private short[] leftChn;
         private short[] rightChn;
-        private double BPM;
-        private double sampleRate = 44100;
-        private double trackLength = 0;
+        private float BPM;
+        private float sampleRate = 44100;
+        private float trackLength = 0;
 
-        public double getBPM()
+        public float getBPM()
         {
             return BPM;
         }
@@ -32,7 +32,7 @@ namespace RZP
             this.rightChn = rightChn;
             Detect();
         }
-
+        
         private void Detect()
         {
             if (filename != null)
@@ -61,7 +61,7 @@ namespace RZP
             trackLength = (float)leftChn.Length / sampleRate;
 
             // 0.1s window ... 0.1*44100 = 4410 samples, lets adjust this to 3600 
-            int sampleStep = 3600;
+            int sampleStep = 4410;
             
             // calculate energy over windows of size sampleSetep
             List<double> energies = new List<double>();
