@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -12,7 +11,7 @@ public class Effect : MonoBehaviour
     private static Effect et;
     static float pushPower = 20.0f;
 
-    // https://www.youtube.com/watch?v=lty5EXXkFRQ&t=14s //Âü°í
+    // https://www.youtube.com/watch?v=lty5EXXkFRQ&t=14s //ì°¸ê³ 
     private void Awake()
     {
         et = this;
@@ -25,8 +24,8 @@ public class Effect : MonoBehaviour
 
     public static IEnumerator ScaleTarget(GameObject target)
     {
-     
-        
+
+
         float currentScale = 1f;
         target.GetComponent<Collider2D>().enabled = false;
         while (currentScale <= maxScale)
@@ -38,11 +37,11 @@ public class Effect : MonoBehaviour
             yield return null; // Wait for one frame
         }
 
-        if(currentScale >= 5)
+        if (currentScale >= 5)
         {
             Destroy(target);
         }
-       
+
     }
 
     public static void Destroyfruits(GameObject gameObject)

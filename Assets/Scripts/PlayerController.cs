@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
     GameObject gEffect;
     ItemController item;
     Animator playerAnimator;
-    GameObject recipeCollision;
 
     private void Start()
     {
@@ -70,7 +69,7 @@ public class PlayerController : MonoBehaviour
         {
             if (collider.tag == "Target")
             {
-                Debug.Log("º¯¼ö : " + collider.gameObject);
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ : " + collider.gameObject);
                 //gEffect.PunchBack(collider);     
 
                 Effect.Apply(collider.gameObject);
