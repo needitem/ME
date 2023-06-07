@@ -6,7 +6,8 @@ public enum Ingredients
 {
     egg,
     red,
-    yellow
+    Yellow
+    //etc add more Ingredients
 }
 public class Recipe : MonoBehaviour
 {
@@ -48,7 +49,7 @@ public class Recipe : MonoBehaviour
 
     public void showRecipe()
     {
-        //display randomRecipe
+        //display 
     }
 
     public static void decreaseIngredient(string name)

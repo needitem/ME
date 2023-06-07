@@ -56,6 +56,7 @@ public class Generator : MonoBehaviour
         }
 
         spawn = Instantiate(foodPrefab, spawnPosition, Quaternion.identity);
+        spawn.name = foodPrefab.name;
         spawn.GetComponent<ItemController>().itemHp = itemHp;
 
         timeElapsed = 0f;
