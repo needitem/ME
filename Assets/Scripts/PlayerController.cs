@@ -60,6 +60,7 @@ public class PlayerController : MonoBehaviour
 
     public void Attack()
     {
+        hasAttacked = true;
         float currentTime = Time.time;
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
         if (!isDelay)
@@ -90,7 +91,7 @@ public class PlayerController : MonoBehaviour
             isDelay = true;
             StartCoroutine(CountAttackDelay(0.2f));
         }
-
+        StartCoroutine(CountAttackDelay(0.4f));
 
 
     }
