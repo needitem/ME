@@ -31,7 +31,7 @@ public class Generator : MonoBehaviour
     void Update()
     {
         timeElapsed += Time.deltaTime;
-        if (timeElapsed >= GetCurrentSpan())
+        if (timeElapsed >= GetCurrentSpan() && GameDirector.hp > 0)
         {
             SpawnFood();
             timeElapsed = 0;
@@ -56,6 +56,7 @@ public class Generator : MonoBehaviour
         }
 
         spawn = Instantiate(foodPrefab, spawnPosition, Quaternion.identity);
+        spawn.name = foodPrefab.name;
         spawn.GetComponent<ItemController>().itemHp = itemHp;
 
         timeElapsed = 0f;

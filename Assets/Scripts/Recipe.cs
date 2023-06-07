@@ -1,9 +1,18 @@
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
+public enum Ingredients
+{
+    egg,
+    red,
+    Yellow
+    //etc add more Ingredients
+}
 public class Recipe : MonoBehaviour
 {
     // to reduce hp
-    private GameObject player;
+    GameObject player = null;
 
     // Define recipes
     const int ingredientAmt = 3;
@@ -12,37 +21,19 @@ public class Recipe : MonoBehaviour
     private int[] r3;
     private int[] randomRecipe;
 
-    //  recipe reset
-    public void init()
-    {
-        r1 = new int[ingredientAmt] { 1, 2, 3 };
-        r2 = new int[ingredientAmt] { 1, 2, 3 };
-        r3 = new int[ingredientAmt] { 1, 2, 3 };
-        randomRecipe = new int[ingredientAmt];
-    }
 
-    // Check if the recipe is complete based on ingredient values
-    // Recipe Completion status
-    public int IsRecipeComplete(int[] randomRecipe)
+    public bool IsRecipeComplete(int[] randomRecipe)
     {
-        int bit = 0;
-        
-        // Recipe check 
-        for (int i = 0; i < randomRecipe.Length; i++)
+        foreach(int i in randomRecipe)
         {
-            if (randomRecipe[i] < 0)
+            if (i > 0)
             {
-                bit++;
+                return false;
             }
         }
-        // Recipe Success
-        if (randomRecipe[0] == 0 && randomRecipe[1] == 0 && randomRecipe[2] == 0)
-        {
-            bit = 1;
-        }
-        return bit;
+        return true;
     }
-    
+
     // Recioe random raw
     public void createRandomRecipe()
     {
@@ -50,29 +41,38 @@ public class Recipe : MonoBehaviour
 
         switch (randomIndex)
         {
-            case 0: randomRecipe = r1; break; 
+            case 0: randomRecipe = r1; break;
             case 1: randomRecipe = r2; break;
             case 2: randomRecipe = r3; break;
         }
     }
+
+    public void showRecipe()
+    {
+        //display 
+    }
+
+    public static void decreaseIngredient(string name)
+    {
+        Ingredients ingredient = (Ingredients)Enum.Parse(typeof(Ingredients), name);  
+        Debug.Log(ingredient);  
+    }
+
     private void Start()
     {
         player = GameObject.Find("Player");
+        r1 = new int[ingredientAmt] { 1, 2, 3 };
+        r2 = new int[ingredientAmt] { 1, 2, 3 };
+        r3 = new int[ingredientAmt] { 1, 2, 3 };
+        randomRecipe = new int[ingredientAmt];
         createRandomRecipe();
     }
 
     private void Update()
-    {
-        // Recipe reset status
-        if (IsRecipeComplete(randomRecipe) == 1)
+    {        // Recipe reset status
+        if (IsRecipeComplete(randomRecipe))
         {
-            player.GetComponent<Animator>().SetTrigger("damaged");
-            GameDirector.hp--;
-            init();
             createRandomRecipe();
-            Debug.Log("[0]" + randomRecipe[0] + "[1]" + randomRecipe[1] + "[2]" + randomRecipe[2]);
         }
     }
 }
-
-

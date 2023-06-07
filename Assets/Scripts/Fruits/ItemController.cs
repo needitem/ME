@@ -48,7 +48,7 @@ public class ItemController : MonoBehaviour
             }
             Vector2 rightForce = Vector2.right * 250.0f;
             rb.AddForce(rightForce);
-            rb.gravityScale = 15f; // Áß·Â Àû¿ë
+            rb.gravityScale = 15f; // ï¿½ß·ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 
             
