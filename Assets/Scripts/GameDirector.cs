@@ -25,7 +25,7 @@ public class GameDirector : MonoBehaviour
     {
         HandleHp();
 
-        if (hp == 0)
+        if (hp <= 0)
         {
             Invoke("ActivateScorePanel", 3f);
         }
@@ -33,26 +33,11 @@ public class GameDirector : MonoBehaviour
 
     public void HandleHp()
     {
-        hpBar.value = (float)hp / (float)maxHp;
+        hpBar.value = (float)hp / maxHp;
     }
 
     public void ActivateScorePanel()
     {
         Score_Panel.SetActive(true);
-    }
-
-    public void changeScene1()
-    {
-        SceneManager.LoadScene("GameScene");
-    }
-
-    public void changeScene2()
-    {
-        SceneManager.LoadScene("FinishScene");
-    }
-
-    public void changeScene3()
-    {
-        SceneManager.LoadScene("TitleScene");
     }
 }

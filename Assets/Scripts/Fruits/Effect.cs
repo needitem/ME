@@ -1,6 +1,4 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -24,8 +22,6 @@ public class Effect : MonoBehaviour
 
     public static IEnumerator ScaleTarget(GameObject target)
     {
-
-
         float currentScale = 1f;
         target.GetComponent<Collider2D>().enabled = false;
         while (currentScale <= maxScale)
@@ -36,7 +32,6 @@ public class Effect : MonoBehaviour
             currentScale += growthRate;
             yield return null; // Wait for one frame
         }
-
         if (currentScale >= 5)
         {
             Destroy(target);

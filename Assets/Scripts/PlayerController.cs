@@ -5,32 +5,20 @@ using System.Linq;
 
 public class PlayerController : MonoBehaviour
 {
-    Effect effect;
     private bool hasAttacked = false;
     private float lastAttackTime = -1f;
     private float doubleAttackTimeWindow = 0.2f;
 
     public Vector2 boxSize;
     public Transform pos;
-    public Animator animator;
-
     bool isPunched = false;
     public bool isDelay = false; //attack delay
     public Collider2D attackCollider;
-    public static int AtackCount = 0;
-
-    GameObject gEffect;
-    ItemController item;
     Animator playerAnimator;
 
     private void Start()
     {
-        animator = GetComponent<Animator>();
         playerAnimator = GetComponent<Animator>();
-        //recipeCollision = GameObject.Find("RecipeCollision");
-
-        gEffect = GameObject.Find("Effect");
-
         attackCollider.enabled = false;
 
     }
@@ -39,16 +27,14 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isPunched)
         {
-            //gGenerator.GetComponent<Generator>().Destroyfruits();
-            //recipeCollision.GetComponent<Recipe>().OnRecipeCollision();
             Attack();
         }
 
+       
+
         else if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked)
         {
-            
             PunchBack();
-
         }
 
         if (GameDirector.hp <= 0)
@@ -69,11 +55,7 @@ public class PlayerController : MonoBehaviour
         {
             if (collider.tag == "Target")
             {
-                Debug.Log("���� : " + collider.gameObject);
-                //gEffect.PunchBack(collider);     
-
                 Effect.Apply(collider.gameObject);
-
             }
         }
         StartCoroutine(CountAttackDelay(0.4f));
@@ -81,23 +63,17 @@ public class PlayerController : MonoBehaviour
 
     public void Attack()
     {
-
         float currentTime = Time.time;
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
-
-
         if (!isDelay)
         {
-
             playerAnimator.SetTrigger("attack");
             foreach (Collider2D collider in colliders)
             {
-
                 if (collider.tag == "Target")
                 {
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
-                    //Debug.Log("Hp : " + collider.gameObject.GetComponent<ItemController>().itemHp);
-                }
+               }
             }
             isDelay = true;
             lastAttackTime = currentTime;
@@ -112,7 +88,6 @@ public class PlayerController : MonoBehaviour
                 if (collider.tag == "Target")
                 {
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
-                    //Debug.Log("Hp : " + collider.gameObject.GetComponent<ItemController>().itemHp);
                 }
             }
             isDelay = true;
@@ -133,14 +108,11 @@ public class PlayerController : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collider)
     {
-
         if (collider.tag == "Target")
         {
-
             Destroy(collider.gameObject);
             GameDirector.hp--;
             playerAnimator.SetTrigger("damaged");
-
         }
     }
     private void OnDrawGizmos()

@@ -1,51 +1,42 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using RZP;
 
 public class Generator : MonoBehaviour
 {
     public GameObject[] mainfood;
     public GameObject[] subfood;
-
-    private BPMDetector bPMDetector;
     private GameObject spawn;
-    private int MainRandomIndex;
-    private int SubRandomIndex;
+    private float[][] spanArray = new float[][]
+    {
+        new float[] {1.0f, 1.0f, 1.0f, 1.0f},
+        new float[] {1.0f, 0.5f, 0.5f, 1.0f,1.0f},
+        new float[] {0.4f, 0.4f, 0.7f, 0.5f, 1.0f},
+        new float[] {0.25f, 0.25f, 0.6f, 0.8f, 0.6f, 1.0f, 0.5f},
+        new float[] {0.6f, 0.9f,0.5f, 1.0f}
+    };
+
     private float timeElapsed = 0f;
+    private int rowIndex = 0;
+    private int colIndex = 0;
+
     public float span = 1.3f;
+
 
     void Start()
     {
-        mainfood = Resources.LoadAll<GameObject>("MainFood");
-        subfood = Resources.LoadAll<GameObject>("SubFood");
-
-        //bPMDetector = new BPMDetector("C:\\Users\\user\\Desktop\\Music_1.wav");
-        //StartCoroutine(MeasureBPM());
+        mainfood = Resources.LoadAll<GameObject>("Prefabs/MainFood");
+        subfood = Resources.LoadAll<GameObject>("Prefabs/SubFood");
+        rowIndex = Random.Range(0, spanArray.Length);
     }
 
     void Update()
     {
         timeElapsed += Time.deltaTime;
-
-        if (timeElapsed >= span)
+        if (timeElapsed >= GetCurrentSpan())
         {
             SpawnFood();
             timeElapsed = 0;
         }
     }
-
-    IEnumerator MeasureBPM()
-    {
-        yield return new WaitForSeconds(1f);
-
-        float bpm = bPMDetector.getBPM();
-
-        span = 60f / bpm;
-
-        SpawnFood();
-    }
-
     public void SpawnFood()
     {
         Vector3 spawnPosition = new Vector3(15, 1.5f, 1);
@@ -66,5 +57,29 @@ public class Generator : MonoBehaviour
 
         spawn = Instantiate(foodPrefab, spawnPosition, Quaternion.identity);
         spawn.GetComponent<ItemController>().itemHp = itemHp;
+
+        timeElapsed = 0f;
+        if (colIndex == spanArray[rowIndex].Length - 1)
+        {
+            UpdateIndices();
+        }
+        else
+        {
+            colIndex++;
+        }
     }
+    private float GetCurrentSpan()
+    {
+
+        return spanArray[rowIndex][colIndex];
+    }
+
+    private void UpdateIndices()
+    {
+        rowIndex = Random.Range(0, spanArray.Length);
+        colIndex = 0;
+    }
+
 }
+
+
