@@ -13,13 +13,13 @@ public class PlayerController : MonoBehaviour
     public Transform pos;
     bool isPunched = false;
     public bool isDelay = false; //attack delay
-    public Collider2D attackCollider;
+    //public Collider2D attackCollider;
     Animator playerAnimator;
 
     private void Start()
     {
         playerAnimator = GetComponent<Animator>();
-        attackCollider.enabled = false;
+        //attackCollider.enabled = false;
 
     }
 
@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
                 if (collider.tag == "Target")
                 {
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
-               }
+                }
             }
             isDelay = true;
             lastAttackTime = currentTime;
