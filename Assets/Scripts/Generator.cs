@@ -23,8 +23,8 @@ public class Generator : MonoBehaviour
 
     void Start()
     {
-        mainfood = Resources.LoadAll<GameObject>("MainFood");
-        subfood = Resources.LoadAll<GameObject>("SubFood");
+        mainfood = Resources.LoadAll<GameObject>("Prefabs/MainFood");
+        subfood = Resources.LoadAll<GameObject>("Prefabs/SubFood");
         rowIndex = Random.Range(0, spanArray.Length);
     }
 
