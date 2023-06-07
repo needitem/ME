@@ -5,6 +5,7 @@ public class Generator : MonoBehaviour
     public GameObject[] mainfood;
     public GameObject[] subfood;
     private GameObject spawn;
+    private GameObject NPC;
     private float[][] spanArray = new float[][]
     {
         new float[] {1.0f, 1.0f, 1.0f, 1.0f},
@@ -26,6 +27,7 @@ public class Generator : MonoBehaviour
         mainfood = Resources.LoadAll<GameObject>("Prefabs/MainFood");
         subfood = Resources.LoadAll<GameObject>("Prefabs/SubFood");
         rowIndex = Random.Range(0, spanArray.Length);
+        NPC = GameObject.Find("NPC");
     }
 
     void Update()
@@ -33,6 +35,7 @@ public class Generator : MonoBehaviour
         timeElapsed += Time.deltaTime;
         if (timeElapsed >= GetCurrentSpan() && GameDirector.hp > 0)
         {
+            NPC.GetComponent<NPCController>().Drawing();
             SpawnFood();
             timeElapsed = 0;
         }
@@ -71,7 +74,6 @@ public class Generator : MonoBehaviour
     }
     private float GetCurrentSpan()
     {
-
         return spanArray[rowIndex][colIndex];
     }
 

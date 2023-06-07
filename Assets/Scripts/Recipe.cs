@@ -34,6 +34,18 @@ public class Recipe : MonoBehaviour
         return true;
     }
 
+    public bool IsRecipeWrong(int[] randomRecipe)
+    {
+        foreach (int i in randomRecipe)
+        {
+            if (i < 0)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     // Recioe random raw
     public void createRandomRecipe()
     {
@@ -47,7 +59,7 @@ public class Recipe : MonoBehaviour
         }
     }
 
-    public void showRecipe()
+    public void showLeftoverRecipe()
     {
         //display 
     }
