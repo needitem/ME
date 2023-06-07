@@ -5,15 +5,14 @@ using UnityEditor;
 
 public class ItemController : MonoBehaviour
 {
+    [SerializeField] public int itemHp;
+
     // Bezier rate
     [Range (0f,1f)] public float rate;
     // Bezier position
     public Vector2[] controllPosition;
     // End Bezier and Force
     private Rigidbody2D rb;
-
-   
-
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -28,6 +27,13 @@ public class ItemController : MonoBehaviour
         {
             Vector2 pushForce = Vector2.left * 250.0f;
             rb.AddForce(pushForce);          
+        }
+
+        if (itemHp <= 0)
+        {
+            Effect.Destroyfruits(this.gameObject);
+            //execute animation
+            
         }
     }
 
@@ -80,4 +86,5 @@ public class Test_Editor : Editor
             Handles.DrawLine(Before, After);
         }
     }
+
 }

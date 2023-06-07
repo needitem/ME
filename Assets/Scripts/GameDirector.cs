@@ -6,17 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class GameDirector : MonoBehaviour
 {
-    [SerializeField] private Slider hpBar;
-    [SerializeField] private int maxHp = 10;
-   
-    
+    [SerializeField] public Slider hpBar;
+    [SerializeField] public int maxHp = 10;
+    [SerializeField] public GameObject Score_Panel = null;
+
     static public int hp;
     // Start is called before the first frame update
     void Start()
     {
+        Score_Panel.SetActive(false);
         hp = maxHp;
         hpBar.value = (float)hp / (float)maxHp;
-        
+        Time.timeScale = 1;
     }
 
     // Update is called once per frame
@@ -24,18 +25,19 @@ public class GameDirector : MonoBehaviour
     {
         HandleHp();
 
-        if (hp == 0)
+        if (hp <= 0)
         {
-            changeSceneTo("FinishScene");
+            Invoke("ActivateScorePanel", 3f);
         }
     }
 
-    private void HandleHp()
+    public void HandleHp()
     {
-        hpBar.value = (float)hp / (float)maxHp;
+        hpBar.value = (float)hp / maxHp;
     }
-    public void changeSceneTo(string sceneName)
+
+    public void ActivateScorePanel()
     {
-        SceneManager.LoadScene(sceneName);
+        Score_Panel.SetActive(true);
     }
 }
