@@ -46,6 +46,11 @@ public class Recipe : MonoBehaviour
         }
     }
 
+    public void showRecipe()
+    {
+        //display randomRecipe
+    }
+
     public static void decreaseIngredient(string name)
     {
         Ingredients ingredient = (Ingredients)Enum.Parse(typeof(Ingredients), name);  
