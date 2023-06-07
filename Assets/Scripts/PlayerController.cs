@@ -27,7 +27,7 @@ public class PlayerController : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         playerAnimator = GetComponent<Animator>();
-        recipeCollision = GameObject.Find("RecipeCollision");
+        //recipeCollision = GameObject.Find("RecipeCollision");
 
         gEffect = GameObject.Find("Effect");
 
