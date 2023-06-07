@@ -32,6 +32,8 @@ public class ItemController : MonoBehaviour
         if (itemHp <= 0)
         {
             Effect.Destroyfruits(this.gameObject);
+            Recipe.decreaseIngredient(this.name);
+            Debug.Log(this.name);
             //execute animation
             
         }

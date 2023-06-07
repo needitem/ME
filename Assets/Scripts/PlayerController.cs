@@ -70,8 +70,7 @@ public class PlayerController : MonoBehaviour
                 if (collider.tag == "Target")
                 {
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
-                    Recipe.decreaseIngredient(collider.name);
-               }
+                }
             }
             isDelay = true;
             lastAttackTime = currentTime;
