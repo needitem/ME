@@ -5,8 +5,10 @@ using Random = UnityEngine.Random;
 public enum Ingredients
 {
     egg,
-    red,
-    Yellow
+    Red,
+    Yellow,
+    Green,
+    
     //etc add more Ingredients
 }
 public class Recipe : MonoBehaviour

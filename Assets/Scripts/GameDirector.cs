@@ -40,4 +40,18 @@ public class GameDirector : MonoBehaviour
     {
         Score_Panel.SetActive(true);
     }
+
+    public void changeScene1()
+    {
+        SceneManager.LoadScene("GameScene");
+    }
+    public void changeScene2()
+    {
+        SceneManager.LoadScene("FinishScene");
+    }
+
+    public void changeScene3()
+    {
+        SceneManager.LoadScene("TitleScene");
+    }
 }

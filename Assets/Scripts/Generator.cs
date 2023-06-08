@@ -38,12 +38,20 @@ public class Generator : MonoBehaviour
             NPC.GetComponent<NPCController>().Drawing();
             SpawnFood();
             timeElapsed = 0;
+
+            if (colIndex == spanArray[rowIndex].Length - 1)
+            {
+                UpdateIndices();
+            }
+            else
+            {
+                colIndex++;
+            }
         }
     }
     public void SpawnFood()
     {
         Vector3 spawnPosition = new Vector3(15, 1.5f, 1);
-
         GameObject foodPrefab;
         int itemHp;
 
@@ -61,16 +69,6 @@ public class Generator : MonoBehaviour
         spawn = Instantiate(foodPrefab, spawnPosition, Quaternion.identity);
         spawn.name = foodPrefab.name;
         spawn.GetComponent<ItemController>().itemHp = itemHp;
-
-        timeElapsed = 0f;
-        if (colIndex == spanArray[rowIndex].Length - 1)
-        {
-            UpdateIndices();
-        }
-        else
-        {
-            colIndex++;
-        }
     }
     private float GetCurrentSpan()
     {
