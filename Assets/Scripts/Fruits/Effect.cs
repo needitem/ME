@@ -38,14 +38,4 @@ public class Effect : MonoBehaviour
         }
 
     }
-
-    public static void Destroyfruits(GameObject gameObject)
-    {
-        //Play Animation here
-        if (gameObject.transform.position.y <= -6)
-        {
-            Destroy(gameObject);
-        }
-    }
-
 }

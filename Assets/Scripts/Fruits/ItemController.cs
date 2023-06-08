@@ -7,16 +7,18 @@ public class ItemController : MonoBehaviour
 {
     [SerializeField] public int itemHp;
 
-    bool isMove = false;
+    bool executeOnlyOnce = true;
     // Bezier rate
     [Range(0f, 1f)] public float rate;
     // Bezier position
     public Vector2[] controllPosition;
     // End Bezier and Force
     public Rigidbody2D rb;
+    Animator itemAnimator;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        itemAnimator = GetComponent<Animator>();
     }
 
  
@@ -41,10 +43,11 @@ public class ItemController : MonoBehaviour
 
         if (itemHp <= 0)
         {
-            if (!isMove)
+            if (executeOnlyOnce)
             {
+               // itemAnimator.SetTrigger("slice");
                 rb.MovePosition(new Vector2(4f, 3f));
-                isMove = true;
+                executeOnlyOnce = false;
             }
             Vector2 rightForce = Vector2.right * 250.0f;
             rb.AddForce(rightForce);
