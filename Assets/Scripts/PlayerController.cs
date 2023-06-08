@@ -52,7 +52,9 @@ public class PlayerController : MonoBehaviour
         {
             if (collider.tag == "Target")
             {
+               
                 Effect.Apply(collider.gameObject);
+                
             }
         }
         StartCoroutine(CountAttackDelay(0.4f));
@@ -91,7 +93,7 @@ public class PlayerController : MonoBehaviour
             isDelay = true;
             StartCoroutine(CountAttackDelay(0.2f));
         }
-        StartCoroutine(CountAttackDelay(0.4f));
+     
 
 
     }
