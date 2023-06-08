@@ -38,12 +38,4 @@ public class Effect : MonoBehaviour
         }
 
     }
-
-    public static void Destroyfruits(GameObject gameObject)
-    {
-        //Play Animation here
-        Destroy(gameObject);
-
-    }
-
 }

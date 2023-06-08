@@ -7,35 +7,51 @@ public class ItemController : MonoBehaviour
 {
     [SerializeField] public int itemHp;
 
+    bool executeOnlyOnce = true;
     // Bezier rate
-    [Range (0f,1f)] public float rate;
+    [Range(0f, 1f)] public float rate;
     // Bezier position
     public Vector2[] controllPosition;
     // End Bezier and Force
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
+    Animator itemAnimator;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        itemAnimator = GetComponent<Animator>();
     }
 
+ 
+
     private void FixedUpdate()
-    { 
+    {
+        if (gameObject.transform.position.y <= -3f)
+        {
+            Destroy(gameObject);
+        }
+
         rate += Time.deltaTime;
         transform.position = BezierTest(controllPosition[0], controllPosition[1], controllPosition[2], controllPosition[3], rate);
+        
 
         if (rate >= 1f)
         {
             Vector2 pushForce = Vector2.left * 250.0f;
-            rb.AddForce(pushForce);          
+            rb.AddForce(pushForce);
         }
+
 
         if (itemHp <= 0)
         {
-            Effect.Destroyfruits(this.gameObject);
-            Recipe.decreaseIngredient(this.name);
-            Debug.Log(this.name);
-            //execute animation
-            
+            if (executeOnlyOnce)
+            {
+               // itemAnimator.SetTrigger("slice");
+                rb.MovePosition(new Vector2(4f, 3f));
+                executeOnlyOnce = false;
+            }
+            Vector2 rightForce = Vector2.right * 250.0f;
+            rb.AddForce(rightForce);
+            rb.gravityScale = 15f; // �߷� ����
         }
     }
 
@@ -50,8 +66,10 @@ public class ItemController : MonoBehaviour
         Vector2 E = Vector2.Lerp(B, C, value);
 
         Vector2 F = Vector2.Lerp(D, E, value);
-        return F; 
+        return F;
     }
+
+
 }
 
 // Bezier graphic area

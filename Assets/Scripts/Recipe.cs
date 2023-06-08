@@ -5,8 +5,11 @@ using Random = UnityEngine.Random;
 public enum Ingredients
 {
     egg,
-    red,
-    yellow
+    Red,
+    Yellow,
+    Green,
+    
+    //etc add more Ingredients
 }
 public class Recipe : MonoBehaviour
 {
@@ -33,6 +36,18 @@ public class Recipe : MonoBehaviour
         return true;
     }
 
+    public bool IsRecipeWrong(int[] randomRecipe)
+    {
+        foreach (int i in randomRecipe)
+        {
+            if (i < 0)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     // Recioe random raw
     public void createRandomRecipe()
     {
@@ -46,9 +61,9 @@ public class Recipe : MonoBehaviour
         }
     }
 
-    public void showRecipe()
+    public void showLeftoverRecipe()
     {
-        //display randomRecipe
+        //display 
     }
 
     public static void decreaseIngredient(string name)
