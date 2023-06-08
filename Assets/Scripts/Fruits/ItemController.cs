@@ -7,34 +7,54 @@ public class ItemController : MonoBehaviour
 {
     [SerializeField] public int itemHp;
 
+    bool isMove = false;
     // Bezier rate
-    [Range (0f,1f)] public float rate;
+    [Range(0f, 1f)] public float rate;
     // Bezier position
     public Vector2[] controllPosition;
     // End Bezier and Force
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
+
+
     private void FixedUpdate()
-    { 
+    {
+        if (gameObject.transform.position.y <= -2f)
+        {
+            Destroy(gameObject);
+        }
+
         rate += Time.deltaTime;
         transform.position = BezierTest(controllPosition[0], controllPosition[1], controllPosition[2], controllPosition[3], rate);
+
 
         if (rate >= 1f)
         {
             Vector2 pushForce = Vector2.left * 250.0f;
-            rb.AddForce(pushForce);          
+            rb.AddForce(pushForce);
         }
+
 
         if (itemHp <= 0)
         {
-            Effect.Destroyfruits(this.gameObject);
-            //execute animation
-            
+            if (!isMove)
+            {
+                rb.MovePosition(new Vector2(4f, 3f));
+                isMove = true;
+            }
+            Vector2 rightForce = Vector2.right * 250.0f;
+            rb.AddForce(rightForce);
+            rb.gravityScale = 15f; // 중력 적용
+
+
+
         }
+
+
     }
 
     // https://www.youtube.com/watch?v=KTEX2L4T4zE
@@ -48,8 +68,10 @@ public class ItemController : MonoBehaviour
         Vector2 E = Vector2.Lerp(B, C, value);
 
         Vector2 F = Vector2.Lerp(D, E, value);
-        return F; 
+        return F;
     }
+
+
 }
 
 // Bezier graphic area

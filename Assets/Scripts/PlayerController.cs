@@ -15,11 +15,12 @@ public class PlayerController : MonoBehaviour
     public bool isDelay = false; //attack delay
     public Collider2D attackCollider;
     Animator playerAnimator;
-
+  
     private void Start()
     {
         playerAnimator = GetComponent<Animator>();
         attackCollider.enabled = false;
+        
 
     }
 
@@ -55,6 +56,7 @@ public class PlayerController : MonoBehaviour
         {
             if (collider.tag == "Target")
             {
+                katana_effect.isPunch = true;
                 Effect.Apply(collider.gameObject);
             }
         }
@@ -72,6 +74,8 @@ public class PlayerController : MonoBehaviour
             {
                 if (collider.tag == "Target")
                 {
+                    katana_effect.isHit = true;
+                    
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
                }
             }
@@ -87,6 +91,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (collider.tag == "Target")
                 {
+                    katana_effect.isDoubleHit = true;
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
                 }
             }

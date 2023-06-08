@@ -28,7 +28,7 @@ public class Effect : MonoBehaviour
         {
             target.GetComponent<Rigidbody2D>().AddForce(new Vector2(1, 1) * pushPower, ForceMode2D.Impulse);
 
-            target.transform.localScale = new Vector3(currentScale, currentScale, 1f);
+            target.transform.localScale = new Vector3(currentScale, currentScale, 0);
             currentScale += growthRate;
             yield return null; // Wait for one frame
         }
@@ -39,11 +39,12 @@ public class Effect : MonoBehaviour
 
     }
 
+    /*
     public static void Destroyfruits(GameObject gameObject)
     {
         //Play Animation here
         Destroy(gameObject);
 
-    }
+    }*/
 
 }
