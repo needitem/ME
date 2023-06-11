@@ -28,9 +28,6 @@ public class PlayerController : MonoBehaviour
         {
             Attack();
         }
-
-
-
         else if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked)
         {
             PunchBack();
@@ -78,6 +75,8 @@ public class PlayerController : MonoBehaviour
                 {
                     katana_effect.isHit = true;
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
+                    Recipe.decreaseIngredient(collider.name);
+
                 }
             }
             isDelay = true;
@@ -94,6 +93,7 @@ public class PlayerController : MonoBehaviour
                 {
                     katana_effect.isDoubleHit = true;
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
+                    Recipe.decreaseIngredient(collider.name);
                 }
             }
             isDelay = true;
