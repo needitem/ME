@@ -1,5 +1,3 @@
-
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,27 +5,71 @@ using UnityEditor;
 
 public class ItemController : MonoBehaviour
 {
-    [Range (0f,1f)] public float rate;
+    [SerializeField] public int itemHp;
+    public int Punch_hp = 1;
 
+    bool executeOnlyOnce = true;
+    // Bezier rate
+    [Range(0f, 1f)] public float rate;
+    // Bezier position
     public Vector2[] controllPosition;
-   
-    private Rigidbody2D rb;
-
+    // End Bezier and Force
+    public Rigidbody2D rb;
+    Animator itemAnimator;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        itemAnimator = GetComponent<Animator>();
     }
 
+
+
     private void FixedUpdate()
-    { 
+    {
+        if (gameObject.transform.position.y <= -3f)
+        {
+            Destroy(gameObject);
+        }
+
+
         rate += Time.deltaTime;
         transform.position = BezierTest(controllPosition[0], controllPosition[1], controllPosition[2], controllPosition[3], rate);
+        
+
 
         if (rate >= 1f)
         {
             Vector2 pushForce = Vector2.left * 250.0f;
             rb.AddForce(pushForce);
         }
+
+
+        if (itemHp <= 0)
+        {
+            if (executeOnlyOnce)
+            {
+                // itemAnimator.SetTrigger("slice");
+                rb.MovePosition(new Vector2(4f, 3f));
+                executeOnlyOnce = false;
+            }
+            Vector2 rightForce = Vector2.right * 250.0f;
+            rb.AddForce(rightForce);
+            rb.gravityScale = 15f; // �߷� ����
+        }
+
+        if(Punch_hp <= 0)
+        {
+            if (executeOnlyOnce)
+            {       
+                rb.MovePosition(new Vector2(4f, 2.6f));
+                executeOnlyOnce = false;
+            }
+            Vector2 rightForce = new Vector2(260.0f, 50f);
+            rb.AddForce(rightForce);
+            Effect.Apply(gameObject);
+        }
+
+
     }
 
     // https://www.youtube.com/watch?v=KTEX2L4T4zE
@@ -41,27 +83,34 @@ public class ItemController : MonoBehaviour
         Vector2 E = Vector2.Lerp(B, C, value);
 
         Vector2 F = Vector2.Lerp(D, E, value);
-        return F; 
+        return F;
     }
+
+
 }
 
-
+// Bezier graphic area
 [CanEditMultipleObjects]
 [CustomEditor(typeof(ItemController))]
 public class Test_Editor : Editor
 {
     private void OnSceneGUI()
     {
+        // Current Object Reference
         ItemController Generator = (ItemController)target;
 
+        // Object Control 
         Generator.controllPosition[0] = Handles.PositionHandle(Generator.controllPosition[0], Quaternion.identity);
         Generator.controllPosition[1] = Handles.PositionHandle(Generator.controllPosition[1], Quaternion.identity);
         Generator.controllPosition[2] = Handles.PositionHandle(Generator.controllPosition[2], Quaternion.identity);
         Generator.controllPosition[3] = Handles.PositionHandle(Generator.controllPosition[3], Quaternion.identity);
 
+        // pos[0], pos[1] connetion
         Handles.DrawLine(Generator.controllPosition[0], Generator.controllPosition[1]);
+        // pos[2], pos[3] connetion
         Handles.DrawLine(Generator.controllPosition[2], Generator.controllPosition[3]);
 
+        // It gets smoother as the count goes up.
         int Count = 50;
         for (float i = 0; i < Count; i++)
         {
@@ -74,4 +123,5 @@ public class Test_Editor : Editor
             Handles.DrawLine(Before, After);
         }
     }
+
 }
