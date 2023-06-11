@@ -24,6 +24,7 @@ public class katana_effect : MonoBehaviour
         if (isHit == true)
         {
             this.katanaAni.SetTrigger("attack");
+
             isHit = false;
         }
 

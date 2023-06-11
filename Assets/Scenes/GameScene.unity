@@ -3651,6 +3651,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boxSize: {x: 1, y: 2}
   pos: {fileID: 1105456520}
+  isPunched: 0
   isDelay: 0
 --- !u!1001 &1714096367
 PrefabInstance:
