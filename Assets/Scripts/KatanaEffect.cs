@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class katana_effect : MonoBehaviour
+public class KatanaEffect : MonoBehaviour
 {
     Animator katanaAni;
     void Start()
@@ -10,18 +10,18 @@ public class katana_effect : MonoBehaviour
         katanaAni = GetComponent<Animator>();
     }
 
-    public static void Hit()
+    public static void Punch()
     {
-        katanaAni.SetTrigger("attack");
+        katanaAni.SetTrigger("punch");
     }
 
-    public static void DoubleHit()
+    public static void DoubleAttack()
     {
         katanaAni.SetTrigger("double_attack");
     }
 
-    public static void Punch()
+    public static void attack()
     {
-        katanaAni.SetTrigger("punch");
+        katanaAni.SetTrigger("attack");
     }
 }

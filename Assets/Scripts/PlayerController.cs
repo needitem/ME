@@ -11,14 +11,15 @@ public class PlayerController : MonoBehaviour
 
     public Vector2 boxSize;
     public Transform pos;
-    bool isPunched = false;
+    public bool isPunched = false;
     public bool isDelay = false; //attack delay
-    Animator playerAnimator;
+    Animator playerAnimator, katanaAnimator;
 
     
     private void Start()
     {
         playerAnimator = GetComponent<Animator>();
+        katanaAnimator = GetComponent<Animator>();
     }
 
     private void Update()
@@ -53,8 +54,11 @@ public class PlayerController : MonoBehaviour
         {
             if (collider.tag == "Target")
             {
-                //katana_effect.Punch();
-                Effect.Apply(collider.gameObject);
+                
+                KatanaEffect.Punch();
+                collider.gameObject.GetComponent<ItemController>().Punch_hp--;
+                
+                
             }
         }
         StartCoroutine(CountAttackDelay(0.4f));
@@ -73,7 +77,6 @@ public class PlayerController : MonoBehaviour
                 if (collider.tag == "Target")
                 {
                     katana_effect.isHit = true;
-                    
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
                 }
             }
@@ -96,7 +99,7 @@ public class PlayerController : MonoBehaviour
             isDelay = true;
             StartCoroutine(CountAttackDelay(0.2f));
         }
-        StartCoroutine(CountAttackDelay(0.4f));
+     
 
 
     }
