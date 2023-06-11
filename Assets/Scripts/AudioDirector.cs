@@ -10,7 +10,7 @@ public class AudioDirector : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
     }
-
+    //¼öÁ¤
     public void PlaySound(string AudioURL)
     {
         AudioClip audioClip = Resources.Load<AudioClip>(AudioURL);
