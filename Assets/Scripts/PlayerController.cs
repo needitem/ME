@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     public bool isDelay = false; //attack delay
     Animator playerAnimator;
 
+    
     private void Start()
     {
         playerAnimator = GetComponent<Animator>();
@@ -27,7 +28,7 @@ public class PlayerController : MonoBehaviour
             Attack();
         }
 
-       
+
 
         else if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked)
         {
@@ -52,6 +53,7 @@ public class PlayerController : MonoBehaviour
         {
             if (collider.tag == "Target")
             {
+                //katana_effect.Punch();
                 Effect.Apply(collider.gameObject);
             }
         }
@@ -70,6 +72,8 @@ public class PlayerController : MonoBehaviour
             {
                 if (collider.tag == "Target")
                 {
+                    katana_effect.isHit = true;
+                    
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
                 }
             }
@@ -85,6 +89,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (collider.tag == "Target")
                 {
+                    katana_effect.isDoubleHit = true;
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
                 }
             }

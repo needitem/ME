@@ -5,39 +5,23 @@ using UnityEngine;
 public class katana_effect : MonoBehaviour
 {
     Animator katanaAni;
-    public static bool isHit;
-    public static bool isDoubleHit;
-    public static bool isPunch;
-    // Start is called before the first frame update
     void Start()
     {
         katanaAni = GetComponent<Animator>();
-        isHit = false;
-        isDoubleHit = false;
-        isPunch = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    public static void Hit()
     {
+        katanaAni.SetTrigger("attack");
+    }
 
-        if (isHit == true)
-        {
-            this.katanaAni.SetTrigger("attack");
-            isHit = false;
-        }
+    public static void DoubleHit()
+    {
+        katanaAni.SetTrigger("double_attack");
+    }
 
-        if (isDoubleHit == true)
-        {
-            this.katanaAni.SetTrigger("double_attack");
-            isDoubleHit = false;
-        }
-
-        if (isPunch == true) 
-        {
-            this.katanaAni.SetTrigger("punch");
-            isPunch = false;
-        }
-
+    public static void Punch()
+    {
+        katanaAni.SetTrigger("punch");
     }
 }
