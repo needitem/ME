@@ -5,7 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Target
-  - AttackRange
+  - vegetable
   layers:
   - Default
   - TransparentFX
