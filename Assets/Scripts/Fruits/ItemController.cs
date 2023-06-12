@@ -6,10 +6,6 @@ using UnityEditor;
 public class ItemController : MonoBehaviour
 {
     [SerializeField] public int itemHp;
-<<<<<<< HEAD
-    public int Punch_hp = 1;
-=======
->>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
 
     bool executeOnlyOnce = true;
     // Bezier rate

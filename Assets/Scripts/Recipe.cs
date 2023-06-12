@@ -23,11 +23,8 @@ public class Recipe : MonoBehaviour
     private int[] r3;
     public static int[] randomRecipe = new int[ingredientAmt];
 
-<<<<<<< HEAD
-=======
     public static int RecipeIndex = 0;
 
->>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
     public bool IsRecipeComplete(int[] randomRecipe)
     {
         foreach (int i in randomRecipe)
@@ -54,26 +51,16 @@ public class Recipe : MonoBehaviour
 
     public void init()
     {
-<<<<<<< HEAD
-        r1 = new int[ingredientAmt] { 1, 0, 0, 0, 0, 1, 1 };  // ·¹½ÃÇÇ 1: beef + onion + carrot
-=======
-        r1 = new int[ingredientAmt] { 2, 0, 0, 0, 0, 1, 1 };  // ·¹½ÃÇÇ 1: beef + onion + carrot
->>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
-        r2 = new int[ingredientAmt] { 0, 1, 0, 1, 1, 1, 0 };  // ·¹½ÃÇÇ 2: chicken + onion + depa + egg
-        r3 = new int[ingredientAmt] { 0, 0, 1, 1, 0, 1, 0 };  // ·¹½ÃÇÇ 3: fish + depa + onion
+        r1 = new int[ingredientAmt] { 2, 0, 0, 0, 0, 1, 1 };  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1: beef + onion + carrot
+        r2 = new int[ingredientAmt] { 0, 1, 0, 1, 1, 1, 0 };  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2: chicken + onion + depa + egg
+        r3 = new int[ingredientAmt] { 0, 0, 1, 1, 0, 1, 0 };  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3: fish + depa + onion
         randomRecipe = new int[ingredientAmt];
     }
 
     // Recioe random raw
-<<<<<<< HEAD
-    public void createRandomRecipe()
-    {
-        int randomIndex = Random.Range(0, 7);
-=======
     public int createRandomRecipe()
     {
         int randomIndex = Random.Range(0, 3);
->>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
 
         switch (randomIndex)
         {
@@ -81,10 +68,7 @@ public class Recipe : MonoBehaviour
             case 1: randomRecipe = r2; break;
             case 2: randomRecipe = r3; break;
         }
-<<<<<<< HEAD
-=======
         return randomIndex;
->>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
     }
 
     public void showLeftoverRecipe()
@@ -106,11 +90,7 @@ public class Recipe : MonoBehaviour
     {
         gameDirector = GameObject.Find("GameDirector");
         init();
-<<<<<<< HEAD
-        createRandomRecipe();
-=======
         RecipeIndex = createRandomRecipe();
->>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
     }
 
     private void Update()
@@ -118,15 +98,9 @@ public class Recipe : MonoBehaviour
         if (IsRecipeComplete(randomRecipe) || IsRecipeWrong(randomRecipe))
         {
             init();
-<<<<<<< HEAD
-            createRandomRecipe();
-            /*            Debug.Log("·¹½ÃÇÇ ´Ù½Ã »ý¼º");*/
-            gameDirector.GetComponent<GameDirector>().UpdateUI(gameDirector.GetComponent<GameDirector>().GetRecipeIndex());
-=======
             RecipeIndex = createRandomRecipe();
-            /*            Debug.Log("·¹½ÃÇÇ ´Ù½Ã »ý¼º");*/
+            /*            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½");*/
             gameDirector.GetComponent<GameDirector>().UpdateUI(gameDirector.GetComponent<GameDirector>().GetIngredientIndex());
->>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
             if (IsRecipeComplete(randomRecipe))
             {
                 // Success Performance;
