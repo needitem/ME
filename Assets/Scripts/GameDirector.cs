@@ -39,32 +39,17 @@ public class GameDirector : MonoBehaviour
             Invoke("ActivateGameover", 3f);
         }
 
-<<<<<<< HEAD
-        /*        gIngredient_cnt[0].GetComponent<Text>().text = "X" + valueArray[0].ToString("D2"); //adsf
-                gIngredient_cnt[1].GetComponent<Text>().text = "X" + valueArray[1].ToString("D2");
-                gIngredient_cnt[2].GetComponent<Text>().text = "X" + valueArray[2].ToString("D2");
-                gIngredient_cnt[3].GetComponent<Text>().text = "X" + valueArray[3].ToString("D2");*/
-
-    }
-
-
-=======
         gIngredient_cnt[0].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[0]].ToString("D1");
         gIngredient_cnt[1].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[1]].ToString("D1");
         gIngredient_cnt[2].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[2]].ToString("D1");
         gIngredient_cnt[3].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[3]].ToString("D1");
     }
 
->>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
     public void UpdateUI(int[] indexArray)
     {
         // recipe img update
         int j = 0;
-<<<<<<< HEAD
-        int recipeIndex = GetRecipeIndex(Recipe.randomRecipe);
-=======
         int recipeIndex = Recipe.RecipeIndex;
->>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
         recipeImage.sprite = recipeSprites[recipeIndex];
 
 
@@ -81,11 +66,7 @@ public class GameDirector : MonoBehaviour
         }
     }
 
-<<<<<<< HEAD
-    public int[] GetRecipeIndex()
-=======
     public int[] GetIngredientIndex()
->>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
     {
         int j = 0;
         int previousIndex = 0;
@@ -100,45 +81,10 @@ public class GameDirector : MonoBehaviour
             }
             previousIndex++;
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
         return indexArray;
     }
 
 
-<<<<<<< HEAD
-    public static int GetRecipeIndex(int[] recipe)
-    {
-        for (int i = 0; i < recipe.Length; i++)
-        {
-            if (recipe[i] > 0)
-            {
-                return i;
-            }
-        }
-        return 0;
-    }
-
-
-    private void UpdateHearthp()
-    {
-        for (int i = 0; i < maxHp; i++)
-        {
-            if (i < hp)
-            {
-                heartImages[i].enabled = true;
-            }
-            else
-            {
-                heartImages[i].enabled = false;
-            }
-        }
-    }
-
-
-=======
 
 
 
@@ -158,7 +104,6 @@ public class GameDirector : MonoBehaviour
     }
 
 
->>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
     public void ActivateGameover()
     {
         Gameover_Panel.SetActive(true);

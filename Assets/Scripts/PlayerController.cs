@@ -11,17 +11,6 @@ public class PlayerController : MonoBehaviour
 
     public Vector2 boxSize;
     public Transform pos;
-<<<<<<< HEAD
-    public bool isPunched = false;
-    public bool isDelay = false; //attack delay
-    Animator playerAnimator, katanaAnimator;
-
-    
-    private void Start()
-    {
-        playerAnimator = GetComponent<Animator>();
-        katanaAnimator = GetComponent<Animator>();
-=======
     bool isPunched = false;
     public bool isDelay = false; //attack delay
     Animator playerAnimator;
@@ -29,7 +18,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         playerAnimator = GetComponent<Animator>();
->>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
     }
 
     private void Update()
@@ -61,15 +49,7 @@ public class PlayerController : MonoBehaviour
         {
             if (collider.tag == "Target")
             {
-<<<<<<< HEAD
-                
-                KatanaEffect.Punch();
-                collider.gameObject.GetComponent<ItemController>().Punch_hp--;
-                
-                
-=======
                 Effect.Apply(collider.gameObject);
->>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
             }
         }
         StartCoroutine(CountAttackDelay(0.4f));
@@ -87,10 +67,6 @@ public class PlayerController : MonoBehaviour
             {
                 if (collider.tag == "Target")
                 {
-<<<<<<< HEAD
-                    KatanaEffect.attack();
-=======
->>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
                     Recipe.decreaseIngredient(collider.name);
 
@@ -108,10 +84,6 @@ public class PlayerController : MonoBehaviour
             {
                 if (collider.tag == "Target")
                 {
-<<<<<<< HEAD
-                    KatanaEffect.DoubleAttack();
-=======
->>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
                     Recipe.decreaseIngredient(collider.name);
                 }
@@ -119,11 +91,7 @@ public class PlayerController : MonoBehaviour
             isDelay = true;
             StartCoroutine(CountAttackDelay(0.2f));
         }
-<<<<<<< HEAD
-     
-=======
         StartCoroutine(CountAttackDelay(0.4f));
->>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
 
 
     }
