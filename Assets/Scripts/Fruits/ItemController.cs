@@ -6,7 +6,10 @@ using UnityEditor;
 public class ItemController : MonoBehaviour
 {
     [SerializeField] public int itemHp;
+<<<<<<< HEAD
     public int Punch_hp = 1;
+=======
+>>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
 
     bool executeOnlyOnce = true;
     // Bezier rate
@@ -22,21 +25,35 @@ public class ItemController : MonoBehaviour
         itemAnimator = GetComponent<Animator>();
     }
 
+<<<<<<< HEAD
 
 
     private void FixedUpdate()
     {
         if (gameObject.transform.position.y <= 0.8f)
+=======
+ 
+
+    private void FixedUpdate()
+    {
+        if (gameObject.transform.position.y <= -3f)
+>>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
         {
             Destroy(gameObject);
         }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
         rate += Time.deltaTime;
         transform.position = BezierTest(controllPosition[0], controllPosition[1], controllPosition[2], controllPosition[3], rate);
         
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
         if (rate >= 1f)
         {
             Vector2 pushForce = Vector2.left * 250.0f;
@@ -48,8 +65,12 @@ public class ItemController : MonoBehaviour
         {
             if (executeOnlyOnce)
             {
+<<<<<<< HEAD
                 GetComponent<PolygonCollider2D>().enabled = false;// 아이템간 충돌을 방지하기 위해 콜라이더를 비활성화 시킨다.
                 itemAnimator.SetTrigger("slice");
+=======
+               // itemAnimator.SetTrigger("slice");
+>>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
                 rb.MovePosition(new Vector2(4f, 3f));
                 executeOnlyOnce = false;
             }
@@ -57,6 +78,7 @@ public class ItemController : MonoBehaviour
             rb.AddForce(rightForce);
             rb.gravityScale = 15f; // �߷� ����
         }
+<<<<<<< HEAD
 
         if(Punch_hp <= 0)
         {
@@ -72,6 +94,8 @@ public class ItemController : MonoBehaviour
         }
 
 
+=======
+>>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
     }
 
     // https://www.youtube.com/watch?v=KTEX2L4T4zE
