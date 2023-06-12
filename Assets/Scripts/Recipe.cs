@@ -97,7 +97,7 @@ public class Recipe : MonoBehaviour
             init();
             createRandomRecipe();
 /*            Debug.Log("레시피 다시 생성");*/
-            gameDirector.GetComponent<GameDirector>().UpdateUI(gameDirector.GetComponent<GameDirector>().GetRecipeIndex());   
+            gameDirector.GetComponent<GameDirector>().UpdateUI(gameDirector.GetComponent<GameDirector>().GetIngredientIndex());   
             if (IsRecipeComplete(randomRecipe))
             {
                 // Success Performance;

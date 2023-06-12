@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameDirector : MonoBehaviour
 {
-    [SerializeField] public int maxHp = 5;
+    [SerializeField] public int maxHp = 3;
     [SerializeField] public Image[] heartImages;
     [SerializeField] public GameObject Gameover_Panel;
     [SerializeField] GameObject[] gIngredient_cnt;
@@ -17,7 +17,7 @@ public class GameDirector : MonoBehaviour
     public Sprite[] recipeSprites;
     public Sprite[] ingredientSprites;
 
-
+    public int count;
     static public int hp;
     public int[] indexArray = new int[Recipe.randomRecipe.Length];
     public int[] valueArray = new int[Recipe.randomRecipe.Length];
@@ -27,6 +27,11 @@ public class GameDirector : MonoBehaviour
     {
         hp = maxHp;
         Time.timeScale = 1;
+        gIngredient_cnt = new GameObject[4];
+        for (int i = 0; i < gIngredient_cnt.Length; i++)
+        {
+            gIngredient_cnt[i] = GameObject.Find("cnt" + (i + 1));
+        }
     }
 
     // Update is called once per frame
@@ -39,36 +44,16 @@ public class GameDirector : MonoBehaviour
             Invoke("ActivateGameover", 3f);
         }
 
-        gIngredient_cnt[0].GetComponent<Text>().text = "X" + valueArray[0].ToString("D2"); //adsf
-        gIngredient_cnt[1].GetComponent<Text>().text = "X" + valueArray[1].ToString("D2");
-        gIngredient_cnt[2].GetComponent<Text>().text = "X" + valueArray[2].ToString("D2");
-        gIngredient_cnt[3].GetComponent<Text>().text = "X" + valueArray[3].ToString("D2");
+        gIngredient_cnt[0].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[0]].ToString("D1");
+        gIngredient_cnt[1].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[1]].ToString("D1");
+        gIngredient_cnt[2].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[2]].ToString("D1");
+        gIngredient_cnt[3].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[3]].ToString("D1");
+
+
 
     }
 
-
-    public void UpdateUI(int[] indexArray)
-    {
-        // recipe img update
-        int j = 0;
-        int recipeIndex = GetRecipeIndex(Recipe.randomRecipe);
-        recipeImage.sprite = recipeSprites[recipeIndex];
-
-       
-        // ingredient img update
-        for (int i = 0; i < indexArray.Length; i++)
-        {
-            if(Recipe.randomRecipe[i] > 0)
-            {
-                int index = indexArray[j];
-                ingredientImages[j].sprite = ingredientSprites[index];
-                j++;
-                //ingredientImages[i].gameObject.SetActive(Recipe.randomRecipe[i] > 0);
-            }
-        }
-    }
-
-    public int[] GetRecipeIndex()
+    public int[] GetIngredientIndex()
     {
         int j = 0;
         int previousIndex = 0;
@@ -85,6 +70,27 @@ public class GameDirector : MonoBehaviour
         }
 
         return indexArray;
+    }
+
+    public void UpdateUI(int[] indexArray)
+    {
+        // recipe img update
+        int j = 0;
+        int recipeIndex = GetRecipeIndex(Recipe.randomRecipe);
+        recipeImage.sprite = recipeSprites[recipeIndex];
+
+
+        // ingredient img update
+        for (int i = 0; i < indexArray.Length; i++)
+        {
+            if (Recipe.randomRecipe[i] > 0)
+            {
+                int index = indexArray[j];
+                ingredientImages[j].sprite = ingredientSprites[index];
+                j++;
+                ingredientImages[i].gameObject.SetActive(Recipe.randomRecipe[i] > 0);
+            }
+        }
     }
 
 
