@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 73ce2022f40919e44a176fd71c335e6b
+guid: c3c89b7865282ed45b0a9735d8944a0b
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -129,64 +129,106 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: punch_effect_0
+      name: green_onion_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 64
         height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.58}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eb81f00525414dc4285e40044b7d57e2
-      internalID: 934493722
+      spriteID: 22dad67a81c307046800633507888459
+      internalID: 1106232316
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: punch_effect_1
+      name: green_onion_1
       rect:
         serializedVersion: 2
         x: 64
         y: 0
         width: 64
         height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.58}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5b3c94dc6647abe4499b181f7e737351
-      internalID: -1663132780
+      spriteID: fe7f7114d1c01ad449da38ad08a1118e
+      internalID: 1814944010
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: punch_effect_2
+      name: green_onion_2
       rect:
         serializedVersion: 2
         x: 128
         y: 0
         width: 64
         height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.58}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: daee5c1762acfa64891ba6b62973d0dd
-      internalID: 1737856365
+      spriteID: 1dd4efe59adc3ab4cbb68e47fd547784
+      internalID: -919104921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: green_onion_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a61211d6f117a24c9429b806c711157
+      internalID: -1713064295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: green_onion_4
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 108a11210fa4c824da4f9626c0657329
+      internalID: 138775016
       vertices: []
       indices: 
       edges: []
@@ -202,9 +244,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      punch_effect_0: 934493722
-      punch_effect_1: -1663132780
-      punch_effect_2: 1737856365
+      green_onion_0: 1106232316
+      green_onion_1: 1814944010
+      green_onion_2: -919104921
+      green_onion_3: -1713064295
+      green_onion_4: 138775016
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

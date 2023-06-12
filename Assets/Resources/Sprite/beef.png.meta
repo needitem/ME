@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 73ce2022f40919e44a176fd71c335e6b
+guid: d1b047ac7942b47428289b69ab4a00c0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -129,64 +129,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: punch_effect_0
+      name: beef_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 64
         height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.58}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eb81f00525414dc4285e40044b7d57e2
-      internalID: 934493722
+      spriteID: 009624b4ef5501a47abbe940af2d103f
+      internalID: 1588050999
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: punch_effect_1
+      name: beef_1
       rect:
         serializedVersion: 2
         x: 64
         y: 0
         width: 64
         height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.58}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5b3c94dc6647abe4499b181f7e737351
-      internalID: -1663132780
+      spriteID: 34a3fa1743717b04286cde5eedbbdc5a
+      internalID: -1271993233
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: punch_effect_2
+      name: beef_2
       rect:
         serializedVersion: 2
         x: 128
         y: 0
         width: 64
         height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.58}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: daee5c1762acfa64891ba6b62973d0dd
-      internalID: 1737856365
+      spriteID: 546d03e30d14f1e468dd53ce6d75e6a3
+      internalID: 2129885833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: beef_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17d995a78c1e75b4682a5cb896d8a103
+      internalID: 658485218
       vertices: []
       indices: 
       edges: []
@@ -202,9 +223,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      punch_effect_0: 934493722
-      punch_effect_1: -1663132780
-      punch_effect_2: 1737856365
+      beef_0: 1588050999
+      beef_1: -1271993233
+      beef_2: 2129885833
+      beef_3: 658485218
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

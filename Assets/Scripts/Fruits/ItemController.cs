@@ -26,7 +26,7 @@ public class ItemController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (gameObject.transform.position.y <= -3f)
+        if (gameObject.transform.position.y <= 0.8f)
         {
             Destroy(gameObject);
         }
@@ -48,7 +48,8 @@ public class ItemController : MonoBehaviour
         {
             if (executeOnlyOnce)
             {
-                // itemAnimator.SetTrigger("slice");
+                GetComponent<PolygonCollider2D>().enabled = false;// 아이템간 충돌을 방지하기 위해 콜라이더를 비활성화 시킨다.
+                itemAnimator.SetTrigger("slice");
                 rb.MovePosition(new Vector2(4f, 3f));
                 executeOnlyOnce = false;
             }
@@ -59,6 +60,7 @@ public class ItemController : MonoBehaviour
 
         if(Punch_hp <= 0)
         {
+            
             if (executeOnlyOnce)
             {       
                 rb.MovePosition(new Vector2(4f, 2.6f));

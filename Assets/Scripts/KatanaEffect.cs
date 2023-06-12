@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KatanaEffect : MonoBehaviour
 {
-    Animator katanaAni;
+    public static Animator katanaAni;
     void Start()
     {
         katanaAni = GetComponent<Animator>();

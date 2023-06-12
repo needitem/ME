@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (collider.tag == "Target")
                 {
-                    katana_effect.isHit = true;
+                    KatanaEffect.attack();
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
                     Recipe.decreaseIngredient(collider.name);
 
@@ -91,7 +91,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (collider.tag == "Target")
                 {
-                    katana_effect.isDoubleHit = true;
+                    KatanaEffect.DoubleAttack();
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
                     Recipe.decreaseIngredient(collider.name);
                 }

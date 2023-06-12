@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 73ce2022f40919e44a176fd71c335e6b
+guid: 57665ea2a9860924386159399f192085
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -129,64 +129,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: punch_effect_0
+      name: BoilPot_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 64
         height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.58}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: eb81f00525414dc4285e40044b7d57e2
-      internalID: 934493722
+      spriteID: 9af3f9f54ba3cf04bb2f0f78a72a05e7
+      internalID: 2131914340
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: punch_effect_1
+      name: BoilPot_1
       rect:
         serializedVersion: 2
         x: 64
         y: 0
         width: 64
         height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.58}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5b3c94dc6647abe4499b181f7e737351
-      internalID: -1663132780
+      spriteID: 94748bf04105e304aa7572be5868e5f0
+      internalID: 1947320286
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: punch_effect_2
+      name: BoilPot_2
       rect:
         serializedVersion: 2
         x: 128
         y: 0
         width: 64
         height: 64
-      alignment: 9
-      pivot: {x: 0.5, y: 0.58}
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: daee5c1762acfa64891ba6b62973d0dd
-      internalID: 1737856365
+      spriteID: c1edf812d1a427548b99152f6ff2c73b
+      internalID: 75544247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BoilPot_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 549868c91d8ec994b8a283b1384327d1
+      internalID: -827876004
       vertices: []
       indices: 
       edges: []
@@ -202,9 +223,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      punch_effect_0: 934493722
-      punch_effect_1: -1663132780
-      punch_effect_2: 1737856365
+      BoilPot_0: 2131914340
+      BoilPot_1: 1947320286
+      BoilPot_2: 75544247
+      BoilPot_3: -827876004
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
