@@ -23,6 +23,8 @@ public class Recipe : MonoBehaviour
     private int[] r3;
     public static int[] randomRecipe = new int[ingredientAmt];
 
+    public static int RecipeIndex = 0;
+
     public bool IsRecipeComplete(int[] randomRecipe)
     {
         foreach (int i in randomRecipe)
@@ -49,16 +51,16 @@ public class Recipe : MonoBehaviour
 
     public void init()
     {
-        r1 = new int[ingredientAmt] { 1, 0, 0, 0, 0, 1, 1 };  // 레시피 1: beef + onion + carrot
+        r1 = new int[ingredientAmt] { 2, 0, 0, 0, 0, 1, 1 };  // 레시피 1: beef + onion + carrot
         r2 = new int[ingredientAmt] { 0, 1, 0, 1, 1, 1, 0 };  // 레시피 2: chicken + onion + depa + egg
         r3 = new int[ingredientAmt] { 0, 0, 1, 1, 0, 1, 0 };  // 레시피 3: fish + depa + onion
         randomRecipe = new int[ingredientAmt];
     }
 
     // Recioe random raw
-    public void createRandomRecipe()
+    public int createRandomRecipe()
     {
-        int randomIndex = Random.Range(0, 7);
+        int randomIndex = Random.Range(0, 3);
 
         switch (randomIndex)
         {
@@ -66,6 +68,7 @@ public class Recipe : MonoBehaviour
             case 1: randomRecipe = r2; break;
             case 2: randomRecipe = r3; break;
         }
+        return randomIndex;
     }
 
     public void showLeftoverRecipe()
@@ -78,16 +81,16 @@ public class Recipe : MonoBehaviour
         Ingredients ingredient = (Ingredients)Enum.Parse(typeof(Ingredients), name);
         int index = (int)ingredient;
         randomRecipe[index]--;
-/*        Debug.Log(index);
-        Debug.Log(randomRecipe[index]);
-        Debug.Log(ingredient);*/
+        /*        Debug.Log(index);
+                Debug.Log(randomRecipe[index]);
+                Debug.Log(ingredient);*/
     }
 
     private void Start()
     {
         gameDirector = GameObject.Find("GameDirector");
         init();
-        createRandomRecipe();
+        RecipeIndex = createRandomRecipe();
     }
 
     private void Update()
@@ -95,9 +98,9 @@ public class Recipe : MonoBehaviour
         if (IsRecipeComplete(randomRecipe) || IsRecipeWrong(randomRecipe))
         {
             init();
-            createRandomRecipe();
-/*            Debug.Log("레시피 다시 생성");*/
-            gameDirector.GetComponent<GameDirector>().UpdateUI(gameDirector.GetComponent<GameDirector>().GetIngredientIndex());   
+            RecipeIndex = createRandomRecipe();
+            /*            Debug.Log("레시피 다시 생성");*/
+            gameDirector.GetComponent<GameDirector>().UpdateUI(gameDirector.GetComponent<GameDirector>().GetIngredientIndex());
             if (IsRecipeComplete(randomRecipe))
             {
                 // Success Performance;

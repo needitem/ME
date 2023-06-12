@@ -1541,6 +1541,14 @@ MonoBehaviour:
   - {fileID: 1839697406}
   - {fileID: 1167663571}
   Gameover_Panel: {fileID: 1943519227}
+  gIngredient_cnt: []
+  recipe: {fileID: 0}
+  recipeImage: {fileID: 0}
+  ingredientImages: []
+  recipeSprites: []
+  ingredientSprites: []
+  indexArray: 00000000000000000000000000000000000000000000000000000000
+  valueArray: 00000000000000000000000000000000000000000000000000000000
 --- !u!1 &1943519227
 GameObject:
   m_ObjectHideFlags: 0
