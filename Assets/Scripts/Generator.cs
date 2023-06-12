@@ -7,14 +7,14 @@ using UnityEngine;
 public class Generator : MonoBehaviour
 {
     public GameObject[] gFruits  = null;
-    public GameObject[] mainfood;
-    public GameObject[] subfood;
+    public GameObject[] gMainfood;
+    public GameObject[] gSubfood;
    
     [SerializeField]
-    private GameObject spawn;
+    private GameObject gSpawn;
     
     [SerializeField]
-    private GameObject NPC;
+    private GameObject gNPC;
     
     [SerializeField]
     private float[][] fSpanArray = new float[][]
@@ -37,8 +37,8 @@ public class Generator : MonoBehaviour
 
     void Start()
     {
-        mainfood = Resources.LoadAll<GameObject>("Prefabs/MainFood");
-        subfood = Resources.LoadAll<GameObject>("Prefabs/SubFood");
+        gMainfood = Resources.LoadAll<GameObject>("Prefabs/MainFood");
+        gSubfood = Resources.LoadAll<GameObject>("Prefabs/SubFood");
         iRowIndex = UnityEngine.Random.Range(0, fSpanArray.Length);
         NPC = GameObject.Find("NPC");
     }
@@ -48,7 +48,7 @@ public class Generator : MonoBehaviour
         fTimeElapsed += Time.deltaTime;
         if (fTimeElapsed >= GetCurrentSpan() && GameDirector.hp > 0)
         {
-            NPC.GetComponent<NPCController>().Drawing();
+            gNPC.GetComponent<NPCController>().Drawing();
             SpawnFood();
             fTimeElapsed = 0;
 
@@ -70,18 +70,18 @@ public class Generator : MonoBehaviour
 
         if (UnityEngine.Random.Range(0, 3) == 0)
         {
-            foodPrefab = mainfood[UnityEngine.Random.Range(0, mainfood.Length)];
+            foodPrefab = gMainfood[UnityEngine.Random.Range(0, gMainfood.Length)];
             itemHp = 2;
         }
         else
         {
-            foodPrefab = subfood[UnityEngine.Random.Range(0, subfood.Length)];
+            foodPrefab = gSubfood[UnityEngine.Random.Range(0, gSubfood.Length)];
             itemHp = 1;
         }
 
-        spawn = Instantiate(foodPrefab, spawnPosition, Quaternion.identity);
-        spawn.name = foodPrefab.name;
-        spawn.GetComponent<ItemController>().itemHp = itemHp;
+        gSpawn = Instantiate(foodPrefab, spawnPosition, Quaternion.identity);
+        gSpawn.name = foodPrefab.name;
+        gSpawn.GetComponent<ItemController>().itemHp = itemHp;
     }
     private float GetCurrentSpan()
     {
