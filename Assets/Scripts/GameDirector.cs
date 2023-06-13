@@ -39,10 +39,11 @@ public class GameDirector : MonoBehaviour
             Invoke("ActivateGameover", 3f);
         }
 
-        gIngredient_cnt[0].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[0]].ToString("D1");
-        gIngredient_cnt[1].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[1]].ToString("D1");
-        gIngredient_cnt[2].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[2]].ToString("D1");
-        gIngredient_cnt[3].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[3]].ToString("D1");
+        for (int i = 0; i < 4; i++)
+        {
+            gIngredient_cnt[i].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[i]].ToString("D1");
+        }
+
     }
 
     public void UpdateUI(int[] indexArray)
@@ -100,8 +101,9 @@ public class GameDirector : MonoBehaviour
             {
                 heartImages[i].enabled = false;
             }
-        }
+        }  
     }
+    //여긴 차라리 DecreaseHp같은 함수를 만들어두고 체력 닳을때마다 불러서 한칸식 줄게하는게 좋을듯
 
 
     public void ActivateGameover()

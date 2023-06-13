@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -49,7 +50,7 @@ public class Recipe : MonoBehaviour
         return false;
     }
 
-    public void init()
+    public void init() //이건 말그대로 initializition인데 여러번 불러올필요 없음. start때만 불러와도됨.
     {
         r1 = new int[ingredientAmt] { 2, 0, 0, 0, 0, 1, 1 };  // 레시피 1: beef + onion + carrot
         r2 = new int[ingredientAmt] { 0, 1, 0, 1, 1, 1, 0 };  // 레시피 2: chicken + onion + depa + egg
@@ -71,19 +72,25 @@ public class Recipe : MonoBehaviour
         return randomIndex;
     }
 
-    public void showLeftoverRecipe()
+    public Dictionary<int, int> showLeftoverRecipe()
     {
-        //display
+        Dictionary<int, int> temp = new Dictionary<int, int>();
+
+        for (int i = 0; i < randomRecipe.Length; i++)
+        {
+            int cnt = randomRecipe[i];
+            if (cnt > 0)
+            {
+                temp[i] = cnt;
+            }
+        }
+        return temp;
     }
 
     public static void decreaseIngredient(string name)
     {
         Ingredients ingredient = (Ingredients)Enum.Parse(typeof(Ingredients), name);
-        int index = (int)ingredient;
-        randomRecipe[index]--;
-        /*        Debug.Log(index);
-                Debug.Log(randomRecipe[index]);
-                Debug.Log(ingredient);*/
+        randomRecipe[(int)ingredient]--;
     }
 
     private void Start()
@@ -93,8 +100,13 @@ public class Recipe : MonoBehaviour
         RecipeIndex = createRandomRecipe();
     }
 
-    private void Update()
-    {        // Recipe reset status
+    private void Update() //여기 업데이트하지말고 재료가 썰릴때만 불러오게 해야됨.
+    {
+        foreach(KeyValuePair<int, int> item in showLeftoverRecipe())
+        {
+            Debug.Log("Key: " + item.Key);
+            Debug.Log("Value: " + item.Value);
+        }
         if (IsRecipeComplete(randomRecipe) || IsRecipeWrong(randomRecipe))
         {
             init();
