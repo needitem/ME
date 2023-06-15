@@ -10,6 +10,7 @@ public enum Ingredients
     depa,
     egg,
     onion,
+    green_onion,
     carrot
 }
 
