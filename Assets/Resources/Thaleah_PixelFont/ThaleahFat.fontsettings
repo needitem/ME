@@ -3,8 +3,14 @@
 --- !u!128 &12800000
 Font:
   m_ObjectHideFlags: 0
+<<<<<<< HEAD
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
+=======
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+>>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8
   m_Name: ThaleahFat
   serializedVersion: 5
   m_LineSpacing: 16.09375
@@ -1722,5 +1728,11 @@ Font:
   m_FontNames:
   - ThaleahFat
   m_FallbackFonts: []
+<<<<<<< HEAD
   m_FontRenderingMode: 0
   m_UseLegacyBoundsCalculation: 0
+=======
+  m_FontRenderingMode: 4
+  m_UseLegacyBoundsCalculation: 0
+  m_ShouldRoundAdvanceValue: 1
+>>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8

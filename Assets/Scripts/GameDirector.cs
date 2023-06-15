@@ -39,19 +39,17 @@ public class GameDirector : MonoBehaviour
             Invoke("ActivateGameover", 3f);
         }
 
-        /*        gIngredient_cnt[0].GetComponent<Text>().text = "X" + valueArray[0].ToString("D2"); //adsf
-                gIngredient_cnt[1].GetComponent<Text>().text = "X" + valueArray[1].ToString("D2");
-                gIngredient_cnt[2].GetComponent<Text>().text = "X" + valueArray[2].ToString("D2");
-                gIngredient_cnt[3].GetComponent<Text>().text = "X" + valueArray[3].ToString("D2");*/
-
+        gIngredient_cnt[0].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[0]].ToString("D1");
+        gIngredient_cnt[1].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[1]].ToString("D1");
+        gIngredient_cnt[2].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[2]].ToString("D1");
+        gIngredient_cnt[3].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[3]].ToString("D1");
     }
-
 
     public void UpdateUI(int[] indexArray)
     {
         // recipe img update
         int j = 0;
-        int recipeIndex = GetRecipeIndex(Recipe.randomRecipe);
+        int recipeIndex = Recipe.RecipeIndex;
         recipeImage.sprite = recipeSprites[recipeIndex];
 
 
@@ -68,7 +66,7 @@ public class GameDirector : MonoBehaviour
         }
     }
 
-    public int[] GetRecipeIndex()
+    public int[] GetIngredientIndex()
     {
         int j = 0;
         int previousIndex = 0;
@@ -83,22 +81,11 @@ public class GameDirector : MonoBehaviour
             }
             previousIndex++;
         }
-
         return indexArray;
     }
 
 
-    public static int GetRecipeIndex(int[] recipe)
-    {
-        for (int i = 0; i < recipe.Length; i++)
-        {
-            if (recipe[i] > 0)
-            {
-                return i;
-            }
-        }
-        return 0;
-    }
+
 
 
     private void UpdateHearthp()
