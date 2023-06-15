@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
 
     public Vector2 boxSize;
     public Transform pos;
-    public bool isPunched = false;
+    bool isPunched = false;
     public bool isDelay = false; //attack delay
     Animator playerAnimator;
 
@@ -26,9 +26,6 @@ public class PlayerController : MonoBehaviour
         {
             Attack();
         }
-
-       
-
         else if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked)
         {
             PunchBack();
@@ -50,13 +47,10 @@ public class PlayerController : MonoBehaviour
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
         foreach (Collider2D collider in colliders)
         {
+            KatanaEffect.Punch();
             if (collider.tag == "Target")
             {
-                
-                katana_effect.isPunch = true;
-                collider.gameObject.GetComponent<ItemController>().Punch_hp--;
-                
-                
+                Effect.Apply(collider.gameObject);
             }
         }
         StartCoroutine(CountAttackDelay(0.4f));
@@ -74,8 +68,10 @@ public class PlayerController : MonoBehaviour
             {
                 if (collider.tag == "Target")
                 {
-                    katana_effect.isHit = true;
+                    KatanaEffect.Attack();
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
+                    Recipe.decreaseIngredient(collider.name);
+
                 }
             }
             isDelay = true;
@@ -90,14 +86,15 @@ public class PlayerController : MonoBehaviour
             {
                 if (collider.tag == "Target")
                 {
-                    katana_effect.isDoubleHit = true;
+                    KatanaEffect.DoubleAttack();
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
+                    Recipe.decreaseIngredient(collider.name);
                 }
             }
             isDelay = true;
             StartCoroutine(CountAttackDelay(0.2f));
         }
-     
+        StartCoroutine(CountAttackDelay(0.4f));
 
 
     }
@@ -124,5 +121,7 @@ public class PlayerController : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(pos.position, boxSize);
     }
+
+
 
 }

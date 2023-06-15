@@ -39,6 +39,7 @@ public class GameDirector : MonoBehaviour
             Invoke("ActivateGameover", 3f);
         }
 
+<<<<<<< HEAD
         /*        gIngredient_cnt[0].GetComponent<Text>().text = "X" + valueArray[0].ToString("D2"); //adsf
                 gIngredient_cnt[1].GetComponent<Text>().text = "X" + valueArray[1].ToString("D2");
                 gIngredient_cnt[2].GetComponent<Text>().text = "X" + valueArray[2].ToString("D2");
@@ -47,11 +48,23 @@ public class GameDirector : MonoBehaviour
     }
 
 
+=======
+        gIngredient_cnt[0].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[0]].ToString("D1");
+        gIngredient_cnt[1].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[1]].ToString("D1");
+        gIngredient_cnt[2].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[2]].ToString("D1");
+        gIngredient_cnt[3].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[3]].ToString("D1");
+    }
+
+>>>>>>> 1462d7f0dc647633f5280c97ac77c37cb3af07b7
     public void UpdateUI(int[] indexArray)
     {
         // recipe img update
         int j = 0;
+<<<<<<< HEAD
         int recipeIndex = GetRecipeIndex(Recipe.randomRecipe);
+=======
+        int recipeIndex = Recipe.RecipeIndex;
+>>>>>>> 1462d7f0dc647633f5280c97ac77c37cb3af07b7
         recipeImage.sprite = recipeSprites[recipeIndex];
 
 
@@ -68,7 +81,11 @@ public class GameDirector : MonoBehaviour
         }
     }
 
+<<<<<<< HEAD
     public int[] GetRecipeIndex()
+=======
+    public int[] GetIngredientIndex()
+>>>>>>> 1462d7f0dc647633f5280c97ac77c37cb3af07b7
     {
         int j = 0;
         int previousIndex = 0;
@@ -83,11 +100,15 @@ public class GameDirector : MonoBehaviour
             }
             previousIndex++;
         }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 1462d7f0dc647633f5280c97ac77c37cb3af07b7
         return indexArray;
     }
 
 
+<<<<<<< HEAD
     public static int GetRecipeIndex(int[] recipe)
     {
         for (int i = 0; i < recipe.Length; i++)
@@ -103,6 +124,13 @@ public class GameDirector : MonoBehaviour
 
     private void UpdateHearthp()
     {
+=======
+
+
+
+    private void UpdateHearthp()
+    {
+>>>>>>> 1462d7f0dc647633f5280c97ac77c37cb3af07b7
         for (int i = 0; i < maxHp; i++)
         {
             if (i < hp)

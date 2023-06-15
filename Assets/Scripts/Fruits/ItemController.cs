@@ -6,7 +6,6 @@ using UnityEditor;
 public class ItemController : MonoBehaviour
 {
     [SerializeField] public int itemHp;
-    public int Punch_hp = 1;
 
     bool executeOnlyOnce = true;
     // Bezier rate
@@ -22,20 +21,18 @@ public class ItemController : MonoBehaviour
         itemAnimator = GetComponent<Animator>();
     }
 
-
+ 
 
     private void FixedUpdate()
     {
-        if (gameObject.transform.position.y <= -3f)
+        if (gameObject.transform.position.y <= 0.72f)
         {
             Destroy(gameObject);
         }
 
-
         rate += Time.deltaTime;
         transform.position = BezierTest(controllPosition[0], controllPosition[1], controllPosition[2], controllPosition[3], rate);
         
-
 
         if (rate >= 1f)
         {
@@ -48,7 +45,7 @@ public class ItemController : MonoBehaviour
         {
             if (executeOnlyOnce)
             {
-                // itemAnimator.SetTrigger("slice");
+                itemAnimator.SetTrigger("slice");
                 rb.MovePosition(new Vector2(4f, 3f));
                 executeOnlyOnce = false;
             }
@@ -56,20 +53,6 @@ public class ItemController : MonoBehaviour
             rb.AddForce(rightForce);
             rb.gravityScale = 15f; // �߷� ����
         }
-
-        if(Punch_hp <= 0)
-        {
-            if (executeOnlyOnce)
-            {       
-                rb.MovePosition(new Vector2(4f, 2.6f));
-                executeOnlyOnce = false;
-            }
-            Vector2 rightForce = new Vector2(260.0f, 50f);
-            rb.AddForce(rightForce);
-            Effect.Apply(gameObject);
-        }
-
-
     }
 
     // https://www.youtube.com/watch?v=KTEX2L4T4zE
