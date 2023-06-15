@@ -11,6 +11,7 @@ public enum Ingredients
     depa,
     egg,
     onion,
+    green_onion,
     carrot
 }
 
@@ -52,9 +53,9 @@ public class Recipe : MonoBehaviour
 
     public void init() //ÀÌ°Ç ¸»±×´ë·Î initializitionÀÎµ¥ ¿©·¯¹ø ºÒ·¯¿ÃÇÊ¿ä ¾øÀ½. start¶§¸¸ ºÒ·¯¿ÍµµµÊ.
     {
-        r1 = new int[ingredientAmt] { 2, 0, 0, 0, 0, 1, 1 };  // ·¹½ÃÇÇ 1: beef + onion + carrot
-        r2 = new int[ingredientAmt] { 0, 1, 0, 1, 1, 1, 0 };  // ·¹½ÃÇÇ 2: chicken + onion + depa + egg
-        r3 = new int[ingredientAmt] { 0, 0, 1, 1, 0, 1, 0 };  // ·¹½ÃÇÇ 3: fish + depa + onion
+        r1 = new int[ingredientAmt] { 2, 0, 0, 0, 0, 1, 1 };  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1: beef + onion + carrot
+        r2 = new int[ingredientAmt] { 0, 1, 0, 1, 1, 1, 0 };  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2: chicken + onion + depa + egg
+        r3 = new int[ingredientAmt] { 0, 0, 1, 1, 0, 1, 0 };  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3: fish + depa + onion
         randomRecipe = new int[ingredientAmt];
     }
 
@@ -111,7 +112,7 @@ public class Recipe : MonoBehaviour
         {
             init();
             RecipeIndex = createRandomRecipe();
-            /*            Debug.Log("·¹½ÃÇÇ ´Ù½Ã »ý¼º");*/
+            /*            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½");*/
             gameDirector.GetComponent<GameDirector>().UpdateUI(gameDirector.GetComponent<GameDirector>().GetIngredientIndex());
             if (IsRecipeComplete(randomRecipe))
             {

@@ -25,7 +25,7 @@ public class ItemController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (gameObject.transform.position.y <= -3f)
+        if (gameObject.transform.position.y <= 0.72f)
         {
             Destroy(gameObject);
         }
@@ -45,7 +45,7 @@ public class ItemController : MonoBehaviour
         {
             if (executeOnlyOnce)
             {
-               // itemAnimator.SetTrigger("slice");
+                itemAnimator.SetTrigger("slice");
                 rb.MovePosition(new Vector2(4f, 3f));
                 executeOnlyOnce = false;
             }
