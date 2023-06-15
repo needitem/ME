@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class AudioDirector : MonoBehaviour
 {
-    AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
     }
     //수정
     public void PlaySound(string AudioURL)
     {
+        // 이거 함수 안에 넣어 놨는데 스크립트 밖으로 빼서 써도 상관없을듯함.
+        AudioSource audioSource = GetComponent<AudioSource>();
+
         AudioClip audioClip = Resources.Load<AudioClip>(AudioURL);
         audioSource.clip = audioClip;
         audioSource.Play();

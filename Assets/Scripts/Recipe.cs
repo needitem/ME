@@ -8,7 +8,7 @@ public enum Ingredients
     beef,
     chicken,
     fish,
-    depa,
+    green_onion,
     egg,
     onion,
     carrot
@@ -16,8 +16,8 @@ public enum Ingredients
 
 public class Recipe : MonoBehaviour
 {
+    [SerializeField] GameObject gGameDirector;
     // Define recipes
-    GameObject gameDirector;
     const int ingredientAmt = 7;
     private int[] r1;
     private int[] r2;
@@ -72,17 +72,15 @@ public class Recipe : MonoBehaviour
         return randomIndex;
     }
 
-    public Dictionary<int, int> showLeftoverRecipe()
+    public static Dictionary<int, int> showLeftoverRecipe()
     {
         Dictionary<int, int> temp = new Dictionary<int, int>();
 
         for (int i = 0; i < randomRecipe.Length; i++)
         {
-            int cnt = randomRecipe[i];
-            if (cnt > 0)
+            if (randomRecipe[i] > 0)
             {
-
-                Debug.Log("asd");
+                temp.Add(i, randomRecipe[i]); // Key : ingredient 인덱스값, Value : ingredient 갯수
             }
         }
         return temp;
@@ -96,24 +94,18 @@ public class Recipe : MonoBehaviour
 
     private void Start()
     {
-        gameDirector = GameObject.Find("GameDirector");
         init();
+        gGameDirector = GameObject.Find("GameDirector");
         RecipeIndex = createRandomRecipe();
     }
 
     private void Update() //여기 업데이트하지말고 재료가 썰릴때만 불러오게 해야됨.
     {
-        foreach (KeyValuePair<int, int> item in showLeftoverRecipe())
-        {
-            Debug.Log("Key: " + item.Key);
-            Debug.Log("Value: " + item.Value);
-        }
         if (IsRecipeComplete(randomRecipe) || IsRecipeWrong(randomRecipe))
         {
             init();
             RecipeIndex = createRandomRecipe();
-            /*            Debug.Log("레시피 다시 생성");*/
-            gameDirector.GetComponent<GameDirector>().UpdateUI(gameDirector.GetComponent<GameDirector>().GetIngredientIndex());
+            gGameDirector.GetComponent<GameDirector>().UpdateRecipeUI();
             if (IsRecipeComplete(randomRecipe))
             {
                 // Success Performance;

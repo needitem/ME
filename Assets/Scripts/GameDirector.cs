@@ -14,81 +14,67 @@ public class GameDirector : MonoBehaviour
     public Recipe recipe;
     public Image recipeImage;
     public Image[] ingredientImages;
+
     public Sprite[] recipeSprites;
     public Sprite[] ingredientSprites;
 
 
     static public int hp;
-    public int[] indexArray = new int[Recipe.randomRecipe.Length];
-    public int[] valueArray = new int[Recipe.randomRecipe.Length];
+
     // Start is called before the first frame update
 
     void Start()
     {
         hp = maxHp;
         Time.timeScale = 1;
+        UpdateRecipeUI();
+        UpdateRecipeCnt();
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateHearthp();
+        UpdateRecipeCnt();
         /*UpdateRecipeUI();*/
         if (hp <= 0)
         {
             Invoke("ActivateGameover", 3f);
         }
+        /*        Dictionary<int, int> temp = Recipe.showLeftoverRecipe();*/
+
+        /*        for (int i = 0; i < 4; i++)
+                {
+                    
+                }*/
+        
     }
+
+    public void UpdateRecipeCnt()
+    {
+        int j = 0;
+        foreach (KeyValuePair<int, int> item in Recipe.showLeftoverRecipe())
+        {
+            gIngredient_cnt[j].GetComponent<Text>().text = "x" + item.Value;
+            j++;
+        }
+    }
+    
 
     public void UpdateRecipeUI()
     {
-        // recipe img update
         int j = 0;
-        int recipeIndex = Recipe.RecipeArray[0];
-        recipeImage.sprite = recipeSprites[recipeIndex];
+        // recipe img update
+        recipeImage.sprite = recipeSprites[Recipe.RecipeIndex];
 
         // ingredient img update
-        for (int i = 1; i < Recipe.RecipeArray.Length; i++)
+        foreach (KeyValuePair<int, int> item in Recipe.showLeftoverRecipe())
         {
-            int index = indexArray[i];
-            ingredientImages[j].sprite = ingredientSprites[index];
+            ingredientImages[j].sprite = ingredientSprites[item.Key];
             j++;
-            //ingredientImages[i].gameObject.SetActive(Recipe.randomRecipe[i] > 0);
         }
+        /* Key : ingredient ÀÎµ¦½º°ª, Value : ingredient °¹¼ö*/
     }
-    // RecipeArray = 
-    /*    public int[] GetIngredientIndex()
-        {
-            int j = 0;
-            int previousIndex = 0;
-
-            for (int i = 0; i < Recipe.randomRecipe.Length; i++)
-            {
-                if (Recipe.randomRecipe[i] > 0)
-                {
-                    indexArray[j] = previousIndex;
-                    valueArray[j] = Recipe.randomRecipe[i];
-                    j++;
-                }
-                previousIndex++;
-            }
-            return indexArray;
-        }*/
-
-
-
-    /*    public void UpdateUI1(int[] RecipeArray)
-        {
-            int j = 0;
-            int recipeIndex = RecipeArray[0];
-            recipeImage.sprite = recipeSprites[recipeIndex];
-
-            for (int i = 1; i < RecipeArray.Length - 1; i++)
-            {
-                ingredientImages[j].sprite = ingredientSprites[i];
-                j++;
-            }
-        }*/
 
 
     private void UpdateHearthp()

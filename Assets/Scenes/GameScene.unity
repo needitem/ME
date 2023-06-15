@@ -1097,24 +1097,22 @@ MonoBehaviour:
   recipe: {fileID: 17576974}
   recipeImage: {fileID: 952295444}
   ingredientImages:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 342127827}
+  - {fileID: 2099483273}
+  - {fileID: 789623060}
+  - {fileID: 817145158}
   recipeSprites:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: c3fd456ce2e88e742add616ebc51a5bc, type: 3}
+  - {fileID: 21300000, guid: 682c6d7600cf5514d86a1713adf7ad29, type: 3}
+  - {fileID: 21300000, guid: 37482e5e7a7d0794fa8ae8ed68c97536, type: 3}
   ingredientSprites:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  indexArray: 00000000000000000000000000000000000000000000000000000000
-  valueArray: 00000000000000000000000000000000000000000000000000000000
+  - {fileID: 21300000, guid: 397d79796058f15459e870f7dec525ad, type: 3}
+  - {fileID: 21300000, guid: 312daf7a61f642045b179d866e95cdff, type: 3}
+  - {fileID: 21300000, guid: 6c85f7633e145594d895c6d422254ae8, type: 3}
+  - {fileID: 21300000, guid: 244df9f0507dab046ab97996943c2da6, type: 3}
+  - {fileID: 21300000, guid: d58152ccbe6d3334b821eec1cbcc4572, type: 3}
+  - {fileID: 21300000, guid: 70896714400edc244bd45502f2d4182b, type: 3}
+  - {fileID: 21300000, guid: 22d52daae4e54d94b94a4a14af72b507, type: 3}
 --- !u!4 &511668120
 Transform:
   m_ObjectHideFlags: 0
@@ -2239,7 +2237,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -551.33, y: -306.4}
+  m_AnchoredPosition: {x: -564, y: 327}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &952295444
