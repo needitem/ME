@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 //(1.0 ~ 0.8) 사이로 만들고 함수 정리 
 public class Generator : MonoBehaviour
@@ -9,7 +10,10 @@ public class Generator : MonoBehaviour
     public GameObject[] gFruits  = null;
     public GameObject[] gMainfood;
     public GameObject[] gSubfood;
-   
+
+    [SerializeField]
+    public GameObject gSuccessCount;
+
     [SerializeField]
     private GameObject gSpawn;
     
@@ -19,15 +23,16 @@ public class Generator : MonoBehaviour
     [SerializeField]
     private float[][] fSpanArray = new float[][]
     {
-        new float[] {1.0f, 1.0f, 1.0f, 1.0f},
-        new float[] {1.0f, 0.8f, 0.8f, 1.0f, 1.0f},
-        new float[] {0.8f, 1.0f, 0.8f, 0.8f, 1.0f ,0.8f},
-        new float[] {0.8f ,0.9f, 0.8f, 0.9f, 0.8f, 1.0f},
-        new float[] {1.0f, 0.9f, 0.9f, 1.0f, 0.8f, 1.0f},
+        new float[] {1.5f, 1.5f, 1.5f , 1.5f},
+        new float[] {1.3f, 1.2f, 1.3f, 1.2f},
+        new float[] {1.5f, 1.1f, 1.4f, 1.5f},
+        new float[] {1.3f, 1.2f, 1.0f, 1.2f, 1.3f},
+        new float[] {1.4f , 1.1f, 1.1f, 1.4f, 1.0f},
+        new float[] {1.2f, 1.1f, 1.5f, 1.2f, 1.1f}
     };
 
-    [SerializeField]
-    private float[] fSpeed = new float[] { 1.0f, 0.9f, 0.8f, 0.7f, 0.6f }; // if recipe success ,spanArray speed fast  
+   
+    // private float[] fSpeed = new float[] { 1.0f, 0.9f,0.8f,0.7f,0.6f,0.55f,0.5f}; if recipe success ,spanArray speed fast  
     [SerializeField]
     private float fTimeElapsed = 0.0f;
     [SerializeField]
@@ -40,7 +45,7 @@ public class Generator : MonoBehaviour
         gMainfood = Resources.LoadAll<GameObject>("Prefabs/MainFood");
         gSubfood = Resources.LoadAll<GameObject>("Prefabs/SubFood");
         iRowIndex = UnityEngine.Random.Range(0, fSpanArray.Length);
-        NPC = GameObject.Find("NPC");
+        gNPC = GameObject.Find("NPC");
     }
 
     void Update()
@@ -85,7 +90,8 @@ public class Generator : MonoBehaviour
     }
     private float GetCurrentSpan()
     {
-        return fSpanArray[iRowIndex][iColIndex];
+        gSuccessCount = GameObject.Find("gameDirector");
+        return fSpanArray[iRowIndex][iColIndex];//* fSpeed[gSuccessCount.GetComponent<Recipe>().SuccessRecipe];
     }
 
     private void UpdateIndices()
