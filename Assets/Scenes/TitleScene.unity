@@ -1568,6 +1568,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb4c9caa8cb5924db0d64d9ba1945aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpBar: {fileID: 1040311775}
   maxHp: 10
-  Score_Panel: {fileID: 1708130050}
+  heartImages: []
+  Gameover_Panel: {fileID: 0}
+  gIngredient_cnt: []
+  recipe: {fileID: 0}
+  recipeImage: {fileID: 0}
+  ingredientImages: []
+  recipeSprites: []
+  ingredientSprites: []
+  indexArray: 00000000000000000000000000000000000000000000000000000000
+  valueArray: 00000000000000000000000000000000000000000000000000000000
