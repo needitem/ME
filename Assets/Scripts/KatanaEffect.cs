@@ -20,7 +20,7 @@ public class KatanaEffect : MonoBehaviour
         katanaAni.SetTrigger("double_attack");
     }
 
-    public static void attack()
+    public static void Attack()
     {
         katanaAni.SetTrigger("attack");
     }
