@@ -22,11 +22,11 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isPunched) // 스페이스바를 눌렀을 때, 플레이어가 펀치를 당한 상태가 아닐 때
+        if (Input.GetKeyDown(KeyCode.Space) && !isPunched) // 스페이스바를 누르고 튕겨내기 중이 아닐 때
         {
             Attack(); // Attack 메서드 호출
         }
-        else if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked) // 왼쪽 컨트롤 키를 눌렀을 때, 공격한 상태가 아닐 때
+        else if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked) // 왼쪽 컨트롤 키를 누르고 공격 중이 아닐 때
         {
             PunchBack(); // PunchBack 메서드 호출
         }
@@ -39,22 +39,29 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // PunchBack 함수는 튕겨내기 함수
     public void PunchBack()
     {
         isPunched = true; // 플레이어가 펀치를 당한 상태로 설정
         playerAnimator.SetTrigger("punch"); // 펀치 애니메이션 재생
 
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList(); // OverlapBox 안에 있는 모든 충돌체들을 가져옴
+        // OverlapBoxAll 메서드는 주어진 위치(pos.position)와 크기(boxSize)로 지정된 충돌 박스 내에 있는 모든 충돌체 반환
+        // 세 번째 매개변수인 0은 충돌 마스크를 나타내며, 기본값으로 설정되어 모든 충돌체를 검출
+        // .ToList()는 OverlapBoxAll 메서드가 반환하는 배열을 List형태로 변환
+
         foreach (Collider2D collider in colliders)
         {
-           
-            if (collider.tag == "Target")
+           // colliders List에 있는 각 요소를 반복적으로 처리하기 위해 루프 시작
+           // colliders 리스트에 있는 각 요소를 collider 변수에 할당하여 루프 내에서 사용
+
+            if (collider.tag == "Target") // collider 변수가 참조하는 충돌체의 태그가 Target이라면
             {
-                KatanaEffect.Punch();
-                Effect.Apply(collider.gameObject);
+                KatanaEffect.Punch(); // 튕겨내기 이펙트 발동
+                Effect.Apply(collider.gameObject); // 튕겨내기 효과 적용
             }
         }
-        StartCoroutine(CountAttackDelay(0.4f)); // 공격 딜레이를 적용하기 위해 CountAttackDelay 코루틴 실행
+        StartCoroutine(CountAttackDelay(0.4f)); // 공격과 튕겨내기 사이에 딜레이를 적용하기 위해 CountAttackDelay 코루틴 실행
     }
 
     public void Attack()
@@ -69,31 +76,35 @@ public class PlayerController : MonoBehaviour
             {
                 if (collider.tag == "Target") // 충돌체의 태그가 "Target"인 경우
                 {
+                    KatanaEffect.Attack(); // 공격 이펙트 발동
                     collider.gameObject.GetComponent<ItemController>().itemHp--; // 충돌체의 아이템 체력 감소
                     Recipe.DecreaseIngredient(collider.name); // Recipe.decreaseIngredient 함수를 사용하여 재료 감소
                 }
             }
             isDelay = true; // 공격 딜레이 상태로 설정
             lastAttackTime = currentTime; // 마지막 공격 시간을 현재 시간으로 업데이트
-            StartCoroutine(CountAttackDelay(0.4f)); // 공격 딜레이를 적용하기 위해 CountAttackDelay 코루틴 실행
+            
         }
         else if ((currentTime - lastAttackTime) <= doubleAttackTimeWindow) // 현재 시간과 마지막 공격 시간의 차이가 더블 공격 시간 간격보다 작거나 같은 경우
+                                                                           // (0.2초 안에 공격을 두번 따닥 누른 경우)
         {
             playerAnimator.SetTrigger("double_attack"); // 더블 공격 애니메이션 재생
             foreach (Collider2D collider in colliders)
             {
                 if (collider.tag == "Target") // 충돌체의 태그가 "Target"인 경우
                 {
+                    KatanaEffect.DoubleAttack(); // 더블 공격 이펙트 발동
                     collider.gameObject.GetComponent<ItemController>().itemHp--; // 충돌체의 아이템 체력 감소
                     Recipe.DecreaseIngredient(collider.name); // Recipe.decreaseIngredient 함수를 사용하여 재료 감소
                 }
             }
             isDelay = true; // 공격 딜레이 상태로 설정
-            StartCoroutine(CountAttackDelay(0.2f)); // 공격 딜레이를 적용하기 위해 CountAttackDelay 코루틴 실행
+            
         }
-        StartCoroutine(CountAttackDelay(0.4f)); // 공격 딜레이를 적용하기 위해 CountAttackDelay 코루틴 실행
+        StartCoroutine(CountAttackDelay(0.4f)); // 공격과 튕겨내기 사이에 딜레이를 적용하기 위해 CountAttackDelay 코루틴 실행
     }
 
+    // 딜레이 관련 코루틴
     IEnumerator CountAttackDelay(float delayTime)
     {
         yield return new WaitForSeconds(delayTime); // 주어진 시간만큼 대기
