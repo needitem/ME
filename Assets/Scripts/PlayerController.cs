@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
            
             if (collider.tag == "Target")
             {
-                KatanaEffect.Punch();
+                KatanaEffect.Punch(); // 카타나 이펙트의 펀치이펙트 애니메이션 호출
                 Effect.Apply(collider.gameObject);
             }
         }
@@ -69,6 +69,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (collider.tag == "Target") // 충돌체의 태그가 "Target"인 경우
                 {
+                    KatanaEffect.Attack(); //카타나 이펙트의 어택이펙트 애니메이션 재생
                     collider.gameObject.GetComponent<ItemController>().itemHp--; // 충돌체의 아이템 체력 감소
                     Recipe.DecreaseIngredient(collider.name); // Recipe.decreaseIngredient 함수를 사용하여 재료 감소
                 }
@@ -84,6 +85,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (collider.tag == "Target") // 충돌체의 태그가 "Target"인 경우
                 {
+                    KatanaEffect.DoubleAttack(); //카타나 이펙트의 더블어택 이펙트 애니메이션 재생
                     collider.gameObject.GetComponent<ItemController>().itemHp--; // 충돌체의 아이템 체력 감소
                     Recipe.DecreaseIngredient(collider.name); // Recipe.decreaseIngredient 함수를 사용하여 재료 감소
                 }

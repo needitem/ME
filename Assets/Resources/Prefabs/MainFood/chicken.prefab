@@ -126,8 +126,8 @@ MonoBehaviour:
   rate: 0
   controllPosition:
   - {x: 15, y: 2.4}
-  - {x: 12, y: 4}
-  - {x: 8.5, y: 4}
+  - {x: 12, y: 4.7}
+  - {x: 8.5, y: 4.5}
   - {x: 5, y: 3}
   rb: {fileID: 0}
 --- !u!50 &8553057718027019600
