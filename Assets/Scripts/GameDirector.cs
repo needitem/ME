@@ -14,79 +14,87 @@ public class GameDirector : MonoBehaviour
     public Recipe recipe;
     public Image recipeImage;
     public Image[] ingredientImages;
+
     public Sprite[] recipeSprites;
     public Sprite[] ingredientSprites;
 
 
     static public int hp;
-    public int[] indexArray = new int[Recipe.randomRecipe.Length];
-    public int[] valueArray = new int[Recipe.randomRecipe.Length];
+
     // Start is called before the first frame update
 
     void Start()
     {
         hp = maxHp;
         Time.timeScale = 1;
+        UpdateRecipeUI();
+        UpdateRecipeCnt();
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateHearthp();
-
+        UpdateRecipeCnt();
+        /*UpdateRecipeUI();*/
         if (hp <= 0)
         {
             Invoke("ActivateGameover", 3f);
+            Invoke("ChangeScene2", 5f);
         }
+        /*        Dictionary<int, int> temp = Recipe.showLeftoverRecipe();*/
 
-        for (int i = 0; i < 4; i++)
-        {
-            gIngredient_cnt[i].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[i]].ToString("D1");
-        }
+        /*        for (int i = 0; i < 4; i++)
+                {
+                    
+                }*/
 
     }
 
-    public void UpdateUI(int[] indexArray)
+    public void UpdateRecipeCnt()
     {
-        // recipe img update
-        int j = 0;
-        int recipeIndex = Recipe.RecipeIndex;
-        recipeImage.sprite = recipeSprites[recipeIndex];
+        Dictionary<int, int> leftoverRecipe = Recipe.showLeftoverRecipe(); 
+        int[] rearrangedRecipe = new int[gIngredient_cnt.Length]; 
 
+        int currentIndex = 0; 
+        foreach (var pair in leftoverRecipe) 
+        {
+            int ingredientCount = pair.Value;   
+            rearrangedRecipe[currentIndex] = ingredientCount;
+            currentIndex++;
+        }
+
+        for (int i = 0; i < gIngredient_cnt.Length; i++)
+        {
+            if (i < currentIndex)
+            {
+                gIngredient_cnt[i].GetComponent<Text>().text = "x" + rearrangedRecipe[i];
+            }
+            else
+            {
+                gIngredient_cnt[i].GetComponent<Text>().text = "x0";
+            }
+        }
+    }
+
+
+
+
+
+    public void UpdateRecipeUI()
+    {
+        int j = 0;
+        // recipe img update
+        recipeImage.sprite = recipeSprites[Recipe.RecipeIndex];
 
         // ingredient img update
-        for (int i = 0; i < indexArray.Length; i++)
+        foreach (KeyValuePair<int, int> item in Recipe.showLeftoverRecipe())
         {
-            if (Recipe.randomRecipe[i] > 0)
-            {
-                int index = indexArray[j];
-                ingredientImages[j].sprite = ingredientSprites[index];
-                j++;
-                //ingredientImages[i].gameObject.SetActive(Recipe.randomRecipe[i] > 0);
-            }
+            ingredientImages[j].sprite = ingredientSprites[item.Key];
+            j++;
         }
+        /* Key : ingredient 인덱스값, Value : ingredient 갯수*/
     }
-
-    public int[] GetIngredientIndex()
-    {
-        int j = 0;
-        int previousIndex = 0;
-
-        for (int i = 0; i < Recipe.randomRecipe.Length; i++)
-        {
-            if (Recipe.randomRecipe[i] > 0)
-            {
-                indexArray[j] = previousIndex;
-                valueArray[j] = Recipe.randomRecipe[i];
-                j++;
-            }
-            previousIndex++;
-        }
-        return indexArray;
-    }
-
-
-
 
 
     private void UpdateHearthp()
@@ -101,9 +109,8 @@ public class GameDirector : MonoBehaviour
             {
                 heartImages[i].enabled = false;
             }
-        }  
+        }
     }
-    //여긴 차라리 DecreaseHp같은 함수를 만들어두고 체력 닳을때마다 불러서 한칸식 줄게하는게 좋을듯
 
 
     public void ActivateGameover()
@@ -111,17 +118,17 @@ public class GameDirector : MonoBehaviour
         Gameover_Panel.SetActive(true);
     }
 
-    public void changeScene1()
+    public void ChangeScene1()
     {
         SceneManager.LoadScene("GameScene");
     }
 
-    public void changeScene2()
+    public void ChangeScene2()
     {
         SceneManager.LoadScene("FinishScene");
     }
 
-    public void changeScene3()
+    public void ChangeScene3()
     {
         SceneManager.LoadScene("TitleScene");
     }

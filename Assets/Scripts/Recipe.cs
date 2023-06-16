@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
+
 public enum Ingredients
 {
     beef,
     chicken,
     fish,
-    depa,
+    green_onion,
     egg,
     onion,
-    green_onion,
     carrot
 }
 
 public class Recipe : MonoBehaviour
 {
+    [SerializeField] GameObject gGameDirector;
     // Define recipes
-    GameObject gameDirector;
     const int ingredientAmt = 7;
     private int[] r1;
     private int[] r2;
@@ -53,9 +53,9 @@ public class Recipe : MonoBehaviour
 
     public void init() //ÀÌ°Ç ¸»±×´ë·Î initializitionÀÎµ¥ ¿©·¯¹ø ºÒ·¯¿ÃÇÊ¿ä ¾øÀ½. start¶§¸¸ ºÒ·¯¿ÍµµµÊ.
     {
-        r1 = new int[ingredientAmt] { 2, 0, 0, 0, 0, 1, 1 };  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1: beef + onion + carrot
-        r2 = new int[ingredientAmt] { 0, 1, 0, 1, 1, 1, 0 };  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2: chicken + onion + depa + egg
-        r3 = new int[ingredientAmt] { 0, 0, 1, 1, 0, 1, 0 };  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3: fish + depa + onion
+        r1 = new int[ingredientAmt] { 2, 0, 0, 0, 0, 1, 1 };  // ·¹½ÃÇÇ 1: beef + onion + carrot
+        r2 = new int[ingredientAmt] { 0, 1, 0, 1, 1, 1, 0 };  // ·¹½ÃÇÇ 2: chicken + onion + depa + egg
+        r3 = new int[ingredientAmt] { 0, 0, 1, 1, 0, 1, 0 };  // ·¹½ÃÇÇ 3: fish + depa + onion
         randomRecipe = new int[ingredientAmt];
     }
 
@@ -73,47 +73,59 @@ public class Recipe : MonoBehaviour
         return randomIndex;
     }
 
-    public Dictionary<int, int> showLeftoverRecipe()
+    /*    public static Dictionary<int, int> showLeftoverRecipe()
+        {
+            Dictionary<int, int> temp = new Dictionary<int, int>();
+
+            for (int i = 0; i < randomRecipe.Length; i++)
+            {
+                if (randomRecipe[i] > 0)
+                {
+                    temp.Add(i, randomRecipe[i]); // Key : ingredient ÀÎµ¦½º°ª, Value : ingredient °¹¼ö
+                }
+            }
+            return temp;
+        }*/
+
+    public static Dictionary<int, int> showLeftoverRecipe()
     {
         Dictionary<int, int> temp = new Dictionary<int, int>();
 
         for (int i = 0; i < randomRecipe.Length; i++)
         {
-            int cnt = randomRecipe[i];
-            if (cnt > 0)
+            if (randomRecipe[i] > 0)
             {
-                temp[i] = cnt;
+                temp.Add(i, randomRecipe[i]);
             }
         }
+
         return temp;
     }
+
+
+
 
     public static void decreaseIngredient(string name)
     {
         Ingredients ingredient = (Ingredients)Enum.Parse(typeof(Ingredients), name);
         randomRecipe[(int)ingredient]--;
+
     }
 
     private void Start()
     {
-        gameDirector = GameObject.Find("GameDirector");
         init();
+        gGameDirector = GameObject.Find("GameDirector");
         RecipeIndex = createRandomRecipe();
     }
 
     private void Update() //¿©±â ¾÷µ¥ÀÌÆ®ÇÏÁö¸»°í Àç·á°¡ ½ä¸±¶§¸¸ ºÒ·¯¿À°Ô ÇØ¾ßµÊ.
     {
-        foreach(KeyValuePair<int, int> item in showLeftoverRecipe())
-        {
-            Debug.Log("Key: " + item.Key);
-            Debug.Log("Value: " + item.Value);
-        }
         if (IsRecipeComplete(randomRecipe) || IsRecipeWrong(randomRecipe))
         {
             init();
             RecipeIndex = createRandomRecipe();
-            /*            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½");*/
-            gameDirector.GetComponent<GameDirector>().UpdateUI(gameDirector.GetComponent<GameDirector>().GetIngredientIndex());
+            gGameDirector.GetComponent<GameDirector>().UpdateRecipeUI();
             if (IsRecipeComplete(randomRecipe))
             {
                 // Success Performance;
