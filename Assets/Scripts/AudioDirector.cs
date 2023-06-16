@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class AudioDirector : MonoBehaviour
 {
-    //수정
-    public void PlaySound(string AudioURL)
+    public static AudioSource audioSource;
+
+    private void Start()
     {
-        AudioSource audioSource = GetComponent<AudioSource>();                  
+        audioSource = GetComponent<AudioSource>();
+    }
+    //수정
+    public static void PlaySound(string AudioURL)
+    {
         AudioClip audioClip = Resources.Load<AudioClip>(AudioURL);
         audioSource.clip = audioClip;
         audioSource.Play();
-        audioClip = null;
     }
 }
 /*

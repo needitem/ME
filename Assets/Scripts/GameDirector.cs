@@ -68,7 +68,7 @@ public class GameDirector : MonoBehaviour
         recipeImage.sprite = recipeSprites[Recipe.RecipeIndex];
 
         // ingredient img update
-        foreach (KeyValuePair<int, int> item in Recipe.showLeftoverRecipe())
+        foreach (KeyValuePair<int, int> item in Recipe.ShowLeftoverRecipe())
         {
             ingredientImages[j].sprite = ingredientSprites[item.Key];
             j++;

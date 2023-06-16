@@ -64,6 +64,7 @@ public class Generator : MonoBehaviour
         {
             foodPrefab = subFood[Random.Range(0, subFood.Length)];
             itemHp = 1;
+
         }
 
         spawn = Instantiate(foodPrefab, spawnPosition, Quaternion.identity);
