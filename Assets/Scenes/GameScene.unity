@@ -2073,6 +2073,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1806640390}
     m_Modifications:
+    - target: {fileID: 1465398247570122754, guid: a8f36efd44502234bb5b91718496ddd9, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5301115507294877431, guid: a8f36efd44502234bb5b91718496ddd9, type: 3}
       propertyPath: m_Name
       value: GrassPrefeb (3)
