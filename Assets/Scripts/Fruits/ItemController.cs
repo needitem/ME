@@ -21,7 +21,7 @@ public class ItemController : MonoBehaviour
         itemAnimator = GetComponent<Animator>();
     }
 
- 
+
 
     private void FixedUpdate()
     {
@@ -32,7 +32,7 @@ public class ItemController : MonoBehaviour
 
         rate += Time.deltaTime;
         transform.position = BezierTest(controllPosition[0], controllPosition[1], controllPosition[2], controllPosition[3], rate);
-        
+
 
         if (rate >= 1f)
         {

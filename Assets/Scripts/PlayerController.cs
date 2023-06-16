@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
                 if (collider.tag == "Target") // 충돌체의 태그가 "Target"인 경우
                 {
                     collider.gameObject.GetComponent<ItemController>().itemHp--; // 충돌체의 아이템 체력 감소
-                    Recipe.decreaseIngredient(collider.name); // Recipe.decreaseIngredient 함수를 사용하여 재료 감소
+                    Recipe.DecreaseIngredient(collider.name); // Recipe.decreaseIngredient 함수를 사용하여 재료 감소
                 }
             }
             isDelay = true; // 공격 딜레이 상태로 설정
@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
                 if (collider.tag == "Target") // 충돌체의 태그가 "Target"인 경우
                 {
                     collider.gameObject.GetComponent<ItemController>().itemHp--; // 충돌체의 아이템 체력 감소
-                    Recipe.decreaseIngredient(collider.name); // Recipe.decreaseIngredient 함수를 사용하여 재료 감소
+                    Recipe.DecreaseIngredient(collider.name); // Recipe.decreaseIngredient 함수를 사용하여 재료 감소
                 }
             }
             isDelay = true; // 공격 딜레이 상태로 설정
