@@ -22,7 +22,7 @@ public class Effect : MonoBehaviour
 
     public static IEnumerator ScaleTarget(GameObject target)
     {
-        float currentScale = 4.5f;
+        float currentScale = 3.5f;
         target.GetComponent<Collider2D>().enabled = false;
         //while (currentScale <= maxScale)
         //{
@@ -42,7 +42,7 @@ public class Effect : MonoBehaviour
 
         yield return new WaitForSeconds(0.1f);
 
-        if (currentScale >= 4.5)
+        if (currentScale >= 3.5)
         {
             Destroy(target);
         }

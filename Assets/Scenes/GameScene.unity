@@ -1796,19 +1796,17 @@ MonoBehaviour:
   - {fileID: 776887924}
   - {fileID: 1410989197}
   recipeSprites:
-  - {fileID: 21300000, guid: cf1462bc694c3c249831ad8ac5293aa2, type: 3}
-  - {fileID: 21300000, guid: ca45d178d188e034aa96a68aceeef41b, type: 3}
-  - {fileID: 21300000, guid: ac47ed8ccc79cf04dae198b9cc5b3a6f, type: 3}
+  - {fileID: 1327652412, guid: 19df90655bccbe346858eb0adb44db45, type: 3}
+  - {fileID: 1331321373, guid: 19df90655bccbe346858eb0adb44db45, type: 3}
+  - {fileID: 1672838686, guid: 19df90655bccbe346858eb0adb44db45, type: 3}
   ingredientSprites:
-  - {fileID: 1903286348, guid: 01e2f7f3b62aeb643bf1177b8d8bc44b, type: 3}
-  - {fileID: 21300000, guid: 312daf7a61f642045b179d866e95cdff, type: 3}
-  - {fileID: 21300000, guid: 6c85f7633e145594d895c6d422254ae8, type: 3}
-  - {fileID: 21300000, guid: 244df9f0507dab046ab97996943c2da6, type: 3}
+  - {fileID: 658485218, guid: d1b047ac7942b47428289b69ab4a00c0, type: 3}
+  - {fileID: 1232767353, guid: b42b271a4563a70459824d7a6bec74f1, type: 3}
+  - {fileID: -757770099, guid: 2a980be6b1714d740aca3b739c5e44be, type: 3}
+  - {fileID: 1106232316, guid: c3c89b7865282ed45b0a9735d8944a0b, type: 3}
   - {fileID: 286899393, guid: 01e2f7f3b62aeb643bf1177b8d8bc44b, type: 3}
-  - {fileID: 21300000, guid: 70896714400edc244bd45502f2d4182b, type: 3}
-  - {fileID: 21300000, guid: 22d52daae4e54d94b94a4a14af72b507, type: 3}
-  indexArray: 00000000000000000000000000000000000000000000000000000000
-  valueArray: 00000000000000000000000000000000000000000000000000000000
+  - {fileID: -1615209295, guid: 97c6d292d2f465345a2e4f0b394705b9, type: 3}
+  - {fileID: -2083844466, guid: 20cfe2d73e01da449a298affdc7d7f9f, type: 3}
 --- !u!4 &511668120
 Transform:
   m_ObjectHideFlags: 0
@@ -2713,6 +2711,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c05f3eb3316b1042b2e79d797fe9713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameDirector: {fileID: 0}
 --- !u!4 &714324505
 Transform:
   m_ObjectHideFlags: 0
@@ -5859,6 +5858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c05f3eb3316b1042b2e79d797fe9713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameDirector: {fileID: 0}
 --- !u!4 &1599708740
 Transform:
   m_ObjectHideFlags: 0
@@ -7339,7 +7339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3b94f347ff981446a4f7a208b0e4781, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Menu_Panel: {fileID: 1177734134}
+  Panel_menu: {fileID: 1177734134}
 --- !u!4 &1800436619
 Transform:
   m_ObjectHideFlags: 0
@@ -7946,8 +7946,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c69ce6fbe7af44449a92f094e63a0cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainfood: []
-  subfood: []
+  mainFood: []
+  subFood: []
   span: 4
 --- !u!4 &2079621017
 Transform:

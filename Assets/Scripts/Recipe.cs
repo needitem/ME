@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -7,24 +8,22 @@ public enum Ingredients
     beef,
     chicken,
     fish,
-    depa,
+    green_onion,
     egg,
     onion,
-    green_onion,
     carrot
 }
 
 public class Recipe : MonoBehaviour
 {
-    // Define recipes
-    GameObject gameDirector;
-    const int ingredientAmt = 7;
-    private int[] r1;
-    private int[] r2;
-    private int[] r3;
-    public static int[] randomRecipe = new int[ingredientAmt];
+    [SerializeField] private GameObject gameDirector;
+    private const int ingredientAmt = 7;
+    private readonly int[] recipe1 = { 20, 0, 0, 0, 0, 10, 10 };
+    private readonly int[] recipe2 = { 0, 10, 0, 10, 10, 10, 0 };
+    private readonly int[] recipe3 = { 0, 0, 10, 10, 0, 10, 0 };
+    private static readonly int[] randomRecipe = new int[ingredientAmt];
 
-    public static int RecipeIndex = 0;
+    public static int RecipeIndex { get; private set; }
 
     public bool IsRecipeComplete(int[] randomRecipe)
     {
@@ -50,66 +49,79 @@ public class Recipe : MonoBehaviour
         return false;
     }
 
-    public void init()
+    private void Awake()
     {
-        r1 = new int[ingredientAmt] { 2, 0, 0, 0, 0, 1, 1 };  // ������ 1: beef + onion + carrot
-        r2 = new int[ingredientAmt] { 0, 1, 0, 1, 1, 1, 0 };  // ������ 2: chicken + onion + depa + egg
-        r3 = new int[ingredientAmt] { 0, 0, 1, 1, 0, 1, 0 };  // ������ 3: fish + depa + onion
-        randomRecipe = new int[ingredientAmt];
+        Init();
+        gameDirector = GameObject.Find("GameDirector");
+        RecipeIndex = CreateRandomRecipe();
     }
 
-    // Recioe random raw
-    public int createRandomRecipe()
+    private void Update()
+    {
+        if (IsRecipeComplete(randomRecipe) || IsRecipeWrong(randomRecipe))
+        {
+            Init();
+            RecipeIndex = CreateRandomRecipe();
+            gameDirector.GetComponent<GameDirector>().UpdateRecipeUI();
+            if (IsRecipeComplete(randomRecipe))
+            {
+                //RecipeIndex = CreateRandomRecipe();
+            }
+            else if (IsRecipeWrong(randomRecipe))
+            {
+               //GameDirector.hp = 0;
+            }
+        }
+    }
+
+    private void Init()
+    {
+        Array.Clear(randomRecipe, 0, randomRecipe.Length);
+    }
+
+    private int CreateRandomRecipe()
     {
         int randomIndex = Random.Range(0, 3);
 
         switch (randomIndex)
         {
-            case 0: randomRecipe = r1; break;
-            case 1: randomRecipe = r2; break;
-            case 2: randomRecipe = r3; break;
+            case 0:
+                Array.Copy(recipe1, randomRecipe, ingredientAmt);
+                break;
+            case 1:
+                Array.Copy(recipe2, randomRecipe, ingredientAmt);
+                break;
+            case 2:
+                Array.Copy(recipe3, randomRecipe, ingredientAmt);
+                break;
         }
+
         return randomIndex;
     }
 
-    public void showLeftoverRecipe()
+    public static Dictionary<int, int> ShowLeftoverRecipe()
     {
-        //display
-    }
-
-    public static void decreaseIngredient(string name)
-    {
-        Ingredients ingredient = (Ingredients)Enum.Parse(typeof(Ingredients), name);
-        int index = (int)ingredient;
-        randomRecipe[index]--;
-        /*        Debug.Log(index);
-                Debug.Log(randomRecipe[index]);
-                Debug.Log(ingredient);*/
-    }
-
-    private void Start()
-    {
-        gameDirector = GameObject.Find("GameDirector");
-        init();
-        RecipeIndex = createRandomRecipe();
-    }
-
-    private void Update()
-    {        // Recipe reset status
-        if (IsRecipeComplete(randomRecipe) || IsRecipeWrong(randomRecipe))
+        Dictionary<int, int> temp = new Dictionary<int, int>();
+        for (int i = 0; i < randomRecipe.Length; i++)
         {
-            init();
-            RecipeIndex = createRandomRecipe();
-            /*            Debug.Log("������ �ٽ� ����");*/
-            gameDirector.GetComponent<GameDirector>().UpdateUI(gameDirector.GetComponent<GameDirector>().GetIngredientIndex());
-            if (IsRecipeComplete(randomRecipe))
+            if (randomRecipe[i] > 0)
             {
-                // Success Performance;
+                temp.Add(i, randomRecipe[i]);
             }
-            else
-            {
-                // Fail Performance;
-            }
+        }
+
+        return temp;
+    }
+
+    public static void DecreaseIngredient(string name)
+    {
+        if (Enum.TryParse<Ingredients>(name, out var ingredient))
+        {
+            randomRecipe[(int)ingredient]--;
+        }
+        else
+        {
+            throw new ArgumentException("Invalid ingredient name");
         }
     }
 }

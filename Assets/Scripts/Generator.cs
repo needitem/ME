@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class Generator : MonoBehaviour
 {
-    public GameObject[] mainfood;
-    public GameObject[] subfood;
+    public GameObject[] mainFood;
+    public GameObject[] subFood;
     private GameObject spawn;
     private GameObject NPC;
     private float[][] spanArray = new float[][]
     {
         new float[] {1.0f, 1.0f, 1.0f, 1.0f},
-        new float[] {1.0f, 0.5f, 0.5f, 1.0f,1.0f},
+        new float[] {1.0f, 0.5f, 0.5f, 1.0f, 1.0f},
         new float[] {0.4f, 0.4f, 0.7f, 0.5f, 1.0f},
         new float[] {0.25f, 0.25f, 0.6f, 0.8f, 0.6f, 1.0f, 0.5f},
-        new float[] {0.6f, 0.9f,0.5f, 1.0f}
+        new float[] {0.6f, 0.9f, 0.5f, 1.0f}
     };
 
     private float timeElapsed = 0f;
@@ -21,11 +21,10 @@ public class Generator : MonoBehaviour
 
     public float span = 1.3f;
 
-
     void Start()
     {
-        mainfood = Resources.LoadAll<GameObject>("Prefabs/MainFood");
-        subfood = Resources.LoadAll<GameObject>("Prefabs/SubFood");
+        mainFood = Resources.LoadAll<GameObject>("Prefabs/MainFood");
+        subFood = Resources.LoadAll<GameObject>("Prefabs/SubFood");
         rowIndex = Random.Range(0, spanArray.Length);
         NPC = GameObject.Find("NPC");
     }
@@ -49,6 +48,7 @@ public class Generator : MonoBehaviour
             }
         }
     }
+
     public void SpawnFood()
     {
         Vector3 spawnPosition = new Vector3(15, 1.5f, 1);
@@ -57,12 +57,12 @@ public class Generator : MonoBehaviour
 
         if (Random.Range(0, 3) == 0)
         {
-            foodPrefab = mainfood[Random.Range(0, mainfood.Length)];
+            foodPrefab = mainFood[Random.Range(0, mainFood.Length)];
             itemHp = 2;
         }
         else
         {
-            foodPrefab = subfood[Random.Range(0, subfood.Length)];
+            foodPrefab = subFood[Random.Range(0, subFood.Length)];
             itemHp = 1;
         }
 
@@ -70,6 +70,7 @@ public class Generator : MonoBehaviour
         spawn.name = foodPrefab.name;
         spawn.GetComponent<ItemController>().itemHp = itemHp;
     }
+
     private float GetCurrentSpan()
     {
         return spanArray[rowIndex][colIndex];
@@ -80,7 +81,4 @@ public class Generator : MonoBehaviour
         rowIndex = Random.Range(0, spanArray.Length);
         colIndex = 0;
     }
-
 }
-
-

@@ -1,23 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
-    public GameObject Menu_Panel = null;
+    public GameObject Panel_menu = null;
     // Start is called before the first frame update
 
     public void Click_Menu()
     {
         Time.timeScale = 0;
-        Menu_Panel.SetActive(true);
+        Panel_menu.SetActive(true);
     }
 
     public void Click_Continue()
     {
         Time.timeScale = 1;
-        Menu_Panel.SetActive(false);
+        Panel_menu.SetActive(false);
     }
 
     public void Click_Exit()
@@ -32,12 +30,6 @@ public class MenuController : MonoBehaviour
 
     void Start()
     {
-        Menu_Panel.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Panel_menu.SetActive(false);
     }
 }
