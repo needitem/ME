@@ -8,17 +8,16 @@ public enum Ingredients
     beef,
     chicken,
     fish,
-    depa,
+    green_onion,
     egg,
     onion,
-    green_onion,
     carrot
 }
 
 public class Recipe : MonoBehaviour
 {
+    [SerializeField] GameObject gGameDirector;
     // Define recipes
-    GameObject gameDirector;
     const int ingredientAmt = 7;
     private int[] r1;
     private int[] r2;
@@ -51,7 +50,7 @@ public class Recipe : MonoBehaviour
         return false;
     }
 
-    public void init() //ÀÌ°Ç ¸»±×´ë·Î initializitionÀÎµ¥ ¿©·¯¹ø ºÒ·¯¿ÃÇÊ¿ä ¾øÀ½. start¶§¸¸ ºÒ·¯¿ÍµµµÊ.
+    public void init() //ï¿½Ì°ï¿½ ï¿½ï¿½ï¿½×´ï¿½ï¿½ initializitionï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½Ê¿ï¿½ ï¿½ï¿½ï¿½ï¿½. startï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½Íµï¿½ï¿½ï¿½.
     {
         r1 = new int[ingredientAmt] { 2, 0, 0, 0, 0, 1, 1 };  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1: beef + onion + carrot
         r2 = new int[ingredientAmt] { 0, 1, 0, 1, 1, 1, 0 };  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2: chicken + onion + depa + egg
@@ -73,16 +72,15 @@ public class Recipe : MonoBehaviour
         return randomIndex;
     }
 
-    public Dictionary<int, int> showLeftoverRecipe()
+    public static Dictionary<int, int> showLeftoverRecipe()
     {
         Dictionary<int, int> temp = new Dictionary<int, int>();
 
         for (int i = 0; i < randomRecipe.Length; i++)
         {
-            int cnt = randomRecipe[i];
-            if (cnt > 0)
+            if (randomRecipe[i] > 0)
             {
-                temp[i] = cnt;
+                temp.Add(i, randomRecipe[i]); // Key : ingredient ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½, Value : ingredient ï¿½ï¿½ï¿½ï¿½
             }
         }
         return temp;
@@ -96,24 +94,18 @@ public class Recipe : MonoBehaviour
 
     private void Start()
     {
-        gameDirector = GameObject.Find("GameDirector");
         init();
+        gGameDirector = GameObject.Find("GameDirector");
         RecipeIndex = createRandomRecipe();
     }
 
-    private void Update() //¿©±â ¾÷µ¥ÀÌÆ®ÇÏÁö¸»°í Àç·á°¡ ½ä¸±¶§¸¸ ºÒ·¯¿À°Ô ÇØ¾ßµÊ.
+    private void Update() //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½á°¡ ï¿½ä¸±ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø¾ßµï¿½.
     {
-        foreach(KeyValuePair<int, int> item in showLeftoverRecipe())
-        {
-            Debug.Log("Key: " + item.Key);
-            Debug.Log("Value: " + item.Value);
-        }
         if (IsRecipeComplete(randomRecipe) || IsRecipeWrong(randomRecipe))
         {
             init();
             RecipeIndex = createRandomRecipe();
-            /*            Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½");*/
-            gameDirector.GetComponent<GameDirector>().UpdateUI(gameDirector.GetComponent<GameDirector>().GetIngredientIndex());
+            gGameDirector.GetComponent<GameDirector>().UpdateRecipeUI();
             if (IsRecipeComplete(randomRecipe))
             {
                 // Success Performance;

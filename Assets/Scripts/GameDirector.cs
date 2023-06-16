@@ -14,79 +14,59 @@ public class GameDirector : MonoBehaviour
     public Recipe recipe;
     public Image recipeImage;
     public Image[] ingredientImages;
+
     public Sprite[] recipeSprites;
     public Sprite[] ingredientSprites;
 
 
     static public int hp;
-    public int[] indexArray = new int[Recipe.randomRecipe.Length];
-    public int[] valueArray = new int[Recipe.randomRecipe.Length];
+
     // Start is called before the first frame update
 
     void Start()
     {
         hp = maxHp;
         Time.timeScale = 1;
+        UpdateRecipeUI();
+        UpdateRecipeCnt();
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateHearthp();
-
+        UpdateRecipeCnt();
         if (hp <= 0)
         {
             Invoke("ActivateGameover", 3f);
         }
+  }
 
-        for (int i = 0; i < 4; i++)
-        {
-            gIngredient_cnt[i].GetComponent<Text>().text = "X" + Recipe.randomRecipe[indexArray[i]].ToString("D1");
-        }
-
-    }
-
-    public void UpdateUI(int[] indexArray)
+    public void UpdateRecipeCnt()
     {
-        // recipe img update
         int j = 0;
-        int recipeIndex = Recipe.RecipeIndex;
-        recipeImage.sprite = recipeSprites[recipeIndex];
+        foreach (KeyValuePair<int, int> item in Recipe.showLeftoverRecipe())
+        {
+            gIngredient_cnt[j].GetComponent<Text>().text = "x" + item.Value;
+            j++;
+        }
+    }
+    
 
+    public void UpdateRecipeUI()
+    {
+        int j = 0;
+        // recipe img update
+        recipeImage.sprite = recipeSprites[Recipe.RecipeIndex];
 
         // ingredient img update
-        for (int i = 0; i < indexArray.Length; i++)
+        foreach (KeyValuePair<int, int> item in Recipe.showLeftoverRecipe())
         {
-            if (Recipe.randomRecipe[i] > 0)
-            {
-                int index = indexArray[j];
-                ingredientImages[j].sprite = ingredientSprites[index];
-                j++;
-                //ingredientImages[i].gameObject.SetActive(Recipe.randomRecipe[i] > 0);
-            }
+            ingredientImages[j].sprite = ingredientSprites[item.Key];
+            j++;
         }
+        /* Key : ingredient ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½, Value : ingredient ï¿½ï¿½ï¿½ï¿½*/
     }
-
-    public int[] GetIngredientIndex()
-    {
-        int j = 0;
-        int previousIndex = 0;
-
-        for (int i = 0; i < Recipe.randomRecipe.Length; i++)
-        {
-            if (Recipe.randomRecipe[i] > 0)
-            {
-                indexArray[j] = previousIndex;
-                valueArray[j] = Recipe.randomRecipe[i];
-                j++;
-            }
-            previousIndex++;
-        }
-        return indexArray;
-    }
-
-
-
 
 
     private void UpdateHearthp()
@@ -103,7 +83,7 @@ public class GameDirector : MonoBehaviour
             }
         }  
     }
-    //¿©±ä Â÷¶ó¸® DecreaseHp°°Àº ÇÔ¼ö¸¦ ¸¸µé¾îµÎ°í Ã¼·Â ´âÀ»¶§¸¶´Ù ºÒ·¯¼­ ÇÑÄ­½Ä ÁÙ°ÔÇÏ´Â°Ô ÁÁÀ»µí
+    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ DecreaseHpï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Î°ï¿½ Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ ï¿½ï¿½Ä­ï¿½ï¿½ ï¿½Ù°ï¿½ï¿½Ï´Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
 
     public void ActivateGameover()
