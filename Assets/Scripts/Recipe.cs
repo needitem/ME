@@ -109,7 +109,6 @@ public class Recipe : MonoBehaviour
                 temp.Add(i, randomRecipe[i]);
             }
         }
-
         return temp;
     }
 

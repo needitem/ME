@@ -5,127 +5,149 @@ using System.Linq;
 
 public class PlayerController : MonoBehaviour
 {
-    private bool hasAttacked = false; // °ø°ÝÇÑ »óÅÂÀÎÁö ¿©ºÎ¸¦ ³ªÅ¸³»´Â º¯¼ö
-    private float lastAttackTime = -1f; // ¸¶Áö¸· °ø°Ý ½Ã°£À» ÀúÀåÇÏ´Â º¯¼ö
-    private float doubleAttackTimeWindow = 0.2f; // ´õºí °ø°ÝÀ» ÀÎ½ÄÇÏ±â À§ÇÑ ½Ã°£ °£°Ý
+    private bool hasAttacked = false;
+    private float lastAttackTime = -1f;
+    private float doubleAttackTimeWindow = 0.2f;
 
-    public Vector2 boxSize; // OverlapBoxÀÇ Å©±â¸¦ ÁöÁ¤ÇÏ´Â º¯¼ö
-    public Transform pos; // OverlapBoxÀÇ À§Ä¡¸¦ ÁöÁ¤ÇÏ´Â º¯¼ö
-    bool isPunched = false; // ÇÃ·¹ÀÌ¾î°¡ ÆÝÄ¡¸¦ ´çÇß´ÂÁö ¿©ºÎ¸¦ ³ªÅ¸³»´Â º¯¼ö
-    public bool isDelay = false; // °ø°Ý µô·¹ÀÌ ¿©ºÎ¸¦ ³ªÅ¸³»´Â º¯¼ö
-    Animator playerAnimator; // ÇÃ·¹ÀÌ¾îÀÇ ¾Ö´Ï¸ÞÀÌÅÍ ÄÄÆ÷³ÍÆ®¸¦ ÂüÁ¶ÇÏ´Â º¯¼ö
+    public Vector2 boxSize;
+    public Transform pos;
+    bool isPunched = false;
+    public bool isDelay = false; //attack delay
+    Animator playerAnimator;
 
     private void Start()
     {
-        playerAnimator = GetComponent<Animator>(); // ¾Ö´Ï¸ÞÀÌÅÍ ÄÄÆ÷³ÍÆ®¸¦ °¡Á®¿È
+        playerAnimator = GetComponent<Animator>();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isPunched) // ½ºÆäÀÌ½º¹Ù¸¦ ´©¸£°í Æ¨°Ü³»±â ÁßÀÌ ¾Æ´Ò ¶§
+        if (Input.GetKeyDown(KeyCode.Space) && !isPunched)
         {
-            Attack(); // Attack ¸Þ¼­µå È£Ãâ
+            Attack();
         }
-        else if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked) // ¿ÞÂÊ ÄÁÆ®·Ñ Å°¸¦ ´©¸£°í °ø°Ý ÁßÀÌ ¾Æ´Ò ¶§
+        else if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked)
         {
-            PunchBack(); // PunchBack ¸Þ¼­µå È£Ãâ
+            PunchBack();
         }
 
-        if (GameDirector.hp <= 0) // °ÔÀÓÀÇ Ã¼·ÂÀÌ 0 ÀÌÇÏÀÏ ¶§
+        if (GameDirector.hp <= 0)
         {
+            gameObject.GetComponent<AudioSource>().mute = true; // hpï¿½ï¿½ 0ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ï¿½ï¿½ PlayControllerï¿½ï¿½Å©ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ muteÃ³ï¿½ï¿½
             playerAnimator.SetTrigger("game_over");
-            // °ÔÀÓ ¿À¹ö Æ®¸®°Å¸¦ ¼³Á¤ÇÏ¿© ¾Ö´Ï¸ÞÀÌ¼Ç Àç»ý
-            // °ÔÀÓ ¿À¹ö ¾ÀÀ¸·Î ÀüÈ¯
+            //Change to Gameover Scene
         }
+
     }
 
-    // PunchBack ÇÔ¼ö´Â Æ¨°Ü³»±â ÇÔ¼ö
+    // PunchBack ï¿½Ô¼ï¿½ï¿½ï¿½ Æ¨ï¿½Ü³ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
     public void PunchBack()
     {
-        isPunched = true; // ÇÃ·¹ÀÌ¾î°¡ ÆÝÄ¡¸¦ ´çÇÑ »óÅÂ·Î ¼³Á¤
-        playerAnimator.SetTrigger("punch"); // ÆÝÄ¡ ¾Ö´Ï¸ÞÀÌ¼Ç Àç»ý
+        isPunched = true;
+        playerAnimator.SetTrigger("punch");
 
-        var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList(); // OverlapBox ¾È¿¡ ÀÖ´Â ¸ðµç Ãæµ¹Ã¼µéÀ» °¡Á®¿È
-        // OverlapBoxAll ¸Þ¼­µå´Â ÁÖ¾îÁø À§Ä¡(pos.position)¿Í Å©±â(boxSize)·Î ÁöÁ¤µÈ Ãæµ¹ ¹Ú½º ³»¿¡ ÀÖ´Â ¸ðµç Ãæµ¹Ã¼ ¹ÝÈ¯
-        // ¼¼ ¹øÂ° ¸Å°³º¯¼öÀÎ 0Àº Ãæµ¹ ¸¶½ºÅ©¸¦ ³ªÅ¸³»¸ç, ±âº»°ªÀ¸·Î ¼³Á¤µÇ¾î ¸ðµç Ãæµ¹Ã¼¸¦ °ËÃâ
-        // .ToList()´Â OverlapBoxAll ¸Þ¼­µå°¡ ¹ÝÈ¯ÇÏ´Â ¹è¿­À» ListÇüÅÂ·Î º¯È¯
-
+        var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
+        if (colliders.Count == 0)
+        {
+            AudioDirector.PlaySound("Sound/effect_sound/fryingpanMess"); // ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½
+        }
         foreach (Collider2D collider in colliders)
         {
-           // colliders List¿¡ ÀÖ´Â °¢ ¿ä¼Ò¸¦ ¹Ýº¹ÀûÀ¸·Î Ã³¸®ÇÏ±â À§ÇØ ·çÇÁ ½ÃÀÛ
-           // colliders ¸®½ºÆ®¿¡ ÀÖ´Â °¢ ¿ä¼Ò¸¦ collider º¯¼ö¿¡ ÇÒ´çÇÏ¿© ·çÇÁ ³»¿¡¼­ »ç¿ë
-
-            if (collider.tag == "Target") // collider º¯¼ö°¡ ÂüÁ¶ÇÏ´Â Ãæµ¹Ã¼ÀÇ ÅÂ±×°¡ TargetÀÌ¶ó¸é
+            if (collider.tag == "Target")
             {
-                KatanaEffect.Punch(); // Æ¨°Ü³»±â ÀÌÆåÆ® ¹ßµ¿
-                Effect.Apply(collider.gameObject); // Æ¨°Ü³»±â È¿°ú Àû¿ë
+                KatanaEffect.Punch();
+                Effect.Apply(collider.gameObject);
+                AudioDirector.PlaySound("Sound/effect_sound/fryingpan"); // ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½Ò°ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½Ï¾î³µï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½
             }
         }
-        StartCoroutine(CountAttackDelay(0.4f)); // °ø°Ý°ú Æ¨°Ü³»±â »çÀÌ¿¡ µô·¹ÀÌ¸¦ Àû¿ëÇÏ±â À§ÇØ CountAttackDelay ÄÚ·çÆ¾ ½ÇÇà
+        StartCoroutine(CountAttackDelay(0.4f));
     }
 
     public void Attack()
     {
-        hasAttacked = true; // °ø°ÝÇÑ »óÅÂ·Î ¼³Á¤
-        float currentTime = Time.time; // ÇöÀç ½Ã°£ ÀúÀå
-        var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList(); // OverlapBox ¾È¿¡ ÀÖ´Â ¸ðµç Ãæµ¹Ã¼µéÀ» °¡Á®¿È
-        if (!isDelay) // °ø°Ý µô·¹ÀÌ »óÅÂ°¡ ¾Æ´Ñ °æ¿ì
+        hasAttacked = true;
+        float currentTime = Time.time;
+
+        var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
+        if (!isDelay)
         {
-            playerAnimator.SetTrigger("attack"); // °ø°Ý ¾Ö´Ï¸ÞÀÌ¼Ç Àç»ý
+            playerAnimator.SetTrigger("attack");
+            if (colliders.Count == 0)
+            {
+                AudioDirector.PlaySound("Sound/effect_sound/swing1");  // ï¿½ï¿½ï¿½ï¿½Ä® ï¿½Ñ¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½
+            }
             foreach (Collider2D collider in colliders)
             {
-                if (collider.tag == "Target") // Ãæµ¹Ã¼ÀÇ ÅÂ±×°¡ "Target"ÀÎ °æ¿ì
+                if (collider.tag == "Target")
                 {
-                    KatanaEffect.Attack(); // °ø°Ý ÀÌÆåÆ® ¹ßµ¿
-                    collider.gameObject.GetComponent<ItemController>().itemHp--; // Ãæµ¹Ã¼ÀÇ ¾ÆÀÌÅÛ Ã¼·Â °¨¼Ò
-                    Recipe.DecreaseIngredient(collider.name); // Recipe.decreaseIngredient ÇÔ¼ö¸¦ »ç¿ëÇÏ¿© Àç·á °¨¼Ò
+                    KatanaEffect.Attack();
+                    collider.gameObject.GetComponent<ItemController>().itemHp--;
+                    AudioDirector.PlaySound("Sound/effect_sound/slice1"); // ï¿½ï¿½ï¿½ï¿½Ä® ï¿½Ñ¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½
+                    Recipe.DecreaseIngredient(collider.name);
                 }
             }
-            isDelay = true; // °ø°Ý µô·¹ÀÌ »óÅÂ·Î ¼³Á¤
-            lastAttackTime = currentTime; // ¸¶Áö¸· °ø°Ý ½Ã°£À» ÇöÀç ½Ã°£À¸·Î ¾÷µ¥ÀÌÆ®
-            
+
+            isDelay = true;
+            lastAttackTime = currentTime;
+            StartCoroutine(CountAttackDelay(0.4f));
         }
-        else if ((currentTime - lastAttackTime) <= doubleAttackTimeWindow) // ÇöÀç ½Ã°£°ú ¸¶Áö¸· °ø°Ý ½Ã°£ÀÇ Â÷ÀÌ°¡ ´õºí °ø°Ý ½Ã°£ °£°Ýº¸´Ù ÀÛ°Å³ª °°Àº °æ¿ì
-                                                                           // (0.2ÃÊ ¾È¿¡ °ø°ÝÀ» µÎ¹ø µû´Ú ´©¸¥ °æ¿ì)
+        else if ((currentTime - lastAttackTime) <= doubleAttackTimeWindow)
         {
-            playerAnimator.SetTrigger("double_attack"); // ´õºí °ø°Ý ¾Ö´Ï¸ÞÀÌ¼Ç Àç»ý
+            playerAnimator.SetTrigger("double_attack");
+            if (colliders.Count == 0)
+            {
+                AudioDirector.PlaySound("Sound/effect_sound/swing2");       // ï¿½ï¿½ï¿½ï¿½Ä® ï¿½Î¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½
+            }
             foreach (Collider2D collider in colliders)
             {
-                if (collider.tag == "Target") // Ãæµ¹Ã¼ÀÇ ÅÂ±×°¡ "Target"ÀÎ °æ¿ì
+                if (collider.tag == "Target")
                 {
-                    KatanaEffect.DoubleAttack(); // ´õºí °ø°Ý ÀÌÆåÆ® ¹ßµ¿
-                    collider.gameObject.GetComponent<ItemController>().itemHp--; // Ãæµ¹Ã¼ÀÇ ¾ÆÀÌÅÛ Ã¼·Â °¨¼Ò
-                    Recipe.DecreaseIngredient(collider.name); // Recipe.decreaseIngredient ÇÔ¼ö¸¦ »ç¿ëÇÏ¿© Àç·á °¨¼Ò
+                    if(collider.name == "chicken")
+                    {
+                        AudioDirector.PlaySound("Sound/effect_sound/slice2");       // ï¿½ï¿½ï¿½ï¿½ ï¿½Î¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½
+                        AudioDirector.PlaySound("Sound/effect_sound/chicken");
+                    }
+                    else
+                    {
+                        AudioDirector.PlaySound("Sound/effect_sound/slice2");       // ï¿½ï¿½ï¿½ï¿½Ä® ï¿½Î¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½
+                    }
+                    
+                    KatanaEffect.DoubleAttack();
+                    collider.gameObject.GetComponent<ItemController>().itemHp--;
+                    Recipe.DecreaseIngredient(collider.name);
                 }
             }
-            isDelay = true; // °ø°Ý µô·¹ÀÌ »óÅÂ·Î ¼³Á¤
-            
+            isDelay = true;
+            StartCoroutine(CountAttackDelay(0.2f));
         }
-        StartCoroutine(CountAttackDelay(0.4f)); // °ø°Ý°ú Æ¨°Ü³»±â »çÀÌ¿¡ µô·¹ÀÌ¸¦ Àû¿ëÇÏ±â À§ÇØ CountAttackDelay ÄÚ·çÆ¾ ½ÇÇà
+        StartCoroutine(CountAttackDelay(0.4f));
     }
 
-    // µô·¹ÀÌ °ü·Ã ÄÚ·çÆ¾
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½Æ¾
     IEnumerator CountAttackDelay(float delayTime)
     {
-        yield return new WaitForSeconds(delayTime); // ÁÖ¾îÁø ½Ã°£¸¸Å­ ´ë±â
-        isDelay = false; // °ø°Ý µô·¹ÀÌ »óÅÂ ÇØÁ¦
-        isPunched = false; // ÇÃ·¹ÀÌ¾î°¡ ÆÝÄ¡¸¦ ´çÇÑ »óÅÂ ÇØÁ¦
-        hasAttacked = false; // °ø°ÝÇÑ »óÅÂ ÇØÁ¦
-    }
+        yield return new WaitForSeconds(delayTime);
+        isDelay = false;
+        isPunched = false;
+        hasAttacked = false;
 
+    }
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Target") // Ãæµ¹Ã¼ÀÇ ÅÂ±×°¡ "Target"ÀÎ °æ¿ì
+        if (collider.tag == "Target")
         {
-            Destroy(collider.gameObject); // Ãæµ¹Ã¼¸¦ Á¦°Å
-            GameDirector.hp--; // °ÔÀÓ Ã¼·Â °¨¼Ò
-            playerAnimator.SetTrigger("damaged"); // ÇÇ°Ý ¾Ö´Ï¸ÞÀÌ¼Ç Àç»ý
+            Destroy(collider.gameObject);
+            GameDirector.hp--;
+            AudioDirector.PlaySound("Sound/effect_sound/hit");      // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ï¿½ ï¿½æµ¹ï¿½ï¿½ ï¿½Ï¾î³µï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò¸ï¿½
+            playerAnimator.SetTrigger("damaged");
         }
     }
-
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireCube(pos.position, boxSize); // OverlapBox¸¦ ±×¸®´Â Gizmos
+        Gizmos.DrawWireCube(pos.position, boxSize);
     }
+
+
+
 }
