@@ -21,18 +21,18 @@ public class ItemController : MonoBehaviour
         itemAnimator = GetComponent<Animator>();
     }
 
- 
+
 
     private void FixedUpdate()
     {
-        if (gameObject.transform.position.y <= 0.72f)
+        if (gameObject.transform.position.y <= 0.7f)
         {
             Destroy(gameObject);
         }
 
         rate += Time.deltaTime;
         transform.position = BezierTest(controllPosition[0], controllPosition[1], controllPosition[2], controllPosition[3], rate);
-        
+
 
         if (rate >= 1f)
         {

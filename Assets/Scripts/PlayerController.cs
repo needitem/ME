@@ -50,9 +50,11 @@ public class PlayerController : MonoBehaviour
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList(); // OverlapBox 안에 있는 모든 충돌체들을 가져옴
         foreach (Collider2D collider in colliders)
         {
-            if (collider.tag == "Target") // 충돌체의 태그가 "Target"인 경우
+           
+            if (collider.tag == "Target")
             {
-                Effect.Apply(collider.gameObject); // Effect.Apply 함수를 사용하여 충돌체에 효과 적용
+                KatanaEffect.Punch();
+                Effect.Apply(collider.gameObject);
             }
         }
         StartCoroutine(CountAttackDelay(0.4f)); // 공격 딜레이를 적용하기 위해 CountAttackDelay 코루틴 실행
@@ -72,7 +74,7 @@ public class PlayerController : MonoBehaviour
                 {
                     gAudioDirector.GetComponent<AudioDirector>().PlaySound("Sound/cut1");
                     collider.gameObject.GetComponent<ItemController>().itemHp--; // 충돌체의 아이템 체력 감소
-                    Recipe.decreaseIngredient(collider.name); // Recipe.decreaseIngredient 함수를 사용하여 재료 감소
+                    Recipe.DecreaseIngredient(collider.name); // Recipe.decreaseIngredient 함수를 사용하여 재료 감소
                 }
             }
             isDelay = true; // 공격 딜레이 상태로 설정
@@ -88,7 +90,7 @@ public class PlayerController : MonoBehaviour
                 {
                     gAudioDirector.GetComponent<AudioDirector>().PlaySound("Sound/cut2");
                     collider.gameObject.GetComponent<ItemController>().itemHp--; // 충돌체의 아이템 체력 감소
-                    Recipe.decreaseIngredient(collider.name); // Recipe.decreaseIngredient 함수를 사용하여 재료 감소
+                    Recipe.DecreaseIngredient(collider.name); // Recipe.decreaseIngredient 함수를 사용하여 재료 감소
                 }
             }
             isDelay = true; // 공격 딜레이 상태로 설정
