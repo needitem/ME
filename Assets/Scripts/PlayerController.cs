@@ -14,9 +14,12 @@ public class PlayerController : MonoBehaviour
     bool isPunched = false; // 플레이어가 펀치를 당했는지 여부를 나타내는 변수
     public bool isDelay = false; // 공격 딜레이 여부를 나타내는 변수
     Animator playerAnimator; // 플레이어의 애니메이터 컴포넌트를 참조하는 변수
+    [SerializeField] GameObject gAudioDirector;
+
 
     private void Start()
     {
+        gAudioDirector = GameObject.Find("AudioDirector");
         playerAnimator = GetComponent<Animator>(); // 애니메이터 컴포넌트를 가져옴
     }
 
@@ -67,6 +70,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (collider.tag == "Target") // 충돌체의 태그가 "Target"인 경우
                 {
+                    gAudioDirector.GetComponent<AudioDirector>().PlaySound("Sound/cut1");
                     collider.gameObject.GetComponent<ItemController>().itemHp--; // 충돌체의 아이템 체력 감소
                     Recipe.decreaseIngredient(collider.name); // Recipe.decreaseIngredient 함수를 사용하여 재료 감소
                 }
@@ -82,6 +86,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (collider.tag == "Target") // 충돌체의 태그가 "Target"인 경우
                 {
+                    gAudioDirector.GetComponent<AudioDirector>().PlaySound("Sound/cut2");
                     collider.gameObject.GetComponent<ItemController>().itemHp--; // 충돌체의 아이템 체력 감소
                     Recipe.decreaseIngredient(collider.name); // Recipe.decreaseIngredient 함수를 사용하여 재료 감소
                 }

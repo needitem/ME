@@ -28,15 +28,15 @@ public class GameDirector : MonoBehaviour
         hp = maxHp;
         Time.timeScale = 1;
         UpdateRecipeUI();
-        UpdateRecipeCnt();
-    }
+/*        UpdateRecipeCnt();
+*/    }
 
     // Update is called once per frame
     void Update()
     {
         UpdateHearthp();
-        UpdateRecipeCnt();
-        /*UpdateRecipeUI();*/
+/*        UpdateRecipeCnt();
+*/        /*UpdateRecipeUI();*/
         if (hp <= 0)
         {
             Invoke("ActivateGameover", 3f);
@@ -49,7 +49,7 @@ public class GameDirector : MonoBehaviour
                 }*/
         
     }
-
+/*
     public void UpdateRecipeCnt()
     {
         int j = 0;
@@ -58,7 +58,7 @@ public class GameDirector : MonoBehaviour
             gIngredient_cnt[j].GetComponent<Text>().text = "x" + item.Value;
             j++;
         }
-    }
+    }*/
     
 
     public void UpdateRecipeUI()
