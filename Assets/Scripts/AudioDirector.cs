@@ -1,34 +1,41 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AudioDirector : MonoBehaviour
 {
+    AudioSource audioSource;
+    public Slider volumeSlider;
+    public Toggle audioToggle;
+
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
     }
-    //수정
     public void PlaySound(string AudioURL)
     {
-        // 이거 함수 안에 넣어 놨는데 스크립트 밖으로 빼서 써도 상관없을듯함.
-        AudioSource audioSource = GetComponent<AudioSource>();
-
         AudioClip audioClip = Resources.Load<AudioClip>(AudioURL);
         audioSource.clip = audioClip;
         audioSource.Play();
+        //audioToggle.onValueChanged.AddListener(AudioMute); // 토글 값이 변경될 때마다 OnToggleChanged 호출
+    }
+    public void OnVolumeChanged(float value)
+    {
+        audioSource.volume = value; // 슬라이더 값에 따라 AudioSource의 volume 조절
+    }
+
+    public void AudioMute(bool isOn)
+    {
+        audioSource.mute = !isOn; // 토글 값에 따라 AudioSource의 음소거 여부 설정
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            PlaySound("Sound/throw1");
-        }
-      
-        /*
-        audioSource.Play(); //재생
+/*      audioSource.Play(); //재생
 
         audioSource.Stop(); //정지
 
@@ -46,7 +53,7 @@ public class AudioDirector : MonoBehaviour
 
         audioSource.PlayOneShot(audioClip, 1.0f); //특정 클립 한번 만 재생
 
-        audioSource.clip = audioClip; //오디오 클립 교체
-        */
+        audioSource.clip = audioClip; //오디오 클립 교체*/
+
     }
 }

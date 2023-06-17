@@ -24,20 +24,20 @@ public class ItemController : MonoBehaviour
 
     }
 
-
+ 
 
 
 
     private void FixedUpdate()
     {
-        if (gameObject.transform.position.y <= 0.7f)
+        if (gameObject.transform.position.y <= 0.72f)
         {
             Destroy(gameObject);
         }
 
         rate += Time.deltaTime;
         transform.position = BezierTest(controllPosition[0], controllPosition[1], controllPosition[2], controllPosition[3], rate);
-
+        
 
         if (rate >= 1f)
         {
@@ -46,12 +46,13 @@ public class ItemController : MonoBehaviour
         }
 
 
-        if (itemHp <= 0)
+        if (itemHp == 0)
         {
             if (executeOnlyOnce)
             {
                 itemAnimator.SetTrigger("slice");
                 rb.MovePosition(new Vector2(4f, 3f));
+                Recipe.DecreaseIngredient(this.name);
                 executeOnlyOnce = false;
             }
             Vector2 rightForce = Vector2.right * 250.0f;
