@@ -25,7 +25,7 @@ public class Recipe : MonoBehaviour
 
     public static int RecipeIndex { get; private set; }
 
-    public bool IsRecipeComplete(int[] randomRecipe)
+    public bool IsRecipeComplete(int[] randomRecipe) // check if recipe is complete, return true if complete, return false if not
     {
         foreach (int i in randomRecipe)
         {
@@ -37,7 +37,7 @@ public class Recipe : MonoBehaviour
         return true;
     }
 
-    public bool IsRecipeWrong(int[] randomRecipe)
+    public bool IsRecipeWrong(int[] randomRecipe) // check if recipe is wrong, return true if wrong, return false if not
     {
         foreach (int i in randomRecipe)
         {
@@ -49,7 +49,7 @@ public class Recipe : MonoBehaviour
         return false;
     }
 
-    private void Awake()
+    private void Awake() // initialize randomRecipe
     {
         Init();
         gameDirector = GameObject.Find("GameDirector");
@@ -58,7 +58,7 @@ public class Recipe : MonoBehaviour
 
     private void Update()
     {
-        if (IsRecipeComplete(randomRecipe) || IsRecipeWrong(randomRecipe))
+        if (IsRecipeComplete(randomRecipe) || IsRecipeWrong(randomRecipe)) // if recipe is complete or wrong, create new recipe
         {
             Init();
             RecipeIndex = CreateRandomRecipe();
@@ -66,6 +66,7 @@ public class Recipe : MonoBehaviour
             if (IsRecipeComplete(randomRecipe))
             {
                 //RecipeIndex = CreateRandomRecipe();
+                //Need to add score, speedup, etc
             }
             else if (IsRecipeWrong(randomRecipe))
             {
@@ -76,35 +77,35 @@ public class Recipe : MonoBehaviour
 
     private void Init()
     {
-        Array.Clear(randomRecipe, 0, randomRecipe.Length);
+        Array.Clear(randomRecipe, 0, randomRecipe.Length); // initialize randomRecipe
     }
 
-    private int CreateRandomRecipe()
+    private int CreateRandomRecipe() // create random recipe and return index of recipe
     {
         int randomIndex = Random.Range(0, 3);
 
         switch (randomIndex)
         {
             case 0:
-                Array.Copy(recipe1, randomRecipe, ingredientAmt);
+                Array.Copy(recipe1, randomRecipe, ingredientAmt); // copy recipe1 to randomRecipe
                 break;
             case 1:
-                Array.Copy(recipe2, randomRecipe, ingredientAmt);
+                Array.Copy(recipe2, randomRecipe, ingredientAmt); // copy recipe2 to randomRecipe
                 break;
             case 2:
-                Array.Copy(recipe3, randomRecipe, ingredientAmt);
+                Array.Copy(recipe3, randomRecipe, ingredientAmt); // copy recipe3 to randomRecipe
                 break;
         }
 
         return randomIndex;
     }
 
-    public static Dictionary<int, int> ShowLeftoverRecipe()
+    public static Dictionary<int, int> ShowLeftoverRecipe() // return leftover recipe
     {
         Dictionary<int, int> temp = new Dictionary<int, int>();
-        for (int i = 0; i < randomRecipe.Length; i++)
+        for (int i = 0; i < randomRecipe.Length; i++) // copy randomRecipe to temp
         {
-            if (randomRecipe[i] > 0)
+            if (randomRecipe[i] > 0) // if randomRecipe[i] is not 0, add to temp
             {
                 temp.Add(i, randomRecipe[i]);
             }
@@ -112,15 +113,15 @@ public class Recipe : MonoBehaviour
         return temp;
     }
 
-    public static void DecreaseIngredient(string name)
+    public static void DecreaseIngredient(string name) // decrease ingredient
     {
-        if (Enum.TryParse<Ingredients>(name, out var ingredient))
+        if (Enum.TryParse<Ingredients>(name, out var ingredient)) // if name is valid, decrease ingredient
         {
             randomRecipe[(int)ingredient]--;
         }
         else
         {
-            throw new ArgumentException("Invalid ingredient name");
+            throw new ArgumentException("Invalid ingredient name"); // if name is invalid, throw exception
         }
     }
 }

@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class Effect : MonoBehaviour
 {
-    //public static float growthRate = 0.2f;
-    //public static float maxScale = 6f;
-
-    //static float pushPower = 40.0f;
-
     // https://www.youtube.com/watch?v=lty5EXXkFRQ&t=14s //참고
     
 
