@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 boxSize;
     public Transform pos;
     bool isPunched = false;
+    bool isDouble = false;
     public bool isDelay = false; //attack delay
     Animator playerAnimator;
 
@@ -81,6 +82,7 @@ public class PlayerController : MonoBehaviour
         }
         else if ((currentTime - lastAttackTime) <= doubleAttackTimeWindow)
         {
+            isDouble = true;
             playerAnimator.SetTrigger("double_attack");
             foreach (Collider2D collider in colliders)
             {
@@ -91,19 +93,29 @@ public class PlayerController : MonoBehaviour
                 }
             }
             isDelay = true;
-            StartCoroutine(CountAttackDelay(0.2f));
+            
         }
-        StartCoroutine(CountAttackDelay(0.4f));
+        
 
+    }
 
+    void ResetDelay() {
+        isDelay = false;
+        isPunched = false;
+        hasAttacked = false;
     }
 
     IEnumerator CountAttackDelay(float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
-        isDelay = false;
-        isPunched = false;
-        hasAttacked = false;
+        if (isDouble == true) // 더블어택일 때에만 추가딜레이 0.2초를 준다.
+        {
+            Invoke("ResetDelay", 0.2f);
+            isDouble = false;
+        }
+        else if (isDouble == false) {
+            ResetDelay();
+        }
 
     }
     void OnTriggerEnter2D(Collider2D collider)
