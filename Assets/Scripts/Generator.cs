@@ -6,6 +6,8 @@ public class Generator : MonoBehaviour
     public GameObject[] subfood;
     private GameObject spawn;
     private GameObject NPC;
+    AudioDirector audioDirector;
+
     private float[][] spanArray = new float[][]
     {
         new float[] {1.0f, 0.9f, 0.9f, 1.0f},
@@ -24,6 +26,7 @@ public class Generator : MonoBehaviour
 
     void Start()
     {
+        audioDirector = GetComponent<AudioDirector>();
         mainfood = Resources.LoadAll<GameObject>("Prefabs/MainFood");
         subfood = Resources.LoadAll<GameObject>("Prefabs/SubFood");
         rowIndex = Random.Range(0, spanArray.Length);
@@ -50,6 +53,7 @@ public class Generator : MonoBehaviour
             }
         }
     }
+
     public void SpawnFood()
     {
         Vector3 spawnPosition = new Vector3(15, 1.5f, 1);
@@ -59,11 +63,13 @@ public class Generator : MonoBehaviour
         {
             foodPrefab = mainfood[Random.Range(0, mainfood.Length)];
             itemHp = 2;
+            audioDirector.SoundPlay("Sound/effect_sound/throw_main");
         }
         else
         {
             foodPrefab = subfood[Random.Range(0, subfood.Length)];
             itemHp = 1;
+            audioDirector.SoundPlay("Sound/effect_sound/throw_sub");
         }
 
         spawn = Instantiate(foodPrefab, spawnPosition, Quaternion.identity);
@@ -82,5 +88,3 @@ public class Generator : MonoBehaviour
     }
 
 }
-
-

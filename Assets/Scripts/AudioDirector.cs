@@ -2,83 +2,64 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class AudioDirector : MonoBehaviour
 {
-    public GameObject gPlayer;
-    public GameObject gNPC;
+    public AudioMixer audioMixer;
 
-    public AudioSource aPlayerSound;
-    public AudioSource aNPCSound;
-    //public AudioSource audioSource;
+    public Slider BgmSlider;
+    public Slider SfxSlider;
 
-    private static bool isMuted = false;
+    AudioSource audioSource;
 
+    private bool IsMute = false;
 
-    /*    public Slider volumeSlider;
-        public Toggle audioToggle;*/
-
-    // Start is called before the first frame update
     void Start()
     {
-        gPlayer = GameObject.Find("Player");
-        gNPC = GameObject.Find("NPC");
-
-        aPlayerSound = gPlayer.GetComponent<AudioSource>();
-        aNPCSound = gNPC.GetComponent<AudioSource>();
-        //audioSource = GetComponent<AudioSource>();
-
-        /*volumeSlider.onValueChanged.AddListener(OnVolumeChanged);*/
+        audioSource = GetComponent<AudioSource>();
     }
 
     public void SoundPlay(string AudioURL)
     {
-        AudioClip audioClip = Resources.Load<AudioClip>(AudioURL);
-        aPlayerSound.clip = audioClip;
-        aPlayerSound.Play();
+        audioSource.clip = Resources.Load<AudioClip>(AudioURL);
+        audioSource.Play();
     }
 
-    public void SoundNPC(string AudioURL)
+    /*public void AudioControl()
     {
-        AudioClip audioClip = Resources.Load<AudioClip>(AudioURL);
-        aNPCSound.clip = audioClip;
-        aNPCSound.Play();
-    }
-    public void EffectSoundMute() // 여기서 두개의 오브젝트가 오류가 생기는데 해결책이 있을까?
-    {
-        isMuted = !isMuted;
-        aPlayerSound.mute = isMuted;
-        aNPCSound.mute = isMuted;
-    }
+        float sound = audioSlider.value;
 
-    /*public void OnVolumeChanged(float value)
-    {
-        audioSource.volume = value; // 슬라이더 값에 따라 AudioSource의 volume 조절
+        if(sound == -40f)
+        {
+            masterMixer.SetFloat("BGM", -80);
+        }
+        else
+        {
+            masterMixer.SetFloat("BGM", sound);
+        }
     }*/
 
-
-    // Update is called once per frame
-    void Update()
+    public void SetBgmVolme()
     {
-        /*      audioSource.Play(); //재생
+        // 로그 연산 값 전달
+        audioMixer.SetFloat("BGM", Mathf.Log10(BgmSlider.value) * 20);
+    }
 
-                audioSource.Stop(); //정지
+    public void SetSFXVolme()
+    {
+        audioMixer.SetFloat("SFX", Mathf.Log10(SfxSlider.value) * 20);
+    }
 
-                audioSource.Pause(); //일시정지
+    public void SoundMute()
+    {
+        IsMute = !IsMute;
+        audioSource.mute = IsMute;
+    }
 
-                audioSource.UnPause(); //일시정지 해제
-
-                audioSource.playOnAwake = true; //씬 시작시 바로 재생
-
-                audioSource.loop = true; //반복 재생
-
-                audioSource.mute = true; //음소거
-
-                audioSource.volume = 1.0f; //볼륨 (0.0 ~ 1.0f)
-
-                audioSource.PlayOneShot(audioClip, 1.0f); //특정 클립 한번 만 재생
-
-                audioSource.clip = audioClip; //오디오 클립 교체*/
+    public void SoundComtorl()
+    {
 
     }
+
 }

@@ -18,7 +18,6 @@ public class GameDirector : MonoBehaviour
     public Sprite[] recipeSprites;
     public Sprite[] ingredientSprites;
 
-
     static public int hp;
 
     // Start is called before the first frame update
