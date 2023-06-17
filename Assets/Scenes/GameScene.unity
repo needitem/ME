@@ -1895,12 +1895,12 @@ MonoBehaviour:
   - {fileID: 239685668}
   - {fileID: 1754524105}
   - {fileID: 61525884}
-  Gameover_Panel: {fileID: 1059360818}
   gIngredient_cnt:
   - {fileID: 47156304}
   - {fileID: 1161027261}
   - {fileID: 1207105098}
   - {fileID: 1389619863}
+  Gameover_Panel: {fileID: 1059360818}
   recipe: {fileID: 1599708739}
   recipeImage: {fileID: 135863351}
   ingredientImages:
@@ -2285,7 +2285,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1956874355}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: AudioDirector, Assembly-CSharp
         m_MethodName: OnToggleChanged
         m_Mode: 6
@@ -2703,6 +2703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameDirector: {fileID: 0}
+  Score: {fileID: 0}
 --- !u!4 &714324505
 Transform:
   m_ObjectHideFlags: 0
@@ -3237,6 +3238,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1806640390}
     m_Modifications:
+    - target: {fileID: 1465398247570122754, guid: a8f36efd44502234bb5b91718496ddd9, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5301115507294877431, guid: a8f36efd44502234bb5b91718496ddd9, type: 3}
       propertyPath: m_Name
       value: GrassPrefeb (3)
@@ -5468,8 +5473,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1502837310}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.97, y: 0.7562506, z: 0}
-  m_LocalScale: {x: 5, y: 4, z: 1}
+  m_LocalPosition: {x: 5, y: 0.95, z: 0}
+  m_LocalScale: {x: 6, y: 5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -6040,7 +6045,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c05f3eb3316b1042b2e79d797fe9713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameDirector: {fileID: 0}
+  gameDirector: {fileID: 511668118}
+  Score: {fileID: 0}
 --- !u!4 &1599708740
 Transform:
   m_ObjectHideFlags: 0
@@ -6687,6 +6693,7 @@ GameObject:
   - component: {fileID: 1675816004}
   - component: {fileID: 1675816005}
   - component: {fileID: 1675816006}
+  - component: {fileID: 1675816007}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -6938,6 +6945,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1675816007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1675815998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9ce06c2b40d18044a89103cf72695a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeSlider: {fileID: 1538499206}
+  audioToggle: {fileID: 600280977}
 --- !u!1001 &1714096367
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7256,6 +7277,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1806640390}
     m_Modifications:
+    - target: {fileID: 1465398247570122754, guid: a8f36efd44502234bb5b91718496ddd9, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5301115507294877431, guid: a8f36efd44502234bb5b91718496ddd9, type: 3}
       propertyPath: m_Name
       value: GrassPrefeb (2)
@@ -8264,52 +8289,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1948885478}
   m_CullTransparentMesh: 1
---- !u!1 &1956874354
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1956874356}
-  - component: {fileID: 1956874355}
-  m_Layer: 0
-  m_Name: AudioDirector
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1956874355
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1956874354}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f9ce06c2b40d18044a89103cf72695a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  volumeSlider: {fileID: 1538499206}
-  audioToggle: {fileID: 600280977}
---- !u!4 &1956874356
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1956874354}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 990.3799, y: 430.1974, z: -1.088923}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 14
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1957091914
 GameObject:
   m_ObjectHideFlags: 0

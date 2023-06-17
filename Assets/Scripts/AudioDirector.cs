@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class AudioDirector : MonoBehaviour
 {
-    AudioSource audioSource;
+    public static AudioSource audioSource;
     public Slider volumeSlider;
     public Toggle audioToggle;
 
@@ -15,7 +15,7 @@ public class AudioDirector : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
     }
-    public void PlaySound(string AudioURL)
+    public static void PlaySound(string AudioURL)
     {
         AudioClip audioClip = Resources.Load<AudioClip>(AudioURL);
         audioSource.clip = audioClip;
