@@ -60,21 +60,20 @@ public class Recipe : MonoBehaviour
     {
         if (IsRecipeComplete(randomRecipe) || IsRecipeWrong(randomRecipe)) // if recipe is complete or wrong, create new recipe
         {
-            Debug.Log(IsRecipeComplete(randomRecipe));
-            Debug.Log(IsRecipeWrong(randomRecipe));
-            RecipeIndex = CreateRandomRecipe();
-            Init();
-            
+            Debug.Log(randomRecipe[0] + " " + randomRecipe[1] + " " + randomRecipe[2] + " " + randomRecipe[3] + " " + randomRecipe[4] + " " + randomRecipe[5] + " " + randomRecipe[6]);
+
             gameDirector.GetComponent<GameDirector>().UpdateRecipeUI();
             if (IsRecipeComplete(randomRecipe))
             {
-                //RecipeIndex = CreateRandomRecipe();
                 //Need to add score, speedup, etc
             }
             else if (IsRecipeWrong(randomRecipe))
             {
+                Init();
                 //GameDirector.hp = 0;
             }
+
+            RecipeIndex = CreateRandomRecipe();
         }
     }
 

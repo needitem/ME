@@ -48,11 +48,11 @@ public class ItemController : MonoBehaviour
                 itemAnimator.SetTrigger("slice");
                 rb.MovePosition(new Vector2(4f, 3f));
                 executeOnlyOnce = false;
+                Recipe.DecreaseIngredient(this.name);
             }
             Vector2 rightForce = Vector2.right * 250.0f;
             rb.AddForce(rightForce);
             rb.gravityScale = 15f; // �߷� ����
-            Recipe.DecreaseIngredient(this.name);
         }
     }
 
