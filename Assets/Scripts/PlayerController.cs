@@ -42,20 +42,24 @@ public class PlayerController : MonoBehaviour
 
     public void PunchBack()
     {
-        isPunched = true;
-        playerAnimator.SetTrigger("punch");
+        if (isDelay == false) {
+            isPunched = true;
+            playerAnimator.SetTrigger("punch");
 
-        var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
-        foreach (Collider2D collider in colliders)
-        {
-           
-            if (collider.tag == "Target")
+            var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
+            foreach (Collider2D collider in colliders)
             {
-                KatanaEffect.Punch();
-                Effect.Apply(collider.gameObject);
+
+                if (collider.tag == "Target")
+                {
+                    KatanaEffect.Punch();
+                    Effect.Apply(collider.gameObject);
+                }
             }
+            isDelay = true;
+            StartCoroutine(CountAttackDelay(0.4f));
         }
-        StartCoroutine(CountAttackDelay(0.4f));
+       
     }
 
     public void Attack()
@@ -65,6 +69,7 @@ public class PlayerController : MonoBehaviour
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
         if (!isDelay)
         {
+
             playerAnimator.SetTrigger("attack");
             foreach (Collider2D collider in colliders)
             {
