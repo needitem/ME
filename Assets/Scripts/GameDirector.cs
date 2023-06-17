@@ -36,7 +36,7 @@ public class GameDirector : MonoBehaviour
         if (hp <= 0)
         {
             Invoke("ActivateGameover", 3f);
-        }        
+        }
     }
 
     public void UpdateRecipeUI()

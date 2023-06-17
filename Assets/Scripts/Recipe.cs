@@ -18,9 +18,9 @@ public class Recipe : MonoBehaviour
 {
     [SerializeField] private GameObject gameDirector;
     private const int ingredientAmt = 7;
-    private readonly int[] recipe1 = { 20, 0, 0, 0, 0, 10, 10 };
-    private readonly int[] recipe2 = { 0, 10, 0, 10, 10, 10, 0 };
-    private readonly int[] recipe3 = { 0, 0, 10, 10, 0, 10, 0 };
+    private readonly int[] recipe1 = { 2, 0, 0, 0, 0, 1, 1};
+    private readonly int[] recipe2 = { 0, 1, 0, 1, 1, 1, 0 };
+    private readonly int[] recipe3 = { 0, 0, 1, 1, 0, 1, 0 };
     private static readonly int[] randomRecipe = new int[ingredientAmt];
 
     public static int RecipeIndex { get; private set; }

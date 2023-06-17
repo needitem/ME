@@ -8,23 +8,22 @@ public class Generator : MonoBehaviour
     private GameObject NPC;
     private float[][] spanArray = new float[][]
     {
-        new float[] {1.0f, 1.0f, 1.0f, 1.0f},
-        new float[] {1.0f, 0.5f, 0.5f, 1.0f, 1.0f},
-        new float[] {0.4f, 0.4f, 0.7f, 0.5f, 1.0f},
-        new float[] {0.25f, 0.25f, 0.6f, 0.8f, 0.6f, 1.0f, 0.5f},
-        new float[] {0.6f, 0.9f, 0.5f, 1.0f}
+        new float[] {1.0f, 0.9f, 0.9f, 1.0f},
+        new float[] {1.0f, 0.8f, 0.8f, 1.0f,},
+        new float[] {0.8f, 0.9f, 0.9f, 0.8f, 1.0f},
+        new float[] {0.85f, 0.95f, 1.0f, 0.8f},
+        new float[] {1.0f, 0.85f, 0.8f, 0.9f},
+        new float[] {0.95f, 0.8f, 0.85f, 0.9f}
     };
 
     private float timeElapsed = 0f;
     private int rowIndex = 0;
     private int colIndex = 0;
 
-    public float span = 1.3f;
-
     void Start()
     {
-        mainFood = Resources.LoadAll<GameObject>("Prefabs/MainFood"); 
-        subFood = Resources.LoadAll<GameObject>("Prefabs/SubFood"); 
+        mainFood = Resources.LoadAll<GameObject>("Prefabs/MainFood");
+        subFood = Resources.LoadAll<GameObject>("Prefabs/SubFood");
         rowIndex = Random.Range(0, spanArray.Length);
         NPC = GameObject.Find("NPC");
     }

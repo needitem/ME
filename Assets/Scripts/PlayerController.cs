@@ -99,11 +99,11 @@ public class PlayerController : MonoBehaviour
             {
                 if (collider.tag == "Target") //if there is collider in the box, play the sound of slicing ingredient
                 {
-                    if(collider.name == "chicken") //if the ingredient is chicken, play the sound of slicing chicken
+                    AudioDirector.PlaySound("Sound/effect_sound/slice2");
+                    if (collider.name == "chicken") //if the ingredient is chicken, play the sound of slicing chicken
                     {
                         AudioDirector.PlaySound("Sound/effect_sound/chicken");
                     }
-                    AudioDirector.PlaySound("Sound/effect_sound/slice2");
                     KatanaEffect.DoubleAttack();
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
                     Recipe.DecreaseIngredient(collider.name);
