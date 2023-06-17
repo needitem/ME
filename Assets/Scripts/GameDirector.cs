@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,38 +27,17 @@ public class GameDirector : MonoBehaviour
         hp = maxHp;
         Time.timeScale = 1;
         UpdateRecipeUI();
-/*        UpdateRecipeCnt();
-*/    }
+    }
 
     // Update is called once per frame
     void Update()
     {
         UpdateHearthp();
-/*        UpdateRecipeCnt();
-*/        /*UpdateRecipeUI();*/
         if (hp <= 0)
         {
             Invoke("ActivateGameover", 3f);
-        }
-        /*        Dictionary<int, int> temp = Recipe.showLeftoverRecipe();*/
-
-        /*        for (int i = 0; i < 4; i++)
-                {
-                    
-                }*/
-        
+        }        
     }
-/*
-    public void UpdateRecipeCnt()
-    {
-        int j = 0;
-        foreach (KeyValuePair<int, int> item in Recipe.showLeftoverRecipe())
-        {
-            gIngredient_cnt[j].GetComponent<Text>().text = "x" + item.Value;
-            j++;
-        }
-    }*/
-    
 
     public void UpdateRecipeUI()
     {
@@ -73,7 +51,7 @@ public class GameDirector : MonoBehaviour
             ingredientImages[j].sprite = ingredientSprites[item.Key];
             j++;
         }
-        /* Key : ingredient ÀÎµ¦½º°ª, Value : ingredient °¹¼ö*/
+        /* Key : ingredient ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½, Value : ingredient ï¿½ï¿½ï¿½ï¿½*/
     }
 
 
