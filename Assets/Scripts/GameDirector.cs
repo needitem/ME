@@ -29,7 +29,6 @@ public class GameDirector : MonoBehaviour
         Time.timeScale = 1;
         UpdateRecipeCnt();
         UpdateRecipeUI();
-
     }
 
     // Update is called once per frame
@@ -41,6 +40,7 @@ public class GameDirector : MonoBehaviour
         if (hp <= 0)
         {
             Invoke("ActivateGameover", 3f);
+            Invoke("ChangeScene2", 5f);
         }
     }
 
@@ -49,12 +49,10 @@ public class GameDirector : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {   
             try{
-                Debug.Log("Cnt" + Recipe.ShowLeftoverRecipe().Values.ToList()[i]);
                 gIngredient_cnt[i].GetComponent<Text>().text = "x" + Recipe.ShowLeftoverRecipe().Values.ToList()[i];
             }
             catch
             {
-                Debug.Log(i + ": cnt is null");
                 gIngredient_cnt[i].GetComponent<Text>().text = "";
             }
        }
@@ -65,13 +63,11 @@ public class GameDirector : MonoBehaviour
         {
             try
             {
-                Debug.Log("UI"  +Recipe.ShowLeftoverRecipe().Keys.ToList()[i]);
                 ingredientImages[i].enabled = true;
                 ingredientImages[i].sprite = ingredientSprites[Recipe.ShowLeftoverRecipe().Keys.ToList()[i]];
             }
             catch
             {
-                Debug.Log(i + ": img is null");
                 ingredientImages[i].enabled = false;
             }
         }

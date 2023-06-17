@@ -19,11 +19,13 @@ public class Generator : MonoBehaviour
     private float timeElapsed = 0f;
     private int rowIndex = 0;
     private int colIndex = 0;
+    public static int itemHp;
+
 
     void Start()
     {
-        mainFood = Resources.LoadAll<GameObject>("Prefabs/MainFood");
-        subFood = Resources.LoadAll<GameObject>("Prefabs/SubFood");
+        mainfood = Resources.LoadAll<GameObject>("Prefabs/MainFood");
+        subfood = Resources.LoadAll<GameObject>("Prefabs/SubFood");
         rowIndex = Random.Range(0, spanArray.Length);
         NPC = GameObject.Find("NPC");
     }
@@ -33,8 +35,9 @@ public class Generator : MonoBehaviour
         timeElapsed += Time.deltaTime;
         if (timeElapsed >= GetCurrentSpan() && GameDirector.hp > 0)
         {
-            NPC.GetComponent<NPCController>().Drawing();
             SpawnFood();
+            NPC.GetComponent<NPCController>().Drawing();
+
             timeElapsed = 0;
 
             if (colIndex == spanArray[rowIndex].Length - 1)
@@ -51,7 +54,6 @@ public class Generator : MonoBehaviour
     {
         Vector3 spawnPosition = new Vector3(15, 1.5f, 1);
         GameObject foodPrefab;
-        int itemHp;
 
         if (Random.Range(0, 3) == 0)
         {
