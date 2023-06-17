@@ -65,6 +65,7 @@ public class GameDirector : MonoBehaviour
             {
                 ingredientImages[i].enabled = true;
                 ingredientImages[i].sprite = ingredientSprites[Recipe.ShowLeftoverRecipe().Keys.ToList()[i]];
+                recipeImage.sprite = recipeSprites[Recipe.RecipeIndex];
             }
             catch
             {

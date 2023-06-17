@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     public Vector2 boxSize;
     public Transform pos;
     bool isPunched = false;
+    bool isDouble = false;
     public bool isDelay = false; //attack delay
     Animator playerAnimator;
     AudioDirector audioDirector;
@@ -41,25 +42,24 @@ public class PlayerController : MonoBehaviour
     }
     public void PunchBack() //effect of punching back ingredients
     {
-        isPunched = true;
-        playerAnimator.SetTrigger("punch");
+        if (isDelay == false) {
+            isPunched = true;
+            playerAnimator.SetTrigger("punch");
 
-        var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList(); //get colliders in the box, and put them in the list
-        
-        foreach (Collider2D collider in colliders)
-        {
-            if (colliders.Count == 0) //if there is no collider in the box, play the sound of punching air
+            var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
+            foreach (Collider2D collider in colliders)
             {
-                audioDirector.SoundPlay("Sound/effect_sound/fryingpanMess");
+
+                if (collider.tag == "Target")
+                {
+                    KatanaEffect.Punch();
+                    Effect.Apply(collider.gameObject);
+                }
             }
-            if (collider.tag == "Target") //if there is collider in the box, play the sound of punching ingredient
-            {
-                KatanaEffect.Punch();
-                Effect.Apply(collider.gameObject); //apply the effect of punching back
-                audioDirector.SoundPlay("Sound/effect_sound/fryingpan");
-            }
+            isDelay = true;
+            StartCoroutine(CountAttackDelay(0.4f));
         }
-        StartCoroutine(CountAttackDelay(0.4f)); //delay of punching back
+       
     }
 
     public void Attack() 
@@ -71,6 +71,7 @@ public class PlayerController : MonoBehaviour
 
         if (!isDelay) //if attack delay is false, attack. attack delay is true when player attacks
         {
+
             playerAnimator.SetTrigger("attack");
             if (colliders.Count == 0) //if there is no collider in the box, play the sound of swinging air
             {
@@ -93,6 +94,7 @@ public class PlayerController : MonoBehaviour
         }
         else if ((currentTime - lastAttackTime) <= doubleAttackTimeWindow) //if player attacks again within 0.2 seconds
         {
+            isDouble = true;
             playerAnimator.SetTrigger("double_attack");
 
             if (colliders.Count == 0) //if there is no collider in the box, play the sound of swinging air
@@ -114,18 +116,30 @@ public class PlayerController : MonoBehaviour
                 }
             }
             isDelay = true;
-            StartCoroutine(CountAttackDelay(0.2f));
+            
         }
-        StartCoroutine(CountAttackDelay(0.4f));
+        
+
+    }
+
+    void ResetDelay() {
+        isDelay = false;
+        isPunched = false;
+        hasAttacked = false;
     }
 
 
     IEnumerator CountAttackDelay(float delayTime)
     {
-        yield return new WaitForSeconds(delayTime); //wait for delayTime seconds
-        isDelay = false;
-        isPunched = false;
-        hasAttacked = false;
+        yield return new WaitForSeconds(delayTime);
+        if (isDouble == true) // 더블어택일 때에만 추가딜레이 0.2초를 준다.
+        {
+            Invoke("ResetDelay", 0.2f);
+            isDouble = false;
+        }
+        else if (isDouble == false) {
+            ResetDelay();
+        }
 
     }
     void OnTriggerEnter2D(Collider2D collider)
