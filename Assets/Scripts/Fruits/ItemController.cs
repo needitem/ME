@@ -30,7 +30,7 @@ public class ItemController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (gameObject.transform.position.y <= 0.72f)
+        if (gameObject.transform.position.y <= 0.7f)
         {
             Destroy(gameObject);
         }
