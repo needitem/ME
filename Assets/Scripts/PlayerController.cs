@@ -14,12 +14,12 @@ public class PlayerController : MonoBehaviour
     bool isPunched = false;
     public bool isDelay = false; //attack delay
     Animator playerAnimator;
-    AudioDirector playerAudio;
+    AudioDirector audioDirector;
 
     private void Start()
     {
         playerAnimator = GetComponent<Animator>();
-        playerAudio = GetComponent<AudioDirector>();
+        audioDirector = GetComponent<AudioDirector>();
     }
 
     private void Update()
@@ -35,8 +35,6 @@ public class PlayerController : MonoBehaviour
 
         if (GameDirector.hp <= 0)
         {
-            playerAudio.aPlayerSound.mute = true; //if hp is 0, mute the sound
-            playerAudio.aNPCSound.mute = true; //if hp is 0, mute the sound
             playerAnimator.SetTrigger("game_over");
         }
 
@@ -52,19 +50,19 @@ public class PlayerController : MonoBehaviour
         {
             if (colliders.Count == 0) //if there is no collider in the box, play the sound of punching air
             {
-                playerAudio.SoundPlay("Sound/effect_sound/fryingpanMess");
+                audioDirector.SoundPlay("Sound/effect_sound/fryingpanMess");
             }
             if (collider.tag == "Target") //if there is collider in the box, play the sound of punching ingredient
             {
                 KatanaEffect.Punch();
                 Effect.Apply(collider.gameObject); //apply the effect of punching back
-                playerAudio.SoundPlay("Sound/effect_sound/fryingpan");
+                audioDirector.SoundPlay("Sound/effect_sound/fryingpan");
             }
         }
         StartCoroutine(CountAttackDelay(0.4f)); //delay of punching back
     }
 
-    public void Attack() //
+    public void Attack() 
     {
         hasAttacked = true;
         float currentTime = Time.time;
@@ -76,7 +74,7 @@ public class PlayerController : MonoBehaviour
             playerAnimator.SetTrigger("attack");
             if (colliders.Count == 0) //if there is no collider in the box, play the sound of swinging air
             {
-                playerAudio.SoundPlay("Sound/effect_sound/swing1");
+                audioDirector.SoundPlay("Sound/effect_sound/swing1");
             }
 
             foreach (Collider2D collider in colliders)
@@ -85,7 +83,7 @@ public class PlayerController : MonoBehaviour
                 {
                     KatanaEffect.Attack();
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
-                    playerAudio.SoundPlay("Sound/effect_sound/slice1");
+                    audioDirector.SoundPlay("Sound/effect_sound/slice1");
                 }
             }
 
@@ -99,17 +97,17 @@ public class PlayerController : MonoBehaviour
 
             if (colliders.Count == 0) //if there is no collider in the box, play the sound of swinging air
             {
-                playerAudio.SoundPlay("Sound/effect_sound/swing2");
+                audioDirector.SoundPlay("Sound/effect_sound/swing2");
             }
 
             foreach (Collider2D collider in colliders)
             {
                 if (collider.tag == "Target") //if there is collider in the box, play the sound of slicing ingredient
                 {
-                    playerAudio.SoundPlay("Sound/effect_sound/slice2");
+                    audioDirector.SoundPlay("Sound/effect_sound/slice2");
                     if (collider.name == "chicken") //if the ingredient is chicken, play the sound of slicing chicken
                     {
-                        playerAudio.SoundPlay("Sound/effect_sound/chicken");
+                        audioDirector.SoundPlay("Sound/effect_sound/chicken");
                     }
                     KatanaEffect.DoubleAttack();
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
@@ -136,7 +134,7 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(collider.gameObject);
             GameDirector.hp--;
-            playerAudio.SoundPlay("Sound/effect_sound/hit");
+            audioDirector.SoundPlay("Sound/effect_sound/hit");
             playerAnimator.SetTrigger("damaged");
         }
     }

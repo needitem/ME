@@ -5,24 +5,17 @@ using UnityEngine;
 public class NPCController : MonoBehaviour
 {
     Animator npcAnimator;
-    AudioDirector NPCAudio;
+    AudioDirector audioDirector;
 
     void Start()
     {
         npcAnimator = GetComponent<Animator>();
-        NPCAudio = GetComponent<AudioDirector>();
+        audioDirector = GetComponent<AudioDirector>();
     }
 
     public void Drawing()
     {
         npcAnimator.SetTrigger("drawing");
-/*        if (Generator.itemHp == 2)
-        {
-            NPCAudio.SoundNPC("effect_sound/throw_main");
-        }
-        else
-        {
-            NPCAudio.SoundNPC("effect_sound/throw_sub");
-        }*/
+        audioDirector.SoundPlay("Sound/effect_sound/throw_main");
     }
 }
