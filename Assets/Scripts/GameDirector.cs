@@ -78,6 +78,14 @@ public class GameDirector : MonoBehaviour
         }
     } 
 
+    void VolumeChanged()
+    {
+        if (Gameover_Panel.activeSelf == true)
+        {
+
+        } 
+    }
+
     private void UpdateHearthp()
     {
         for (int i = 0; i < maxHp; i++)
@@ -92,23 +100,18 @@ public class GameDirector : MonoBehaviour
             }
         }
     }
-
-
     public void ActivateGameover()
     {
         Gameover_Panel.SetActive(true);
     }
-
     public void ChangeScene1()
     {
         SceneManager.LoadScene("GameScene");
     }
-
     public void ChangeScene2()
     {
         SceneManager.LoadScene("FinishScene");
     }
-
     public void ChangeScene3()
     {
         SceneManager.LoadScene("TitleScene");
