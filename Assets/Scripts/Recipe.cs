@@ -58,23 +58,20 @@ public class Recipe : MonoBehaviour
 
     private void Update()
     {
+       // Debug.Log(randomRecipe[0] + " " + randomRecipe[1] + " " + randomRecipe[2] + " " + randomRecipe[3] + " " + randomRecipe[4] + " " + randomRecipe[5] + " " + randomRecipe[6]);
         if (IsRecipeComplete(randomRecipe) || IsRecipeWrong(randomRecipe)) // if recipe is complete or wrong, create new recipe
         {
-            Debug.Log(IsRecipeComplete(randomRecipe));
-            Debug.Log(IsRecipeWrong(randomRecipe));
-            RecipeIndex = CreateRandomRecipe();
-            Init();
-            
-            gameDirector.GetComponent<GameDirector>().UpdateRecipeUI();
+          gameDirector.GetComponent<GameDirector>().UpdateRecipeUI();
             if (IsRecipeComplete(randomRecipe))
             {
-                //RecipeIndex = CreateRandomRecipe();
                 //Need to add score, speedup, etc
             }
             else if (IsRecipeWrong(randomRecipe))
             {
                 //GameDirector.hp = 0;
             }
+            Init();
+            RecipeIndex = CreateRandomRecipe();
         }
     }
 
@@ -99,7 +96,6 @@ public class Recipe : MonoBehaviour
                 Array.Copy(recipe3, randomRecipe, ingredientAmt); // copy recipe3 to randomRecipe
                 break;
         }
-
         return randomIndex;
     }
 
@@ -111,6 +107,7 @@ public class Recipe : MonoBehaviour
             if (randomRecipe[i] > 0) // if randomRecipe[i] is not 0, add to temp
             {
                 temp.Add(i, randomRecipe[i]);
+   //             Debug.Log("rand " + i + " :  " +  randomRecipe[i]);
             }
         }
         return temp;
