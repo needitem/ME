@@ -9,10 +9,10 @@ public class Generator : MonoBehaviour
     private float[][] spanArray = new float[][]
     {
         new float[] {1.0f, 1.0f, 1.0f, 1.0f},
-        new float[] {1.0f, 0.5f, 0.5f, 1.0f,1.0f},
+/*        new float[] {1.0f, 0.5f, 0.5f, 1.0f,1.0f},
         new float[] {0.4f, 0.4f, 0.7f, 0.5f, 1.0f},
         new float[] {0.25f, 0.25f, 0.6f, 0.8f, 0.6f, 1.0f, 0.5f},
-        new float[] {0.6f, 0.9f,0.5f, 1.0f}
+        new float[] {0.6f, 0.9f,0.5f, 1.0f}*/
     };
 
     private float timeElapsed = 0f;

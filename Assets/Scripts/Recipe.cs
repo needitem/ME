@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-
 public enum Ingredients
 {
     beef,
@@ -17,18 +16,17 @@ public enum Ingredients
 
 public class Recipe : MonoBehaviour
 {
-    [SerializeField] GameObject gGameDirector;
-    // Define recipes
-    const int ingredientAmt = 7;
-    private int[] r1;
-    private int[] r2;
-    private int[] r3;
-    public static int[] randomRecipe = new int[ingredientAmt];
+    [SerializeField] private GameObject gameDirector;
+    private const int ingredientAmt = 7;
+    private readonly int[] recipe1 = { 5, 0, 0, 0, 2, 1, 1 };
+    private readonly int[] recipe2 = { 0, 1, 0, 1, 1, 2, 0 };
+    private readonly int[] recipe3 = { 0, 0, 1, 1, 2, 3, 0 };
+    public static readonly int[] randomRecipe = new int[ingredientAmt];
 
-    public static int RecipeIndex = 0;
+    public static int RecipeIndex { get; private set; }
 
-    public bool IsRecipeComplete(int[] randomRecipe)
-    {
+    public bool IsRecipeComplete(int[] randomRecipe) // check if recipe is complete, return true if complete, return false if not
+    { 
         foreach (int i in randomRecipe)
         {
             if (i > 0)
@@ -39,7 +37,7 @@ public class Recipe : MonoBehaviour
         return true;
     }
 
-    public bool IsRecipeWrong(int[] randomRecipe)
+    public bool IsRecipeWrong(int[] randomRecipe) // check if recipe is wrong, return true if wrong, return false if not
     {
         foreach (int i in randomRecipe)
         {
@@ -51,89 +49,82 @@ public class Recipe : MonoBehaviour
         return false;
     }
 
-    public void init() //이건 말그대로 initializition인데 여러번 불러올필요 없음. start때만 불러와도됨.
+    private void Awake() // initialize randomRecipe
     {
-        r1 = new int[ingredientAmt] { 2, 0, 0, 0, 0, 1, 1 };  // 레시피 1: beef + onion + carrot
-        r2 = new int[ingredientAmt] { 0, 1, 0, 1, 1, 1, 0 };  // 레시피 2: chicken + onion + depa + egg
-        r3 = new int[ingredientAmt] { 0, 0, 1, 1, 0, 1, 0 };  // 레시피 3: fish + depa + onion
-        randomRecipe = new int[ingredientAmt];
+        Init();
+        gameDirector = GameObject.Find("GameDirector");
+        RecipeIndex = CreateRandomRecipe();
     }
 
-    // Recioe random raw
-    public int createRandomRecipe()
+    private void Update()
+    {
+        if (IsRecipeComplete(randomRecipe) || IsRecipeWrong(randomRecipe)) // if recipe is complete or wrong, create new recipe
+        {
+            Debug.Log(IsRecipeComplete(randomRecipe));
+            Debug.Log(IsRecipeWrong(randomRecipe));
+            RecipeIndex = CreateRandomRecipe();
+            Init();
+            
+            gameDirector.GetComponent<GameDirector>().UpdateRecipeUI();
+            if (IsRecipeComplete(randomRecipe))
+            {
+                //RecipeIndex = CreateRandomRecipe();
+                //Need to add score, speedup, etc
+            }
+            else if (IsRecipeWrong(randomRecipe))
+            {
+                //GameDirector.hp = 0;
+            }
+        }
+    }
+
+    private void Init()
+    {
+        Array.Clear(randomRecipe, 0, randomRecipe.Length); // initialize randomRecipe
+    }
+
+    private int CreateRandomRecipe() // create random recipe and return index of recipe
     {
         int randomIndex = Random.Range(0, 3);
 
         switch (randomIndex)
         {
-            case 0: randomRecipe = r1; break;
-            case 1: randomRecipe = r2; break;
-            case 2: randomRecipe = r3; break;
+            case 0:
+                Array.Copy(recipe1, randomRecipe, ingredientAmt); // copy recipe1 to randomRecipe
+                break;
+            case 1:
+                Array.Copy(recipe2, randomRecipe, ingredientAmt); // copy recipe2 to randomRecipe
+                break;
+            case 2:
+                Array.Copy(recipe3, randomRecipe, ingredientAmt); // copy recipe3 to randomRecipe
+                break;
         }
+
         return randomIndex;
     }
 
-    /*    public static Dictionary<int, int> showLeftoverRecipe()
-        {
-            Dictionary<int, int> temp = new Dictionary<int, int>();
-
-            for (int i = 0; i < randomRecipe.Length; i++)
-            {
-                if (randomRecipe[i] > 0)
-                {
-                    temp.Add(i, randomRecipe[i]); // Key : ingredient 인덱스값, Value : ingredient 갯수
-                }
-            }
-            return temp;
-        }*/
-
-    public static Dictionary<int, int> showLeftoverRecipe()
+    public static Dictionary<int, int> ShowLeftoverRecipe() // return leftover recipe
     {
         Dictionary<int, int> temp = new Dictionary<int, int>();
-
-        for (int i = 0; i < randomRecipe.Length; i++)
+        for (int i = 0; i < randomRecipe.Length; i++) // copy randomRecipe to temp
         {
-            if (randomRecipe[i] > 0)
+            if (randomRecipe[i] > 0) // if randomRecipe[i] is not 0, add to temp
             {
                 temp.Add(i, randomRecipe[i]);
             }
         }
-
         return temp;
     }
 
-
-
-
-    public static void decreaseIngredient(string name)
+    public static void DecreaseIngredient(string name) // decrease ingredient
     {
-        Ingredients ingredient = (Ingredients)Enum.Parse(typeof(Ingredients), name);
-        randomRecipe[(int)ingredient]--;
-
-    }
-
-    private void Start()
-    {
-        init();
-        gGameDirector = GameObject.Find("GameDirector");
-        RecipeIndex = createRandomRecipe();
-    }
-
-    private void Update() //여기 업데이트하지말고 재료가 썰릴때만 불러오게 해야됨.
-    {
-        if (IsRecipeComplete(randomRecipe) || IsRecipeWrong(randomRecipe))
+        if (Enum.TryParse<Ingredients>(name, out var ingredient)) // if name is valid, decrease ingredient
         {
-            init();
-            RecipeIndex = createRandomRecipe();
-            gGameDirector.GetComponent<GameDirector>().UpdateRecipeUI();
-            if (IsRecipeComplete(randomRecipe))
-            {
-                // Success Performance;
-            }
-            else
-            {
-                // Fail Performance;
-            }
+            randomRecipe[(int)ingredient]--;
+        }
+        else
+        {
+            throw new ArgumentException("Invalid ingredient name"); // if name is invalid, throw exception
         }
     }
 }

@@ -27,8 +27,9 @@ public class GameDirector : MonoBehaviour
     {
         hp = maxHp;
         Time.timeScale = 1;
-        UpdateRecipeUI();
         UpdateRecipeCnt();
+        UpdateRecipeUI();
+
     }
 
     // Update is called once per frame
@@ -36,51 +37,23 @@ public class GameDirector : MonoBehaviour
     {
         UpdateHearthp();
         UpdateRecipeCnt();
-        /*UpdateRecipeUI();*/
         if (hp <= 0)
         {
             Invoke("ActivateGameover", 3f);
             Invoke("ChangeScene2", 5f);
         }
-        /*        Dictionary<int, int> temp = Recipe.showLeftoverRecipe();*/
-
-        /*        for (int i = 0; i < 4; i++)
-                {
-                    
-                }*/
-
     }
 
     public void UpdateRecipeCnt()
     {
-        Dictionary<int, int> leftoverRecipe = Recipe.showLeftoverRecipe(); 
-        int[] rearrangedRecipe = new int[gIngredient_cnt.Length]; 
+        int i = 0;
 
-        int currentIndex = 0; 
-        foreach (var pair in leftoverRecipe) 
+        foreach (KeyValuePair<int, int> item in Recipe.ShowLeftoverRecipe())
         {
-            int ingredientCount = pair.Value;   
-            rearrangedRecipe[currentIndex] = ingredientCount;
-            currentIndex++;
-        }
-
-        for (int i = 0; i < gIngredient_cnt.Length; i++)
-        {
-            if (i < currentIndex)
-            {
-                gIngredient_cnt[i].GetComponent<Text>().text = "x" + rearrangedRecipe[i];
-            }
-            else
-            {
-                gIngredient_cnt[i].GetComponent<Text>().text = "x0";
-            }
+            gIngredient_cnt[i].GetComponent<Text>().text = (Recipe.randomRecipe[item.Key] == 0) ? "0" : "x" + Recipe.randomRecipe[item.Key].ToString();
+            i++;
         }
     }
-
-
-
-
-
     public void UpdateRecipeUI()
     {
         int j = 0;
@@ -88,14 +61,16 @@ public class GameDirector : MonoBehaviour
         recipeImage.sprite = recipeSprites[Recipe.RecipeIndex];
 
         // ingredient img update
-        foreach (KeyValuePair<int, int> item in Recipe.showLeftoverRecipe())
+        foreach (KeyValuePair<int, int> item in Recipe.ShowLeftoverRecipe())
         {
             ingredientImages[j].sprite = ingredientSprites[item.Key];
             j++;
+/*            if (ingredientImages[j+1].sprite == null)
+            {
+                ingredientImages[j+1].gameObject.SetActive(false);
+            }*/
         }
-        /* Key : ingredient ÀÎµ¦½º°ª, Value : ingredient °¹¼ö*/
-    }
-
+    } 
 
     private void UpdateHearthp()
     {

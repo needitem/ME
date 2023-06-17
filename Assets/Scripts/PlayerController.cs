@@ -47,9 +47,10 @@ public class PlayerController : MonoBehaviour
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
         foreach (Collider2D collider in colliders)
         {
-            KatanaEffect.Punch();
+           
             if (collider.tag == "Target")
             {
+                KatanaEffect.Punch();
                 Effect.Apply(collider.gameObject);
             }
         }
@@ -70,7 +71,6 @@ public class PlayerController : MonoBehaviour
                 {
                     KatanaEffect.Attack();
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
-                    Recipe.decreaseIngredient(collider.name);
 
                 }
             }
@@ -88,7 +88,6 @@ public class PlayerController : MonoBehaviour
                 {
                     KatanaEffect.DoubleAttack();
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
-                    Recipe.decreaseIngredient(collider.name);
                 }
             }
             isDelay = true;
