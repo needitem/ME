@@ -8,12 +8,14 @@ public class PlayerController : MonoBehaviour
     private bool hasAttacked = false;
     private float lastAttackTime = -1f;
     private float doubleAttackTimeWindow = 0.2f;
+    bool isDoubleAttack = false;
 
     public Vector2 boxSize;
     public Transform pos;
     bool isPunched = false;
     public bool isDelay = false; //attack delay
     Animator playerAnimator;
+
 
     private void Start()
     {
@@ -22,6 +24,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Space) && !isPunched)
         {
             Attack();
@@ -33,12 +36,13 @@ public class PlayerController : MonoBehaviour
 
         if (GameDirector.hp <= 0)
         {
-            gameObject.GetComponent<AudioSource>().mute = true; // hp�� 0�� �Ǵ� ���� PlayController��ũ��Ʈ�� �ִ� ��� ������� muteó��
+            gameObject.GetComponent<AudioSource>().mute = true; // hp   0    Ǵ       PlayController  ũ  Ʈ    ִ              muteó  
             playerAnimator.SetTrigger("game_over");
             //Change to Gameover Scene
         }
 
     }
+
 
     // PunchBack �Լ��� ƨ�ܳ��� �Լ�
     public void PunchBack()
@@ -65,12 +69,15 @@ public class PlayerController : MonoBehaviour
 
     public void Attack()
     {
+   
+       
         hasAttacked = true;
         float currentTime = Time.time;
-
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
+
         if (!isDelay)
         {
+
             playerAnimator.SetTrigger("attack");
             if (colliders.Count == 0)
             {
@@ -90,9 +97,11 @@ public class PlayerController : MonoBehaviour
             isDelay = true;
             lastAttackTime = currentTime;
             StartCoroutine(CountAttackDelay(0.4f));
+
         }
         else if ((currentTime - lastAttackTime) <= doubleAttackTimeWindow)
         {
+            isDoubleAttack = true;
             playerAnimator.SetTrigger("double_attack");
             if (colliders.Count == 0)
             {
@@ -102,7 +111,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (collider.tag == "Target")
                 {
-                    if(collider.name == "chicken")
+                    if (collider.name == "chicken")
                     {
                         AudioDirector.PlaySound("Sound/effect_sound/slice2");       // ���� �ι� �����Ͽ� �浹�� ���� �� ���� �Ҹ�
                         AudioDirector.PlaySound("Sound/effect_sound/chicken");
@@ -111,27 +120,45 @@ public class PlayerController : MonoBehaviour
                     {
                         AudioDirector.PlaySound("Sound/effect_sound/slice2");       // ����Į �ι� �����Ͽ����� �浹�� ���� �� ���� �Ҹ�
                     }
-                    
+
                     KatanaEffect.DoubleAttack();
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
                     Recipe.DecreaseIngredient(collider.name);
                 }
             }
             isDelay = true;
-            StartCoroutine(CountAttackDelay(0.2f));
+ 
+
         }
-        StartCoroutine(CountAttackDelay(0.4f));
+
+
+    }
+
+    public void InitDelay()
+    {
+        isDelay = false;
+        isPunched = false;
+        hasAttacked = false;
     }
 
     // ������ ���� �ڷ�ƾ
     IEnumerator CountAttackDelay(float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
-        isDelay = false;
-        isPunched = false;
-        hasAttacked = false;
+
+        if (!isDoubleAttack)
+        {
+            InitDelay();
+        }
+        else if (isDoubleAttack)
+        {
+            Invoke("InitDelay", 0.2f);
+            isDoubleAttack = false;
+        }
 
     }
+
+
     void OnTriggerEnter2D(Collider2D collider)
     {
         if (collider.tag == "Target")
