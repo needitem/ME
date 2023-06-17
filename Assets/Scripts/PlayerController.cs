@@ -33,71 +33,58 @@ public class PlayerController : MonoBehaviour
 
         if (GameDirector.hp <= 0)
         {
-            gameObject.GetComponent<AudioSource>().mute = true; //if hp is 0, mute the sound
             playerAnimator.SetTrigger("game_over");
+            //Change to Gameover Scene
         }
 
     }
-    public void PunchBack() //effect of punching back ingredients
+
+    public void PunchBack()
     {
         isPunched = true;
         playerAnimator.SetTrigger("punch");
 
-        var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList(); //get colliders in the box, and put them in the list
-        if (colliders.Count == 0) //if there is no collider in the box, play the sound of punching air
-        {
-            AudioDirector.PlaySound("Sound/effect_sound/fryingpanMess"); 
-        }
+        var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
         foreach (Collider2D collider in colliders)
         {
-            if (collider.tag == "Target") //if there is collider in the box, play the sound of punching ingredient
+           
+            if (collider.tag == "Target")
             {
                 KatanaEffect.Punch();
-                Effect.Apply(collider.gameObject); //apply the effect of punching back
-                AudioDirector.PlaySound("Sound/effect_sound/fryingpan"); 
+                Effect.Apply(collider.gameObject);
             }
         }
-        StartCoroutine(CountAttackDelay(0.4f)); //delay of punching back
+        StartCoroutine(CountAttackDelay(0.4f));
     }
 
-    public void Attack() //
+    public void Attack()
     {
         hasAttacked = true;
         float currentTime = Time.time;
-
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
-        if (!isDelay) //if attack delay is false, attack. attack delay is true when player attacks
+        if (!isDelay)
         {
             playerAnimator.SetTrigger("attack");
-            if (colliders.Count == 0) //if there is no collider in the box, play the sound of swinging air
-            {
-                AudioDirector.PlaySound("Sound/effect_sound/swing1");  
-            }
             foreach (Collider2D collider in colliders)
             {
-                if (collider.tag == "Target") //if there is collider in the box, play the sound of slicing ingredient
+                if (collider.tag == "Target")
                 {
                     KatanaEffect.Attack();
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
-                    AudioDirector.PlaySound("Sound/effect_sound/slice1");
-                    Recipe.DecreaseIngredient(collider.name); //decrease the amount of ingredient
+
                 }
             }
-
             isDelay = true;
-            lastAttackTime = currentTime; //reset the last attack time
+            lastAttackTime = currentTime;
             StartCoroutine(CountAttackDelay(0.4f));
+
         }
-        else if ((currentTime - lastAttackTime) <= doubleAttackTimeWindow) //if player attacks again within 0.2 seconds
+        else if ((currentTime - lastAttackTime) <= doubleAttackTimeWindow)
         {
             playerAnimator.SetTrigger("double_attack");
-            if (colliders.Count == 0) //if there is no collider in the box, play the sound of swinging air
-            {
-                AudioDirector.PlaySound("Sound/effect_sound/swing2");       
-            }
             foreach (Collider2D collider in colliders)
             {
-                if (collider.tag == "Target") //if there is collider in the box, play the sound of slicing ingredient
+                if (collider.tag == "Target")
                 {
                     AudioDirector.PlaySound("Sound/effect_sound/slice2");
                     if (collider.name == "chicken") //if the ingredient is chicken, play the sound of slicing chicken
@@ -106,19 +93,19 @@ public class PlayerController : MonoBehaviour
                     }
                     KatanaEffect.DoubleAttack();
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
-                    Recipe.DecreaseIngredient(collider.name);
                 }
             }
             isDelay = true;
             StartCoroutine(CountAttackDelay(0.2f));
         }
         StartCoroutine(CountAttackDelay(0.4f));
+
+
     }
 
-
-    IEnumerator CountAttackDelay(float delayTime) 
+    IEnumerator CountAttackDelay(float delayTime)
     {
-        yield return new WaitForSeconds(delayTime); //wait for delayTime seconds
+        yield return new WaitForSeconds(delayTime);
         isDelay = false;
         isPunched = false;
         hasAttacked = false;
@@ -126,12 +113,16 @@ public class PlayerController : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Target") //if player collides with ingredient, decrease hp
+        if (collider.tag == "Target")
         {
             Destroy(collider.gameObject);
             GameDirector.hp--;
-            AudioDirector.PlaySound("Sound/effect_sound/hit");     
             playerAnimator.SetTrigger("damaged");
         }
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(pos.position, boxSize);
     }
 }

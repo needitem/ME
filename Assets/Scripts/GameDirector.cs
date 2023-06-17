@@ -1,8 +1,9 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using System.Linq;
 public class GameDirector : MonoBehaviour
 {
     [SerializeField] public int maxHp = 5;
@@ -26,34 +27,63 @@ public class GameDirector : MonoBehaviour
     {
         hp = maxHp;
         Time.timeScale = 1;
+        UpdateRecipeCnt();
         UpdateRecipeUI();
+
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateHearthp();
+        UpdateRecipeCnt();
+        UpdateRecipeUI();
         if (hp <= 0)
         {
             Invoke("ActivateGameover", 3f);
         }
     }
 
+    public void UpdateRecipeCnt()
+    {
+        for (int i = 0; i < 4; i++)
+        {   
+            try{
+                Debug.Log("Cnt" + Recipe.ShowLeftoverRecipe().Values.ToList()[i]);
+                gIngredient_cnt[i].GetComponent<Text>().text = "x" + Recipe.ShowLeftoverRecipe().Values.ToList()[i];
+            }
+            catch
+            {
+                Debug.Log(i + ": cnt is null");
+                gIngredient_cnt[i].GetComponent<Text>().text = "";
+            }
+       }
+    }
     public void UpdateRecipeUI()
     {
-        int j = 0;
-        // recipe img update
-        recipeImage.sprite = recipeSprites[Recipe.RecipeIndex];
-
-        // ingredient img update
-        foreach (KeyValuePair<int, int> item in Recipe.ShowLeftoverRecipe())
+        for (int i = 0; i < 4; i++)
         {
-            ingredientImages[j].sprite = ingredientSprites[item.Key];
-            j++;
+            try
+            {
+                Debug.Log("UI"  +Recipe.ShowLeftoverRecipe().Keys.ToList()[i]);
+                ingredientImages[i].enabled = true;
+                ingredientImages[i].sprite = ingredientSprites[Recipe.ShowLeftoverRecipe().Keys.ToList()[i]];
+            }
+            catch
+            {
+                Debug.Log(i + ": img is null");
+                ingredientImages[i].enabled = false;
+            }
         }
-        /* Key : ingredient �ε�����, Value : ingredient ����*/
-    }
+    } 
 
+    void VolumeChanged()
+    {
+        if (Gameover_Panel.activeSelf == true)
+        {
+
+        } 
+    }
 
     private void UpdateHearthp()
     {
@@ -69,24 +99,19 @@ public class GameDirector : MonoBehaviour
             }
         }
     }
-
-
     public void ActivateGameover()
     {
         Gameover_Panel.SetActive(true);
     }
-
-    public void changeScene1()
+    public void ChangeScene1()
     {
         SceneManager.LoadScene("GameScene");
     }
-
-    public void changeScene2()
+    public void ChangeScene2()
     {
         SceneManager.LoadScene("FinishScene");
     }
-
-    public void changeScene3()
+    public void ChangeScene3()
     {
         SceneManager.LoadScene("TitleScene");
     }

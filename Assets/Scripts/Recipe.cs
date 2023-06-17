@@ -18,15 +18,15 @@ public class Recipe : MonoBehaviour
 {
     [SerializeField] private GameObject gameDirector;
     private const int ingredientAmt = 7;
-    private readonly int[] recipe1 = { 2, 0, 0, 0, 0, 1, 1};
-    private readonly int[] recipe2 = { 0, 1, 0, 1, 1, 1, 0 };
-    private readonly int[] recipe3 = { 0, 0, 1, 1, 0, 1, 0 };
-    private static readonly int[] randomRecipe = new int[ingredientAmt];
+    private readonly int[] recipe1 = { 5, 0, 0, 0, 2, 1, 1 };
+    private readonly int[] recipe2 = { 0, 1, 0, 1, 1, 2, 0 };
+    private readonly int[] recipe3 = { 0, 0, 1, 1, 2, 3, 0 };
+    public static readonly int[] randomRecipe = new int[ingredientAmt];
 
     public static int RecipeIndex { get; private set; }
 
     public bool IsRecipeComplete(int[] randomRecipe) // check if recipe is complete, return true if complete, return false if not
-    {
+    { 
         foreach (int i in randomRecipe)
         {
             if (i > 0)
@@ -58,20 +58,20 @@ public class Recipe : MonoBehaviour
 
     private void Update()
     {
-        if (IsRecipeComplete(randomRecipe) || IsRecipeWrong(randomRecipe)) // if recipe is complete or wrong, create new recipe
+       if (IsRecipeComplete(randomRecipe) || IsRecipeWrong(randomRecipe)) // if recipe is complete or wrong, create new recipe
         {
-            Init();
-            RecipeIndex = CreateRandomRecipe();
             gameDirector.GetComponent<GameDirector>().UpdateRecipeUI();
             if (IsRecipeComplete(randomRecipe))
             {
-                //RecipeIndex = CreateRandomRecipe();
                 //Need to add score, speedup, etc
             }
             else if (IsRecipeWrong(randomRecipe))
             {
-               //GameDirector.hp = 0;
+                Init();
+                //GameDirector.hp = 0;
             }
+            Init();
+            RecipeIndex = CreateRandomRecipe();
         }
     }
 
@@ -96,7 +96,6 @@ public class Recipe : MonoBehaviour
                 Array.Copy(recipe3, randomRecipe, ingredientAmt); // copy recipe3 to randomRecipe
                 break;
         }
-
         return randomIndex;
     }
 
@@ -108,6 +107,7 @@ public class Recipe : MonoBehaviour
             if (randomRecipe[i] > 0) // if randomRecipe[i] is not 0, add to temp
             {
                 temp.Add(i, randomRecipe[i]);
+   //             Debug.Log("rand " + i + " :  " +  randomRecipe[i]);
             }
         }
         return temp;

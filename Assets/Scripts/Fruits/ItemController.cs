@@ -21,37 +21,38 @@ public class ItemController : MonoBehaviour
         itemAnimator = GetComponent<Animator>();
     }
 
-
+ 
 
     private void FixedUpdate()
     {
-        if (gameObject.transform.position.y <= 0.7f) // 재료가 맵 아래로 떨어지면 삭제 시키기
+        if (gameObject.transform.position.y <= 0.72f)
         {
             Destroy(gameObject);
         }
 
         rate += Time.deltaTime;
         transform.position = BezierTest(controllPosition[0], controllPosition[1], controllPosition[2], controllPosition[3], rate);
+        
 
-
-        if (rate >= 1f) // 재료가 생성되고 베지어 곡선을 따라가다, 생성된지 1초가 넘으면 왼쪽 방향으로 AddForce 주기(날아가는 듯한 효과)
+        if (rate >= 1f)
         {
             Vector2 pushForce = Vector2.left * 250.0f;
             rb.AddForce(pushForce);
         }
 
 
-        if (itemHp <= 0) // 어택으로 인해 음식의 hp가 0이 될시 실행시키는 if문
+        if (itemHp == 0)
         {
-            if (executeOnlyOnce) // 재료 하나당 한번씩만 실행되는 bool형 변수
+            if (executeOnlyOnce)
             {
-                itemAnimator.SetTrigger("slice"); // 슬라이스 애니메이션 부여
-                rb.MovePosition(new Vector2(4f, 3f)); // 재료를 해당 위치로 이동시키기
+                itemAnimator.SetTrigger("slice");
+                rb.MovePosition(new Vector2(4f, 3f));
+                Recipe.DecreaseIngredient(this.name);
                 executeOnlyOnce = false;
             }
-            Vector2 rightForce = Vector2.right * 250.0f; 
-            rb.AddForce(rightForce); // 더이상 왼쪽으로 이동하지 않게 오른쪽 방향으로 똑같이 250만큼 힘을 주어 제자리에 정지된 것 처럼 보이게 만들기
-            rb.gravityScale = 15f; // 그 후 중력을 부여해 아래로 떨어지게 하기
+            Vector2 rightForce = Vector2.right * 250.0f;
+            rb.AddForce(rightForce);
+            rb.gravityScale = 15f; // �߷� ����
         }
     }
 
