@@ -18,15 +18,15 @@ public class Recipe : MonoBehaviour
 {
     [SerializeField] private GameObject gameDirector;
     private const int ingredientAmt = 7;
-    private readonly int[] recipe1 = { 20, 0, 0, 0, 0, 10, 10 };
-    private readonly int[] recipe2 = { 0, 10, 0, 10, 10, 10, 0 };
-    private readonly int[] recipe3 = { 0, 0, 10, 10, 0, 10, 0 };
-    private static readonly int[] randomRecipe = new int[ingredientAmt];
+    private readonly int[] recipe1 = { 5, 0, 0, 0, 2, 1, 1 };
+    private readonly int[] recipe2 = { 0, 1, 0, 1, 1, 2, 0 };
+    private readonly int[] recipe3 = { 0, 0, 1, 1, 2, 3, 0 };
+    public static readonly int[] randomRecipe = new int[ingredientAmt];
 
     public static int RecipeIndex { get; private set; }
 
     public bool IsRecipeComplete(int[] randomRecipe) // check if recipe is complete, return true if complete, return false if not
-    {
+    { 
         foreach (int i in randomRecipe)
         {
             if (i > 0)
@@ -60,8 +60,11 @@ public class Recipe : MonoBehaviour
     {
         if (IsRecipeComplete(randomRecipe) || IsRecipeWrong(randomRecipe)) // if recipe is complete or wrong, create new recipe
         {
-            Init();
+            Debug.Log(IsRecipeComplete(randomRecipe));
+            Debug.Log(IsRecipeWrong(randomRecipe));
             RecipeIndex = CreateRandomRecipe();
+            Init();
+            
             gameDirector.GetComponent<GameDirector>().UpdateRecipeUI();
             if (IsRecipeComplete(randomRecipe))
             {
@@ -70,7 +73,7 @@ public class Recipe : MonoBehaviour
             }
             else if (IsRecipeWrong(randomRecipe))
             {
-               //GameDirector.hp = 0;
+                //GameDirector.hp = 0;
             }
         }
     }

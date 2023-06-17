@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -26,19 +27,33 @@ public class GameDirector : MonoBehaviour
     {
         hp = maxHp;
         Time.timeScale = 1;
+        UpdateRecipeCnt();
         UpdateRecipeUI();
+
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateHearthp();
+        UpdateRecipeCnt();
         if (hp <= 0)
         {
             Invoke("ActivateGameover", 3f);
-        }        
+            Invoke("ChangeScene2", 5f);
+        }
     }
 
+    public void UpdateRecipeCnt()
+    {
+        int i = 0;
+
+        foreach (KeyValuePair<int, int> item in Recipe.ShowLeftoverRecipe())
+        {
+            gIngredient_cnt[i].GetComponent<Text>().text = (Recipe.randomRecipe[item.Key] == 0) ? "0" : "x" + Recipe.randomRecipe[item.Key].ToString();
+            i++;
+        }
+    }
     public void UpdateRecipeUI()
     {
         int j = 0;
@@ -50,10 +65,12 @@ public class GameDirector : MonoBehaviour
         {
             ingredientImages[j].sprite = ingredientSprites[item.Key];
             j++;
+/*            if (ingredientImages[j+1].sprite == null)
+            {
+                ingredientImages[j+1].gameObject.SetActive(false);
+            }*/
         }
-        /* Key : ingredient �ε�����, Value : ingredient ����*/
-    }
-
+    } 
 
     private void UpdateHearthp()
     {
@@ -76,17 +93,17 @@ public class GameDirector : MonoBehaviour
         Gameover_Panel.SetActive(true);
     }
 
-    public void changeScene1()
+    public void ChangeScene1()
     {
         SceneManager.LoadScene("GameScene");
     }
 
-    public void changeScene2()
+    public void ChangeScene2()
     {
         SceneManager.LoadScene("FinishScene");
     }
 
-    public void changeScene3()
+    public void ChangeScene3()
     {
         SceneManager.LoadScene("TitleScene");
     }

@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class Generator : MonoBehaviour
 {
-    public GameObject[] mainFood;
-    public GameObject[] subFood;
+    public GameObject[] mainfood;
+    public GameObject[] subfood;
     private GameObject spawn;
     private GameObject NPC;
     private float[][] spanArray = new float[][]
     {
         new float[] {1.0f, 1.0f, 1.0f, 1.0f},
-        new float[] {1.0f, 0.5f, 0.5f, 1.0f, 1.0f},
+/*        new float[] {1.0f, 0.5f, 0.5f, 1.0f,1.0f},
         new float[] {0.4f, 0.4f, 0.7f, 0.5f, 1.0f},
         new float[] {0.25f, 0.25f, 0.6f, 0.8f, 0.6f, 1.0f, 0.5f},
-        new float[] {0.6f, 0.9f, 0.5f, 1.0f}
+        new float[] {0.6f, 0.9f,0.5f, 1.0f}*/
     };
 
     private float timeElapsed = 0f;
@@ -21,10 +21,11 @@ public class Generator : MonoBehaviour
 
     public float span = 1.3f;
 
+
     void Start()
     {
-        mainFood = Resources.LoadAll<GameObject>("Prefabs/MainFood"); 
-        subFood = Resources.LoadAll<GameObject>("Prefabs/SubFood"); 
+        mainfood = Resources.LoadAll<GameObject>("Prefabs/MainFood");
+        subfood = Resources.LoadAll<GameObject>("Prefabs/SubFood");
         rowIndex = Random.Range(0, spanArray.Length);
         NPC = GameObject.Find("NPC");
     }
@@ -32,15 +33,15 @@ public class Generator : MonoBehaviour
     void Update()
     {
         timeElapsed += Time.deltaTime;
-        if (timeElapsed >= GetCurrentSpan() && GameDirector.hp > 0) // generate food every span seconds
+        if (timeElapsed >= GetCurrentSpan() && GameDirector.hp > 0)
         {
-            NPC.GetComponent<NPCController>().Drawing(); // NPC throw food animation
+            NPC.GetComponent<NPCController>().Drawing();
             SpawnFood();
-            timeElapsed = 0; // reset timer
+            timeElapsed = 0;
 
             if (colIndex == spanArray[rowIndex].Length - 1)
             {
-                UpdateIndices(); // update indices for next spawn
+                UpdateIndices();
             }
             else
             {
@@ -48,38 +49,38 @@ public class Generator : MonoBehaviour
             }
         }
     }
-
-    public void SpawnFood() // spawn food
+    public void SpawnFood()
     {
         Vector3 spawnPosition = new Vector3(15, 1.5f, 1);
         GameObject foodPrefab;
         int itemHp;
 
-        if (Random.Range(0, 3) == 0) // 1/3 chance to spawn main food. set bigger value to increase chance
+        if (Random.Range(0, 3) == 0)
         {
-            foodPrefab = mainFood[Random.Range(0, mainFood.Length)];
-            itemHp = 2; // main food has 2 hp
+            foodPrefab = mainfood[Random.Range(0, mainfood.Length)];
+            itemHp = 2;
         }
         else
         {
-            foodPrefab = subFood[Random.Range(0, subFood.Length)];
-            itemHp = 1; // sub food has 1 hp
-
+            foodPrefab = subfood[Random.Range(0, subfood.Length)];
+            itemHp = 1;
         }
 
         spawn = Instantiate(foodPrefab, spawnPosition, Quaternion.identity);
-        spawn.name = foodPrefab.name; // set name of food to its prefab name. prevent (prefab) in hierarchy
+        spawn.name = foodPrefab.name;
         spawn.GetComponent<ItemController>().itemHp = itemHp;
     }
-
-    private float GetCurrentSpan() // get current span
+    private float GetCurrentSpan()
     {
         return spanArray[rowIndex][colIndex];
     }
 
     private void UpdateIndices()
     {
-        rowIndex = Random.Range(0, spanArray.Length); // update row index
+        rowIndex = Random.Range(0, spanArray.Length);
         colIndex = 0;
     }
+
 }
+
+
