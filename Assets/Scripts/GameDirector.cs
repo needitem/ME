@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-
+using System.Linq;
 public class GameDirector : MonoBehaviour
 {
     [SerializeField] public int maxHp = 5;
@@ -37,6 +37,7 @@ public class GameDirector : MonoBehaviour
     {
         UpdateHearthp();
         UpdateRecipeCnt();
+        UpdateRecipeUI();
         if (hp <= 0)
         {
             Invoke("ActivateGameover", 3f);
@@ -46,29 +47,34 @@ public class GameDirector : MonoBehaviour
 
     public void UpdateRecipeCnt()
     {
-        int i = 0;
-
-        foreach (KeyValuePair<int, int> item in Recipe.ShowLeftoverRecipe())
-        {
-            gIngredient_cnt[i].GetComponent<Text>().text = (Recipe.randomRecipe[item.Key] == 0) ? "0" : "x" + Recipe.randomRecipe[item.Key].ToString();
-            i++;
-        }
+        for (int i = 0; i < 4; i++)
+        {   
+            try{
+                Debug.Log("Cnt" + Recipe.ShowLeftoverRecipe().Values.ToList()[i]);
+                gIngredient_cnt[i].GetComponent<Text>().text = "x" + Recipe.ShowLeftoverRecipe().Values.ToList()[i];
+            }
+            catch
+            {
+                Debug.Log(i + ": cnt is null");
+                gIngredient_cnt[i].GetComponent<Text>().text = "";
+            }
+       }
     }
     public void UpdateRecipeUI()
     {
-        int j = 0;
-        // recipe img update
-        recipeImage.sprite = recipeSprites[Recipe.RecipeIndex];
-
-        // ingredient img update
-        foreach (KeyValuePair<int, int> item in Recipe.ShowLeftoverRecipe())
+        for (int i = 0; i < 4; i++)
         {
-            ingredientImages[j].sprite = ingredientSprites[item.Key];
-            j++;
-/*            if (ingredientImages[j+1].sprite == null)
+            try
             {
-                ingredientImages[j+1].gameObject.SetActive(false);
-            }*/
+                Debug.Log("UI"  +Recipe.ShowLeftoverRecipe().Keys.ToList()[i]);
+                ingredientImages[i].enabled = true;
+                ingredientImages[i].sprite = ingredientSprites[Recipe.ShowLeftoverRecipe().Keys.ToList()[i]];
+            }
+            catch
+            {
+                Debug.Log(i + ": img is null");
+                ingredientImages[i].enabled = false;
+            }
         }
     } 
 

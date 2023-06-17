@@ -41,14 +41,14 @@ public class ItemController : MonoBehaviour
         }
 
 
-        if (itemHp <= 0)
+        if (itemHp == 0)
         {
             if (executeOnlyOnce)
             {
                 itemAnimator.SetTrigger("slice");
                 rb.MovePosition(new Vector2(4f, 3f));
-                executeOnlyOnce = false;
                 Recipe.DecreaseIngredient(this.name);
+                executeOnlyOnce = false;
             }
             Vector2 rightForce = Vector2.right * 250.0f;
             rb.AddForce(rightForce);
