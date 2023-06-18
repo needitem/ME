@@ -50,6 +50,7 @@ public class Generator : MonoBehaviour
         {
             NPC.GetComponent<NPCController>().Drawing(); // NPC throw food animation
             SpawnFood();
+            Gamespeed();
             timeElapsed = 0; // reset timer
             if (colIndex == spanArray[rowIndex].Length - 1)
             {
@@ -60,7 +61,6 @@ public class Generator : MonoBehaviour
                 colIndex++;
             }
         }
-        Gamespeed();
         if (GameDirector.hp <= 0)
         {
             audioDirector.SoundMute(true);
