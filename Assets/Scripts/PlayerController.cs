@@ -5,6 +5,7 @@ using System.Linq;
 
 public class PlayerController : MonoBehaviour
 {
+
     private bool hasAttacked = false;
     private float lastAttackTime = -1f;
     private float doubleAttackTimeWindow = 0.2f;
@@ -25,17 +26,21 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isPunched)
+        if (GameDirector.hp > 0)
         {
-            Attack();
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked)
-        {
-            PunchBack();
+            if (Input.GetKeyDown(KeyCode.Space) && !isPunched)
+            {
+                Attack();
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked)
+            {
+                PunchBack();
+            }
         }
 
         if (GameDirector.hp <= 0)
         {
+            
             playerAnimator.SetTrigger("game_over");
         }
 
