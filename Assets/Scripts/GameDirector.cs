@@ -10,7 +10,7 @@ public class GameDirector : MonoBehaviour
     [SerializeField] public Image[] heartImages;
     [SerializeField] GameObject[] gIngredient_cnt;
     [SerializeField] public GameObject Gameover_Panel;
-
+    GameObject gPlayer;
     GameObject gGenerate;
     GameObject gCamera;
 
