@@ -26,7 +26,7 @@ public class AudioDirector : MonoBehaviour
 
     private void LoadAudioClips()
     {
-        for (int i = 1; i <= 7; i++)
+        for (int i = 0; i <= 7; i++)
         {
             string audioPath = string.Format("Sound/BGM/Track_{0}", i);
             AudioClip audioClip = Resources.Load<AudioClip>(audioPath);
