@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using UnityEngine.UI;
 
 public enum Ingredients
 {
@@ -18,12 +19,14 @@ public class Recipe : MonoBehaviour
 {
     [SerializeField] private GameObject gameDirector;
     private const int ingredientAmt = 7;
-    private readonly int[] recipe1 = { 5, 0, 0, 0, 2, 1, 1 };
-    private readonly int[] recipe2 = { 0, 1, 0, 1, 1, 2, 0 };
-    private readonly int[] recipe3 = { 0, 0, 1, 1, 2, 3, 0 };
+    private readonly int[] recipe1 = { 1, 0, 0, 0, 0, 1, 1 };
+    private readonly int[] recipe2 = { 0, 1, 0, 1, 1, 1, 0 };
+    private readonly int[] recipe3 = { 0, 0, 1, 1, 0, 1, 0 };
     public static readonly int[] randomRecipe = new int[ingredientAmt];
 
     public static int RecipeIndex { get; private set; }
+
+    public static int Score;
 
     public bool IsRecipeComplete(int[] randomRecipe) // check if recipe is complete, return true if complete, return false if not
     { 
@@ -63,12 +66,13 @@ public class Recipe : MonoBehaviour
             gameDirector.GetComponent<GameDirector>().UpdateRecipeUI();
             if (IsRecipeComplete(randomRecipe))
             {
-                //Need to add score, speedup, etc
+                Score += 300;
+
             }
             else if (IsRecipeWrong(randomRecipe))
             {
                 Init();
-                //GameDirector.hp = 0;
+                /*GameDirector.hp = 0;*/
             }
             Init();
             RecipeIndex = CreateRandomRecipe();

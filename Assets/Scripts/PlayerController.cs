@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -36,48 +36,41 @@ public class PlayerController : MonoBehaviour
 
         if (GameDirector.hp <= 0)
         {
+            gameObject.GetComponent<AudioSource>().mute = true; //if hp is 0, mute the sound
             playerAnimator.SetTrigger("game_over");
         }
 
     }
     public void PunchBack() //effect of punching back ingredients
     {
-        if (isDelay == false)
+        isPunched = true;
+        playerAnimator.SetTrigger("punch");
+
+        var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList(); //get colliders in the box, and put them in the list
+        if (colliders.Count == 0) //if there is no collider in the box, play the sound of punching air
         {
-            isPunched = true;
-            playerAnimator.SetTrigger("punch");
             audioDirector.SoundPlay("Sound/effect_sound/fryingpanMess");
-
-
-
-            var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
-           
-            foreach (Collider2D collider in colliders)
+        }
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.tag == "Target") //if there is collider in the box, play the sound of punching ingredient
             {
-
-                if (collider.tag == "Target")
-                {
-                    audioDirector.SoundPlay("Sound/effect_sound/fryingpan");
-                    KatanaEffect.Punch();
-                    Effect.Apply(collider.gameObject);
-                }
-                else {
-                    audioDirector.SoundPlay("Sound/effect_sound/swing1");
-                }
+                KatanaEffect.Punch();
+                Effect.Apply(collider.gameObject); //apply the effect of punching back
+                audioDirector.SoundPlay("Sound/effect_sound/fryingpan");
             }
             isDelay = true;
             StartCoroutine(CountAttackDelay(0.4f));
         }
-
+        StartCoroutine(CountAttackDelay(0.4f)); //delay of punching back
     }
 
-    public void Attack()
+    public void Attack() //
     {
         hasAttacked = true;
         float currentTime = Time.time;
 
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
-
         if (!isDelay) //if attack delay is false, attack. attack delay is true when player attacks
         {
 
@@ -86,7 +79,6 @@ public class PlayerController : MonoBehaviour
             {
                 audioDirector.SoundPlay("Sound/effect_sound/swing1");
             }
-
             foreach (Collider2D collider in colliders)
             {
                 if (collider.tag == "Target") //if there is collider in the box, play the sound of slicing ingredient
@@ -105,12 +97,10 @@ public class PlayerController : MonoBehaviour
         {
             isDouble = true;
             playerAnimator.SetTrigger("double_attack");
-
             if (colliders.Count == 0) //if there is no collider in the box, play the sound of swinging air
             {
                 audioDirector.SoundPlay("Sound/effect_sound/swing2");
             }
-
             foreach (Collider2D collider in colliders)
             {
                 if (collider.tag == "Target") //if there is collider in the box, play the sound of slicing ingredient
@@ -129,27 +119,16 @@ public class PlayerController : MonoBehaviour
             }
             isDelay = true;
         }
+        StartCoroutine(CountAttackDelay(0.4f));
     }
 
-    void ResetDelay()
-    {
-        isDelay = false;
-        isPunched = false;
-        hasAttacked = false;
-    }
 
     IEnumerator CountAttackDelay(float delayTime)
     {
-        yield return new WaitForSeconds(delayTime);
-        if (isDouble == true) // ���������� ������ �߰������� 0.2�ʸ� �ش�.
-        {
-            Invoke("ResetDelay", 0.2f);
-            isDouble = false;
-        }
-        else if (isDouble == false)
-        {
-            ResetDelay();
-        }
+        yield return new WaitForSeconds(delayTime); //wait for delayTime seconds
+        isDelay = false;
+        isPunched = false;
+        hasAttacked = false;
 
     }
     void OnTriggerEnter2D(Collider2D collider)
@@ -161,5 +140,11 @@ public class PlayerController : MonoBehaviour
             audioDirector.SoundPlay("Sound/effect_sound/hit");
             playerAnimator.SetTrigger("damaged");
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(pos.position, boxSize);
     }
 }

@@ -57,7 +57,7 @@ public class ItemController : MonoBehaviour
             }
             Vector2 rightForce = Vector2.right * 250.0f;
             rb.AddForce(rightForce);
-            rb.gravityScale = 15f; // �߷� ����
+            rb.gravityScale = 15f;
         }
     }
 

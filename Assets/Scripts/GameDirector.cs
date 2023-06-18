@@ -8,8 +8,8 @@ public class GameDirector : MonoBehaviour
 {
     [SerializeField] public int maxHp = 5;
     [SerializeField] public Image[] heartImages;
-    [SerializeField] public GameObject Gameover_Panel;
     [SerializeField] GameObject[] gIngredient_cnt;
+    [SerializeField] public GameObject Gameover_Panel;
 
     public Recipe recipe;
     public Image recipeImage;
@@ -19,6 +19,7 @@ public class GameDirector : MonoBehaviour
     public Sprite[] ingredientSprites;
 
     static public int hp;
+
 
     // Start is called before the first frame update
 
@@ -36,10 +37,11 @@ public class GameDirector : MonoBehaviour
         UpdateHearthp();
         UpdateRecipeCnt();
         UpdateRecipeUI();
-        if (hp <= 0)
+
+        if (GameDirector.hp <= 0)
         {
             Invoke("ActivateGameover", 3f);
-            Invoke("ChangeScene2", 5f);
+            Invoke("GameOverChange", 5f);
         }
     }
 
@@ -48,10 +50,12 @@ public class GameDirector : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {   
             try{
+/*                Debug.Log("Cnt" + Recipe.ShowLeftoverRecipe().Values.ToList()[i]);*/
                 gIngredient_cnt[i].GetComponent<Text>().text = "x" + Recipe.ShowLeftoverRecipe().Values.ToList()[i];
             }
             catch
             {
+/*                Debug.Log(i + ": cnt is null");*/
                 gIngredient_cnt[i].GetComponent<Text>().text = "";
             }
        }
@@ -62,24 +66,19 @@ public class GameDirector : MonoBehaviour
         {
             try
             {
+/*                Debug.Log("UI"  +Recipe.ShowLeftoverRecipe().Keys.ToList()[i]);*/
                 ingredientImages[i].enabled = true;
+                recipeImage.sprite = recipeSprites[Recipe.RecipeIndex];
                 ingredientImages[i].sprite = ingredientSprites[Recipe.ShowLeftoverRecipe().Keys.ToList()[i]];
                 recipeImage.sprite = recipeSprites[Recipe.RecipeIndex];
             }
             catch
             {
+/*                Debug.Log(i + ": img is null");*/
                 ingredientImages[i].enabled = false;
             }
         }
     } 
-
-    void VolumeChanged()
-    {
-        if (Gameover_Panel.activeSelf == true)
-        {
-
-        } 
-    }
 
     private void UpdateHearthp()
     {
@@ -95,20 +94,14 @@ public class GameDirector : MonoBehaviour
             }
         }
     }
+
     public void ActivateGameover()
     {
         Gameover_Panel.SetActive(true);
     }
-    public void ChangeScene1()
+
+    public void GameOverChange()
     {
-        SceneManager.LoadScene("GameScene");
-    }
-    public void ChangeScene2()
-    {
-        SceneManager.LoadScene("FinishScene");
-    }
-    public void ChangeScene3()
-    {
-        SceneManager.LoadScene("TitleScene");
+        SceneDirector.ChangeScene2();
     }
 }
