@@ -16,7 +16,7 @@ public class NPCController : MonoBehaviour
     public void Drawing()
     {
         npcAnimator.SetTrigger("drawing");
-        
+
     }
     public void AudioMute(AudioSource audio, bool isOn)
     {

@@ -27,6 +27,8 @@ public class GameDirector : MonoBehaviour
 
     void Start()
     {
+        Application.targetFrameRate = 30;
+        QualitySettings.vSyncCount = 0;
         hp = maxHp;
         Time.timeScale = 1;
         UpdateRecipeCnt();

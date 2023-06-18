@@ -175,7 +175,7 @@ public class PlayerController : MonoBehaviour
         if (collider.tag == "Target") //if player collides with ingredient, decrease hp
         {
             Destroy(collider.gameObject);
-            GameDirector.hp--;
+            //GameDirector.hp--;
             audioDirector.SoundPlay("Sound/effect_sound/hit");
             playerAnimator.SetTrigger("damaged");
         }
