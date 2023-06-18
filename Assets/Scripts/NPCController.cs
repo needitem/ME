@@ -20,31 +20,8 @@ public class NPCController : MonoBehaviour
     }
     public void AudioMute(AudioSource audio, bool isOn)
     {
-        audio.mute = !isOn; // Åä±Û °ª¿¡ µû¶ó AudioSourceÀÇ À½¼Ò°Å ¿©ºÎ ¼³Á¤
+        audio.mute = !isOn; // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ AudioSourceï¿½ï¿½ ï¿½ï¿½ï¿½Ò°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        /*      audioSource.Play(); //Àç»ý
-
-                audioSource.Stop(); //Á¤Áö
-
-                audioSource.Pause(); //ÀÏ½ÃÁ¤Áö
-
-                audioSource.UnPause(); //ÀÏ½ÃÁ¤Áö ÇØÁ¦
-
-                audioSource.playOnAwake = true; //¾À ½ÃÀÛ½Ã ¹Ù·Î Àç»ý
-
-                audioSource.loop = true; //¹Ýº¹ Àç»ý
-
-                audioSource.mute = true; //À½¼Ò°Å
-
-                audioSource.volume = 1.0f; //º¼·ý (0.0 ~ 1.0f)
-
-                audioSource.PlayOneShot(audioClip, 1.0f); //Æ¯Á¤ Å¬¸³ ÇÑ¹ø ¸¸ Àç»ý
-
-                audioSource.clip = audioClip; //¿Àµð¿À Å¬¸³ ±³Ã¼*/
-
-    }
 }

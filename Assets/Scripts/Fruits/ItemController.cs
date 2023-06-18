@@ -24,10 +24,6 @@ public class ItemController : MonoBehaviour
 
     }
 
- 
-
-
-
     private void FixedUpdate()
     {
         if (gameObject.transform.position.y <= 0.7f)
@@ -75,42 +71,5 @@ public class ItemController : MonoBehaviour
         return F;
     }
 
-
-}
-
-// Bezier graphic area
-[CanEditMultipleObjects]
-[CustomEditor(typeof(ItemController))]
-public class Test_Editor : Editor
-{
-    private void OnSceneGUI()
-    {
-        // Current Object Reference
-        ItemController Generator = (ItemController)target;
-
-        // Object Control 
-        Generator.controllPosition[0] = Handles.PositionHandle(Generator.controllPosition[0], Quaternion.identity);
-        Generator.controllPosition[1] = Handles.PositionHandle(Generator.controllPosition[1], Quaternion.identity);
-        Generator.controllPosition[2] = Handles.PositionHandle(Generator.controllPosition[2], Quaternion.identity);
-        Generator.controllPosition[3] = Handles.PositionHandle(Generator.controllPosition[3], Quaternion.identity);
-
-        // pos[0], pos[1] connetion
-        Handles.DrawLine(Generator.controllPosition[0], Generator.controllPosition[1]);
-        // pos[2], pos[3] connetion
-        Handles.DrawLine(Generator.controllPosition[2], Generator.controllPosition[3]);
-
-        // It gets smoother as the count goes up.
-        int Count = 50;
-        for (float i = 0; i < Count; i++)
-        {
-            float value_Before = i / Count;
-            Vector2 Before = Generator.BezierTest(Generator.controllPosition[0], Generator.controllPosition[1], Generator.controllPosition[2], Generator.controllPosition[3], value_Before);
-
-            float value_After = (i + 1) / Count;
-            Vector2 After = Generator.BezierTest(Generator.controllPosition[0], Generator.controllPosition[1], Generator.controllPosition[2], Generator.controllPosition[3], value_After); ;
-
-            Handles.DrawLine(Before, After);
-        }
-    }
 
 }

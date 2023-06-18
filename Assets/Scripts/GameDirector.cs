@@ -9,7 +9,8 @@ public class GameDirector : MonoBehaviour
     [SerializeField] public int maxHp = 5;
     [SerializeField] public Image[] heartImages;
     [SerializeField] GameObject[] gIngredient_cnt;
-    GameObject gPlayer;
+    [SerializeField] public GameObject Gameover_Panel;
+
     GameObject gGenerate;
     GameObject gCamera;
 
@@ -48,30 +49,20 @@ public class GameDirector : MonoBehaviour
 
         if (hp <= 0)
         {
-       /*     Gameover_Sound_Mute();*/
             Invoke("ActivateGameover", 3f);
             Invoke("GameOverChange", 5f);
         }
     }
-
-    /*public void Gameover_Sound_Mute()
-    {
-        gPlayer.GetComponent<AudioSource>().mute = true;
-        gGenerate.GetComponent<AudioSource>().mute = true;
-        gCamera.GetComponent<AudioSource>().mute = true;
-    }*/
 
     public void UpdateRecipeCnt()
     {
         for (int i = 0; i < 4; i++)
         {   
             try{
-/*                Debug.Log("Cnt" + Recipe.ShowLeftoverRecipe().Values.ToList()[i]);*/
                 gIngredient_cnt[i].GetComponent<Text>().text = "x" + Recipe.ShowLeftoverRecipe().Values.ToList()[i];
             }
             catch
             {
-/*                Debug.Log(i + ": cnt is null");*/
                 gIngredient_cnt[i].GetComponent<Text>().text = "";
             }
        }
@@ -82,15 +73,12 @@ public class GameDirector : MonoBehaviour
         {
             try
             {
-/*                Debug.Log("UI"  +Recipe.ShowLeftoverRecipe().Keys.ToList()[i]);*/
                 ingredientImages[i].enabled = true;
                 recipeImage.sprite = recipeSprites[Recipe.RecipeIndex];
                 ingredientImages[i].sprite = ingredientSprites[Recipe.ShowLeftoverRecipe().Keys.ToList()[i]];
-                recipeImage.sprite = recipeSprites[Recipe.RecipeIndex];
             }
             catch
             {
-/*                Debug.Log(i + ": img is null");*/
                 ingredientImages[i].enabled = false;
             }
         }
