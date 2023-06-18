@@ -66,7 +66,7 @@ public class Recipe : MonoBehaviour
             gameDirector.GetComponent<GameDirector>().UpdateRecipeUI();
             if (IsRecipeComplete(randomRecipe))
             {
-                Score++;
+                Score += 300;
 
             }
             else if (IsRecipeWrong(randomRecipe))

@@ -29,7 +29,7 @@ public class SceneDirector : MonoBehaviour
 
     void Start()
     {
-        ScoreText.text = "COMPLETE RECIPE\n" + Recipe.Score.ToString() + "EA";
+        ScoreText.text = "SCORE: " + Recipe.Score.ToString();
     }
 
     // Update is called once per frame
