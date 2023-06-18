@@ -49,7 +49,9 @@ public class PlayerController : MonoBehaviour
             audioDirector.SoundPlay("Sound/effect_sound/fryingpanMess");
 
 
+
             var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
+           
             foreach (Collider2D collider in colliders)
             {
 
@@ -58,6 +60,9 @@ public class PlayerController : MonoBehaviour
                     audioDirector.SoundPlay("Sound/effect_sound/fryingpan");
                     KatanaEffect.Punch();
                     Effect.Apply(collider.gameObject);
+                }
+                else {
+                    audioDirector.SoundPlay("Sound/effect_sound/swing1");
                 }
             }
             isDelay = true;
@@ -117,6 +122,9 @@ public class PlayerController : MonoBehaviour
                     }
                     KatanaEffect.DoubleAttack();
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
+                }
+                else {
+                    audioDirector.SoundPlay("Sound/effect_sound/swing2");
                 }
             }
             isDelay = true;
