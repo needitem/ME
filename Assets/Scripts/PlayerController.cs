@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
@@ -42,9 +42,12 @@ public class PlayerController : MonoBehaviour
     }
     public void PunchBack() //effect of punching back ingredients
     {
-        if (isDelay == false) {
+        if (isDelay == false)
+        {
             isPunched = true;
             playerAnimator.SetTrigger("punch");
+            audioDirector.SoundPlay("Sound/effect_sound/fryingpanMess");
+
 
             var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
             foreach (Collider2D collider in colliders)
@@ -52,6 +55,7 @@ public class PlayerController : MonoBehaviour
 
                 if (collider.tag == "Target")
                 {
+                    audioDirector.SoundPlay("Sound/effect_sound/fryingpan");
                     KatanaEffect.Punch();
                     Effect.Apply(collider.gameObject);
                 }
@@ -59,10 +63,10 @@ public class PlayerController : MonoBehaviour
             isDelay = true;
             StartCoroutine(CountAttackDelay(0.4f));
         }
-       
+
     }
 
-    public void Attack() 
+    public void Attack()
     {
         hasAttacked = true;
         float currentTime = Time.time;
@@ -116,28 +120,26 @@ public class PlayerController : MonoBehaviour
                 }
             }
             isDelay = true;
-            
         }
-        
-
     }
 
-    void ResetDelay() {
+    void ResetDelay()
+    {
         isDelay = false;
         isPunched = false;
         hasAttacked = false;
     }
 
-
     IEnumerator CountAttackDelay(float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
-        if (isDouble == true) // ´õºí¾îÅÃÀÏ ¶§¿¡¸¸ Ãß°¡µô·¹ÀÌ 0.2ÃÊ¸¦ ÁØ´Ù.
+        if (isDouble == true) // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0.2ï¿½Ê¸ï¿½ ï¿½Ø´ï¿½.
         {
             Invoke("ResetDelay", 0.2f);
             isDouble = false;
         }
-        else if (isDouble == false) {
+        else if (isDouble == false)
+        {
             ResetDelay();
         }
 
