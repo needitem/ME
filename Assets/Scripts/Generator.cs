@@ -51,7 +51,6 @@ public class Generator : MonoBehaviour
             NPC.GetComponent<NPCController>().Drawing(); // NPC throw food animation
             SpawnFood();
             timeElapsed = 0; // reset timer
-            Speedincrease();
             if (colIndex == spanArray[rowIndex].Length - 1)
             {
                 UpdateIndices(); // update indices for next spawn
