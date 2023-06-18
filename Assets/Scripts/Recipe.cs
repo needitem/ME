@@ -67,12 +67,10 @@ public class Recipe : MonoBehaviour
             if (IsRecipeComplete(randomRecipe))
             {
                 Score += 300;
-
             }
             else if (IsRecipeWrong(randomRecipe))
             {
                 Init();
-                /*GameDirector.hp = 0;*/
             }
             Init();
             RecipeIndex = CreateRandomRecipe();
