@@ -11,7 +11,7 @@ public class AudioDirector : MonoBehaviour
     public Slider BgmSlider;
     public Slider SfxSlider;
 
-    AudioSource audioSource;
+    public AudioSource audioSource;
 
     private bool IsMute = false;
 
