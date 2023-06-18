@@ -66,7 +66,7 @@ public class Recipe : MonoBehaviour
             if (IsRecipeComplete(randomRecipe))
             {
                 //RecipeIndex = CreateRandomRecipe();
-                //Need to add score, speedup, etc
+                //Need to add score, speedup(Generator is using this)성공여부, etc
             }
             else if (IsRecipeWrong(randomRecipe))
             {
