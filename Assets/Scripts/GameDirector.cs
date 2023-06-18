@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 public class GameDirector : MonoBehaviour
 {
-    [SerializeField] public int maxHp = 5;
+    [SerializeField] public int maxHp = 3;
     [SerializeField] public Image[] heartImages;
     [SerializeField] GameObject[] gIngredient_cnt;
     [SerializeField] public GameObject Gameover_Panel;
@@ -18,10 +18,12 @@ public class GameDirector : MonoBehaviour
     public Sprite[] recipeSprites;
     public Sprite[] ingredientSprites;
 
+
     static public int hp;
 
 
     // Start is called before the first frame update
+
 
     void Start()
     {
@@ -38,7 +40,7 @@ public class GameDirector : MonoBehaviour
         UpdateRecipeCnt();
         UpdateRecipeUI();
 
-        if (GameDirector.hp <= 0)
+        if (hp <= 0)
         {
             Invoke("ActivateGameover", 3f);
             Invoke("GameOverChange", 5f);
@@ -50,12 +52,10 @@ public class GameDirector : MonoBehaviour
         for (int i = 0; i < 4; i++)
         {   
             try{
-/*                Debug.Log("Cnt" + Recipe.ShowLeftoverRecipe().Values.ToList()[i]);*/
                 gIngredient_cnt[i].GetComponent<Text>().text = "x" + Recipe.ShowLeftoverRecipe().Values.ToList()[i];
             }
             catch
             {
-/*                Debug.Log(i + ": cnt is null");*/
                 gIngredient_cnt[i].GetComponent<Text>().text = "";
             }
        }
@@ -66,15 +66,12 @@ public class GameDirector : MonoBehaviour
         {
             try
             {
-/*                Debug.Log("UI"  +Recipe.ShowLeftoverRecipe().Keys.ToList()[i]);*/
                 ingredientImages[i].enabled = true;
                 recipeImage.sprite = recipeSprites[Recipe.RecipeIndex];
                 ingredientImages[i].sprite = ingredientSprites[Recipe.ShowLeftoverRecipe().Keys.ToList()[i]];
-                recipeImage.sprite = recipeSprites[Recipe.RecipeIndex];
             }
             catch
             {
-/*                Debug.Log(i + ": img is null");*/
                 ingredientImages[i].enabled = false;
             }
         }
@@ -104,4 +101,4 @@ public class GameDirector : MonoBehaviour
     {
         SceneDirector.ChangeScene2();
     }
-}
+} 

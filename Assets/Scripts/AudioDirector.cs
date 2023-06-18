@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -6,6 +5,8 @@ using UnityEngine.Audio;
 
 public class AudioDirector : MonoBehaviour
 {
+    private bool IsMuted = false;
+
     public AudioMixer audioMixer;
 
     public Slider BgmSlider;
@@ -13,7 +14,6 @@ public class AudioDirector : MonoBehaviour
 
     public AudioSource audioSource;
 
-    private bool IsMute = false;
 
     void Start()
     {
@@ -26,23 +26,19 @@ public class AudioDirector : MonoBehaviour
         audioSource.Play();
     }
 
-    /*public void AudioControl()
+    public void SoundMute(bool IsMute)
     {
-        float sound = audioSlider.value;
+        audioSource.mute = IsMute;
+    }
 
-        if(sound == -40f)
-        {
-            masterMixer.SetFloat("BGM", -80);
-        }
-        else
-        {
-            masterMixer.SetFloat("BGM", sound);
-        }
-    }*/
+    public void SoundMute()
+    {
+        IsMuted = !IsMuted;
+        audioSource.mute = IsMuted;
+    }
 
     public void SetBgmVolme()
     {
-        // 로그 연산 값 전달
         float volume = BgmSlider.value;
         if (volume == -40f)
         {
@@ -66,16 +62,12 @@ public class AudioDirector : MonoBehaviour
             audioMixer.SetFloat("SFX", volume);
         }
     }
-
-    public void SoundMute()
+public void RandomPlay()
     {
-        IsMute = !IsMute;
-        audioSource.mute = IsMute;
-    }
+        int nRandom = Random.Range(1, 8);
 
-    public void SoundComtorl()
-    {
-
+        string soundPath = string.Format("Sound/BGM/Track_{0}", nRandom);
+        SoundPlay(soundPath);
     }
 
 }
