@@ -10,6 +10,9 @@ public class GameDirector : MonoBehaviour
     [SerializeField] public Image[] heartImages;
     [SerializeField] public GameObject Gameover_Panel;
     [SerializeField] GameObject[] gIngredient_cnt;
+    GameObject gPlayer;
+    GameObject gGenerate;
+    GameObject gCamera;
 
     public Recipe recipe;
     public Image recipeImage;
@@ -18,12 +21,18 @@ public class GameDirector : MonoBehaviour
     public Sprite[] recipeSprites;
     public Sprite[] ingredientSprites;
 
+
     static public int hp;
 
     // Start is called before the first frame update
 
+
     void Start()
     {
+        gPlayer = GameObject.Find("Player");
+        gGenerate = GameObject.Find("Generate");
+        gCamera = GameObject.Find("Main Camera");
+
         hp = maxHp;
         Time.timeScale = 1;
         UpdateRecipeCnt();
@@ -36,12 +45,21 @@ public class GameDirector : MonoBehaviour
         UpdateHearthp();
         UpdateRecipeCnt();
         UpdateRecipeUI();
+
         if (hp <= 0)
         {
+       /*     Gameover_Sound_Mute();*/
             Invoke("ActivateGameover", 3f);
             Invoke("ChangeScene2", 5f);
         }
     }
+
+    /*public void Gameover_Sound_Mute()
+    {
+        gPlayer.GetComponent<AudioSource>().mute = true;
+        gGenerate.GetComponent<AudioSource>().mute = true;
+        gCamera.GetComponent<AudioSource>().mute = true;
+    }*/
 
     public void UpdateRecipeCnt()
     {
@@ -96,6 +114,7 @@ public class GameDirector : MonoBehaviour
     }
     public void ActivateGameover()
     {
+        
         Gameover_Panel.SetActive(true);
     }
     public void ChangeScene1()

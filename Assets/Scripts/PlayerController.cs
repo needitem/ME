@@ -17,8 +17,11 @@ public class PlayerController : MonoBehaviour
     Animator playerAnimator;
     AudioDirector audioDirector;
 
+    GameObject Gameover;
+
     private void Start()
     {
+        Gameover = GameObject.Find("Gameover");
         playerAnimator = GetComponent<Animator>();
         audioDirector = GetComponent<AudioDirector>();
     }
@@ -36,9 +39,10 @@ public class PlayerController : MonoBehaviour
 
         if (GameDirector.hp <= 0)
         {
-            playerAnimator.SetTrigger("game_over");
+/*            Gameover.GetComponent<Gameover_sound>().gameover();
+*/            playerAnimator.SetTrigger("game_over");
+/*            audioDirector.SoundMute(true);*/
         }
-
     }
     public void PunchBack() //effect of punching back ingredients
     {
@@ -46,7 +50,7 @@ public class PlayerController : MonoBehaviour
         {
             isPunched = true;
             playerAnimator.SetTrigger("punch");
-            audioDirector.SoundPlay("Sound/effect_sound/fryingpanMess");
+            
 
 
             var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
@@ -59,11 +63,13 @@ public class PlayerController : MonoBehaviour
                     KatanaEffect.Punch();
                     Effect.Apply(collider.gameObject);
                 }
+                else {
+                    audioDirector.SoundPlay("Sound/effect_sound/swing1");
+                }
             }
             isDelay = true;
             StartCoroutine(CountAttackDelay(0.4f));
         }
-
     }
 
     public void Attack()
@@ -77,10 +83,7 @@ public class PlayerController : MonoBehaviour
         {
 
             playerAnimator.SetTrigger("attack");
-            if (colliders.Count == 0) //if there is no collider in the box, play the sound of swinging air
-            {
-                audioDirector.SoundPlay("Sound/effect_sound/swing1");
-            }
+            
 
             foreach (Collider2D collider in colliders)
             {
@@ -90,21 +93,21 @@ public class PlayerController : MonoBehaviour
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
                     audioDirector.SoundPlay("Sound/effect_sound/slice1");
                 }
+                else {
+                    audioDirector.SoundPlay("Sound/effect_sound/swing1");
+                }
             }
 
             isDelay = true;
             lastAttackTime = currentTime; //reset the last attack time
-            StartCoroutine(CountAttackDelay(0.4f));
+            StartCoroutine(CountAttackDelay(0.3f));
         }
         else if ((currentTime - lastAttackTime) <= doubleAttackTimeWindow) //if player attacks again within 0.2 seconds
         {
             isDouble = true;
             playerAnimator.SetTrigger("double_attack");
 
-            if (colliders.Count == 0) //if there is no collider in the box, play the sound of swinging air
-            {
-                audioDirector.SoundPlay("Sound/effect_sound/swing2");
-            }
+           
 
             foreach (Collider2D collider in colliders)
             {
@@ -117,6 +120,9 @@ public class PlayerController : MonoBehaviour
                     }
                     KatanaEffect.DoubleAttack();
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
+                }
+                else {
+                    audioDirector.SoundPlay("Sound/effect_sound/swing2");
                 }
             }
             isDelay = true;

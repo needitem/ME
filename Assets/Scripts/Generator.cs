@@ -1,6 +1,5 @@
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Audio;
 
 
 public class Generator : MonoBehaviour
@@ -10,6 +9,8 @@ public class Generator : MonoBehaviour
     private GameObject spawn;
     private GameObject NPC;
     AudioDirector audioDirector;
+    AudioSource audioSource;
+
 
     private float[][] spanArray = new float[][]
     {
@@ -30,6 +31,7 @@ public class Generator : MonoBehaviour
     private int Index = 0;
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         audioDirector = GetComponent<AudioDirector>();
         mainFood = Resources.LoadAll<GameObject>("Prefabs/MainFood");
         subFood = Resources.LoadAll<GameObject>("Prefabs/SubFood");
@@ -55,8 +57,11 @@ public class Generator : MonoBehaviour
                 colIndex++;
             }
         }
-        Debug.Log(Index);
-        Debug.Log(SpeedIndex);
+
+        if (GameDirector.hp <= 0)
+        {
+            audioDirector.SoundMute(true);
+        }
     }
 
     public void SpawnFood() // spawn food
@@ -112,5 +117,6 @@ public class Generator : MonoBehaviour
         {
             Index++;
         }
+
     }
 }
