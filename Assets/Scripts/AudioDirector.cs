@@ -46,7 +46,7 @@ public class AudioDirector : MonoBehaviour
         audioMixer.SetFloat("BGM", Mathf.Log10(BgmSlider.value) * 20);
     }
 
-    public void SetSFXVolme()
+    public void SetSfxVolme()
     {
         audioMixer.SetFloat("SFX", Mathf.Log10(SfxSlider.value) * 20);
     }
