@@ -5,6 +5,7 @@ using UnityEditor;
 
 public class ItemController : MonoBehaviour
 {
+
     [SerializeField] public int itemHp;
 
     bool executeOnlyOnce = true;
@@ -19,9 +20,9 @@ public class ItemController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         itemAnimator = GetComponent<Animator>();
-    }
 
- 
+
+    }
 
     private void FixedUpdate()
     {
@@ -53,7 +54,7 @@ public class ItemController : MonoBehaviour
             }
             Vector2 rightForce = Vector2.right * 250.0f;
             rb.AddForce(rightForce);
-            rb.gravityScale = 15f; // �߷� ����
+            rb.gravityScale = 15f;
         }
     }
 

@@ -1,11 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
 public class PlayerController : MonoBehaviour
 {
-    bool isAlive = true;
     private bool hasAttacked = false;
     private float lastAttackTime = -1f;
     private float doubleAttackTimeWindow = 0.2f;
@@ -18,18 +17,15 @@ public class PlayerController : MonoBehaviour
     Animator playerAnimator;
     AudioDirector audioDirector;
 
-    GameObject Gameover;
-
     private void Start()
     {
-        Gameover = GameObject.Find("Gameover");
         playerAnimator = GetComponent<Animator>();
         audioDirector = GetComponent<AudioDirector>();
     }
 
     private void Update()
     {
-        if (isAlive)
+        if (GameDirector.hp > 0)
         {
             if (Input.GetKeyDown(KeyCode.Space) && !isPunched)
             {
@@ -44,11 +40,10 @@ public class PlayerController : MonoBehaviour
 
         if (GameDirector.hp <= 0)
         {
-/*            Gameover.GetComponent<Gameover_sound>().gameover();
-*/            playerAnimator.SetTrigger("game_over");
-              isAlive = false;
-/*            audioDirector.SoundMute(true);*/
+            
+            playerAnimator.SetTrigger("game_over");
         }
+
     }
     public void PunchBack() //effect of punching back ingredients
     {
@@ -56,10 +51,10 @@ public class PlayerController : MonoBehaviour
         {
             isPunched = true;
             playerAnimator.SetTrigger("punch");
-            
 
 
             var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
+
             foreach (Collider2D collider in colliders)
             {
 
@@ -69,13 +64,15 @@ public class PlayerController : MonoBehaviour
                     KatanaEffect.Punch();
                     Effect.Apply(collider.gameObject);
                 }
-                else {
+                else
+                {
                     audioDirector.SoundPlay("Sound/effect_sound/swing1");
                 }
             }
             isDelay = true;
             StartCoroutine(CountAttackDelay(0.4f));
         }
+
     }
 
     public void Attack()
@@ -89,7 +86,7 @@ public class PlayerController : MonoBehaviour
         {
 
             playerAnimator.SetTrigger("attack");
-            
+
 
             foreach (Collider2D collider in colliders)
             {
@@ -99,21 +96,22 @@ public class PlayerController : MonoBehaviour
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
                     audioDirector.SoundPlay("Sound/effect_sound/slice1");
                 }
-                else {
+                else
+                {
                     audioDirector.SoundPlay("Sound/effect_sound/swing1");
                 }
             }
 
             isDelay = true;
             lastAttackTime = currentTime; //reset the last attack time
-            StartCoroutine(CountAttackDelay(0.3f));
+            StartCoroutine(CountAttackDelay(0.4f));
         }
         else if ((currentTime - lastAttackTime) <= doubleAttackTimeWindow) //if player attacks again within 0.2 seconds
         {
             isDouble = true;
             playerAnimator.SetTrigger("double_attack");
 
-           
+
 
             foreach (Collider2D collider in colliders)
             {
@@ -127,7 +125,8 @@ public class PlayerController : MonoBehaviour
                     KatanaEffect.DoubleAttack();
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
                 }
-                else {
+                else
+                {
                     audioDirector.SoundPlay("Sound/effect_sound/swing2");
                 }
             }
@@ -145,7 +144,7 @@ public class PlayerController : MonoBehaviour
     IEnumerator CountAttackDelay(float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
-        if (isDouble == true) // ���������� ������ �߰������� 0.2�ʸ� �ش�.
+        if (isDouble == true) //                    ?        0.2 ?   ? .
         {
             Invoke("ResetDelay", 0.2f);
             isDouble = false;

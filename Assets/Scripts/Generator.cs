@@ -14,6 +14,8 @@ public class Generator : MonoBehaviour
     AudioDirector audioDirector;
     AudioSource audioSource;
 
+    float timeScale = 1.0f;
+
 
     private float[][] spanArray = new float[][]
     {
@@ -29,7 +31,7 @@ public class Generator : MonoBehaviour
     private int rowIndex = 0; // spanArray row
     private int colIndex = 0; // spanArray col
     private int gameSpeedUP = 0; // Spanspeed Index
-    private int countSevenFood= 0; // Where food counts to 7 servings
+    private int countSevenFood = 0; // Where food counts to 7 servings
 
     private int Index = 0;
     void Start()
@@ -46,8 +48,9 @@ public class Generator : MonoBehaviour
     {
         timeElapsed += Time.deltaTime;
 
-        if (timeElapsed >= GetCurrentSpan() && GameDirector.hp > 0) // generate food every span seconds
+        if (timeElapsed >= GetCurrentSpan() * timeScale && GameDirector.hp > 0) // generate food every span seconds
         {
+
             NPC.GetComponent<NPCController>().Drawing(); // NPC throw food animation
             SpawnFood();
             Gamespeed();
@@ -111,14 +114,7 @@ public class Generator : MonoBehaviour
             if (countSevenFood == 7) //countSevenFood find 7
             {
                 gameSpeedUP++; // gameSpeedUP +1
-
-                for (int i = 0; i < spanArray.Length; i++) // All spanArray * 0.95 
-                {
-                    for (int j = 0; j < spanArray[i].Length; j++)
-                    {
-                        spanArray[i][j] *= 0.95f; 
-                    }
-                }
+                timeScale *= 0.95f; // timeScale +0.1f
                 countSevenFood = 0; // countSevenfood reset
             }
             else // if countSevenFood != 7

@@ -6,13 +6,10 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 public class GameDirector : MonoBehaviour
 {
-    [SerializeField] public int maxHp = 5;
+    [SerializeField] public int maxHp = 3;
     [SerializeField] public Image[] heartImages;
-    [SerializeField] public GameObject Gameover_Panel;
     [SerializeField] GameObject[] gIngredient_cnt;
-    GameObject gPlayer;
-    GameObject gGenerate;
-    GameObject gCamera;
+    [SerializeField] public GameObject Gameover_Panel;
 
     public Recipe recipe;
     public Image recipeImage;
@@ -24,15 +21,12 @@ public class GameDirector : MonoBehaviour
 
     static public int hp;
 
+
     // Start is called before the first frame update
 
 
     void Start()
     {
-        gPlayer = GameObject.Find("Player");
-        gGenerate = GameObject.Find("Generate");
-        gCamera = GameObject.Find("Main Camera");
-
         hp = maxHp;
         Time.timeScale = 1;
         UpdateRecipeCnt();
@@ -48,18 +42,10 @@ public class GameDirector : MonoBehaviour
 
         if (hp <= 0)
         {
-       /*     Gameover_Sound_Mute();*/
             Invoke("ActivateGameover", 3f);
-            Invoke("ChangeScene2", 5f);
+            Invoke("GameOverChange", 5f);
         }
     }
-
-    /*public void Gameover_Sound_Mute()
-    {
-        gPlayer.GetComponent<AudioSource>().mute = true;
-        gGenerate.GetComponent<AudioSource>().mute = true;
-        gCamera.GetComponent<AudioSource>().mute = true;
-    }*/
 
     public void UpdateRecipeCnt()
     {
@@ -81,6 +67,7 @@ public class GameDirector : MonoBehaviour
             try
             {
                 ingredientImages[i].enabled = true;
+                recipeImage.sprite = recipeSprites[Recipe.RecipeIndex];
                 ingredientImages[i].sprite = ingredientSprites[Recipe.ShowLeftoverRecipe().Keys.ToList()[i]];
             }
             catch
@@ -89,14 +76,6 @@ public class GameDirector : MonoBehaviour
             }
         }
     } 
-
-    void VolumeChanged()
-    {
-        if (Gameover_Panel.activeSelf == true)
-        {
-
-        } 
-    }
 
     private void UpdateHearthp()
     {
@@ -112,21 +91,14 @@ public class GameDirector : MonoBehaviour
             }
         }
     }
+
     public void ActivateGameover()
     {
-        
         Gameover_Panel.SetActive(true);
     }
-    public void ChangeScene1()
+
+    public void GameOverChange()
     {
-        SceneManager.LoadScene("GameScene");
-    }
-    public void ChangeScene2()
-    {
-        SceneManager.LoadScene("FinishScene");
-    }
-    public void ChangeScene3()
-    {
-        SceneManager.LoadScene("TitleScene");
+        SceneDirector.ChangeScene2();
     }
 } 
