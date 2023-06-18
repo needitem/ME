@@ -45,11 +45,11 @@ public class AudioDirector : MonoBehaviour
     }
 
 
-    //public void SoundMute()
-    //{
-    //    IsMuted = !IsMuted;
-    //    audioSource.mute = IsMuted;
-    //}
+    public void SoundMute()
+    {
+        IsMuted = !IsMuted;
+        audioSource.mute = IsMuted;
+    }
 
     public void SetBgmVolme()
     {
