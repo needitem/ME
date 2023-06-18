@@ -1,15 +1,19 @@
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Audio;
 
 
 public class Generator : MonoBehaviour
 {
+    [SerializeField]
     public GameObject[] mainFood;
+    [SerializeField]
     public GameObject[] subFood;
+
     private GameObject spawn;
     private GameObject NPC;
     AudioDirector audioDirector;
+    AudioSource audioSource;
+
 
     private float[][] spanArray = new float[][]
     {
@@ -21,15 +25,16 @@ public class Generator : MonoBehaviour
         new float[] {0.95f, 0.8f, 0.85f, 0.9f}
     };
 
-    private float[] SpanSpeed = new float[] { 1.0f, 0.95f, 0.9f, 0.85f, 0.8f, 0.75f, 0.7f, 0.65f, 0.6f, 0.55f }; // gamespeed control
-    private float timeElapsed = 0f;
+    private float timeElapsed = 0f; //
     private int rowIndex = 0; // spanArray row
     private int colIndex = 0; // spanArray col
-    private int SpeedIndex = 0; // Spanspeed Index
+    private int gameSpeedUP = 0; // Spanspeed Index
+    private int countSevenFood= 0; // Where food counts to 7 servings
 
     private int Index = 0;
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         audioDirector = GetComponent<AudioDirector>();
         mainFood = Resources.LoadAll<GameObject>("Prefabs/MainFood");
         subFood = Resources.LoadAll<GameObject>("Prefabs/SubFood");
@@ -40,12 +45,12 @@ public class Generator : MonoBehaviour
     void Update()
     {
         timeElapsed += Time.deltaTime;
+
         if (timeElapsed >= GetCurrentSpan() && GameDirector.hp > 0) // generate food every span seconds
         {
             NPC.GetComponent<NPCController>().Drawing(); // NPC throw food animation
             SpawnFood();
             timeElapsed = 0; // reset timer
-            Speedincrease();
             if (colIndex == spanArray[rowIndex].Length - 1)
             {
                 UpdateIndices(); // update indices for next spawn
@@ -55,8 +60,11 @@ public class Generator : MonoBehaviour
                 colIndex++;
             }
         }
-        Debug.Log(Index);
-        Debug.Log(SpeedIndex);
+        Gamespeed();
+        if (GameDirector.hp <= 0)
+        {
+            audioDirector.SoundMute(true);
+        }
     }
 
     public void SpawnFood() // spawn food
@@ -87,7 +95,7 @@ public class Generator : MonoBehaviour
 
     private float GetCurrentSpan() // get current span
     {
-        return spanArray[rowIndex][colIndex] *SpanSpeed[SpeedIndex]; // speedArray[];
+        return spanArray[rowIndex][colIndex]; // * speedArray[];
     }
 
     private void UpdateIndices()
@@ -96,21 +104,27 @@ public class Generator : MonoBehaviour
         colIndex = 0;
     }
 
-    private void Speedincrease()
+    private void Gamespeed()
     {
-        if (SpeedIndex >= 9) // SpeedIndex가 9 이상인 경우 추가 연산을 수행하지 않음
+        if (gameSpeedUP < 9) // If gameSpeedUP is less than 9, no additional operations are performed
         {
-            return;
-        }
+            if (countSevenFood == 7) //countSevenFood find 7
+            {
+                gameSpeedUP++; // gameSpeedUP +1
 
-        if (Index == 7) // Index가 7인지 확인
-        {
-            SpeedIndex++;
-            Index = 0;
-        }
-        else
-        {
-            Index++;
+                for (int i = 0; i < spanArray.Length; i++) // All spanArray * 0.95 
+                {
+                    for (int j = 0; j < spanArray[i].Length; j++)
+                    {
+                        spanArray[i][j] *= 0.95f; 
+                    }
+                }
+                countSevenFood = 0; // countSevenfood reset
+            }
+            else // if countSevenFood != 7
+            {
+                countSevenFood++;
+            }
         }
     }
 }

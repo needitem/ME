@@ -17,8 +17,11 @@ public class PlayerController : MonoBehaviour
     Animator playerAnimator;
     AudioDirector audioDirector;
 
+    GameObject Gameover;
+
     private void Start()
     {
+        Gameover = GameObject.Find("Gameover");
         playerAnimator = GetComponent<Animator>();
         audioDirector = GetComponent<AudioDirector>();
     }
@@ -36,10 +39,10 @@ public class PlayerController : MonoBehaviour
 
         if (GameDirector.hp <= 0)
         {
-            gameObject.GetComponent<AudioSource>().mute = true; //if hp is 0, mute the sound
-            playerAnimator.SetTrigger("game_over");
+/*            Gameover.GetComponent<Gameover_sound>().gameover();
+*/            playerAnimator.SetTrigger("game_over");
+/*            audioDirector.SoundMute(true);*/
         }
-
     }
     public void PunchBack() //effect of punching back ingredients
     {
@@ -49,20 +52,25 @@ public class PlayerController : MonoBehaviour
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList(); //get colliders in the box, and put them in the list
         if (colliders.Count == 0) //if there is no collider in the box, play the sound of punching air
         {
-            audioDirector.SoundPlay("Sound/effect_sound/fryingpanMess");
-        }
-        foreach (Collider2D collider in colliders)
-        {
-            if (collider.tag == "Target") //if there is collider in the box, play the sound of punching ingredient
+            isPunched = true;
+            playerAnimator.SetTrigger("punch");
+            
+            var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
+            foreach (Collider2D collider in colliders)
             {
-                KatanaEffect.Punch();
-                Effect.Apply(collider.gameObject); //apply the effect of punching back
-                audioDirector.SoundPlay("Sound/effect_sound/fryingpan");
+                if (collider.tag == "Target")
+                {
+                    audioDirector.SoundPlay("Sound/effect_sound/fryingpan");
+                    KatanaEffect.Punch();
+                    Effect.Apply(collider.gameObject);
+                }
+                else {
+                    audioDirector.SoundPlay("Sound/effect_sound/swing1");
+                }
             }
             isDelay = true;
             StartCoroutine(CountAttackDelay(0.4f));
         }
-        StartCoroutine(CountAttackDelay(0.4f)); //delay of punching back
     }
 
     public void Attack() //
@@ -75,10 +83,8 @@ public class PlayerController : MonoBehaviour
         {
 
             playerAnimator.SetTrigger("attack");
-            if (colliders.Count == 0) //if there is no collider in the box, play the sound of swinging air
-            {
-                audioDirector.SoundPlay("Sound/effect_sound/swing1");
-            }
+            
+
             foreach (Collider2D collider in colliders)
             {
                 if (collider.tag == "Target") //if there is collider in the box, play the sound of slicing ingredient
@@ -87,20 +93,20 @@ public class PlayerController : MonoBehaviour
                     collider.gameObject.GetComponent<ItemController>().itemHp--;
                     audioDirector.SoundPlay("Sound/effect_sound/slice1");
                 }
+                else {
+                    audioDirector.SoundPlay("Sound/effect_sound/swing1");
+                }
             }
 
             isDelay = true;
             lastAttackTime = currentTime; //reset the last attack time
-            StartCoroutine(CountAttackDelay(0.4f));
+            StartCoroutine(CountAttackDelay(0.3f));
         }
         else if ((currentTime - lastAttackTime) <= doubleAttackTimeWindow) //if player attacks again within 0.2 seconds
         {
             isDouble = true;
             playerAnimator.SetTrigger("double_attack");
-            if (colliders.Count == 0) //if there is no collider in the box, play the sound of swinging air
-            {
-                audioDirector.SoundPlay("Sound/effect_sound/swing2");
-            }
+
             foreach (Collider2D collider in colliders)
             {
                 if (collider.tag == "Target") //if there is collider in the box, play the sound of slicing ingredient
