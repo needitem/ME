@@ -96,18 +96,19 @@ AudioMixerController:
   m_EnableSuspend: 1
   m_UpdateMode: 0
   m_ExposedParameters:
-  - guid: a7215530c48926840a467ec0e366fed8
-    name: Master
-  - guid: b20f9b777a18fb642b37eee81a088202
+  - guid: 7e4d8a6b48527804eb52edb08624a923
     name: BGM
-  - guid: ac9209feec1db8347b3786c57fba2cf5
+  - guid: 6f5c356b7cbd1f3428564cb733a1c386
+    name: Master
+  - guid: ea55ad5147392b34892fb2b88753a044
     name: SFX
-  - guid: 71db7d49d7bd03943bc8371dd65e43ae
+  - guid: 8bd59729afbcb7d46b679eded1da1959
     name: npc
-  - guid: 8982c199695e91a42bafadeef81546e8
+  - guid: 8ad920a771f0ef6468c69e005a5c0cd0
     name: player
   m_AudioMixerGroupViews:
   - guids:
+    - 2e4ef3e51705352409f959478669cd3c
     - 1f8381b3f2045a344894c3e30a7a6c0e
     - 52741ff8d1a840446955d82b993930c5
     - 1ba88215c0fddb14895d2020798c727e
@@ -160,10 +161,10 @@ AudioMixerSnapshotController:
   m_AudioMixer: {fileID: 24100000}
   m_SnapshotID: 3d00610b497d688459631a4797026ecc
   m_FloatValues:
-    ea55ad5147392b34892fb2b88753a044: -1.29189
-    8ad920a771f0ef6468c69e005a5c0cd0: -1.3472726
-    8bd59729afbcb7d46b679eded1da1959: -1.3472726
-    7e4d8a6b48527804eb52edb08624a923: -3.5922942
+    ea55ad5147392b34892fb2b88753a044: -0.26542163
+    8ad920a771f0ef6468c69e005a5c0cd0: -0.10231405
+    8bd59729afbcb7d46b679eded1da1959: -0.30163807
+    7e4d8a6b48527804eb52edb08624a923: -0.43201253
   m_TransitionOverrides: {}
 --- !u!243 &4222883228716163896
 AudioMixerGroupController:

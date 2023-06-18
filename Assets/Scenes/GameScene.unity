@@ -2646,8 +2646,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 698195708}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8.32, y: 2.64, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 8.319946, y: 2.6400146, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2664,7 +2664,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -8766344377121724935, guid: 11d7696c37700fc44a6ecea1bb28a18b, type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 17b79d4f2988c82438228827bd2543e7, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.576
   m_Pitch: 1
@@ -2763,8 +2763,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 11d7696c37700fc44a6ecea1bb28a18b, type: 2}
-  BgmSlider: {fileID: 1538499206}
-  SfxSlider: {fileID: 1195304211}
+  BgmSlider: {fileID: 1195304211}
+  SfxSlider: {fileID: 1538499206}
 --- !u!4 &702698389 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8928671109389525465, guid: bc0f5f52c366e5648a7cd217bc17aefc, type: 3}
@@ -4307,8 +4307,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 11d7696c37700fc44a6ecea1bb28a18b, type: 2}
-  BgmSlider: {fileID: 1538499206}
-  SfxSlider: {fileID: 1195304211}
+  BgmSlider: {fileID: 1195304211}
+  SfxSlider: {fileID: 1538499206}
 --- !u!1001 &1145215717
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4658,10 +4658,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 1445966206}
   m_HandleRect: {fileID: 1118546818}
   m_Direction: 0
-  m_MinValue: 0.0001
-  m_MaxValue: 1
+  m_MinValue: -40
+  m_MaxValue: 0
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -5851,10 +5851,10 @@ MonoBehaviour:
   m_FillRect: {fileID: 218434047}
   m_HandleRect: {fileID: 1600710387}
   m_Direction: 0
-  m_MinValue: 0.0001
-  m_MaxValue: 1
+  m_MinValue: -40
+  m_MaxValue: 0
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -6972,8 +6972,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1675815998}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.5, y: 2.15, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.5, y: 2.149994, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7070,7 +7070,7 @@ AudioSource:
   m_GameObject: {fileID: 1675815998}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 6485549412801976286, guid: 11d7696c37700fc44a6ecea1bb28a18b, type: 2}
+  OutputAudioMixerGroup: {fileID: -9037363589781856317, guid: 11d7696c37700fc44a6ecea1bb28a18b, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -7170,8 +7170,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 11d7696c37700fc44a6ecea1bb28a18b, type: 2}
-  BgmSlider: {fileID: 1538499206}
-  SfxSlider: {fileID: 1195304211}
+  BgmSlider: {fileID: 1195304211}
+  SfxSlider: {fileID: 1538499206}
 --- !u!1001 &1714096367
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8655,8 +8655,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c69ce6fbe7af44449a92f094e63a0cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainfood: []
-  subfood: []
+  mainFood: []
+  subFood: []
 --- !u!4 &2079621017
 Transform:
   m_ObjectHideFlags: 0
@@ -8664,8 +8664,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2079621015}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.0522676, y: 0.91332936, z: -0.06311996}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 4.052246, y: 0.9133301, z: -0.06311996}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8681,7 +8681,7 @@ AudioSource:
   m_GameObject: {fileID: 2079621015}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 6485549412801976286, guid: 11d7696c37700fc44a6ecea1bb28a18b, type: 2}
+  OutputAudioMixerGroup: {fileID: 4222883228716163896, guid: 11d7696c37700fc44a6ecea1bb28a18b, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -8781,8 +8781,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 11d7696c37700fc44a6ecea1bb28a18b, type: 2}
-  BgmSlider: {fileID: 1538499206}
-  SfxSlider: {fileID: 1195304211}
+  BgmSlider: {fileID: 1195304211}
+  SfxSlider: {fileID: 1538499206}
 --- !u!1 &2092120137
 GameObject:
   m_ObjectHideFlags: 0

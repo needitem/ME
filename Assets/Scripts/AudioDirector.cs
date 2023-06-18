@@ -43,12 +43,28 @@ public class AudioDirector : MonoBehaviour
     public void SetBgmVolme()
     {
         // 로그 연산 값 전달
-        audioMixer.SetFloat("BGM", Mathf.Log10(BgmSlider.value) * 20);
+        float volume = BgmSlider.value;
+        if (volume == -40f)
+        {
+            audioMixer.SetFloat("BGM", -80);
+        }
+        else
+        {
+            audioMixer.SetFloat("BGM", volume);
+        }
     }
 
     public void SetSfxVolme()
     {
-        audioMixer.SetFloat("SFX", Mathf.Log10(SfxSlider.value) * 20);
+        float volume = SfxSlider.value;
+        if(volume == -40f)
+        {
+            audioMixer.SetFloat("SFX", -80);
+        }
+        else
+        {
+            audioMixer.SetFloat("SFX", volume);
+        }
     }
 
     public void SoundMute()
