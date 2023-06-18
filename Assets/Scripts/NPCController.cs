@@ -5,15 +5,46 @@ using UnityEngine;
 public class NPCController : MonoBehaviour
 {
     Animator npcAnimator;
+    AudioDirector audioDirector;
 
     void Start()
     {
         npcAnimator = GetComponent<Animator>();
+        audioDirector = GetComponent<AudioDirector>();
     }
-
 
     public void Drawing()
     {
         npcAnimator.SetTrigger("drawing");
+        
+    }
+    public void AudioMute(AudioSource audio, bool isOn)
+    {
+        audio.mute = !isOn; // 토글 값에 따라 AudioSource의 음소거 여부 설정
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        /*      audioSource.Play(); //재생
+
+                audioSource.Stop(); //정지
+
+                audioSource.Pause(); //일시정지
+
+                audioSource.UnPause(); //일시정지 해제
+
+                audioSource.playOnAwake = true; //씬 시작시 바로 재생
+
+                audioSource.loop = true; //반복 재생
+
+                audioSource.mute = true; //음소거
+
+                audioSource.volume = 1.0f; //볼륨 (0.0 ~ 1.0f)
+
+                audioSource.PlayOneShot(audioClip, 1.0f); //특정 클립 한번 만 재생
+
+                audioSource.clip = audioClip; //오디오 클립 교체*/
+
     }
 }
