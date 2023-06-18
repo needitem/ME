@@ -1,4 +1,3 @@
-ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,7 +39,7 @@ public class AudioDirector : MonoBehaviour
 
     public void SetBgmVolme()
     {
-        // ë¡œê·¸ ì—°ì‚° ê°’ ì „ë‹¬
+        // ë¡œê·¸ ?—°?‚° ê°? ? „?‹¬
         float volume = BgmSlider.value;
         if (volume == -40f)
         {
