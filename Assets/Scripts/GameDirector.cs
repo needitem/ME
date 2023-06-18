@@ -113,7 +113,6 @@ public class GameDirector : MonoBehaviour
 
     public void ActivateGameover()
     {
-        
         Gameover_Panel.SetActive(true);
     }
 
