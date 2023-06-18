@@ -7,16 +7,32 @@ public class AudioDirector : MonoBehaviour
 {
     private bool IsMuted = false;
 
-    public AudioMixer audioMixer;   // AudioMixer는 유니티에서 제공하는 오디오를 조절할 수 있는 구간이다.
-    public Slider BgmSlider;        // 배경화면 소리를 조절하는 Slider이다.
-    public Slider SfxSlider;        // 효과음 소리를 조절하는 Slider이다.
-    AudioSource audioSource;        // AudioSource  : 실제로 오디오를 동작하는 행동
+    public AudioMixer audioMixer;
+
+    public Slider BgmSlider;
+    public Slider SfxSlider;
+
+    public AudioSource audioSource;
+
+    private Dictionary<int, AudioClip> audioClips = new Dictionary<int, AudioClip>();
 
     void Start()
     {
+        LoadAudioClips();
+        
         audioSource = GetComponent<AudioSource>();
+
     }
 
+    private void LoadAudioClips()
+    {
+        for (int i = 0; i <= 7; i++)
+        {
+            string audioPath = string.Format("Sound/BGM/Track_{0}", i);
+            AudioClip audioClip = Resources.Load<AudioClip>(audioPath);
+            audioClips[i] = audioClip;
+        }
+    }
     public void SoundPlay(string AudioURL)
     {
         audioSource.clip = Resources.Load<AudioClip>(AudioURL);
@@ -27,6 +43,7 @@ public class AudioDirector : MonoBehaviour
     {
         audioSource.mute = IsMute;
     }
+
 
     public void SoundMute()
     {
@@ -59,25 +76,11 @@ public class AudioDirector : MonoBehaviour
             audioMixer.SetFloat("SFX", volume);
         }
     }
-public void RandomPlay()
+    public void RandomPlay()
     {
-        int nRandom = Random.Range(1, 8);
-
-        string soundPath = string.Format("Sound/BGM/Track_{0}", nRandom);
-        SoundPlay(soundPath);
+        int nRandom = Random.Range(0, 8);
+        audioSource.clip = audioClips[nRandom];
+        audioSource.Play();
     }
-}
 
-/*
-    audioSource.Play();                                             //재생
-    audioSource.Stop();                                             //정지
-    audioSource.Pause();                                            //일시정지
-    audioSource.UnPause();                                          //일시정지 해제
-    audioSource.playOnAwake = true;                                 //씬 시작시 바로 재생
-    audioSource.loop = true;                                        //반복 재생
-    audioSource.mute = true;                                        //음소거
-    audioSource.volume = 1.0f;                                      //볼륨 (0.0 ~ 1.0f)
-    audioSource.PlayOneShot(audioClip, 1.0f);                       //특정 클립 한번 만 재생
-    audioSource.clip = audioClip;                                   //오디오 클립 교체
-    if (audioSource.isPlaying) Debug.Log("오디오 재생중입니다.");     //오디오 재생 여부 확인
-*/
+}

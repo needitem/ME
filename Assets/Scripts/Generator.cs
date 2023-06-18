@@ -33,7 +33,7 @@ public class Generator : MonoBehaviour
     private int gameSpeedUP = 0; // Spanspeed Index
     private int countSevenFood = 0; // Where food counts to 7 servings
 
-    private int Index = 0;
+    //private int Index = 0;
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
