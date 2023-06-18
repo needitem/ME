@@ -71,6 +71,7 @@ public class Recipe : MonoBehaviour
             else if (IsRecipeWrong(randomRecipe))
             {
                 Init();
+                GameDirector.hp = 0;
             }
             Init();
             RecipeIndex = CreateRandomRecipe();
