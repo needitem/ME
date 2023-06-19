@@ -17,14 +17,14 @@ public class RandomBGM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (audioSource.isPlaying == false)
+        if (audioSource.isPlaying == false) //만약 오디오 소스가 멈춘다면
         {
-            audioDirector.RandomPlay();
+            audioDirector.RandomPlay(); // 다시 랜덤으로 bgm을 재생 시킨다.
         }
 
         if (GameDirector.hp <= 0)
         {
-            audioDirector.SoundMute(true);
+            audioDirector.SoundMute(true); //음소거
         }
     }
 }

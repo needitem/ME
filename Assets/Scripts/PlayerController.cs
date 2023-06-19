@@ -172,10 +172,10 @@ public class PlayerController : MonoBehaviour
     // 플레이어와 오브젝트(재료)가 충돌할 경우 체력감소
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Target") //if player collides with ingredient, decrease hp
+        if (collider.tag == "Target") //아이템과 충돌시 
         {
             Destroy(collider.gameObject);
-            GameDirector.hp--;
+            GameDirector.hp--; //hp감소
             audioDirector.SoundPlay("Sound/effect_sound/hit");
             playerAnimator.SetTrigger("damaged");
         }
