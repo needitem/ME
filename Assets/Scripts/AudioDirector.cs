@@ -9,8 +9,8 @@ public class AudioDirector : MonoBehaviour
 
     public AudioMixer audioMixer;
 
-    public Slider BgmSlider;
-    public Slider SfxSlider;
+    public Slider BgmSlider;  // 배경 음악 슬라이더
+    public Slider SfxSlider;  // 효과음 슬라이더
 
     public AudioSource audioSource;
 
@@ -19,9 +19,8 @@ public class AudioDirector : MonoBehaviour
     void Start()
     {
         LoadAudioClips();
-        
-        audioSource = GetComponent<AudioSource>();
 
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void LoadAudioClips()
@@ -33,6 +32,7 @@ public class AudioDirector : MonoBehaviour
             audioClips[i] = audioClip;
         }
     }
+
     public void SoundPlay(string AudioURL)
     {
         audioSource.clip = Resources.Load<AudioClip>(AudioURL);
@@ -43,7 +43,6 @@ public class AudioDirector : MonoBehaviour
     {
         audioSource.mute = IsMute;
     }
-
 
     public void SoundMute()
     {
@@ -67,7 +66,7 @@ public class AudioDirector : MonoBehaviour
     public void SetSfxVolme()
     {
         float volume = SfxSlider.value;
-        if(volume == -40f)
+        if (volume == -40f)
         {
             audioMixer.SetFloat("SFX", -80);
         }
@@ -76,11 +75,11 @@ public class AudioDirector : MonoBehaviour
             audioMixer.SetFloat("SFX", volume);
         }
     }
+
     public void RandomPlay()
     {
         int nRandom = Random.Range(0, 8);
         audioSource.clip = audioClips[nRandom];
         audioSource.Play();
     }
-
 }
