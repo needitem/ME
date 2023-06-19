@@ -22,6 +22,7 @@ public class AudioDirector : MonoBehaviour
         
         audioSource = GetComponent<AudioSource>(); // 오디오 소스를 가져온다.
 
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void LoadAudioClips() // 오디오 클립들을 불러온다.
@@ -33,6 +34,7 @@ public class AudioDirector : MonoBehaviour
             audioClips[i] = audioClip; // 오디오 클립을 딕셔너리에 넣는다.
         }
     }
+
     public void SoundPlay(string AudioURL)
     {
         audioSource.clip = Resources.Load<AudioClip>(AudioURL); // 오디오 클립을 불러온다.
@@ -43,7 +45,6 @@ public class AudioDirector : MonoBehaviour
     {
         audioSource.mute = IsMute; // 음소거 여부를 설정한다.
     }
-
 
     public void SoundMute()
     {
@@ -82,5 +83,4 @@ public class AudioDirector : MonoBehaviour
         audioSource.clip = audioClips[nRandom]; // 오디오 클립을 가져온다.
         audioSource.Play(); // 오디오를 재생한다.
     }
-
 }
