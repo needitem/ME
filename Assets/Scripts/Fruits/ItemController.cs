@@ -62,6 +62,7 @@ public class ItemController : MonoBehaviour
 
             rb.gravityScale = 15f; // 중력을 부여해 아래로 떨어지게 하기
         }
+
     }
 
     // https://www.youtube.com/watch?v=KTEX2L4T4zE

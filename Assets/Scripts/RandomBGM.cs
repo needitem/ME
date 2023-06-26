@@ -25,6 +25,7 @@ public class RandomBGM : MonoBehaviour
         if (GameDirector.hp <= 0)
         {
             audioDirector.SoundMute(true);
-        }
+        }           
+
     }
 }

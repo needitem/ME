@@ -17,7 +17,6 @@ public class Gameover_sound : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(g.activeSelf);
         if (g.activeSelf == true && abc)
         {
             gameover();

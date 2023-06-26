@@ -22,6 +22,6 @@ public class NPCController : MonoBehaviour
     {
         audio.mute = !isOn; // ��� ���� ���� AudioSource�� ���Ұ� ���� ����
     }
-
+        
     // Update is called once per frame
 }
