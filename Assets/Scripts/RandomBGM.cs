@@ -17,9 +17,9 @@ public class RandomBGM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (audioSource.isPlaying == false)
+        if (audioSource.isPlaying == false) //���� ����� �ҽ��� ����ٸ�
         {
-            audioDirector.RandomPlay();
+            audioDirector.RandomPlay(); // �ٽ� �������� bgm�� ��� ��Ų��.
         }
 
         if (GameDirector.hp <= 0)

@@ -27,57 +27,57 @@ public class ItemController : MonoBehaviour
     private void FixedUpdate()
     {
         if (gameObject.transform.position.y <= 0.7f)
-        // Àç·á°¡ ¸Ê ¾Æ·¡·Î ¶³¾îÁö¸é »èÁ¦ ½ÃÅ°±â
+        // ìž¬ë£Œê°€ ë§µ ì•„ëž˜ë¡œ ë–¨ì–´ì§€ë©´ ì‚­ì œ ì‹œí‚¤ê¸°
         {
             Destroy(gameObject);
         }
 
-        // ¼±Çüº¸°£À» °è»êÇÑ °á°ú°ªÀ» ÇÁ·¹ÀÓ°ú ÇÁ·¹ÀÓ »çÀÌÀÇ ½Ã°£À» °è¼Ó ´õÇØ ÀÌµ¿ÇÑ´Ù.
+        // ì„ í˜•ë³´ê°„ì„ ê³„ì‚°í•œ ê²°ê³¼ê°’ì„ í”„ë ˆìž„ê³¼ í”„ë ˆìž„ ì‚¬ì´ì˜ ì‹œê°„ì„ ê³„ì† ë”í•´ ì´ë™í•œë‹¤.
         rate += Time.deltaTime;
         transform.position = BezierTest(controllPosition[0], controllPosition[1], controllPosition[2], controllPosition[3], rate);
 
 
         if (rate >= 1f)
-        // Àç·á°¡ »ý¼ºµÇ°í º£Áö¾î °î¼±À» µû¶ó°¡´Ù°¡, »ý¼ºµÈÁö 1ÃÊ°¡ ³ÑÀ¸¸é ¿ÞÂÊ ¹æÇâÀ¸·Î
-        // AddForce¸¦ ÁÖ±â(³¯¾Æ°¡´Â µíÇÑ È¿°ú¸¦ À§ÇÔ)
+        // ìž¬ë£Œê°€ ìƒì„±ë˜ê³  ë² ì§€ì–´ ê³¡ì„ ì„ ë”°ë¼ê°€ë‹¤ê°€, ìƒì„±ëœì§€ 1ì´ˆê°€ ë„˜ìœ¼ë©´ ì™¼ìª½ ë°©í–¥ìœ¼ë¡œ
+        // AddForceë¥¼ ì£¼ê¸°(ë‚ ì•„ê°€ëŠ” ë“¯í•œ íš¨ê³¼ë¥¼ ìœ„í•¨)
         {
             Vector2 pushForce = Vector2.left * 250.0f;
             rb.AddForce(pushForce);
         }
 
 
-        if (itemHp == 0) // Àç·áÀÇ hp°¡ 0ÀÌ¶ó¸é
+        if (itemHp == 0) // ìž¬ë£Œì˜ hpê°€ 0ì´ë¼ë©´
         {
-            if (executeOnlyOnce) // Àç·á ÇÏ³ª´ç ÇÑ¹ø¾¿¸¸ ½ÇÇàµÇ´Â boolÇü º¯¼ö
+            if (executeOnlyOnce) // ìž¬ë£Œ í•˜ë‚˜ë‹¹ í•œë²ˆì”©ë§Œ ì‹¤í–‰ë˜ëŠ” boolí˜• ë³€ìˆ˜
             {
-                itemAnimator.SetTrigger("slice"); // ½½¶óÀÌ½º ¾Ö´Ï¸ÞÀÌ¼Ç ºÎ¿©
-                rb.MovePosition(new Vector2(4f, 3f)); // Àç·á¸¦ ÇØ´çÀ§Ä¡·Î ÀÌµ¿½ÃÅ°±â
+                itemAnimator.SetTrigger("slice"); // ìŠ¬ë¼ì´ìŠ¤ ì• ë‹ˆë©”ì´ì…˜ ë¶€ì—¬
+                rb.MovePosition(new Vector2(4f, 3f)); // ìž¬ë£Œë¥¼ í•´ë‹¹ìœ„ì¹˜ë¡œ ì´ë™ì‹œí‚¤ê¸°
                 Recipe.DecreaseIngredient(this.name);
                 executeOnlyOnce = false;
             }
             Vector2 rightForce = Vector2.right * 250.0f;
 
-            // ´õÀÌ»ó ¿ÞÂÊÀ¸·Î ÀÌµ¿ÇÏÁö ¾Ê°Ô ¿À¸¥ÂÊ ¹æÇâÀ¸·Î ¶È°°ÀÌ 250¸¸Å­ ÈûÀ» ÁÖ¾î Á¦ÀÚ¸®¿¡ Á¤ÁöµÈ °Í Ã³·³ º¸ÀÌ°Ô ¸¸µé±â
+            // ë”ì´ìƒ ì™¼ìª½ìœ¼ë¡œ ì´ë™í•˜ì§€ ì•Šê²Œ ì˜¤ë¥¸ìª½ ë°©í–¥ìœ¼ë¡œ ë˜‘ê°™ì´ 250ë§Œí¼ íž˜ì„ ì£¼ì–´ ì œìžë¦¬ì— ì •ì§€ëœ ê²ƒ ì²˜ëŸ¼ ë³´ì´ê²Œ ë§Œë“¤ê¸°
             rb.AddForce(rightForce);
 
-            rb.gravityScale = 15f; // Áß·ÂÀ» ºÎ¿©ÇØ ¾Æ·¡·Î ¶³¾îÁö°Ô ÇÏ±â
+            rb.gravityScale = 15f; // ì¤‘ë ¥ì„ ë¶€ì—¬í•´ ì•„ëž˜ë¡œ ë–¨ì–´ì§€ê²Œ í•˜ê¸°
         }
 
     }
 
     // https://www.youtube.com/watch?v=KTEX2L4T4zE
-    // Á¡°ú Á¡ »çÀÕ°ªÀ» ÃßÁ¤ÇÏ±â À§ÇÏ¿© Á÷¼± °Å¸®¿¡ µû¶ó ¼±ÇüÀûÀ¸·Î °è»êÇÏ´Â ¹æ¹ýÀÌ´Ù.
+    // ì ê³¼ ì  ì‚¬ìž‡ê°’ì„ ì¶”ì •í•˜ê¸° ìœ„í•˜ì—¬ ì§ì„  ê±°ë¦¬ì— ë”°ë¼ ì„ í˜•ì ìœ¼ë¡œ ê³„ì‚°í•˜ëŠ” ë°©ë²•ì´ë‹¤.
     public Vector2 BezierTest(Vector2 P_1, Vector2 P_2, Vector2 P_3, Vector2 P_4, float value)
     {
-        Vector2 A = Vector2.Lerp(P_1, P_2, value);  //P_1ÁöÁ¡°ú P_2ÁöÁ¡ÀÇ ¼±Çü±¸°£ °è»ê°ª : A
-        Vector2 B = Vector2.Lerp(P_2, P_3, value);  //P_2ÁöÁ¡°ú P_3ÁöÁ¡ÀÇ ¼±Çü±¸°£ °è»ê°ª : B
-        Vector2 C = Vector2.Lerp(P_3, P_4, value);  //P_3ÁöÁ¡°ú P_4ÁöÁ¡ÀÇ ¼±Çü±¸°£ °è»ê°ª : C
+        Vector2 A = Vector2.Lerp(P_1, P_2, value);  //P_1ì§€ì ê³¼ P_2ì§€ì ì˜ ì„ í˜•êµ¬ê°„ ê³„ì‚°ê°’ : A
+        Vector2 B = Vector2.Lerp(P_2, P_3, value);  //P_2ì§€ì ê³¼ P_3ì§€ì ì˜ ì„ í˜•êµ¬ê°„ ê³„ì‚°ê°’ : B
+        Vector2 C = Vector2.Lerp(P_3, P_4, value);  //P_3ì§€ì ê³¼ P_4ì§€ì ì˜ ì„ í˜•êµ¬ê°„ ê³„ì‚°ê°’ : C
 
-        Vector2 D = Vector2.Lerp(A, B, value);      //AÁöÁ¡°ú BÁöÁ¡ÀÇ ¼±Çü±¸°£ °è»ê°ª : D
-        Vector2 E = Vector2.Lerp(B, C, value);      //BÁöÁ¡°ú CÁöÁ¡ÀÇ ¼±Çü±¸°£ °è»ê°ª : E
+        Vector2 D = Vector2.Lerp(A, B, value);      //Aì§€ì ê³¼ Bì§€ì ì˜ ì„ í˜•êµ¬ê°„ ê³„ì‚°ê°’ : D
+        Vector2 E = Vector2.Lerp(B, C, value);      //Bì§€ì ê³¼ Cì§€ì ì˜ ì„ í˜•êµ¬ê°„ ê³„ì‚°ê°’ : E
 
-        Vector2 F = Vector2.Lerp(D, E, value);      //DÁöÁ¡°ú EÁöÁ¡ÀÇ ¼±Çü±¸°£ °è»ê°ª : F
-        return F;                                   //À§¿¡¼­ °è»êÇÑ ÃÑ °á°ú°ªÀ» F·Î ¹ÝÈ¯
+        Vector2 F = Vector2.Lerp(D, E, value);      //Dì§€ì ê³¼ Eì§€ì ì˜ ì„ í˜•êµ¬ê°„ ê³„ì‚°ê°’ : F
+        return F;                                   //ìœ„ì—ì„œ ê³„ì‚°í•œ ì´ ê²°ê³¼ê°’ì„ Fë¡œ ë°˜í™˜
     }
 
 
