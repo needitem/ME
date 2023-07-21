@@ -14,25 +14,12 @@ public class AudioDirector : MonoBehaviour
 
     public AudioSource audioSource;
 
-    private Dictionary<int, AudioClip> audioClips = new Dictionary<int, AudioClip>();
-
     void Start()
     {
-        LoadAudioClips();
-        
         audioSource = GetComponent<AudioSource>();
 
     }
 
-    private void LoadAudioClips()
-    {
-        for (int i = 0; i <= 7; i++)
-        {
-            string audioPath = string.Format("Sound/BGM/Track_{0}", i);
-            AudioClip audioClip = Resources.Load<AudioClip>(audioPath);
-            audioClips[i] = audioClip;
-        }
-    }
     public void SoundPlay(string AudioURL)
     {
         audioSource.clip = Resources.Load<AudioClip>(AudioURL);
@@ -76,11 +63,6 @@ public class AudioDirector : MonoBehaviour
             audioMixer.SetFloat("SFX", volume);
         }
     }
-    public void RandomPlay()
-    {
-        int nRandom = Random.Range(0, 8);
-        audioSource.clip = audioClips[nRandom];
-        audioSource.Play();
-    }
+
 
 }

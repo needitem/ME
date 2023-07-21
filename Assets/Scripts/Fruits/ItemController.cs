@@ -50,7 +50,7 @@ public class ItemController : MonoBehaviour
             if (executeOnlyOnce) // 재료 하나당 한번씩만 실행되는 bool형 변수
             {
                 itemAnimator.SetTrigger("slice"); // 슬라이스 애니메이션 부여
-                rb.MovePosition(new Vector2(4f, 3f)); // 재료를 해당위치로 이동시키기
+          
                 Recipe.DecreaseIngredient(this.name);
                 executeOnlyOnce = false;
             }
