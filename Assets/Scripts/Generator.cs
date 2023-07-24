@@ -64,7 +64,6 @@ public class Generator : MonoBehaviour
                 colIndex++; // 다음열로 이동
             }
         }
-
         if (GameDirector.hp <= 0)
         {
             audioDirector.SoundMute(true);
