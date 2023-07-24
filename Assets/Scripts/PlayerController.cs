@@ -5,131 +5,149 @@ using System.Linq;
 
 public class PlayerController : MonoBehaviour
 {
-    private bool hasAttacked = false;
-    private float lastAttackTime = -1f;
-    private float doubleAttackTimeWindow = 0.2f;
 
-    public Vector2 boxSize;
-    public Transform pos;
-    bool isPunched = false;
-    bool isDouble = false;
+    private bool hasAttacked = false; // 공격한 상태인지 여부를 나타내는 변수
+    private float lastAttackTime = -1f; // 마지막 공격 시간을 저장하는 변수
+    private float doubleAttackTimeWindow = 0.2f; // 더블 공격을 인식하기 위한 시간 간격
+
+
+    public Vector2 boxSize; // OverlapBox의 크기를 지정하는 변수
+    public Transform pos; // OverlapBox의 위치를 지정하는 변수
+    bool isPunched = false; // 플레이어가 튕겨내기중인가 여부를 나타내는 변수
+    bool isDouble = false;  // 플레이거가 더블어택중인가 여부를 나타내는 변수
     public bool isDelay = false; //attack delay
-    Animator playerAnimator;
-    AudioDirector audioDirector;
+    Animator playerAnimator; // 플레이어의 애니메이터 컴포넌트를 참조하는 변수
+    AudioDirector audioDirector; // 플레이어의 오디오디렉터 컴포넌트를 참조하는 변수
 
     private void Start()
     {
-        playerAnimator = GetComponent<Animator>();
-        audioDirector = GetComponent<AudioDirector>();
+        playerAnimator = GetComponent<Animator>(); // 애니메이터 컴포넌트를 가져옴
+        audioDirector = GetComponent<AudioDirector>(); // 오디오디렉터 컴포넌트를 가져옴
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && !isPunched)
+        if (GameDirector.hp > 0) // 캐릭터가 살아있는 상황이면
         {
-            Attack();
-        }
-        else if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked)
-        {
-            PunchBack();
+            if (Input.GetKeyDown(KeyCode.Space) && !isPunched)
+                // 스페이스바를 누르고 튕겨내기 중이 아닐 때
+            {
+                Attack(); // Attack 메서드(공격) 호출
+            }
+            else if (Input.GetKeyDown(KeyCode.LeftControl) && !hasAttacked)
+                // 왼쪽 컨트롤 키를 누르고 공격 중이 아닐 때
+            {
+                PunchBack(); // PunchBack 메서드(튕겨내기) 호출
+            }
         }
 
-        if (GameDirector.hp <= 0)
+        if (GameDirector.hp <= 0) // 캐릭터의 체력이 0 이하일 때
         {
-            playerAnimator.SetTrigger("game_over");
+            
+            playerAnimator.SetTrigger("game_over"); // 게임오버 애니메이션 재생
         }
 
     }
+
     public void PunchBack() //effect of punching back ingredients
     {
+
         if (isDelay == false)
         {
-            isPunched = true;
-            playerAnimator.SetTrigger("punch");
+            isPunched = true; // 플레이어가 튕겨내기 중인 상태로 설정
+            playerAnimator.SetTrigger("punch"); // 튕겨내기 애니메이션 재생
 
 
             var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
+            // OverlapBox 안에 있는 모든 충돌체들을 가져옴
+            // OverlapBoxAll 메서드는 주어진 위치(pos.position)와 크기(boxSize)로 지정된 충돌 박스 내에 있는 모든 충돌체 반환
+            // 세 번째 매개변수인 0은 충돌 마스크를 나타내며, 기본값으로 설정되어 모든 충돌체를 검출
+            // .ToList()는 OverlapBoxAll 메서드가 반환하는 배열을 List형태로 변환
 
             foreach (Collider2D collider in colliders)
+            // colliders List에 있는 각 요소를 반복적으로 처리하기 위해 루프 시작
+            // colliders 리스트에 있는 각 요소를 collider 변수에 할당하여 루프 내에서 사용
             {
 
                 if (collider.tag == "Target")
+                // collider 변수가 참조하는 충돌체의 태그가 Target이라면
                 {
-                    audioDirector.SoundPlay("Sound/effect_sound/fryingpan");
-                    KatanaEffect.Punch();
-                    Effect.Apply(collider.gameObject);
+                    audioDirector.SoundPlay("Sound/effect_sound/fryingpan"); // 튕겨내기 사운드 재생
+                    KatanaEffect.Punch(); // 튕겨내기 이펙트 발동(후라이펜 튕기는 효과)
+                    Effect.Apply(collider.gameObject); // 튕겨내기 이펙트 적용(재료에 적용되는 효과)
                 }
                 else
                 {
-                    audioDirector.SoundPlay("Sound/effect_sound/swing1");
+                    audioDirector.SoundPlay("Sound/effect_sound/swing1"); // 헛스윙 소리 재생
                 }
             }
-            isDelay = true;
-            StartCoroutine(CountAttackDelay(0.4f));
+            isDelay = true; // 딜레이를 주기 위해 isDelay라는 bool변수에 true 할당
+            StartCoroutine(CountAttackDelay(0.4f)); // 딜레이 적용을 주기위해 코루틴 실행
         }
 
     }
 
+    // 공격 함수
     public void Attack()
     {
-        hasAttacked = true;
-        float currentTime = Time.time;
+        hasAttacked = true; // 플레이어가 공격중인 상태로 변경
+        float currentTime = Time.time; // 현재 시간 저장
 
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
 
         if (!isDelay) //if attack delay is false, attack. attack delay is true when player attacks
+            // 공격 딜레이가 OFF라면
         {
 
-            playerAnimator.SetTrigger("attack");
+            playerAnimator.SetTrigger("attack"); // 공격 애니메이션 재생
 
 
             foreach (Collider2D collider in colliders)
             {
                 if (collider.tag == "Target") //if there is collider in the box, play the sound of slicing ingredient
                 {
-                    KatanaEffect.Attack();
-                    collider.gameObject.GetComponent<ItemController>().itemHp--;
-                    audioDirector.SoundPlay("Sound/effect_sound/slice1");
+                    KatanaEffect.Attack(); // 공격 이펙트 발동(카타나에 적용되는 효과)
+                    collider.gameObject.GetComponent<ItemController>().itemHp--; // 감지된 충돌체의 아이템 체력 감소 
+                    audioDirector.SoundPlay("Sound/effect_sound/slice1"); // 자르는 효과음 재생
                 }
                 else
                 {
-                    audioDirector.SoundPlay("Sound/effect_sound/swing1");
+                    audioDirector.SoundPlay("Sound/effect_sound/swing1"); // 헛스윙 소리 재생
                 }
             }
 
-            isDelay = true;
+            isDelay = true; // 딜레이 ON
             lastAttackTime = currentTime; //reset the last attack time
-            StartCoroutine(CountAttackDelay(0.4f));
+            // 마지막 공격 시간을 현재 시간으로 업데이트
+            StartCoroutine(CountAttackDelay(0.4f)); // 0.4초 뒤 공격 딜레이, 공격중인 상태 OFF
         }
         else if ((currentTime - lastAttackTime) <= doubleAttackTimeWindow) //if player attacks again within 0.2 seconds
         {
-            isDouble = true;
-            playerAnimator.SetTrigger("double_attack");
-
-
+            isDouble = true; // 플레이어가 더블어택 중인 상태로 변경
+            playerAnimator.SetTrigger("double_attack"); // 더블 어택 애니메이션 재생
 
             foreach (Collider2D collider in colliders)
             {
                 if (collider.tag == "Target") //if there is collider in the box, play the sound of slicing ingredient
                 {
-                    audioDirector.SoundPlay("Sound/effect_sound/slice2");
+                    audioDirector.SoundPlay("Sound/effect_sound/slice2"); // 더블 어택 소리 재생
                     if (collider.name == "chicken") //if the ingredient is chicken, play the sound of slicing chicken
                     {
-                        audioDirector.SoundPlay("Sound/effect_sound/chicken");
+                        audioDirector.SoundPlay("Sound/effect_sound/chicken"); // 치킨 자르는 소리
                     }
-                    KatanaEffect.DoubleAttack();
-                    collider.gameObject.GetComponent<ItemController>().itemHp--;
+                    KatanaEffect.DoubleAttack(); // 공격 이펙트 발동(카타나에 적용되는 효과)
+                    collider.gameObject.GetComponent<ItemController>().itemHp--; // 감지된 충돌체의 아이템 체력 감소 
                 }
                 else
                 {
-                    audioDirector.SoundPlay("Sound/effect_sound/swing2");
+                    audioDirector.SoundPlay("Sound/effect_sound/swing2"); // 헛스윙 소리 재생
                 }
             }
-            isDelay = true;
+            isDelay = true; // 딜레이 ON
         }
     }
 
-    void ResetDelay()
+    void ResetDelay() // 딜레이, 공격, 튕겨내기 상태를 전부 초기화 시켜주는 함수
     {
         isDelay = false;
         isPunched = false;
@@ -139,23 +157,25 @@ public class PlayerController : MonoBehaviour
     IEnumerator CountAttackDelay(float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
-        if (isDouble == true) //                    ?        0.2 ?   ? .
+        if (isDouble == true) // 만약 더블 어택중 이라면
         {
-            Invoke("ResetDelay", 0.2f);
-            isDouble = false;
+            Invoke("ResetDelay", 0.2f); // delayTime + 0.2초 후 초기화
+            isDouble = false; // 더블 어택 상태 OFF
         }
-        else if (isDouble == false)
+        else if (isDouble == false) // 더블 어택 중이라면
         {
-            ResetDelay();
+            ResetDelay(); // delayTime초 만큼 후 초기화
         }
 
     }
+
+    // 플레이어와 오브젝트(재료)가 충돌할 경우 체력감소
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.tag == "Target") //if player collides with ingredient, decrease hp
+        if (collider.tag == "Target") //아이템과 충돌시 
         {
             Destroy(collider.gameObject);
-            GameDirector.hp--;
+            GameDirector.hp--; //hp감소
             audioDirector.SoundPlay("Sound/effect_sound/hit");
             playerAnimator.SetTrigger("damaged");
         }
