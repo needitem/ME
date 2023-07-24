@@ -6,13 +6,10 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 public class GameDirector : MonoBehaviour
 {
-    [SerializeField] public int maxHp = 5;
+    [SerializeField] public int maxHp = 3;
     [SerializeField] public Image[] heartImages;
     [SerializeField] GameObject[] gIngredient_cnt;
     [SerializeField] public GameObject Gameover_Panel;
-    GameObject gPlayer;
-    GameObject gGenerate;
-    GameObject gCamera;
 
     public Recipe recipe;
     public Image recipeImage;
@@ -30,10 +27,6 @@ public class GameDirector : MonoBehaviour
 
     void Start()
     {
-        gPlayer = GameObject.Find("Player");
-        gGenerate = GameObject.Find("Generate");
-        gCamera = GameObject.Find("Main Camera");
-
         hp = maxHp;
         Time.timeScale = 1;
         UpdateRecipeCnt();
