@@ -46,12 +46,12 @@ public class ItemController : MonoBehaviour
         }
 
 
-        if (itemHp == 0) // 재료의 hp가 0이라면
+        if (itemHp <= 0) // 재료의 hp가 0 이하라면
         {
             if (executeOnlyOnce) // 재료 하나당 한번씩만 실행되는 bool형 변수
             {
                 itemAnimator.SetTrigger("slice"); // �����̽� �ִϸ��̼� �ο�
-          
+                
                 Recipe.DecreaseIngredient(this.name);
                 executeOnlyOnce = false;
             }
