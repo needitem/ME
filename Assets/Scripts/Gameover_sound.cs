@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Gameover_sound : MonoBehaviour
 {
-    [SerializeField]
-    public GameObject g;
+    [SerializeField] public GameObject g;
     bool abc = true;
     // Start is called before the first frame update
 
@@ -15,7 +14,7 @@ public class Gameover_sound : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (g.activeSelf == true && abc)
         {
@@ -26,7 +25,6 @@ public class Gameover_sound : MonoBehaviour
 
     public void gameover()
     {
-
         GetComponent<AudioSource>().Play();
     }
 }

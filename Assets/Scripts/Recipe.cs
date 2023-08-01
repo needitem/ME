@@ -17,14 +17,17 @@ public enum Ingredients
 
 public class Recipe : MonoBehaviour
 {
-    [SerializeField] private GameObject gameDirector;
-    private const int ingredientAmt = 7;
-    private readonly int[] recipe1 = { 2, 0, 0, 0, 0, 2, 3 };
-    private readonly int[] recipe2 = { 0, 3, 0, 1, 3, 2, 0 };
-    private readonly int[] recipe3 = { 0, 0, 2, 2, 0, 3, 0 };
-    public static readonly int[] randomRecipe = new int[ingredientAmt];
+    [SerializeField] public GameObject tmpScore;
 
-    public static int RecipeIndex { get; private set; }
+    private const int ingredientAmt = 7;
+    private readonly int[] recipe1 = { 1, 0, 0, 0, 0, 1, 1 };
+    private readonly int[] recipe2 = { 0, 1, 0, 1, 1, 1, 0 };
+    private readonly int[] recipe3 = { 0, 0, 1, 1, 0, 1, 0 };
+    public static int[] randomRecipe = new int[ingredientAmt];
+    public static int[] nextRandomRecipe = new int[ingredientAmt];
+
+    public static int recipeIndex = 0;
+    public static int nextRecipeIndex = 0;
 
     public static int Score;
 
@@ -52,35 +55,40 @@ public class Recipe : MonoBehaviour
         return false;
     }
 
-    private void Awake() // initialize randomRecipe
+    private void Start() // initialize randomRecipe
     {
         Init();
-        gameDirector = GameObject.Find("GameDirector");
-        RecipeIndex = CreateRandomRecipe();
+        recipeIndex = CreateRandomRecipe();
+        Array.Copy(nextRandomRecipe, randomRecipe, ingredientAmt);
+        Array.Clear(nextRandomRecipe, 0, nextRandomRecipe.Length);
+        nextRecipeIndex = CreateRandomRecipe();
     }
 
     private void Update()
     {
        if (IsRecipeComplete(randomRecipe) || IsRecipeWrong(randomRecipe)) //만약 레시피가 완성되었거나 틀렸다면 레시피를 새로 만들고 UI를 업데이트
         {
-            gameDirector.GetComponent<GameDirector>().UpdateRecipeUI(); // update recipe UI
             if (IsRecipeComplete(randomRecipe))
             {
+                GameObject textScoreCopy = Instantiate(tmpScore);
                 Score += 300; // 레시피가 완성되었으면 점수 300점 추가
+                Array.Clear(randomRecipe, 0, randomRecipe.Length);
+                Array.Copy(nextRandomRecipe, randomRecipe, ingredientAmt);
+                recipeIndex = nextRecipeIndex;
+                Array.Clear(nextRandomRecipe, 0, nextRandomRecipe.Length);
+                nextRecipeIndex = CreateRandomRecipe();
             }
             else if (IsRecipeWrong(randomRecipe))
             {
-                Init();
                 GameDirector.hp = 0; // 레시피가 틀렸으면 사망
-            }
-            Init();
-            RecipeIndex = CreateRandomRecipe(); //새로운 레시피 생성
+            } 
         }
     }
 
     private void Init()
     {
         Array.Clear(randomRecipe, 0, randomRecipe.Length); //랜덤레시피 초기화
+        Array.Clear(nextRandomRecipe, 0, nextRandomRecipe.Length); // 다음 레시피 초기화
     }
 
     private int CreateRandomRecipe() //랜덤레시피 생성
@@ -90,13 +98,13 @@ public class Recipe : MonoBehaviour
         switch (randomIndex)
         {
             case 0:
-                Array.Copy(recipe1, randomRecipe, ingredientAmt); //레시피1을 randomRecipe에 복사
+                Array.Copy(recipe1, nextRandomRecipe, ingredientAmt); //레시피1을 nextRandomRecipe에 복사
                 break;
             case 1:
-                Array.Copy(recipe2, randomRecipe, ingredientAmt); //레시피2를 randomRecipe에 복사
+                Array.Copy(recipe2, nextRandomRecipe, ingredientAmt); //레시피2를 nextRandomRecipe에 복사
                 break;
             case 2:
-                Array.Copy(recipe3, randomRecipe, ingredientAmt); //레시피3을 randomRecipe에 복사
+                Array.Copy(recipe3, nextRandomRecipe, ingredientAmt); //레시피3을 nextRandomRecipe에 복사
                 break;
         }
         return randomIndex;
@@ -113,6 +121,19 @@ public class Recipe : MonoBehaviour
             }
         }
         return temp;
+    }
+
+    public static List<int> ShowNextRecipe()
+    {
+        List<int> nextRecipe = new List<int> { };
+        for (int i = 0; i < nextRandomRecipe.Length; i++)
+        {
+            if(nextRandomRecipe[i] > 0)
+            {
+                nextRecipe.Add(i);
+            }
+        }
+        return nextRecipe;
     }
 
     public static void DecreaseIngredient(string name) //재료를 하나 감소시킴

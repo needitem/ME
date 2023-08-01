@@ -12,8 +12,12 @@ public class GameDirector : MonoBehaviour
     [SerializeField] public GameObject Gameover_Panel;  // 게임 오버 패널 오브젝트
 
     public Recipe recipe;                   // 레시피 스크립트 참조
+
     public Image recipeImage;               // 레시피 이미지 컴포넌트
     public Image[] ingredientImages;        // 재료 이미지 컴포넌트 배열
+
+    public Image nextRecipeImage;               // 다음 레시피 이미지 컴포넌트
+    public Image[] nextIngredientImages;        // 다음 재료 이미지 컴포넌트 배열
 
     public Sprite[] recipeSprites;          // 레시피 스프라이트 배열
     public Sprite[] ingredientSprites;      // 재료 스프라이트 배열
@@ -44,6 +48,7 @@ public class GameDirector : MonoBehaviour
         UpdateHearthp();        // UI에서 플레이어의 HP를 나타내는 하트 이미지 업데이트
         UpdateRecipeCnt();      // UI에서 재료 개수 업데이트
         UpdateRecipeUI();       // UI에서 레시피와 재료 이미지 업데이트
+        UpdateNextRecipe();     // UI에서 다음 레시피를 미리 보여줌
 
         if (hp <= 0)            // hp가 0이라면
         {
@@ -83,7 +88,7 @@ public class GameDirector : MonoBehaviour
                 ingredientImages[i].enabled = true;
 
                 // recipeSprites 배열에서 레시피스크립트의 레시피 인덱스 값에 해당하는 스프라이트로 설정
-                recipeImage.sprite = recipeSprites[Recipe.RecipeIndex];
+                recipeImage.sprite = recipeSprites[Recipe.recipeIndex];
 
                 // 재료 이미지 배열에서 잔여 레시피의 키(재료)를 가져온 후 키에 해당하는 재료 이미지 스프라이트 적용
                 ingredientImages[i].sprite = ingredientSprites[Recipe.ShowLeftoverRecipe().Keys.ToList()[i]];
@@ -95,6 +100,23 @@ public class GameDirector : MonoBehaviour
             }
         }
     } 
+
+    public void UpdateNextRecipe()
+    {
+        for(int i =0; i< 4; i++)
+        {
+            try
+            {
+                nextIngredientImages[i].enabled = true;
+                nextRecipeImage.sprite = recipeSprites[Recipe.nextRecipeIndex];
+                nextIngredientImages[i].sprite = ingredientSprites[Recipe.ShowNextRecipe().ToList()[i]];
+            }
+            catch
+            {
+                nextIngredientImages[i].enabled = false;
+            }
+        }
+    }
 
     private void UpdateHearthp()
     {

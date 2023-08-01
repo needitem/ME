@@ -17,7 +17,6 @@ public class AudioDirector : MonoBehaviour
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -63,6 +62,4 @@ public class AudioDirector : MonoBehaviour
             audioMixer.SetFloat("SFX", volume); // 믹서의 볼륨을 설정한다.
         }
     }
-
-
 }
