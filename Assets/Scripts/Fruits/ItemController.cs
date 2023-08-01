@@ -41,36 +41,29 @@ public class ItemController : MonoBehaviour
         }
         else
         {
-            rb.velocity = Vector2.zero;
+            rb.velocity = Vector2.zero; // 가해진 힘 제거
 
             if (executeOnlyOnce) // 재료 하나당 한번씩만 실행되는 bool형 변수
             {
                 itemAnimator.SetTrigger("slice"); // �����̽� �ִϸ��̼� �ο�
 
-                rb.position = new Vector2(3.5f, 2.76f);
+                rb.position = new Vector2(3.5f, 2.76f); // 이 위치로 이동
 
                 Recipe.DecreaseIngredient(this.name);
                 executeOnlyOnce = false;
             }
            
-            rb.AddForce(Vector2.right * 250.0f);
+            rb.AddForce(Vector2.right * 250.0f); // 오른쪽으로도 250만큼의 힘을 가해 멈춰있는것 처럼 보이게 함
             
             rb.gravityScale = 15f; // 중력을 부여해 아래로 떨어지게 하기
         }
 
-
-
-
-
         // 재료가 생성되고 베지어 곡선을 따라가다가, 생성된지 1초가 넘으면 왼쪽 방향으로
         // AddForce를 주기(날아가는 듯한 효과를 위함)
         if (rate >= 1f)
-        {
-            
+        {    
             rb.AddForce(Vector2.left * 250.0f);
         }
-
-
        
     }
 
