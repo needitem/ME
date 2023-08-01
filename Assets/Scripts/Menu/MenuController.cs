@@ -27,13 +27,15 @@ public class MenuController : MonoBehaviour
 
     public void Click_Exit() // 메뉴패널의 QUIT 버튼 클릭했을 경우
     {
-        Scenechange();                                  // Scenechange 함수를 호출하여 타이틀 씬으로 전환합니다.
+        SceneDirector.ChangeScene3();                                  // Scenechange 함수를 호출하여 타이틀 씬으로 전환합니다.
     }
 
+    /*
     private void Scenechange() // 씬 전환 함수
     {
         SceneManager.LoadScene("TitleScene");           // "TitleScene"을 로드하여 씬을 전환합니다.
     }
+    */
 
     void Start()
     {

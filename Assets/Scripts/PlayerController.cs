@@ -180,4 +180,11 @@ public class PlayerController : MonoBehaviour
             playerAnimator.SetTrigger("damaged");
         }
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(pos.position, boxSize);
+    }
+
 }

@@ -26,6 +26,7 @@ public class ItemController : MonoBehaviour
 
     private void FixedUpdate()
     {
+
         if (gameObject.transform.position.y <= 0.7f)
         // 재료가 맵 아래로 떨어지면 삭제 시키기
         {
@@ -33,36 +34,44 @@ public class ItemController : MonoBehaviour
         }
 
         // 선형보간을 계산한 결과값을 프레임과 프레임 사이의 시간을 계속 더해 이동한다.
-        rate += Time.deltaTime;
-        transform.position = BezierTest(controllPosition[0], controllPosition[1], controllPosition[2], controllPosition[3], rate);
-
-
-        if (rate >= 1f)
-        // 재료가 생성되고 베지어 곡선을 따라가다가, 생성된지 1초가 넘으면 왼쪽 방향으로
-        // AddForce를 주기(날아가는 듯한 효과를 위함)
+        if (itemHp > 0)
         {
-            Vector2 pushForce = Vector2.left * 250.0f;
-            rb.AddForce(pushForce);
+            rate += Time.deltaTime;
+            transform.position = BezierTest(controllPosition[0], controllPosition[1], controllPosition[2], controllPosition[3], rate);
         }
-
-
-        if (itemHp == 0) // 재료의 hp가 0이라면
+        else
         {
+            rb.velocity = Vector2.zero;
+
             if (executeOnlyOnce) // 재료 하나당 한번씩만 실행되는 bool형 변수
             {
                 itemAnimator.SetTrigger("slice"); // �����̽� �ִϸ��̼� �ο�
-          
+
+                rb.position = new Vector2(3.5f, 2.76f);
+
                 Recipe.DecreaseIngredient(this.name);
                 executeOnlyOnce = false;
             }
-            Vector2 rightForce = Vector2.right * 250.0f;
-
-            // 더이상 왼쪽으로 이동하지 않게 오른쪽 방향으로 똑같이 250만큼 힘을 주어 제자리에 정지된 것 처럼 보이게 만들기
-            rb.AddForce(rightForce);
-
+           
+            rb.AddForce(Vector2.right * 250.0f);
+            
             rb.gravityScale = 15f; // 중력을 부여해 아래로 떨어지게 하기
         }
 
+
+
+
+
+        // 재료가 생성되고 베지어 곡선을 따라가다가, 생성된지 1초가 넘으면 왼쪽 방향으로
+        // AddForce를 주기(날아가는 듯한 효과를 위함)
+        if (rate >= 1f)
+        {
+            
+            rb.AddForce(Vector2.left * 250.0f);
+        }
+
+
+       
     }
 
     // https://www.youtube.com/watch?v=KTEX2L4T4zE
