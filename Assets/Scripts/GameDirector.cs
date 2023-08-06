@@ -71,6 +71,7 @@ public class GameDirector : MonoBehaviour
             }
        }
     }
+
     public void UpdateRecipeUI()
     {
         for (int i = 0; i < 4; i++)     // 0부터 3까지의 인덱스를 사용하여 반복
@@ -94,7 +95,7 @@ public class GameDirector : MonoBehaviour
                 ingredientImages[i].enabled = false;
             }
         }
-    } 
+    }
 
     private void UpdateHearthp()
     {
@@ -118,6 +119,6 @@ public class GameDirector : MonoBehaviour
 
     public void GameOverChange()
     {
-        SceneDirector.ChangeScene2();               // 게임오버 시 씬 디렉터의 ChangeScene2함수를 실행한다(finishScene 전환)
+        SceneManager.LoadScene("FinishScene");
     }
 } 

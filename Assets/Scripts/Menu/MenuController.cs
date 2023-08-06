@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -13,13 +14,15 @@ public class MenuController : MonoBehaviour
     private bool isMuted1 = false;                      // SFX 토글의 음소거 여부
     private bool isMuted2 = false;                      // BGM 토글의 음소거 여부
 
-    public void Click_Menu()    // 메뉴 버튼을 클릭했을 경우
+    public SceneFader sceneFader; // SceneFader 스크립트에 대한 참조
+
+    public void Click_Menu()     // 메뉴 버튼을 클릭했을 경우
     {
         Time.timeScale = 0;                             // 게임 시간을 일시적으로 멈춥니다.
         Panel_menu.SetActive(true);                     // 메뉴 패널을 활성화합니다.
     }
 
-    public void Click_Continue() // 메뉴패널의 CONTINUE 버튼 클릭했을 경우
+    public void Click_Continue()  // 메뉴패널의 CONTINUE 버튼 클릭했을 경우
     {
         Time.timeScale = 1;                             // 게임 시간을 다시 시작합니다.
         Panel_menu.SetActive(false);                    // 메뉴 패널을 비활성화합니다.
@@ -32,7 +35,7 @@ public class MenuController : MonoBehaviour
 
     private void Scenechange() // 씬 전환 함수
     {
-        SceneManager.LoadScene("TitleScene");           // "TitleScene"을 로드하여 씬을 전환합니다.
+        StartCoroutine(ChangeSceneWithFade("TitleScene"));           // "TitleScene"을 로드하여 씬을 전환합니다.
     }
 
     void Start()
@@ -59,5 +62,18 @@ public class MenuController : MonoBehaviour
         OffImage[0].gameObject.SetActive(isMuted1);     // SFX 토글의 비활성화 이미지를 설정합니다.
         OnImage[1].gameObject.SetActive(!isMuted2);     // BGM 토글의 활성화 이미지를 설정합니다.
         OffImage[1].gameObject.SetActive(isMuted2);     // BGM 토글의 비활성화 이미지를 설정합니다.
+    }
+
+    private IEnumerator ChangeSceneWithFade(string sceneName)
+    {
+        yield return StartCoroutine(FadeOut());
+        SceneManager.LoadScene(sceneName);
+    }
+
+    // 페이드 아웃 효과를 위한 코루틴
+    private IEnumerator FadeOut()
+    {
+        sceneFader.StartFadeOut("TitleScene");
+        yield return new WaitForSeconds(sceneFader.fadeDuration);
     }
 }
