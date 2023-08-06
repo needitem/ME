@@ -323,7 +323,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1729669980}
         m_TargetAssemblyTypeName: SceneDirector, Assembly-CSharp
-        m_MethodName: ChangeScene1
+        m_MethodName: ChangeScene4
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -9,7 +9,7 @@ public class SceneDirector : MonoBehaviour
     public Text ScoreText;  // 점수를 표시하는 텍스트 UI
     public SceneFader sceneFader; // SceneFader 스크립트에 대한 참조
 
-    public void ChangeScene1()
+    public static void ChangeScene1()
     {
         Recipe.Score = 0;                       // Recipe 스크립트의 점수를 초기화합니다.
         StartCoroutine(ChangeSceneWithFade("GameScene"));
@@ -20,7 +20,7 @@ public class SceneDirector : MonoBehaviour
         StartCoroutine(ChangeSceneWithFade("FinishScene"));
     }
 
-    public void ChangeScene3()
+    public static void ChangeScene3()
     {
         Recipe.Score = 0;                       // Recipe 스크립트의 점수를 초기화합니다.
         StartCoroutine(ChangeSceneWithFade("TitleScene"));   // "TitleScene"으로 씬을 전환합니다.
@@ -39,6 +39,12 @@ public class SceneDirector : MonoBehaviour
         yield return new WaitForSeconds(sceneFader.fadeDuration);
     }
 
+
+    public void ChangeScene4()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("CutScene");  // "CutScene"으로 씬을 전환합니다.
+    }
     void Start()
     {
         ScoreText.text = "SCORE: " + Recipe.Score.ToString();  // 시작할 때 점수 텍스트를 업데이트합니다.
