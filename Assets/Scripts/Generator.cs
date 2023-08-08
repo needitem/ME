@@ -1,6 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
-
+using System.IO;
 
 public class Generator : MonoBehaviour
 {
@@ -13,25 +13,11 @@ public class Generator : MonoBehaviour
     private GameObject NPC; //  NPC 게암 오브젝트 
     AudioDirector audioDirector;
     AudioSource audioSource;
+    public RandomBGM randomBGM;
 
-   
-
-
-    private float[][] spanArray = new float[][] // 재료 생성 주기를 저장하는 2차원 배열
-    {
-        new float[] {1.0f, 0.9f, 0.9f, 1.0f},
-        new float[] {1.0f, 0.8f, 0.8f, 1.0f,},
-        new float[] {0.8f, 0.9f, 0.9f, 0.8f, 1.0f},
-        new float[] {0.85f, 0.95f, 1.0f, 0.8f},
-        new float[] {1.0f, 0.85f, 0.8f, 0.9f},
-        new float[] {0.95f, 0.8f, 0.85f, 0.9f}
-    };
-    float timeScale = 1.0f;//시간 배율
-    private float timeElapsed = 0f; //경과한 시간
-    private int rowIndex = 0; // spanArray의 행 인덱스
-    private int colIndex = 0; // spanArray의 열 인덱스
-    private int gameSpeedUP = 0; // Spanspeed Index
-    private int countSevenFood = 0; // 음식이 7회 생성 된 횟수
+    public int bgmIndex = 0;
+    private float spawnTime = 0f; //경과한 시간
+    private int index = 0; // 텍스트 파일 읽어온 시간의 인덱스
 
     //private int Index = 0;
     void Start()
@@ -40,35 +26,66 @@ public class Generator : MonoBehaviour
         audioDirector = GetComponent<AudioDirector>();
         mainFood = Resources.LoadAll<GameObject>("Prefabs/MainFood");
         subFood = Resources.LoadAll<GameObject>("Prefabs/SubFood");
-        rowIndex = Random.Range(0, spanArray.Length);
         NPC = GameObject.Find("NPC");
+        randomBGM = FindObjectOfType<RandomBGM>();
+        ReadTrackFile();
     }
 
     void Update()
     {
-        timeElapsed += Time.deltaTime; // 경과한 시간 업데이트
-
-        if (timeElapsed >= GetCurrentSpan() * timeScale && GameDirector.hp > 0) //일정 시간마다 음식생성, hp가 0보다 큰 경우에만 실행
+        if (Time.time >= spawnTime && GameDirector.hp > 0)
         {
-
-            NPC.GetComponent<NPCController>().Drawing(); // NPC가 음식 던지는 에니매이션 실행
-            SpawnFood(); // 음식생성
-            Gamespeed(); // 게임 속도 조절
-            timeElapsed = 0; // 타이머 초기화
-            if (colIndex == spanArray[rowIndex].Length - 1) // 현재 행의 마지막열에 도달한 경우
-            {
-                UpdateIndices(); // 다음 생성을 위해 인덱스 업데이트
-            }
-            else
-            {
-                colIndex++; // 다음열로 이동
-            }
+            SpawnFood();
+            NextSpawnTime(); // 다음 음식을 생성할 시간 업데이트
         }
+
         if (GameDirector.hp <= 0)
         {
             audioDirector.SoundMute(true);
         }
     }
+
+    private void ReadTrackFile()
+    {
+        string filePath = $"Assets/BGM_text/Track_{bgmIndex}.txt"; // Track_1.txt 파일의 경로 설정
+
+        if (File.Exists(filePath))
+        {
+            // 파일이 존재하는 경우에만 읽기 시도
+            StreamReader reader = new StreamReader(filePath);
+
+            while (!reader.EndOfStream)
+            {
+                string line = reader.ReadLine();
+                if (float.TryParse(line, out float time))
+                {
+                    // 시간을 숫자로 파싱하여 spawnTime에 저장
+                    spawnTime = time;
+                    break;
+                }
+            }
+
+            reader.Close();
+        }
+    }
+
+    private void NextSpawnTime()
+    {
+        // 다음 음식 생성할 시간 업데이트
+        index++;
+        if (index < 0 || index >= File.ReadAllLines($"Assets/BGM_text/Track_{bgmIndex}.txt").Length)
+        {
+            // 음식을 모두 생성한 경우 더 이상 생성하지 않음
+            spawnTime = float.MaxValue;
+        }
+
+        else
+        {
+            // 다음 음식 생성할 시간 설정
+            spawnTime = float.Parse(File.ReadAllLines($"Assets/BGM_text/Track_{bgmIndex}.txt")[index]);
+        }
+    }
+
 
     public void SpawnFood() // 음식 생성
     {
@@ -96,31 +113,9 @@ public class Generator : MonoBehaviour
         spawn.GetComponent<ItemController>().itemHp = itemHp;
     }
 
-    private float GetCurrentSpan() // 련재 음식 생성주기 
+    public void ChangeBGM(int newBGMIndex)
     {
-        return spanArray[rowIndex][colIndex]; // * speedArray[];
-    }
-
-    private void UpdateIndices()
-    {
-        rowIndex = Random.Range(0, spanArray.Length); // 행의 인덱스 업데이트
-        colIndex = 0;
-    }
-
-    private void Gamespeed()
-    {
-        if (gameSpeedUP < 9) // 9보다 작은 경우 실행
-        {
-            if (countSevenFood == 7) //countSevenFood가 7되면 실행
-            {
-                gameSpeedUP++; // gameSpeedUP +1
-                timeScale *= 0.95f; // timeScale +0.1f
-                countSevenFood = 0; // countSevenfood reset
-            }
-            else // if countSevenFood != 7
-            {
-                countSevenFood++;
-            }
-        }
+        randomBGM.currentBGMIndex = newBGMIndex; // RandomBGM 스크립트의 currentBGMIndex 업데이트
+        ReadTrackFile(); // 새로운 BGM에 해당하는 Track 파일 읽기
     }
 }

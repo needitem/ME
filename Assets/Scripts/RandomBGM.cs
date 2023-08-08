@@ -8,6 +8,7 @@ public class RandomBGM : MonoBehaviour
     AudioDirector audioDirector;
 
     public AudioClip[] Music = new AudioClip[7]; // 사용할 BGM
+    public int currentBGMIndex = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -21,14 +22,23 @@ public class RandomBGM : MonoBehaviour
     {
         if (audioSource.isPlaying == false) //만약 오디오 소스가 멈춘다면
         {
-            // 다시 랜덤으로 bgm을 재생 시킨다.
-            audioSource.clip = Music[Random.Range(0, Music.Length)];
-            audioSource.Play();
+            // 순서대로 bgm 출력, 문제점 모든 bgm을 다출력하면 출력할 bgm이 없음
+            PlayNextBGM();
         }
 
         if (GameDirector.hp <= 0)
         {
             audioDirector.SoundMute(true); //음소거
         }
+    }
+
+    void PlayNextBGM()
+    {
+        // 다음 BGM 인덱스 설정
+        currentBGMIndex = (currentBGMIndex + 1) % Music.Length;
+
+        // 설정된 BGM 재생
+        audioSource.clip = Music[currentBGMIndex];
+        audioSource.Play();
     }
 }
