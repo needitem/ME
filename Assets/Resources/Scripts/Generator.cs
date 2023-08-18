@@ -12,10 +12,6 @@ public class Generator : MonoBehaviour
     private GameObject spawn; // 생성된 재료를 저장
     private GameObject NPC; //  NPC 게암 오브젝트 
     AudioDirector audioDirector;
-    AudioSource audioSource;
-
-   
-
 
     private float[][] spanArray = new float[][] // 재료 생성 주기를 저장하는 2차원 배열
     {
@@ -36,7 +32,6 @@ public class Generator : MonoBehaviour
     //private int Index = 0;
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
         audioDirector = GetComponent<AudioDirector>();
         mainFood = Resources.LoadAll<GameObject>("Prefabs/MainFood");
         subFood = Resources.LoadAll<GameObject>("Prefabs/SubFood");
@@ -46,11 +41,10 @@ public class Generator : MonoBehaviour
 
     void Update()
     {
-        timeElapsed += Time.deltaTime; // 경과한 시간 업데이트
+        timeElapsed += Time.deltaTime;
 
         if (timeElapsed >= GetCurrentSpan() * timeScale && GameDirector.hp > 0) //일정 시간마다 음식생성, hp가 0보다 큰 경우에만 실행
         {
-
             NPC.GetComponent<NPCController>().Drawing(); // NPC가 음식 던지는 에니매이션 실행
             SpawnFood(); // 음식생성
             Gamespeed(); // 게임 속도 조절
@@ -96,7 +90,7 @@ public class Generator : MonoBehaviour
         spawn.GetComponent<ItemController>().itemHp = itemHp;
     }
 
-    private float GetCurrentSpan() // 련재 음식 생성주기 
+    private float GetCurrentSpan() // 현재 음식 생성주기 
     {
         return spanArray[rowIndex][colIndex]; // * speedArray[];
     }

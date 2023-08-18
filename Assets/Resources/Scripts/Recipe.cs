@@ -10,14 +10,15 @@ public enum Ingredients
     chicken,
     fish,
     green_onion,
-    egg,
-    onion,
+    egg, onion,
     carrot
 }
 
 public class Recipe : MonoBehaviour
 {
-    [SerializeField] public GameObject tmpScore;
+    [SerializeField] public GameObject effectObject;
+    [SerializeField] public GameObject showRecipe;
+    public GameObject gernerator;
 
     private const int ingredientAmt = 7;
     private readonly int[] recipe1 = { 1, 0, 0, 0, 0, 1, 1 };
@@ -29,10 +30,11 @@ public class Recipe : MonoBehaviour
     public static int recipeIndex = 0;
     public static int nextRecipeIndex = 0;
 
-    public static int Score;
+    public static int score;
+    public static float time;
 
     public bool IsRecipeComplete(int[] randomRecipe) //레시피가 완성되었는지 확인, 완성되었으면 true, 아니면 false
-    { 
+    {
         foreach (int i in randomRecipe)
         {
             if (i > 0)
@@ -58,6 +60,7 @@ public class Recipe : MonoBehaviour
     private void Start() // initialize randomRecipe
     {
         Init();
+        gernerator = GameObject.Find("Generator");
         recipeIndex = CreateRandomRecipe();
         Array.Copy(nextRandomRecipe, randomRecipe, ingredientAmt);
         Array.Clear(nextRandomRecipe, 0, nextRandomRecipe.Length);
@@ -66,30 +69,42 @@ public class Recipe : MonoBehaviour
 
     private void Update()
     {
-       if (IsRecipeComplete(randomRecipe) || IsRecipeWrong(randomRecipe)) //만약 레시피가 완성되었거나 틀렸다면 레시피를 새로 만들고 UI를 업데이트
+        /*Time.timeScale += (1f / slowFactor) * Time.unscaledDeltaTime;
+        Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
+        Time.fixedDeltaTime = Time.timeScale * 0.02f;*/
+        if (IsRecipeComplete(randomRecipe) || IsRecipeWrong(randomRecipe)) //만약 레시피가 완성되었거나 틀렸다면 레시피를 새로 만들고 UI를 업데이트
         {
             if (IsRecipeComplete(randomRecipe))
             {
-                GameObject textScoreCopy = Instantiate(tmpScore);
-                Score += 300; // 레시피가 완성되었으면 점수 300점 추가
+                gernerator.GetComponent<Generator>().enabled = false;
+                GameObject copyEffectUI = Instantiate(effectObject);
+                GameObject copyShowRecipe = Instantiate(showRecipe);
+                //SpringRecipe(showRecipe, time);
+                score += 300; // 레시피가 완성되었으면 점수 300점 추가
                 Array.Clear(randomRecipe, 0, randomRecipe.Length);
                 Array.Copy(nextRandomRecipe, randomRecipe, ingredientAmt);
                 recipeIndex = nextRecipeIndex;
                 Array.Clear(nextRandomRecipe, 0, nextRandomRecipe.Length);
                 nextRecipeIndex = CreateRandomRecipe();
+                Invoke("IsThrow", 2f);
             }
             else if (IsRecipeWrong(randomRecipe))
             {
-                GameDirector.hp = 0; // 레시피가 틀렸으면 사망
-            } 
+                GameDirector.hp = 0; // 레시피가 틀렸으면 사망 
+            }
         }
+    }
+
+    public void IsThrow()
+    {
+        gernerator.GetComponent<Generator>().enabled = true;
     }
 
     private void Init()
     {
         Array.Clear(randomRecipe, 0, randomRecipe.Length); //랜덤레시피 초기화
         Array.Clear(nextRandomRecipe, 0, nextRandomRecipe.Length); // 다음 레시피 초기화
-    }
+    } // 레시피 초기화
 
     private int CreateRandomRecipe() //랜덤레시피 생성
     {
@@ -128,7 +143,7 @@ public class Recipe : MonoBehaviour
         List<int> nextRecipe = new List<int> { };
         for (int i = 0; i < nextRandomRecipe.Length; i++)
         {
-            if(nextRandomRecipe[i] > 0)
+            if (nextRandomRecipe[i] > 0)
             {
                 nextRecipe.Add(i);
             }
