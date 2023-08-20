@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 public class GameDirector : MonoBehaviour
 {
-    [SerializeField] public int maxHp = 3;              // 플레이어의 최대 HP
+    [SerializeField] public int maxHp = 9999999;              // 플레이어의 최대 HP
     [SerializeField] public Image[] heartImages;        // 플레이어의 HP를 나타내는 하트 이미지 배열
     [SerializeField] GameObject[] gIngredient_cnt;      // 재료 개수 텍스트를 나타내는 게임 오브젝트 배열
     [SerializeField] public GameObject Gameover_Panel;  // 게임 오버 패널 오브젝트

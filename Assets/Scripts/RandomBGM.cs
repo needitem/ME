@@ -15,6 +15,8 @@ public class RandomBGM : MonoBehaviour
     {
         audioSource = GetComponent<AudioSource>();
         audioDirector = GetComponent<AudioDirector>();
+        
+        PlayCurrentBGM();
     }
 
     // Update is called once per frame
@@ -30,6 +32,12 @@ public class RandomBGM : MonoBehaviour
         {
             audioDirector.SoundMute(true); //À½¼Ò°Å
         }
+    }
+
+    void PlayCurrentBGM()
+    {
+        audioSource.clip = Music[currentBGMIndex];
+        audioSource.Play();
     }
 
     void PlayNextBGM()
