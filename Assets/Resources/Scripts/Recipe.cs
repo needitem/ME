@@ -61,6 +61,7 @@ public class Recipe : MonoBehaviour
     {
         Init();
         gernerator = GameObject.Find("Generator");
+
         recipeIndex = CreateRandomRecipe();
         Array.Copy(nextRandomRecipe, randomRecipe, ingredientAmt);
         Array.Clear(nextRandomRecipe, 0, nextRandomRecipe.Length);
@@ -69,17 +70,12 @@ public class Recipe : MonoBehaviour
 
     private void Update()
     {
-        /*Time.timeScale += (1f / slowFactor) * Time.unscaledDeltaTime;
-        Time.timeScale = Mathf.Clamp(Time.timeScale, 0f, 1f);
-        Time.fixedDeltaTime = Time.timeScale * 0.02f;*/
         if (IsRecipeComplete(randomRecipe) || IsRecipeWrong(randomRecipe)) //만약 레시피가 완성되었거나 틀렸다면 레시피를 새로 만들고 UI를 업데이트
         {
             if (IsRecipeComplete(randomRecipe))
             {
                 gernerator.GetComponent<Generator>().enabled = false;
                 GameObject copyEffectUI = Instantiate(effectObject);
-                GameObject copyShowRecipe = Instantiate(showRecipe);
-                //SpringRecipe(showRecipe, time);
                 score += 300; // 레시피가 완성되었으면 점수 300점 추가
                 Array.Clear(randomRecipe, 0, randomRecipe.Length);
                 Array.Copy(nextRandomRecipe, randomRecipe, ingredientAmt);

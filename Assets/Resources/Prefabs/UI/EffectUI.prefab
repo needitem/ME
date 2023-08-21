@@ -49,11 +49,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2515bab5a990324c8dd80d7a2e5c613, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 0}
-  recipeUIName: Recipe
   textScore_Prefeb: {fileID: 771952247838066535, guid: f1597806b133b9b48af048c0e3246e7f, type: 3}
   ImageRecipe_Prefeb: {fileID: 2989443780986399412, guid: 36ca7e0bdfd3a414694acd3a1f5ea374, type: 3}
-  showRecipe_Prefeb: {fileID: 7827733980310602265, guid: f3ae41179bd4d30408ce2476f77a191e, type: 3}
   movespeed: 20
   alphaSpeed: 0.5
   destroyTime: 3

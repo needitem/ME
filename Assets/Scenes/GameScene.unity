@@ -1300,7 +1300,6 @@ GameObject:
   - component: {fileID: 329298655}
   - component: {fileID: 329298658}
   - component: {fileID: 329298657}
-  - component: {fileID: 329298659}
   m_Layer: 5
   m_Name: Recipe
   m_TagString: Untagged
@@ -1370,18 +1369,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 329298654}
   m_CullTransparentMesh: 1
---- !u!114 &329298659
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 329298654}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31e7b1289ed656f4a91ed458eb9bca03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &338839493
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2298,6 +2285,8 @@ MonoBehaviour:
   - {fileID: 834641657}
   Gameover_Panel: {fileID: 1059360818}
   ScoreText: {fileID: 919375383}
+  effectUI: {fileID: 3666429560269334550, guid: f609369c057b899448be3e422082679d, type: 3}
+  recipeObj: {fileID: 329298654}
   recipeImage: {fileID: 329298657}
   ingredientImages:
   - {fileID: 704149227}
@@ -6930,6 +6919,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectObject: {fileID: 3666429560269334550, guid: f609369c057b899448be3e422082679d, type: 3}
   showRecipe: {fileID: 329298654}
+  gernerator: {fileID: 0}
 --- !u!4 &1599708740
 Transform:
   m_ObjectHideFlags: 0

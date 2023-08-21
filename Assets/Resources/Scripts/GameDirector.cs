@@ -11,12 +11,14 @@ public class GameDirector : MonoBehaviour
     [SerializeField] GameObject[] gIngredient_cnt;      // 재료 개수 텍스트를 나타내는 게임 오브젝트 배열
     [SerializeField] public GameObject Gameover_Panel;  // 게임 오버 패널 오브젝트
     [SerializeField] public GameObject ScoreText;
+    [SerializeField] public GameObject effectUI;
+    [SerializeField] public GameObject recipeObj;
     
 
     public Image recipeImage;               // 레시피 이미지 컴포넌트
     public Image[] ingredientImages;        // 재료 이미지 컴포넌트 배열
     public Image EffectRecipe;
-
+    
     public Image nextRecipeImage;               // 다음 레시피 이미지 컴포넌트
     public Image[] nextIngredientImages;        // 다음 재료 이미지 컴포넌트 배열
 
@@ -25,9 +27,12 @@ public class GameDirector : MonoBehaviour
 
     static public int hp;   // 플레이어의 현재 hp(static)
 
+    float time = 0.0f;
+
     // Start is called before the first frame update
     void Start()
     {
+        recipeObj = GameObject.Find("Canvas/Recipe");
         Application.targetFrameRate = 60;       //모바일 환경일 경우 프레임을 60으로 고정
         QualitySettings.vSyncCount = 0;
 
@@ -42,6 +47,9 @@ public class GameDirector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        time += Time.deltaTime;
+        effectUI.GetComponent<EffectUI>().SpringRecipe(recipeObj, time);
+
         ScoreText.GetComponent<Text>().text = "점수: " + Recipe.score;
         UpdateHearthp();        // UI에서 플레이어의 HP를 나타내는 하트 이미지 업데이트
         UpdateRecipeCnt();      // UI에서 재료 개수 업데이트

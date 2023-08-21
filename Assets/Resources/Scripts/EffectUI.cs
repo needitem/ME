@@ -47,7 +47,7 @@ public class EffectUI : MonoBehaviour
 
         textObj.transform.Translate(new Vector3(0, movespeed * time, 0));
         imageObj.transform.Translate(new Vector3(0, movespeed * time, 0));
-        SpringRecipe(showRecipe);
+        SpringRecipe(showRecipe, time);
 
         // 텍스트 오브젝트를 위로 이동시키는 기능
         // alpha 값의 투명도를 시간에 따라 0으로 보간하여 감소시킴
@@ -70,7 +70,7 @@ public class EffectUI : MonoBehaviour
         Destroy(imageObj);
     }
 
-    public void SpringRecipe(GameObject gameObject)
+    public void SpringRecipe(GameObject gameObject, float time)
     {
         if (time < 0.4f) //특정 위치에서 원점으로 이동
         {
