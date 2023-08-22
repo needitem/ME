@@ -61,6 +61,7 @@
     <Compile Include="Assets\Scripts\Tutorials\TutoHPMessage.cs" />
     <Compile Include="Assets\Scripts\Tutorials\TutorialsItemControl.cs" />
     <Compile Include="Assets\Scripts\SceneDirector.cs" />
+    <Compile Include="Assets\Scripts\GameStart_FadeOut.cs" />
     <Compile Include="Assets\Scripts\Tutorials\TutorialsManager.cs" />
     <Compile Include="Assets\Scripts\Tutorials\TutoAtkRange.cs" />
     <Compile Include="Assets\Scripts\Tutorials\TutoATkRangeMessage.cs" />
