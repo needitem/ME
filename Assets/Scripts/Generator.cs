@@ -5,19 +5,19 @@ using UnityEngine;
 public class Generator : MonoBehaviour
 {
     [SerializeField]
-    public GameObject[] mainFood; // ÁÖ¿ä À½½Ä ÇÁ¸®ÆÕ ¹è¿­
+    public GameObject[] mainFood; // ï¿½Ö¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­
     [SerializeField]
-    public GameObject[] subFood; // º¸Á¶ À½½Ä ÇÁ¸®ÆÕ ¹è¿­
+    public GameObject[] subFood; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­
 
-    private GameObject spawn; // »ý¼ºµÈ Àç·á¸¦ ÀúÀå
-    private GameObject NPC; //  NPC °Ô¾Ï ¿ÀºêÁ§Æ® 
+    private GameObject spawn; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½á¸¦ ï¿½ï¿½ï¿½ï¿½
+    private GameObject NPC; //  NPC ï¿½Ô¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® 
     AudioDirector audioDirector;
     AudioSource audioSource;
 
    
 
 
-    private float[][] spanArray = new float[][] // Àç·á »ý¼º ÁÖ±â¸¦ ÀúÀåÇÏ´Â 2Â÷¿ø ¹è¿­
+    private float[][] spanArray = new float[][] // ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö±â¸¦ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ 2ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­
     {
         new float[] {1.0f, 0.9f, 0.9f, 1.0f},
         new float[] {1.0f, 0.8f, 0.8f, 1.0f,},
@@ -26,12 +26,12 @@ public class Generator : MonoBehaviour
         new float[] {1.0f, 0.85f, 0.8f, 0.9f},
         new float[] {0.95f, 0.8f, 0.85f, 0.9f}
     };
-    float timeScale = 1.0f;//½Ã°£ ¹èÀ²
-    private float timeElapsed = 0f; //°æ°úÇÑ ½Ã°£
-    private int rowIndex = 0; // spanArrayÀÇ Çà ÀÎµ¦½º
-    private int colIndex = 0; // spanArrayÀÇ ¿­ ÀÎµ¦½º
+    float timeScale = 1.0f;//ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½
+    private float timeElapsed = 0f; //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½
+    private int rowIndex = 0; // spanArrayï¿½ï¿½ ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
+    private int colIndex = 0; // spanArrayï¿½ï¿½ ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
     private int gameSpeedUP = 0; // Spanspeed Index
-    private int countSevenFood = 0; // À½½ÄÀÌ 7È¸ »ý¼º µÈ È½¼ö
+    private int countSevenFood = 0; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 7È¸ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ È½ï¿½ï¿½
 
     //private int Index = 0;
     void Start()
@@ -46,22 +46,22 @@ public class Generator : MonoBehaviour
 
     void Update()
     {
-        timeElapsed += Time.deltaTime; // °æ°úÇÑ ½Ã°£ ¾÷µ¥ÀÌÆ®
+        timeElapsed += Time.deltaTime; // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 
-        if (timeElapsed >= GetCurrentSpan() * timeScale && GameDirector.hp > 0) //ÀÏÁ¤ ½Ã°£¸¶´Ù À½½Ä»ý¼º, hp°¡ 0º¸´Ù Å« °æ¿ì¿¡¸¸ ½ÇÇà
+        if (timeElapsed >= GetCurrentSpan() * timeScale && GameDirector.hp > 0) //ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½, hpï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å« ï¿½ï¿½ì¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         {
 
-            NPC.GetComponent<NPCController>().Drawing(); // NPC°¡ À½½Ä ´øÁö´Â ¿¡´Ï¸ÅÀÌ¼Ç ½ÇÇà
-            SpawnFood(); // À½½Ä»ý¼º
-            Gamespeed(); // °ÔÀÓ ¼Óµµ Á¶Àý
-            timeElapsed = 0; // Å¸ÀÌ¸Ó ÃÊ±âÈ­
-            if (colIndex == spanArray[rowIndex].Length - 1) // ÇöÀç ÇàÀÇ ¸¶Áö¸·¿­¿¡ µµ´ÞÇÑ °æ¿ì
+            NPC.GetComponent<NPCController>().Drawing(); // NPCï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½
+            SpawnFood(); // ï¿½ï¿½ï¿½Ä»ï¿½ï¿½ï¿½
+            Gamespeed(); // ï¿½ï¿½ï¿½ï¿½ ï¿½Óµï¿½ ï¿½ï¿½ï¿½ï¿½
+            timeElapsed = 0; // Å¸ï¿½Ì¸ï¿½ ï¿½Ê±ï¿½È­
+            if (colIndex == spanArray[rowIndex].Length - 1) // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             {
-                UpdateIndices(); // ´ÙÀ½ »ý¼ºÀ» À§ÇØ ÀÎµ¦½º ¾÷µ¥ÀÌÆ®
+                UpdateIndices(); // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
             }
             else
             {
-                colIndex++; // ´ÙÀ½¿­·Î ÀÌµ¿
+                colIndex++; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
             }
         }
         if (GameDirector.hp <= 0)
@@ -70,13 +70,13 @@ public class Generator : MonoBehaviour
         }
     }
 
-    public void SpawnFood() // À½½Ä »ý¼º
+    public void SpawnFood() // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         Vector3 spawnPosition = new Vector3(15, 1.5f, 1);
         GameObject foodPrefab;
         int itemHp;
 
-        if (Random.Range(0, 3) == 0) // 1/3ÀÇ È®·ü·Î ÁÖ¿ä À½½Ä »ý¼º
+        if (Random.Range(0, 3) == 0) // 1/3ï¿½ï¿½ È®ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         {
             foodPrefab = mainFood[Random.Range(0, mainFood.Length)];
             itemHp = 2; // main food has 2 hp
@@ -92,26 +92,26 @@ public class Generator : MonoBehaviour
         }
 
         spawn = Instantiate(foodPrefab, spawnPosition, Quaternion.identity);
-        spawn.name = foodPrefab.name; // À½½ÄÀÇ ÀÌ¸§À» ÇÁ¸®ÆÕ ÀÌ¸§À¸·Î ¼³Á¤ÇÏ¿© °èÃþ±¸Á¶¿¡¼­ ÇÁ¸®·¦ÀÌ¶ó´Â Ç¥½Ã¸¦ ¹æÁö
+        spawn.name = foodPrefab.name; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¶ï¿½ï¿½ Ç¥ï¿½Ã¸ï¿½ ï¿½ï¿½ï¿½ï¿½
         spawn.GetComponent<ItemController>().itemHp = itemHp;
     }
 
-    private float GetCurrentSpan() // ·ÃÀç À½½Ä »ý¼ºÁÖ±â 
+    private float GetCurrentSpan() // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö±ï¿½ 
     {
         return spanArray[rowIndex][colIndex]; // * speedArray[];
     }
 
     private void UpdateIndices()
     {
-        rowIndex = Random.Range(0, spanArray.Length); // ÇàÀÇ ÀÎµ¦½º ¾÷µ¥ÀÌÆ®
+        rowIndex = Random.Range(0, spanArray.Length); // ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
         colIndex = 0;
     }
 
     private void Gamespeed()
     {
-        if (gameSpeedUP < 9) // 9º¸´Ù ÀÛÀº °æ¿ì ½ÇÇà
+        if (gameSpeedUP < 9) // 9ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         {
-            if (countSevenFood == 7) //countSevenFood°¡ 7µÇ¸é ½ÇÇà
+            if (countSevenFood == 7) //countSevenFoodï¿½ï¿½ 7ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½ï¿½
             {
                 gameSpeedUP++; // gameSpeedUP +1
                 timeScale *= 0.95f; // timeScale +0.1f

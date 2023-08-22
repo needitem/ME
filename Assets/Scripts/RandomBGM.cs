@@ -7,7 +7,8 @@ public class RandomBGM : MonoBehaviour
     AudioSource audioSource;
     AudioDirector audioDirector;
 
-    public AudioClip[] Music = new AudioClip[7]; // »ç¿ëÇÒ BGM
+    public AudioClip[] Music = new AudioClip[7]; // ï¿½ï¿½ï¿½ï¿½ï¿½ BGM
+    public int currentBGMIndex = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -19,16 +20,25 @@ public class RandomBGM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (audioSource.isPlaying == false) //¸¸¾à ¿Àµð¿À ¼Ò½º°¡ ¸ØÃá´Ù¸é
+        if (audioSource.isPlaying == false) //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ò½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ù¸ï¿½
         {
-            // ´Ù½Ã ·£´ýÀ¸·Î bgmÀ» Àç»ý ½ÃÅ²´Ù.
-            audioSource.clip = Music[Random.Range(0, Music.Length)];
-            audioSource.Play();
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ bgm ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ bgmï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ bgmï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            PlayNextBGM();
         }
 
         if (GameDirector.hp <= 0)
         {
-            audioDirector.SoundMute(true); //À½¼Ò°Å
+            audioDirector.SoundMute(true); //ï¿½ï¿½ï¿½Ò°ï¿½
         }
+    }
+
+    void PlayNextBGM()
+    {
+        // ï¿½ï¿½ï¿½ï¿½ BGM ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        currentBGMIndex = (currentBGMIndex + 1) % Music.Length;
+
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ BGM ï¿½ï¿½ï¿½
+        audioSource.clip = Music[currentBGMIndex];
+        audioSource.Play();
     }
 }

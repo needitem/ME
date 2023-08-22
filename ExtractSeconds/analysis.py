@@ -11,8 +11,8 @@ from aubio import source, onset
 # https://github.com/aubio/aubio/blob/master/python/demos/demo_onset.py
 # https://aubio.org/manual/latest/py_io.html
 def get_onset_times(file_path):
-    window_size = 1024 # FFT size
-    hop_size = window_size // 4
+    window_size = 512 # FFT size
+    hop_size = window_size
 
     sample_rate = 0
     src_func = source(file_path, sample_rate, hop_size)
