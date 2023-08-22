@@ -36,6 +36,11 @@ public class SceneDirector : MonoBehaviour
         ScoreText.text = "SCORE: " + Recipe.score.ToString();  // 시작할 때 점수 텍스트를 업데이트합니다.
     }
 
+    public void OnClick_Quitbtn()
+    {
+        Application.Quit();
+    }
+
     void Update()
     {
     }
