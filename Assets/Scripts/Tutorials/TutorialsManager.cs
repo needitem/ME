@@ -7,9 +7,15 @@ public class TutorialsManager : MonoBehaviour
 {
     [SerializeField][Header("Tutorials items")] TutorialsItemControl[] items;
     int itemIndex = 0;
+
+    // 음식 생성에 대한 임시 스위치 변수
+    public static bool isGo = false;
+
     // Start is called before the first frame update
     void Start()
     {
+      
+
         // 모든 아이템을 비활성화 하고, 첫번째 것만 활성화 한다.
         if (items == null)
             return;
@@ -19,7 +25,7 @@ public class TutorialsManager : MonoBehaviour
 
         foreach (var item in items)
         {
-            item.gameObject.SetActive(false);
+            item.gameObject.SetActive(true);
         }
 
         itemIndex = -1;
@@ -34,6 +40,7 @@ public class TutorialsManager : MonoBehaviour
         if (itemIndex > -1 && itemIndex < items.Length)
         {
             items[itemIndex].gameObject.SetActive(false);
+            
         }
 
         // 인덱스 변경
@@ -43,6 +50,8 @@ public class TutorialsManager : MonoBehaviour
         {
             items[itemIndex].gameObject.SetActive(true);
         }
+
+
 
     }
 }
