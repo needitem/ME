@@ -48,7 +48,7 @@ public class Generator : MonoBehaviour
     {
         timeElapsed += Time.deltaTime; // 경과한 시간 업데이트
 
-        if (timeElapsed >= GetCurrentSpan() * timeScale && GameDirector.hp > 0) //일정 시간마다 음식생성, hp가 0보다 큰 경우에만 실행
+        if (timeElapsed >= GetCurrentSpan() * timeScale && GameDirector.hp > 0 && GameStart_FadeOut.isMessageWait == false) //일정 시간마다 음식생성, hp가 0보다 큰 경우에만 실행
         {
 
             NPC.GetComponent<NPCController>().Drawing(); // NPC가 음식 던지는 에니매이션 실행

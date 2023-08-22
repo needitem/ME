@@ -6,10 +6,13 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 public class GameDirector : MonoBehaviour
 {
+   
+
     [SerializeField] public int maxHp = 3;              // 플레이어의 최대 HP
     [SerializeField] public Image[] heartImages;        // 플레이어의 HP를 나타내는 하트 이미지 배열
     [SerializeField] GameObject[] gIngredient_cnt;      // 재료 개수 텍스트를 나타내는 게임 오브젝트 배열
     [SerializeField] public GameObject Gameover_Panel;  // 게임 오버 패널 오브젝트
+ 
 
     public Recipe recipe;                   // 레시피 스크립트 참조
     public Image recipeImage;               // 레시피 이미지 컴포넌트
@@ -27,6 +30,8 @@ public class GameDirector : MonoBehaviour
 
     void Start()
     {
+      
+
         Application.targetFrameRate = 60;       //모바일 환경일 경우 프레임을 60으로 고정
         QualitySettings.vSyncCount = 0;
 
@@ -41,6 +46,8 @@ public class GameDirector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+
         UpdateHearthp();        // UI에서 플레이어의 HP를 나타내는 하트 이미지 업데이트
         UpdateRecipeCnt();      // UI에서 재료 개수 업데이트
         UpdateRecipeUI();       // UI에서 레시피와 재료 이미지 업데이트
@@ -120,4 +127,6 @@ public class GameDirector : MonoBehaviour
     {
         SceneDirector.ChangeScene2();               // 게임오버 시 씬 디렉터의 ChangeScene2함수를 실행한다(finishScene 전환)
     }
+
+  
 } 

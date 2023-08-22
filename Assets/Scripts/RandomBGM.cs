@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RandomBGM : MonoBehaviour
 {
+    GameStart_FadeOut gs;
     AudioSource audioSource;
     AudioDirector audioDirector;
 
@@ -12,6 +13,7 @@ public class RandomBGM : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //gs = GetComponent<GameStart_FadeOut>();
         audioSource = GetComponent<AudioSource>();
         audioDirector = GetComponent<AudioDirector>();
     }
@@ -19,7 +21,7 @@ public class RandomBGM : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (audioSource.isPlaying == false) //만약 오디오 소스가 멈춘다면
+        if (audioSource.isPlaying == false && GameStart_FadeOut.isMessageWait == false)//gs.isMessageWait == false) //만약 오디오 소스가 멈춘다면
         {
             // 다시 랜덤으로 bgm을 재생 시킨다.
             audioSource.clip = Music[Random.Range(0, Music.Length)];
