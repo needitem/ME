@@ -21,12 +21,14 @@ public class Recipe : MonoBehaviour
     public GameObject gernerator;
 
     private const int ingredientAmt = 7;
-    private readonly int[] recipe1 = { 2, 0, 0, 0, 0, 2, 3 };
-    private readonly int[] recipe2 = { 0, 3, 0, 1, 3, 2, 0 };
-    private readonly int[] recipe3 = { 0, 0, 2, 2, 0, 3, 0 };
-    public static readonly int[] randomRecipe = new int[ingredientAmt];
+    private readonly int[] recipe1 = { 1, 0, 0, 0, 0, 1, 1 };
+    private readonly int[] recipe2 = { 0, 1, 0, 1, 1, 1, 0 };
+    private readonly int[] recipe3 = { 0, 0, 1, 1, 0, 1, 0 };
+    public static int[] randomRecipe = new int[ingredientAmt];
+    public static int[] nextRandomRecipe = new int[ingredientAmt];
 
-    public static int RecipeIndex { get; private set; }
+    public static int recipeIndex = 0;
+    public static int nextRecipeIndex = 0;
 
     public static int score;
     public static float time;
@@ -55,7 +57,7 @@ public class Recipe : MonoBehaviour
         return false;
     }
 
-    private void Awake() // initialize randomRecipe
+    private void Start() // initialize randomRecipe
     {
         Init();
         gernerator = GameObject.Find("Generator");
@@ -70,7 +72,6 @@ public class Recipe : MonoBehaviour
     {
         if (IsRecipeComplete(randomRecipe) || IsRecipeWrong(randomRecipe)) //만약 레시피가 완성되었거나 틀렸다면 레시피를 새로 만들고 UI를 업데이트
         {
-            gameDirector.GetComponent<GameDirector>().UpdateRecipeUI(); // update recipe UI
             if (IsRecipeComplete(randomRecipe))
             {
                 gernerator.GetComponent<Generator>().enabled = false;
@@ -108,13 +109,13 @@ public class Recipe : MonoBehaviour
         switch (randomIndex)
         {
             case 0:
-                Array.Copy(recipe1, randomRecipe, ingredientAmt); //레시피1을 randomRecipe에 복사
+                Array.Copy(recipe1, nextRandomRecipe, ingredientAmt); //레시피1을 nextRandomRecipe에 복사
                 break;
             case 1:
-                Array.Copy(recipe2, randomRecipe, ingredientAmt); //레시피2를 randomRecipe에 복사
+                Array.Copy(recipe2, nextRandomRecipe, ingredientAmt); //레시피2를 nextRandomRecipe에 복사
                 break;
             case 2:
-                Array.Copy(recipe3, randomRecipe, ingredientAmt); //레시피3을 randomRecipe에 복사
+                Array.Copy(recipe3, nextRandomRecipe, ingredientAmt); //레시피3을 nextRandomRecipe에 복사
                 break;
         }
         return randomIndex;
