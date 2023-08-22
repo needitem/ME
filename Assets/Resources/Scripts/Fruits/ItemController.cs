@@ -5,23 +5,22 @@ using UnityEditor;
 
 public class ItemController : MonoBehaviour
 {
-
     [SerializeField] public int itemHp;
 
     bool executeOnlyOnce = true;
+
     // Bezier rate
     [Range(0f, 1f)] public float rate;
+
     // Bezier position
     public Vector2[] controllPosition;
     // End Bezier and Force
     public Rigidbody2D rb;
-    Animator itemAnimator;
+    public Animator itemAnimator;
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         itemAnimator = GetComponent<Animator>();
-
-
     }
 
     private void FixedUpdate()
@@ -81,6 +80,4 @@ public class ItemController : MonoBehaviour
         Vector2 F = Vector2.Lerp(D, E, value);      //D지점과 E지점의 선형구간 계산값 : F
         return F;                                   //위에서 계산한 총 결과값을 F로 반환
     }
-
-
 }

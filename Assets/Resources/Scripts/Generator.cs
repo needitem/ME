@@ -12,10 +12,6 @@ public class Generator : MonoBehaviour
     private GameObject spawn; // ������ ��Ḧ ����
     private GameObject NPC; //  NPC �Ծ� ������Ʈ 
     AudioDirector audioDirector;
-    AudioSource audioSource;
-
-   
-
 
     private float[][] spanArray = new float[][] // ��� ���� �ֱ⸦ �����ϴ� 2���� �迭
     {
@@ -36,7 +32,6 @@ public class Generator : MonoBehaviour
     //private int Index = 0;
     void Start()
     {
-        audioSource = GetComponent<AudioSource>();
         audioDirector = GetComponent<AudioDirector>();
         mainFood = Resources.LoadAll<GameObject>("Prefabs/MainFood");
         subFood = Resources.LoadAll<GameObject>("Prefabs/SubFood");
