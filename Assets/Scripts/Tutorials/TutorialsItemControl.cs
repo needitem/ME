@@ -12,9 +12,9 @@ public class TutorialsItemControl : MonoBehaviour
         touch
     }
 
-    [SerializeField][Header("따라하기 아이템 종류")] ItemType itemType;
-    [SerializeField][Header("사용자 입력 대기까지 진행시간")] float timeToInput;
-    [SerializeField][Header("사용자 입력 대기시 표시할 게임오브젝트")] GameObject gameObjectToShow;
+    [SerializeField] [Header("따라하기 아이템 종류")] ItemType itemType;
+    [SerializeField] [Header("사용자 입력 대기까지 진행시간")] float timeToInput;
+    [SerializeField] [Header("사용자 입력 대기시 표시할 게임오브젝트")] GameObject gameObjectToShow;
 
     bool isReadyToInput = false;
 
@@ -36,7 +36,7 @@ public class TutorialsItemControl : MonoBehaviour
     void Update()
     {
         // 입력대기 상태가 되면 터치를 입력 받는다.
-        if (isReadyToInput)
+        if (isReadyToInput && GameDirector.isTouch == true)
         {
             if (itemType == ItemType.touch)
             {

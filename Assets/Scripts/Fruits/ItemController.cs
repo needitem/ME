@@ -59,9 +59,6 @@ public class ItemController : MonoBehaviour
         }
 
 
-
-
-
         // 재료가 생성되고 베지어 곡선을 따라가다가, 생성된지 1초가 넘으면 왼쪽 방향으로
         // AddForce를 주기(날아가는 듯한 효과를 위함)
         if (rate >= 1f)
@@ -69,9 +66,7 @@ public class ItemController : MonoBehaviour
             
             rb.AddForce(Vector2.left * 250.0f);
         }
-
-
-       
+   
     }
 
     // https://www.youtube.com/watch?v=KTEX2L4T4zE

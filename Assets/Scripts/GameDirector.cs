@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 public class GameDirector : MonoBehaviour
 {
+    public static bool isTouch = false;// 튜토리얼에서 터치를 했는가 알려주는 스위치변수
     [SerializeField] public int maxHp = 3;              // 플레이어의 최대 HP
     [SerializeField] public Image[] heartImages;        // 플레이어의 HP를 나타내는 하트 이미지 배열
     [SerializeField] GameObject[] gIngredient_cnt;      // 재료 개수 텍스트를 나타내는 게임 오브젝트 배열
