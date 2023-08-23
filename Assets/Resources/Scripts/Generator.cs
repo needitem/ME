@@ -20,6 +20,9 @@ public class Generator : MonoBehaviour
     private int index = 0;
 
     List<string> timeArray = new List<string>();
+    float deltatime = 0.0f;
+
+    public bool one = true;
 
     private void Awake()
     {
@@ -39,8 +42,10 @@ public class Generator : MonoBehaviour
 
     void Update()
     {
+        deltatime += Time.deltaTime;
+        if (!GameStart_FadeOut.isMessageWait && one) {deltatime = 0.0f; one = false; }
 
-        if (Time.time >= float.Parse(timeArray[index]) && GameDirector.hp > 0)
+        if (deltatime >= float.Parse(timeArray[index]) && GameDirector.hp > 0 && !one)
         {
             SpawnFood();
             Debug.Log("time: " + float.Parse(timeArray[index]));
