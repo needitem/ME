@@ -13,7 +13,7 @@ public class MenuController : MonoBehaviour
     private bool isMuted1 = false;                      // SFX 토글의 음소거 여부
     private bool isMuted2 = false;                      // BGM 토글의 음소거 여부
 
-    public void Click_Menu()    // 메뉴 버튼을 클릭했을 경우
+    public void Click_Menu()                            // 메뉴 버튼을 클릭했을 경우
     {
         Time.timeScale = 0;                             // 게임 시간을 일시적으로 멈춥니다.
         Panel_menu.SetActive(true);                     // 메뉴 패널을 활성화합니다.
@@ -27,13 +27,15 @@ public class MenuController : MonoBehaviour
 
     public void Click_Exit() // 메뉴패널의 QUIT 버튼 클릭했을 경우
     {
-        Scenechange();                                  // Scenechange 함수를 호출하여 타이틀 씬으로 전환합니다.
+        SceneDirector.ChangeScene3();                   // Scenechange 함수를 호출하여 타이틀 씬으로 전환합니다.
     }
 
+    /*
     private void Scenechange() // 씬 전환 함수
     {
         SceneManager.LoadScene("TitleScene");           // "TitleScene"을 로드하여 씬을 전환합니다.
     }
+    */
 
     void Start()
     {

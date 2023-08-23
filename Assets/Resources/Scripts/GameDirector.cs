@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 using System.Linq;
 public class GameDirector : MonoBehaviour
 {
+    public static bool isTouch = false;// 튜토리얼에서 터치를 했는가 알려주는 스위치변수
     [SerializeField] public int maxHp = 3;              // 플레이어의 최대 HP
     [SerializeField] public Image[] heartImages;        // 플레이어의 HP를 나타내는 하트 이미지 배열
     [SerializeField] GameObject[] gIngredient_cnt;      // 재료 개수 텍스트를 나타내는 게임 오브젝트 배열
@@ -15,6 +16,7 @@ public class GameDirector : MonoBehaviour
     [SerializeField] public GameObject recipeObj;
     
 
+    public Recipe recipe;                   // 레시피 스크립트 참조
     public Image recipeImage;               // 레시피 이미지 컴포넌트
     public Image[] ingredientImages;        // 재료 이미지 컴포넌트 배열
     public Image EffectRecipe;
@@ -54,7 +56,6 @@ public class GameDirector : MonoBehaviour
         UpdateHearthp();        // UI에서 플레이어의 HP를 나타내는 하트 이미지 업데이트
         UpdateRecipeCnt();      // UI에서 재료 개수 업데이트
         UpdateRecipeUI();       // UI에서 레시피와 재료 이미지 업데이트
-        UpdateNextRecipe();     // UI에서 다음 레시피를 미리 보여줌
 
         if (hp <= 0)            // hp가 0이라면
         {
@@ -74,8 +75,9 @@ public class GameDirector : MonoBehaviour
     public void UpdateRecipeCnt()
     {
         for (int i = 0; i < 4; i++)     // 0부터 3까지의 인덱스를 사용하여 반복
-        {   
-            try{
+        {
+            try
+            {
                 // 잔여 레시피 개수를 가져와서 UI에 업데이트
                 // Recipe.ShowLeftoverRecipe().Values.ToList()[i]를 사용하여 잔여 레시피 개수를 가져온다.
                 // gIngredient_cnt[i].GetComponent<Text>().text를 사용하여
@@ -87,7 +89,7 @@ public class GameDirector : MonoBehaviour
                 // 만약 예외가 발생한다면(개수가 없을 경우), 해당 인덱스에 해당하는 Text 컴포넌트의 text 속성을 비워둔다.
                 gIngredient_cnt[i].GetComponent<Text>().text = "";
             }
-       }
+        }
     }
 
     public void UpdateRecipeUI()
@@ -111,23 +113,6 @@ public class GameDirector : MonoBehaviour
             {
                 //만약 예외가 발생한다면 ingredientImages 배열에서 현재 인덱스에 해당하는 Image 컴포넌트의 활성화 상태를 false로 설정
                 ingredientImages[i].enabled = false;
-            }
-        }
-    } 
-
-    public void UpdateNextRecipe()
-    {
-        for(int i =0; i< 4; i++)
-        {
-            try
-            {
-                nextIngredientImages[i].enabled = true;
-                nextRecipeImage.sprite = recipeSprites[Recipe.nextRecipeIndex];
-                nextIngredientImages[i].sprite = ingredientSprites[Recipe.ShowNextRecipe().ToList()[i]];
-            }
-            catch
-            {
-                nextIngredientImages[i].enabled = false;
             }
         }
     }
@@ -156,4 +141,6 @@ public class GameDirector : MonoBehaviour
     {
         SceneDirector.ChangeScene2();               // 게임오버 시 씬 디렉터의 ChangeScene2함수를 실행한다(finishScene 전환)
     }
-} 
+
+
+}
