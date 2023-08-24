@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3fb4c9caa8cb5924db0d64d9ba1945aa
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Gameover_Panel: {instanceID: 0}
+  - GameStart: {fileID: 6719980518885208567, guid: 18e29d8275f4814448929d48aea9de02, type: 3}
+  - recipe: {instanceID: 0}
+  - recipeImage: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
