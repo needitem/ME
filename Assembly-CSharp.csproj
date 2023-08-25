@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{56112D24-A6E0-32EE-CC63-C24911FD521D}</ProjectGuid>
+    <ProjectGuid>{1F4F5458-1E44-DB6B-CB1B-A5702A1C1E1A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -93,22 +93,28 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
     <None Include="Assets\Resources\Sound\effect_sound\Documentation-Free.txt" />
     <None Include="Assets\Resources\Thaleah_PixelFont\SimplePixelUI\fonts\Font2\license.txt" />
+    <None Include="Assets\BGM_text\Track_3.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
+    <None Include="Assets\BGM_text\Track_2.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
+    <None Include="Assets\BGM_text\Track_4.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\Resources\Thaleah_PixelFont\SimplePixelUI\fonts\Font1\license.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
+    <None Include="Assets\BGM_text\Track_5.txt" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
+    <None Include="Assets\BGM_text\Track_6.txt" />
+    <None Include="Assets\BGM_text\Track_1.txt" />
     <None Include="Assets\Resources\Thaleah_PixelFont\SimplePixelUI\fonts\Font1\readme.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
-    <None Include="Assets\BGM_text\Track_1.txt" />
+    <None Include="Assets\BGM_text\Track_7.txt" />
     <None Include="Assets\Resources\Sound\BGM\Notes.txt" />
     <None Include="Assets\Resources\Thaleah_PixelFont\SimplePixelUI\fonts\Font2\readme.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />

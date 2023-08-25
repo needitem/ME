@@ -24,6 +24,8 @@ public class Generator : MonoBehaviour
 
     public bool one = true;
 
+    private float fDelayBit = 0.3f; // 비트 텍스트가 느리기 때문에 무조건 이 값을 빼 주어야 함 텍스트 - fDelayBit
+
     private void Awake()
     {
         ReadTrackFile();
@@ -45,8 +47,9 @@ public class Generator : MonoBehaviour
         deltatime += Time.deltaTime;
         if (!GameStart_FadeOut.isMessageWait && one) {deltatime = 0.0f; one = false; }
 
-        if (deltatime >= float.Parse(timeArray[index]) && GameDirector.hp > 0 && !one)
+        if (deltatime >= float.Parse(timeArray[index])-this.fDelayBit && GameDirector.hp > 0 && !one)
         {
+            
             SpawnFood();
             Debug.Log("time: " + float.Parse(timeArray[index]));
             index++;
@@ -60,7 +63,7 @@ public class Generator : MonoBehaviour
 
     private void ReadTrackFile()
     {
-        string filePath = $"Assets/BGM_text/Track_1.txt";
+        string filePath = $"Assets/BGM_text/Track_7.txt";
         StreamReader sr = new StreamReader(filePath);
         if (sr != null)
         {
@@ -78,6 +81,7 @@ public class Generator : MonoBehaviour
         GameObject foodPrefab;
         int itemHp;
 
+
         if (Random.Range(0, 3) == 0)
         {
             foodPrefab = mainFood[Random.Range(0, mainFood.Length)];
@@ -93,7 +97,10 @@ public class Generator : MonoBehaviour
 
         }
 
-        spawn = Instantiate(foodPrefab, spawnPosition, Quaternion.identity);
+
+        NPC.GetComponent<NPCController>().Drawing(); //던지는 애니메이션
+        audioDirector.SoundPlay("Sound/effect_sound/Kick"); // 드럼 kick소리
+        spawn = Instantiate(foodPrefab, spawnPosition, Quaternion.identity); //프리팹 생성
         spawn.name = foodPrefab.name;
         spawn.GetComponent<ItemController>().itemHp = itemHp;
     }
