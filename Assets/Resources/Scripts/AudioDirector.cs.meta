@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/AudioDirector.cs.meta
+guid: f9ce06c2b40d18044a89103cf72695a9
+========
+guid: deb28b2401404bf408bf2808248b0079
+>>>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8:Assets/Scripts/Fruits/Effect.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

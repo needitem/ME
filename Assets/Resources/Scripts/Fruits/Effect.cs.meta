@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/Fruits/Effect.cs.meta
+guid: deb28b2401404bf408bf2808248b0079
+========
+guid: e3b94f347ff981446a4f7a208b0e4781
+>>>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8:Assets/Scripts/Menu/MenuController.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

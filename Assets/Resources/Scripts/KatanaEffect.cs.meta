@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scripts/KatanaEffect.cs.meta
+guid: 86958b8f6adbf1746a41a4887f08ea56
+========
+guid: a86cb36d0d24be14b9d1625c8772cf8f
+>>>>>>>> 766af1bccbed5d26b5e3ad685556ce731b5139c8:Assets/Scripts/katana_effect.cs.meta
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
