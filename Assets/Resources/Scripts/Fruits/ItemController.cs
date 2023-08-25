@@ -52,8 +52,8 @@ public class ItemController : MonoBehaviour
                 executeOnlyOnce = false;
             }
            
-            rb.AddForce(Vector2.right * 250.0f); // 오른쪽으로도 250만큼의 힘을 가해 멈춰있는것 처럼 보이게 함
-            
+            rb.AddForce(Vector2.right * 370.0f); // 오른쪽으로도 250만큼의 힘을 가해 멈춰있는것 처럼 보이게 함
+            rb.GetComponent<Collider2D>().enabled = false;
             rb.gravityScale = 15f; // 중력을 부여해 아래로 떨어지게 하기
         }
 
@@ -61,7 +61,7 @@ public class ItemController : MonoBehaviour
         // AddForce를 주기(날아가는 듯한 효과를 위함)
         if (rate >= 1f)
         {    
-            rb.AddForce(Vector2.left * 250.0f);
+            rb.AddForce(Vector2.left * 370.0f);
         }
        
     }
