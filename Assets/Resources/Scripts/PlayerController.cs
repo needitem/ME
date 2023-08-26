@@ -8,13 +8,13 @@ public class PlayerController : MonoBehaviour
 
     private bool hasAttacked = false; // 공격한 상태인지 여부를 나타내는 변수
     private float lastAttackTime = -1f; // 마지막 공격 시간을 저장하는 변수
-    private float doubleAttackTimeWindow = 0.2f; // 더블 공격을 인식하기 위한 시간 간격
+    private float doubleAttackTimeWindow = 0.4f; // 더블 공격을 인식하기 위한 시간 간격
 
 
     public Vector2 boxSize; // OverlapBox의 크기를 지정하는 변수
     public Transform pos; // OverlapBox의 위치를 지정하는 변수
     bool isPunched = false; // 플레이어가 튕겨내기중인가 여부를 나타내는 변수
-    bool isDouble = false;  // 플레이거가 더블어택중인가 여부를 나타내는 변수
+   // bool isDouble = false;  // 플레이거가 더블어택중인가 여부를 나타내는 변수
     public bool isDelay = false; //attack delay
     Animator playerAnimator; // 플레이어의 애니메이터 컴포넌트를 참조하는 변수
     AudioDirector audioDirector; // 플레이어의 오디오디렉터 컴포넌트를 참조하는 변수
@@ -72,7 +72,7 @@ public class PlayerController : MonoBehaviour
                 if (collider.tag == "Target")
                 // collider 변수가 참조하는 충돌체의 태그가 Target이라면
                 {
-                    audioDirector.SoundPlay("Sound/effect_sound/fryingpan"); // 튕겨내기 사운드 재생
+                    audioDirector.SoundPlay("Sound/effect_sound/snare"); // 튕겨내기 사운드 재생
                     KatanaEffect.Punch(); // 튕겨내기 이펙트 발동(후라이펜 튕기는 효과)
                     Effect.Apply(collider.gameObject); // 튕겨내기 이펙트 적용(재료에 적용되는 효과)
                 }
@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
                 }
             }
             isDelay = true; // 딜레이를 주기 위해 isDelay라는 bool변수에 true 할당
-            StartCoroutine(CountAttackDelay(0.4f)); // 딜레이 적용을 주기위해 코루틴 실행
+            StartCoroutine(CountAttackDelay(0.1f)); // 딜레이 적용을 주기위해 코루틴 실행
         }
 
     }
@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
 
         var colliders = Physics2D.OverlapBoxAll(pos.position, boxSize, 0).ToList();
 
-        if (!isDelay) //if attack delay is false, attack. attack delay is true when player attacks
+        if (!isDelay && (currentTime - lastAttackTime) >= doubleAttackTimeWindow) //if attack delay is false, attack. attack delay is true when player attacks
             // 공격 딜레이가 OFF라면
         {
 
@@ -108,7 +108,11 @@ public class PlayerController : MonoBehaviour
                 {
                     KatanaEffect.Attack(); // 공격 이펙트 발동(카타나에 적용되는 효과)
                     collider.gameObject.GetComponent<ItemController>().itemHp--; // 감지된 충돌체의 아이템 체력 감소 
-                    audioDirector.SoundPlay("Sound/effect_sound/slice1"); // 자르는 효과음 재생
+                    audioDirector.SoundPlay("Sound/effect_sound/HiHat"); // 자르는 효과음 재생
+                    if (collider.name == "chicken") //if the ingredient is chicken, play the sound of slicing chicken
+                    {
+                        audioDirector.SoundPlay("Sound/effect_sound/chicken"); // 치킨 자르는 소리
+                    }
                 }
                 else
                 {
@@ -117,20 +121,20 @@ public class PlayerController : MonoBehaviour
             }
 
             isDelay = true; // 딜레이 ON
-            lastAttackTime = currentTime; //reset the last attack time
+            lastAttackTime =Time.time; //reset the last attack time
             // 마지막 공격 시간을 현재 시간으로 업데이트
-            StartCoroutine(CountAttackDelay(0.4f)); // 0.4초 뒤 공격 딜레이, 공격중인 상태 OFF
+            StartCoroutine(CountAttackDelay(0.1f)); // 0.4초 뒤 공격 딜레이, 공격중인 상태 OFF
         }
         else if ((currentTime - lastAttackTime) <= doubleAttackTimeWindow) //if player attacks again within 0.2 seconds
         {
-            isDouble = true; // 플레이어가 더블어택 중인 상태로 변경
+           // isDouble = true; // 플레이어가 더블어택 중인 상태로 변경
             playerAnimator.SetTrigger("double_attack"); // 더블 어택 애니메이션 재생
 
             foreach (Collider2D collider in colliders)
             {
                 if (collider.tag == "Target") //if there is collider in the box, play the sound of slicing ingredient
                 {
-                    audioDirector.SoundPlay("Sound/effect_sound/slice2"); // 더블 어택 소리 재생
+                    audioDirector.SoundPlay("Sound/effect_sound/HiHat2"); // 더블 어택 소리 재생
                     if (collider.name == "chicken") //if the ingredient is chicken, play the sound of slicing chicken
                     {
                         audioDirector.SoundPlay("Sound/effect_sound/chicken"); // 치킨 자르는 소리
@@ -144,6 +148,8 @@ public class PlayerController : MonoBehaviour
                 }
             }
             isDelay = true; // 딜레이 ON
+            StartCoroutine(CountAttackDelay(0.1f)); // 0.4초 뒤 공격 딜레이, 공격중인 상태 OFF
+            lastAttackTime = 0; //reset the last attack time
         }
     }
 
@@ -157,15 +163,10 @@ public class PlayerController : MonoBehaviour
     IEnumerator CountAttackDelay(float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
-        if (isDouble == true) // 만약 더블 어택중 이라면
-        {
-            Invoke("ResetDelay", 0.2f); // delayTime + 0.2초 후 초기화
-            isDouble = false; // 더블 어택 상태 OFF
-        }
-        else if (isDouble == false) // 더블 어택 중이라면
-        {
+       
+        
             ResetDelay(); // delayTime초 만큼 후 초기화
-        }
+        
 
     }
 

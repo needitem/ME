@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
@@ -17,13 +18,13 @@ public class Generator : MonoBehaviour
 
     public int bgmIndex = 1;
     private int index = 0;
-    private int song = 0;
 
-    List<List<string>> timeArray = new List<List<string>>();
-    List<string> temp = new List<string>();
+    List<string> timeArray = new List<string>();
     float deltatime = 0.0f;
 
     public bool one = true;
+
+    private float fDelayBit = 0.3f; // 비트 텍스트가 느리기 때문에 무조건 이 값을 빼 주어야 함 텍스트 - fDelayBit
 
     private void Awake()
     {
@@ -38,6 +39,7 @@ public class Generator : MonoBehaviour
         subFood = Resources.LoadAll<GameObject>("Prefabs/SubFood");
         NPC = GameObject.Find("NPC");
         randomBGM = FindObjectOfType<RandomBGM>();
+
     }
 
     void Update()
@@ -45,13 +47,12 @@ public class Generator : MonoBehaviour
         deltatime += Time.deltaTime;
         if (!GameStart_FadeOut.isMessageWait && one) {deltatime = 0.0f; one = false; }
 
-        if (deltatime >= float.Parse(timeArray[song][index]) && GameDirector.hp > 0 && !one)
+        if (deltatime >= float.Parse(timeArray[index])-this.fDelayBit && GameDirector.hp > 0 && !one)
         {
-            SpawnFood();
-            Debug.Log("time: " + float.Parse(timeArray[song][index]));
-            try{ index++; }
-            catch { index = 0; song++; }
             
+            SpawnFood();
+            Debug.Log("time: " + float.Parse(timeArray[index]));
+            index++;
         }
 
         if (GameDirector.hp <= 0)
@@ -62,25 +63,16 @@ public class Generator : MonoBehaviour
 
     private void ReadTrackFile()
     {
-        string filePath = $"Assets/BGM_text";
-        string[] txtFiles = Directory.GetFiles(filePath, "*.txt");
-        foreach (string file in txtFiles)
+        string filePath = $"Assets/BGM_text/Track_7.txt";
+        StreamReader sr = new StreamReader(filePath);
+        if (sr != null)
         {
-            StreamReader sr = new StreamReader(filePath);
-            if (sr != null)
+            while (!sr.EndOfStream)
             {
-                while (!sr.EndOfStream)
-                {
-                    string line = sr.ReadLine();
-                    temp.Add(line);
-                }
-            }
-            foreach(string line in temp)
-            {
-                timeArray[index].Add(line);
+                string line = sr.ReadLine();
+                timeArray.Add(line);
             }
         }
-
     }
 
     public void SpawnFood()
@@ -88,6 +80,7 @@ public class Generator : MonoBehaviour
         Vector3 spawnPosition = new Vector3(15, 1.5f, 1);
         GameObject foodPrefab;
         int itemHp;
+
 
         if (Random.Range(0, 3) == 0)
         {
@@ -104,7 +97,10 @@ public class Generator : MonoBehaviour
 
         }
 
-        spawn = Instantiate(foodPrefab, spawnPosition, Quaternion.identity);
+
+        NPC.GetComponent<NPCController>().Drawing(); //던지는 애니메이션
+        audioDirector.SoundPlay("Sound/effect_sound/Kick"); // 드럼 kick소리
+        spawn = Instantiate(foodPrefab, spawnPosition, Quaternion.identity); //프리팹 생성
         spawn.name = foodPrefab.name;
         spawn.GetComponent<ItemController>().itemHp = itemHp;
     }
