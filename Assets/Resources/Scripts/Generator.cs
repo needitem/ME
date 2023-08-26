@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
@@ -18,8 +17,10 @@ public class Generator : MonoBehaviour
 
     public int bgmIndex = 1;
     private int index = 0;
+    private int song = 0;
 
-    List<string> timeArray = new List<string>();
+    List<List<string>> timeArray = new List<List<string>>();
+    List<string> temp = new List<string>();
     float deltatime = 0.0f;
 
     public bool one = true;
@@ -37,7 +38,6 @@ public class Generator : MonoBehaviour
         subFood = Resources.LoadAll<GameObject>("Prefabs/SubFood");
         NPC = GameObject.Find("NPC");
         randomBGM = FindObjectOfType<RandomBGM>();
-
     }
 
     void Update()
@@ -45,11 +45,13 @@ public class Generator : MonoBehaviour
         deltatime += Time.deltaTime;
         if (!GameStart_FadeOut.isMessageWait && one) {deltatime = 0.0f; one = false; }
 
-        if (deltatime >= float.Parse(timeArray[index]) && GameDirector.hp > 0 && !one)
+        if (deltatime >= float.Parse(timeArray[song][index]) && GameDirector.hp > 0 && !one)
         {
             SpawnFood();
-            Debug.Log("time: " + float.Parse(timeArray[index]));
-            index++;
+            Debug.Log("time: " + float.Parse(timeArray[song][index]));
+            try{ index++; }
+            catch { index = 0; song++; }
+            
         }
 
         if (GameDirector.hp <= 0)
@@ -60,16 +62,25 @@ public class Generator : MonoBehaviour
 
     private void ReadTrackFile()
     {
-        string filePath = $"Assets/BGM_text/Track_1.txt";
-        StreamReader sr = new StreamReader(filePath);
-        if (sr != null)
+        string filePath = $"Assets/BGM_text";
+        string[] txtFiles = Directory.GetFiles(filePath, "*.txt");
+        foreach (string file in txtFiles)
         {
-            while (!sr.EndOfStream)
+            StreamReader sr = new StreamReader(filePath);
+            if (sr != null)
             {
-                string line = sr.ReadLine();
-                timeArray.Add(line);
+                while (!sr.EndOfStream)
+                {
+                    string line = sr.ReadLine();
+                    temp.Add(line);
+                }
+            }
+            foreach(string line in temp)
+            {
+                timeArray[index].Add(line);
             }
         }
+
     }
 
     public void SpawnFood()
