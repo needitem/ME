@@ -2342,7 +2342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fb4c9caa8cb5924db0d64d9ba1945aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 3
+  maxHp: 999993
   heartImages:
   - {fileID: 239685668}
   - {fileID: 1754524105}
@@ -3100,7 +3100,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Music:
   - {fileID: 8300000, guid: 1f2ad53bacc245642854dbdc8ea71a9b, type: 3}
-  currentBGMIndex: 0
 --- !u!1 &704149225
 GameObject:
   m_ObjectHideFlags: 0

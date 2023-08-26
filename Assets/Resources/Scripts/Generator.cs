@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using System.IO;
 using System.Collections.Generic;
@@ -17,14 +16,16 @@ public class Generator : MonoBehaviour
     public RandomBGM randomBGM;
 
     public int bgmIndex = 1;
-    private int index = 0;
+    static public int index = 0;
+    private int song = 0;
 
-    List<string> timeArray = new List<string>();
+    List<List<string>> timeArray = new List<List<string>>();
+    List<string> temp = new List<string>();
     float deltatime = 0.0f;
 
     public bool one = true;
 
-    private float fDelayBit = 0.3f; // ºñÆ® ÅØ½ºÆ®°¡ ´À¸®±â ¶§¹®¿¡ ¹«Á¶°Ç ÀÌ °ªÀ» »© ÁÖ¾î¾ß ÇÔ ÅØ½ºÆ® - fDelayBit
+    private float fDelayBit = 0.3f;
 
     private void Awake()
     {
@@ -39,7 +40,7 @@ public class Generator : MonoBehaviour
         subFood = Resources.LoadAll<GameObject>("Prefabs/SubFood");
         NPC = GameObject.Find("NPC");
         randomBGM = FindObjectOfType<RandomBGM>();
-
+        
     }
 
     void Update()
@@ -47,12 +48,13 @@ public class Generator : MonoBehaviour
         deltatime += Time.deltaTime;
         if (!GameStart_FadeOut.isMessageWait && one) {deltatime = 0.0f; one = false; }
 
-        if (deltatime >= float.Parse(timeArray[index])-this.fDelayBit && GameDirector.hp > 0 && !one)
+        if (deltatime >= float.Parse(timeArray[song][index]) - fDelayBit && GameDirector.hp > 0 && !one)
         {
-            
             SpawnFood();
-            Debug.Log("time: " + float.Parse(timeArray[index]));
-            index++;
+            Debug.Log("time: " + float.Parse(timeArray[song][index]));
+            try{ index++; }
+            catch {song = RandomBGM.currentBGMIndex; }
+            
         }
 
         if (GameDirector.hp <= 0)
@@ -63,16 +65,26 @@ public class Generator : MonoBehaviour
 
     private void ReadTrackFile()
     {
-        string filePath = $"Assets/BGM_text/Track_7.txt";
-        StreamReader sr = new StreamReader(filePath);
-        if (sr != null)
+        string filePath = $"Assets/BGM_text";
+        string[] txtFiles = Directory.GetFiles(filePath, "*.txt");
+        foreach (string file in txtFiles)
         {
-            while (!sr.EndOfStream)
+            
+            StreamReader sr = new StreamReader(file);
+            if (sr != null)
             {
-                string line = sr.ReadLine();
-                timeArray.Add(line);
+                while (!sr.EndOfStream)
+                {
+                    string line = sr.ReadLine();
+                    temp.Add(line);
+                }
             }
+            timeArray.Add(new List<string>(temp));
+            temp.Clear();
         }
+
+
+
     }
 
     public void SpawnFood()
@@ -80,7 +92,6 @@ public class Generator : MonoBehaviour
         Vector3 spawnPosition = new Vector3(15, 1.5f, 1);
         GameObject foodPrefab;
         int itemHp;
-
 
         if (Random.Range(0, 3) == 0)
         {
@@ -98,9 +109,11 @@ public class Generator : MonoBehaviour
         }
 
 
-        NPC.GetComponent<NPCController>().Drawing(); //´øÁö´Â ¾Ö´Ï¸ÞÀÌ¼Ç
-        audioDirector.SoundPlay("Sound/effect_sound/Kick"); // µå·³ kick¼Ò¸®
-        spawn = Instantiate(foodPrefab, spawnPosition, Quaternion.identity); //ÇÁ¸®ÆÕ »ý¼º
+
+
+        NPC.GetComponent<NPCController>().Drawing(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½
+        audioDirector.SoundPlay("Sound/effect_sound/Kick"); // ï¿½å·³ kickï¿½Ò¸ï¿½
+        spawn = Instantiate(foodPrefab, spawnPosition, Quaternion.identity); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         spawn.name = foodPrefab.name;
         spawn.GetComponent<ItemController>().itemHp = itemHp;
     }
