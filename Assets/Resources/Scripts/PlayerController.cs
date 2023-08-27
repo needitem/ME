@@ -201,7 +201,7 @@ public class PlayerController : MonoBehaviour
     public void NewButtonDelay()
     {
         LButton.GetComponent<Button>().interactable = true;
-        LButton.GetComponent<Button>().interactable = true;
+        RButton.GetComponent<Button>().interactable = true;
     }
     private void OnDrawGizmos()
     {
