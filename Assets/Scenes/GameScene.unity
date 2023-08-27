@@ -7677,6 +7677,8 @@ MonoBehaviour:
   boxSize: {x: 1, y: 2}
   pos: {fileID: 1105456520}
   isDelay: 0
+  LButton: {fileID: 2092120137}
+  RButton: {fileID: 1741054952}
 --- !u!82 &1675816006
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8760,7 +8762,7 @@ GameObject:
   - component: {fileID: 1939812647}
   - component: {fileID: 1939812648}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Ready,Go
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8822,8 +8824,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 9590bee3e05884848ad61e178a62b7c6, type: 2}
-  m_sharedMaterial: {fileID: -5347776707798700771, guid: 9590bee3e05884848ad61e178a62b7c6, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5cfdaa6cc91c5c149a145db60cf04007, type: 2}
+  m_sharedMaterial: {fileID: -8673391258248842235, guid: 5cfdaa6cc91c5c149a145db60cf04007, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8847,8 +8849,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 64
-  m_fontSizeBase: 64
+  m_fontSize: 80
+  m_fontSizeBase: 80
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -8930,7 +8932,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: e1fdf391681b48c45bcf038d649b9153, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.407
   m_Pitch: 1
   Loop: 0
   Mute: 0
