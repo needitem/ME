@@ -52,25 +52,35 @@ public class GameDirector : MonoBehaviour
         time += Time.deltaTime;
         effectUI.GetComponent<EffectUI>().SpringRecipe(recipeObj, time);
 
-        ScoreText.GetComponent<Text>().text = "점수: " + Recipe.score;
+        ScoreText.GetComponent<Text>().text = "현재 점수: " + Recipe.score;
         UpdateHearthp();        // UI에서 플레이어의 HP를 나타내는 하트 이미지 업데이트
         UpdateRecipeCnt();      // UI에서 재료 개수 업데이트
         UpdateRecipeUI();       // UI에서 레시피와 재료 이미지 업데이트
+        UpdateNextRecipe();
 
-        if (hp <= 0)            // hp가 0이라면
+        if (hp <= 0)            // hp가 0이라면 
         {
             Invoke("ActivateGameover", 3f);     // 3초 후 게임 오버 패널을 활성화
             Invoke("GameOverChange", 5f);       // 5초 후 게임 오버 씬으로 전환                                               
                                                 // Invoke("특정함수", "xf") 
         }                                       // 특정 함수를 x초 후에 불러오게 한다.
     }
-
-    public void SetTimeScale(float time)
+    public void UpdateNextRecipe()
     {
-        Time.timeScale = time;
-        Time.fixedDeltaTime = 0.02f * time;
+        for (int i = 0; i < 4; i++)
+        {
+            try
+            {
+                nextIngredientImages[i].enabled = true;
+                nextRecipeImage.sprite = recipeSprites[Recipe.nextRecipeIndex];
+                nextIngredientImages[i].sprite = ingredientSprites[Recipe.ShowNextRecipe().ToList()[i]];
+            }
+            catch
+            {
+                nextIngredientImages[i].enabled = false;
+            }
+        }
     }
-
 
     public void UpdateRecipeCnt()
     {
