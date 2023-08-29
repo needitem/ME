@@ -72,6 +72,7 @@
     <Compile Include="Assets\Resources\Scripts\EffectUI.cs" />
     <Compile Include="Assets\Resources\Scripts\Tutorials\TutoRButton.cs" />
     <Compile Include="Assets\Resources\Scripts\Tutorials\TutoLButtonMessage.cs" />
+    <Compile Include="Assets\Scripts\GameDirector.cs" />
     <Compile Include="Assets\Resources\Scripts\RandomBGM.cs" />
     <Compile Include="Assets\Resources\Scripts\NPCController.cs" />
     <Compile Include="Assets\Resources\Scripts\Generator.cs" />
