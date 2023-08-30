@@ -24,7 +24,7 @@ public class Generator : MonoBehaviour
 
     public bool one = true;
 
-    private float fDelayBit = 0.3f; // ºñÆ® ÅØ½ºÆ®°¡ ´À¸®±â ¶§¹®¿¡ ¹«Á¶°Ç ÀÌ °ªÀ» »© ÁÖ¾î¾ß ÇÔ ÅØ½ºÆ® - fDelayBit
+    private float fDelayBit = 0.3f; // ë¹„íŠ¸ í…ìŠ¤íŠ¸ê°€ ëŠë¦¬ê¸° ë•Œë¬¸ì— ë¬´ì¡°ê±´ ì´ ê°’ì„ ë¹¼ ì£¼ì–´ì•¼ í•¨ í…ìŠ¤íŠ¸ - fDelayBit
 
     private void Awake()
     {
@@ -45,11 +45,11 @@ public class Generator : MonoBehaviour
     void Update()
     {
         deltatime += Time.deltaTime;
-        if (!GameStart_FadeOut.isMessageWait && one) {deltatime = 0.0f; one = false; }
+        if (!GameStart_FadeOut.isMessageWait && one) { deltatime = 0.0f; one = false; }
 
-        if (deltatime >= float.Parse(timeArray[index])-this.fDelayBit && GameDirector.hp > 0 && !one)
+        if (deltatime >= float.Parse(timeArray[index]) - this.fDelayBit && GameDirector.hp > 0 && !one)
         {
-            
+
             SpawnFood();
             Debug.Log("time: " + float.Parse(timeArray[index]));
             index++;
@@ -98,9 +98,9 @@ public class Generator : MonoBehaviour
         }
 
 
-        NPC.GetComponent<NPCController>().Drawing(); //´øÁö´Â ¾Ö´Ï¸ŞÀÌ¼Ç
-        audioDirector.SoundPlay("Sound/effect_sound/Kick"); // µå·³ kick¼Ò¸®
-        spawn = Instantiate(foodPrefab, spawnPosition, Quaternion.identity); //ÇÁ¸®ÆÕ »ı¼º
+        NPC.GetComponent<NPCController>().Drawing(); //ë˜ì§€ëŠ” ì• ë‹ˆë©”ì´ì…˜
+        audioDirector.SoundPlay("Sound/effect_sound/Kick"); // ë“œëŸ¼ kickì†Œë¦¬
+        spawn = Instantiate(foodPrefab, spawnPosition, Quaternion.identity); //í”„ë¦¬íŒ¹ ìƒì„±
         spawn.name = foodPrefab.name;
         spawn.GetComponent<ItemController>().itemHp = itemHp;
     }

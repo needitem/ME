@@ -7,6 +7,9 @@ using UnityEngine.UI;
 public class SceneDirector : MonoBehaviour
 {
     public Text ScoreText;  // 점수를 표시하는 텍스트 UI
+    public Text BestScoreText;
+    private string KeyName = "BestScore";
+    private int bestScore = 0;
 
     public static void ChangeScene1()
     {
@@ -33,7 +36,14 @@ public class SceneDirector : MonoBehaviour
     }
     void Start()
     {
+        if (Recipe.score > bestScore)
+        {
+            PlayerPrefs.SetInt(KeyName, Recipe.score);
+        }
+        bestScore = PlayerPrefs.GetInt(KeyName, 0);
+
         ScoreText.text = "SCORE: " + Recipe.score.ToString();  // 시작할 때 점수 텍스트를 업데이트합니다.
+        BestScoreText.text = $"Best Score: {bestScore.ToString()}";
     }
 
     public void OnClick_Quitbtn()
@@ -41,7 +51,4 @@ public class SceneDirector : MonoBehaviour
         Application.Quit();
     }
 
-    void Update()
-    {
-    }
 }
