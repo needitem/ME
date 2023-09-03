@@ -3377,6 +3377,9 @@ MonoBehaviour:
   - {fileID: 1207105098}
   - {fileID: 1389619863}
   Gameover_Panel: {fileID: 1059360818}
+  ScoreText: {fileID: 771952247838066535, guid: 51d72098b1414584192f50c15f41f1d1, type: 3}
+  effectUI: {fileID: 3666429560269334550, guid: f609369c057b899448be3e422082679d, type: 3}
+  recipeObj: {fileID: 2989443780986399412, guid: 36ca7e0bdfd3a414694acd3a1f5ea374, type: 3}
   recipe: {fileID: 1599708739}
   recipeImage: {fileID: 135863351}
   ingredientImages:
@@ -3384,6 +3387,9 @@ MonoBehaviour:
   - {fileID: 1541541975}
   - {fileID: 776887924}
   - {fileID: 1410989197}
+  EffectRecipe: {fileID: 5701960230023973252, guid: 36ca7e0bdfd3a414694acd3a1f5ea374, type: 3}
+  nextRecipeImage: {fileID: 239685668}
+  nextIngredientImages: []
   recipeSprites:
   - {fileID: 1327652412, guid: 19df90655bccbe346858eb0adb44db45, type: 3}
   - {fileID: 1331321373, guid: 19df90655bccbe346858eb0adb44db45, type: 3}
@@ -4571,6 +4577,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 89f935015cc98724a862a586326fdf21, type: 3}
   - {fileID: 8300000, guid: 35967e8a4dfb1664e9b066939272c0a4, type: 3}
   - {fileID: 8300000, guid: 1f2ad53bacc245642854dbdc8ea71a9b, type: 3}
+  currentBGMIndex: 0
 --- !u!1 &708708035
 GameObject:
   m_ObjectHideFlags: 0
@@ -4776,7 +4783,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c05f3eb3316b1042b2e79d797fe9713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameDirector: {fileID: 0}
+  effectObject: {fileID: 0}
+  showRecipe: {fileID: 0}
+  gernerator: {fileID: 0}
 --- !u!4 &714324505
 Transform:
   m_ObjectHideFlags: 0
@@ -10186,7 +10195,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c05f3eb3316b1042b2e79d797fe9713, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameDirector: {fileID: 0}
+  effectObject: {fileID: 0}
+  showRecipe: {fileID: 0}
+  gernerator: {fileID: 0}
 --- !u!4 &1599708740
 Transform:
   m_ObjectHideFlags: 0
@@ -13007,6 +13018,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainFood: []
   subFood: []
+  randomBGM: {fileID: 0}
+  bgmIndex: 1
 --- !u!4 &2079621017
 Transform:
   m_ObjectHideFlags: 0
