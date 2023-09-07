@@ -921,7 +921,7 @@ AudioSource:
   m_GameObject: {fileID: 494324654}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -8766344377121724935, guid: 11d7696c37700fc44a6ecea1bb28a18b, type: 2}
   m_audioClip: {fileID: 8300000, guid: c2649f190a5d87148af99e097528802e, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -3078,6 +3078,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ScoreText: {fileID: 2141030588}
+  BestScoreText: {fileID: 2141030588}
 --- !u!1 &1763531207
 GameObject:
   m_ObjectHideFlags: 0

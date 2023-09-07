@@ -21,9 +21,9 @@ public class Recipe : MonoBehaviour
     public GameObject gernerator;
 
     private const int ingredientAmt = 7;
-    private readonly int[] recipe1 = { 1, 0, 0, 0, 0, 1, 1 };
-    private readonly int[] recipe2 = { 0, 1, 0, 1, 1, 1, 0 };
-    private readonly int[] recipe3 = { 0, 0, 1, 1, 0, 1, 0 };
+    private readonly int[] recipe1 = { 2, 0, 0, 0, 0, 3, 2 };
+    private readonly int[] recipe2 = { 0, 1, 0, 2, 1, 2, 0 };
+    private readonly int[] recipe3 = { 0, 0, 3, 2, 0, 3, 0 };
     public static int[] randomRecipe = new int[ingredientAmt];
     public static int[] nextRandomRecipe = new int[ingredientAmt];
 
@@ -74,7 +74,6 @@ public class Recipe : MonoBehaviour
         {
             if (IsRecipeComplete(randomRecipe))
             {
-                gernerator.GetComponent<Generator>().enabled = false;
                 GameObject copyEffectUI = Instantiate(effectObject);
                 score += 300; // 레시피가 완성되었으면 점수 300점 추가
                 Array.Clear(randomRecipe, 0, randomRecipe.Length);
@@ -82,18 +81,12 @@ public class Recipe : MonoBehaviour
                 recipeIndex = nextRecipeIndex;
                 Array.Clear(nextRandomRecipe, 0, nextRandomRecipe.Length);
                 nextRecipeIndex = CreateRandomRecipe();
-                Invoke("IsThrow", 2f);
             }
             else if (IsRecipeWrong(randomRecipe))
             {
                 GameDirector.hp = 0; // 레시피가 틀렸으면 사망 
             }
         }
-    }
-
-    public void IsThrow()
-    {
-        gernerator.GetComponent<Generator>().enabled = true;
     }
 
     private void Init()
