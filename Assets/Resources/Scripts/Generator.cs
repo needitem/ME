@@ -17,8 +17,8 @@ public class Generator : MonoBehaviour
     public RandomBGM randomBGM;
 
     public int bgmIndex = 1;
-    private int index = 0;
-    int song;
+    static public int index = 0;
+    static public int song;
     List<List<string>> timeArray = new List<List<string>>();
     List<string> temp = new List<string>();
     float deltatime = 0.0f;
@@ -50,11 +50,8 @@ public class Generator : MonoBehaviour
 
         if (deltatime >= float.Parse(timeArray[song][index]) - fDelayBit && GameDirector.hp > 0 && !one)
         {
+            Debug.Log("time: " + float.Parse(timeArray[song][index]));
             SpawnFood();
-            Debug.Log("time: " + float.Parse(timeArray[song][index]));
-            try { index++; }
-            catch { song = RandomBGM.currentBGMIndex; }
-            Debug.Log("time: " + float.Parse(timeArray[song][index]));
             index++;
         }
 
@@ -72,17 +69,17 @@ public class Generator : MonoBehaviour
         {
             StreamReader sr = new StreamReader(file);
             if (sr != null)
-
+            {
                 while (!sr.EndOfStream)
                 {
                     string line = sr.ReadLine();
                     temp.Add(line);
                 }
+            }
             timeArray.Add(new List<string>(temp));
             temp.Clear();
         }
-            
-
+        
     }
 
 

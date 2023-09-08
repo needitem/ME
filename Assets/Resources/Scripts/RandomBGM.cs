@@ -9,7 +9,7 @@ public class RandomBGM : MonoBehaviour
     AudioDirector audioDirector;
 
     public AudioClip[] Music = new AudioClip[7]; // ����� BGM
-    static public int currentBGMIndex = 0;
+    static public int currentBGMIndex;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +37,8 @@ public class RandomBGM : MonoBehaviour
     void PlayNextBGM()
     {
         currentBGMIndex = Random.Range(0, Music.Length);
-
+        Generator.song = currentBGMIndex;
+        Generator.index = 0;
         audioSource.clip = Music[currentBGMIndex];
         audioSource.Play();
     }
