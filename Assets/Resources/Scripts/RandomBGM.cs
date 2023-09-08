@@ -36,10 +36,8 @@ public class RandomBGM : MonoBehaviour
 
     void PlayNextBGM()
     {
-        // ���� BGM �ε��� ����
-        currentBGMIndex = (currentBGMIndex + 1) % Music.Length;
+        currentBGMIndex = Random.Range(0, Music.Length);
 
-        // ������ BGM ���
         audioSource.clip = Music[currentBGMIndex];
         audioSource.Play();
     }
