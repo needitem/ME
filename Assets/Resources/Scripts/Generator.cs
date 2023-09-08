@@ -48,14 +48,13 @@ public class Generator : MonoBehaviour
         deltatime += Time.deltaTime;
         if (!GameStart_FadeOut.isMessageWait && one) { deltatime = 0.0f; one = false; }
 
-        if (deltatime >= float.Parse(timeArray[index]) - fDelayBit && GameDirector.hp > 0 && !one)
+        if (deltatime >= float.Parse(timeArray[song][index]) - fDelayBit && GameDirector.hp > 0 && !one)
         {
-
             SpawnFood();
             Debug.Log("time: " + float.Parse(timeArray[song][index]));
             try { index++; }
             catch { song = RandomBGM.currentBGMIndex; }
-            Debug.Log("time: " + float.Parse(timeArray[index]));
+            Debug.Log("time: " + float.Parse(timeArray[song][index]));
             index++;
         }
 
@@ -73,24 +72,21 @@ public class Generator : MonoBehaviour
         {
             StreamReader sr = new StreamReader(file);
             if (sr != null)
-            {
-                StreamReader sr = new StreamReader(file);
-                if (sr != null)
 
-                    while (!sr.EndOfStream)
-                    {
-                        string line = sr.ReadLine();
-                        temp.Add(line);
-                    }
-                timeArray.Add(new List<string>(temp));
-                temp.Clear();
-            }
-
+                while (!sr.EndOfStream)
+                {
+                    string line = sr.ReadLine();
+                    temp.Add(line);
+                }
+            timeArray.Add(new List<string>(temp));
+            temp.Clear();
         }
-
-
+            
 
     }
+
+
+
 
     public void SpawnFood()
     {

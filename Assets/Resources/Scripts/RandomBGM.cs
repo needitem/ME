@@ -9,7 +9,7 @@ public class RandomBGM : MonoBehaviour
     AudioDirector audioDirector;
 
     public AudioClip[] Music = new AudioClip[7]; // ����� BGM
-    public int currentBGMIndex = 0;
+    static public int currentBGMIndex = 0;
 
     // Start is called before the first frame update
     void Start()
