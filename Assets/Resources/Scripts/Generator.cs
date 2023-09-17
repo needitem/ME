@@ -61,6 +61,7 @@ public class Generator : MonoBehaviour
         }
     }
 
+    //파일 읽어들이는 함수
     private void ReadTrackFile()
     {
         string filePath = $"Assets/BGM_text";
