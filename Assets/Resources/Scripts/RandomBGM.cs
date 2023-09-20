@@ -39,6 +39,7 @@ public class RandomBGM : MonoBehaviour
         currentBGMIndex = Random.Range(0, Music.Length);
         Generator.song = currentBGMIndex;
         Generator.index = 0;
+        Generator.deltatime = 0.0f;
         audioSource.clip = Music[currentBGMIndex];
         audioSource.Play();
     }

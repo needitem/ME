@@ -21,7 +21,7 @@ public class Generator : MonoBehaviour
     static public int song;
     List<List<string>> timeArray = new List<List<string>>();
     List<string> temp = new List<string>();
-    float deltatime = 0.0f;
+    public static float deltatime = 0.0f;
 
     public bool one = true;
 
@@ -48,12 +48,19 @@ public class Generator : MonoBehaviour
         deltatime += Time.deltaTime;
         if (!GameStart_FadeOut.isMessageWait && one) { deltatime = 0.0f; one = false; }
 
-        if (deltatime >= float.Parse(timeArray[song][index]) - fDelayBit && GameDirector.hp > 0 && !one)
-        {
-            Debug.Log("time: " + float.Parse(timeArray[song][index]));
-            SpawnFood();
-            index++;
+        try {
+            if (deltatime >= float.Parse(timeArray[song][index]) - fDelayBit && GameDirector.hp > 0 && !one)
+            {
+                Debug.Log("time: " + float.Parse(timeArray[song][index]));
+                SpawnFood();
+                index++;
+            }
         }
+        catch 
+        {
+
+        }
+        
 
         if (GameDirector.hp <= 0)
         {
