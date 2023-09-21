@@ -1,0 +1,13 @@
+fileFormatVersion: 2
+guid: a2515bab5a990324c8dd80d7a2e5c613
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - textScore_Prefeb: {fileID: 771952247838066535, guid: f1597806b133b9b48af048c0e3246e7f, type: 3}
+  - ImageRecipe_Prefeb: {fileID: 2989443780986399412, guid: 36ca7e0bdfd3a414694acd3a1f5ea374, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
