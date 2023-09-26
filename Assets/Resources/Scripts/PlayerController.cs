@@ -73,7 +73,7 @@ public class PlayerController : MonoBehaviour
                 RButton.GetComponent<Button>().interactable = false;
                 Invoke("NewButtonDelay", 0.3f);
             }
-            else
+
                 foreach (Collider2D collider in colliders)
                 // colliders List에 있는 각 요소를 반복적으로 처리하기 위해 루프 시작
                 // colliders 리스트에 있는 각 요소를 collider 변수에 할당하여 루프 내에서 사용
@@ -85,6 +85,7 @@ public class PlayerController : MonoBehaviour
                         audioDirector.SoundPlay("Sound/effect_sound/snare"); // 튕겨내기 사운드 재생
                         KatanaEffect.Punch(); // 튕겨내기 이펙트 발동(후라이펜 튕기는 효과)
                         Effect.Apply(collider.gameObject); // 튕겨내기 이펙트 적용(재료에 적용되는 효과)
+                        break;
                     }
                     else
                     {
@@ -129,6 +130,7 @@ public class PlayerController : MonoBehaviour
                         {
                             audioDirector.SoundPlay("Sound/effect_sound/chicken"); // 치킨 자르는 소리
                         }
+                        break;
                     }
                     else
                     {

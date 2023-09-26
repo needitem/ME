@@ -17,10 +17,11 @@ public class Generator : MonoBehaviour
     public RandomBGM randomBGM;
 
     public int bgmIndex = 1;
-    private int index = 0;
-
-    List<string> timeArray = new List<string>();
-    float deltatime = 0.0f;
+    static public int index = 0;
+    static public int song;
+    List<List<string>> timeArray = new List<List<string>>();
+    List<string> temp = new List<string>();
+    public static float deltatime = 0.0f;
 
     public bool one = true;
 
@@ -47,13 +48,19 @@ public class Generator : MonoBehaviour
         deltatime += Time.deltaTime;
         if (!GameStart_FadeOut.isMessageWait && one) { deltatime = 0.0f; one = false; }
 
-        if (deltatime >= float.Parse(timeArray[index]) - this.fDelayBit && GameDirector.hp > 0 && !one)
+        try {
+            if (deltatime >= float.Parse(timeArray[song][index]) - fDelayBit && GameDirector.hp > 0 && !one)
+            {
+                Debug.Log("time: " + float.Parse(timeArray[song][index]));
+                SpawnFood();
+                index++;
+            }
+        }
+        catch 
         {
 
-            SpawnFood();
-            Debug.Log("time: " + float.Parse(timeArray[index]));
-            index++;
         }
+        
 
         if (GameDirector.hp <= 0)
         {
@@ -61,19 +68,30 @@ public class Generator : MonoBehaviour
         }
     }
 
+    //파일 읽어들이는 함수
     private void ReadTrackFile()
     {
-        string filePath = $"Assets/BGM_text/Track_7.txt";
-        StreamReader sr = new StreamReader(filePath);
-        if (sr != null)
+        string filePath = $"Assets/BGM_text";
+        string[] txtFiles = Directory.GetFiles(filePath, "*.txt");
+        foreach (string file in txtFiles)
         {
-            while (!sr.EndOfStream)
+            StreamReader sr = new StreamReader(file);
+            if (sr != null)
             {
-                string line = sr.ReadLine();
-                timeArray.Add(line);
+                while (!sr.EndOfStream)
+                {
+                    string line = sr.ReadLine();
+                    temp.Add(line);
+                }
             }
+            timeArray.Add(new List<string>(temp));
+            temp.Clear();
         }
+        
     }
+
+
+
 
     public void SpawnFood()
     {

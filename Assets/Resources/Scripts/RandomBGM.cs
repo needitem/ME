@@ -13,6 +13,7 @@ public class RandomBGM : MonoBehaviour
 
     public GameObject Menu_panel;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +52,13 @@ public class RandomBGM : MonoBehaviour
         // ������ BGM ���
         audioSource.clip = Music[currentBGMIndex];
         audioSource.Play();
+
+        currentBGMIndex = Random.Range(0, Music.Length);
+        Generator.song = currentBGMIndex;
+        Generator.index = 0;
+        Generator.deltatime = 0.0f;
+        audioSource.clip = Music[currentBGMIndex];
+        audioSource.Play();
     }
 
     public void StopBGM()
@@ -61,4 +69,5 @@ public class RandomBGM : MonoBehaviour
     {
         audioSource.UnPause();
     }
-}
+
+    }

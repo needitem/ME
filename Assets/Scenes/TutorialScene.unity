@@ -4578,6 +4578,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 35967e8a4dfb1664e9b066939272c0a4, type: 3}
   - {fileID: 8300000, guid: 1f2ad53bacc245642854dbdc8ea71a9b, type: 3}
   currentBGMIndex: 0
+  Menu_panel: {fileID: 0}
 --- !u!1 &708708035
 GameObject:
   m_ObjectHideFlags: 0
@@ -10839,6 +10840,8 @@ MonoBehaviour:
   boxSize: {x: 1.4, y: 1.9}
   pos: {fileID: 1105456520}
   isDelay: 0
+  LButton: {fileID: 0}
+  RButton: {fileID: 0}
 --- !u!82 &1675816006
 AudioSource:
   m_ObjectHideFlags: 0
@@ -11763,6 +11766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Panel_menu: {fileID: 1177734134}
+  Panel_Developer: {fileID: 365538077}
   Toggle1: {fileID: 600280975}
   Toggle2: {fileID: 826238728}
   OnImage:
@@ -13020,6 +13024,7 @@ MonoBehaviour:
   subFood: []
   randomBGM: {fileID: 0}
   bgmIndex: 1
+  one: 1
 --- !u!4 &2079621017
 Transform:
   m_ObjectHideFlags: 0

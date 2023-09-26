@@ -30,7 +30,7 @@ public class SceneDirector : MonoBehaviour
 
     public void ChangeScene_Tutorial()
     {
-        SceneManager.LoadScene("Tutorial");
+        SceneManager.LoadScene("TutorialScene");
     }
 
 
