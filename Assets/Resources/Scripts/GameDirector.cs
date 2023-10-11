@@ -67,7 +67,7 @@ public class GameDirector : MonoBehaviour
     }
     public void UpdateNextRecipe()
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < nextIngredientImages.Length; i++)
         {
             try
             {
