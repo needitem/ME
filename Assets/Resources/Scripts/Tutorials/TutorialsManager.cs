@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 //https://blog.naver.com/PostView.naver?blogId=hileejaeho&logNo=221794286355 참고
 
 public class TutorialsManager : MonoBehaviour
@@ -50,8 +51,15 @@ public class TutorialsManager : MonoBehaviour
         {
             items[itemIndex].gameObject.SetActive(true);
         }
+        else
+        {
+            Debug.Log("튜토리얼 종료");
+            ChangeGame();
+        }
+    }
 
-
-
+    private void ChangeGame()
+    {
+        SceneManager.LoadScene("GameScene");
     }
 }

@@ -10,7 +10,6 @@ public class SceneDirector : MonoBehaviour
     public Text BestScoreText;
     private string KeyName = "BestScore";
     private int bestScore = 0;
-
     public static void ChangeScene1()
     {
         Recipe.score = 0;                       // Recipe 스크립트의 점수를 초기화합니다.
@@ -51,8 +50,30 @@ public class SceneDirector : MonoBehaviour
         BestScoreText.text = $"Best Score: {bestScore.ToString()}";
     }
 
+    void Update()
+    {
+/*        if(UnityEditor.EditorApplication.isPlaying)
+        {
+
+        }
+        else
+        {
+            UnityEditor.EditorApplication.isPlaying = false;
+            PlayerPrefs.DeleteAll();
+        }*/
+    }
+
     public void OnClick_Quitbtn()
     {
+        PlayerPrefs.DeleteAll();
         Application.Quit();
     }
+
+
+    /*static public void ExitGame()
+    {
+        UnityEditor.EditorApplication.isPlaying = false;
+        PlayerPrefs.DeleteAll();
+        Application.Quit(); // 어플리케이션 종료
+    }*/
 }
