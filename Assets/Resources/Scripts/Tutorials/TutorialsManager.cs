@@ -54,12 +54,12 @@ public class TutorialsManager : MonoBehaviour
         else
         {
             Debug.Log("튜토리얼 종료");
-            ChangeGame();
+            ChangeTitle();
         }
     }
 
-    private void ChangeGame()
+    private void ChangeTitle()
     {
-        SceneManager.LoadScene("GameScene");
+        SceneManager.LoadScene("TitleScene");
     }
 }

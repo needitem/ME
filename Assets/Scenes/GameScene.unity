@@ -4188,7 +4188,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC810\uC218: 300"
+  m_Text: 'SCORE: 300'
 --- !u!222 &919375386
 CanvasRenderer:
   m_ObjectHideFlags: 0

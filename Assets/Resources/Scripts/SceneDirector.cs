@@ -65,7 +65,7 @@ public class SceneDirector : MonoBehaviour
 
     public void OnClick_Quitbtn()
     {
-        PlayerPrefs.DeleteAll();
+        //PlayerPrefs.DeleteAll();
         Application.Quit();
     }
 
