@@ -1,10 +1,10 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class MenuController : MonoBehaviour
 {
     public GameObject Panel_menu = null;                // 메뉴 패널을 나타내는 게임 오브젝트
+    public GameObject Panel_Developer = null;
     public GameObject Toggle1 = null;                   // SFX 토글을 나타내는 게임 오브젝트
     public GameObject Toggle2 = null;                   // BGM 토글을 나타내는 게임 오브젝트
     public Image[] OnImage;                             // 활성화 이미지 배열
@@ -30,6 +30,16 @@ public class MenuController : MonoBehaviour
         SceneDirector.ChangeScene3();                   // Scenechange 함수를 호출하여 타이틀 씬으로 전환합니다.
     }
 
+    public void Click_Developer()
+    {
+        Panel_Developer.SetActive(true);
+    }
+
+    public void Click_Developer_Quit()
+    {
+        Panel_Developer.SetActive(false);
+    }
+
     /*
     private void Scenechange() // 씬 전환 함수
     {
@@ -40,6 +50,7 @@ public class MenuController : MonoBehaviour
     void Start()
     {
         Panel_menu.SetActive(false);                    // 메뉴 패널을 처음에는 비활성화합니다.
+        Panel_Developer.SetActive(false);
         UpdateMuteImages();                             // 음소거 이미지를 업데이트합니다.
     }
 

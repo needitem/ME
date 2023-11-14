@@ -32,6 +32,7 @@ public class Recipe : MonoBehaviour
 
     public static int score;
     public static float time;
+    public static bool exit_bool = false;
 
     public bool IsRecipeComplete(int[] randomRecipe) //레시피가 완성되었는지 확인, 완성되었으면 true, 아니면 false
     {
@@ -60,6 +61,7 @@ public class Recipe : MonoBehaviour
     private void Start() // initialize randomRecipe
     {
         Init();
+
         gernerator = GameObject.Find("Generator");
 
         recipeIndex = CreateRandomRecipe();
@@ -86,6 +88,10 @@ public class Recipe : MonoBehaviour
             {
                 GameDirector.hp = 0; // 레시피가 틀렸으면 사망 
             }
+        }
+        if (exit_bool)
+        {
+
         }
     }
 

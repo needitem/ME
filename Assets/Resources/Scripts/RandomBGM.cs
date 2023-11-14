@@ -9,7 +9,10 @@ public class RandomBGM : MonoBehaviour
     AudioDirector audioDirector;
 
     public AudioClip[] Music = new AudioClip[7]; // ����� BGM
-    static public int currentBGMIndex;
+    public int currentBGMIndex = 0;
+
+    public GameObject Menu_panel;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,8 +27,15 @@ public class RandomBGM : MonoBehaviour
     {
         if (audioSource.isPlaying == false && GameStart_FadeOut.isMessageWait == false)//gs.isMessageWait == false) //���� ����� �ҽ��� ����ٸ�
         {
+            if (Menu_panel.activeSelf)
+            {
+                StopBGM();
+            }
+            else
+            {
+                PlayNextBGM();
+            }
             // ������� bgm ���, ������ ��� bgm�� ������ϸ� ����� bgm�� ����
-            PlayNextBGM();
         }
 
         if (GameDirector.hp <= 0)
@@ -36,6 +46,13 @@ public class RandomBGM : MonoBehaviour
 
     void PlayNextBGM()
     {
+        // ���� BGM �ε��� ����
+        currentBGMIndex = (currentBGMIndex + 1) % Music.Length;
+
+        // ������ BGM ���
+        audioSource.clip = Music[currentBGMIndex];
+        audioSource.Play();
+
         currentBGMIndex = Random.Range(0, Music.Length);
         Generator.song = currentBGMIndex;
         Generator.index = 0;
@@ -43,4 +60,14 @@ public class RandomBGM : MonoBehaviour
         audioSource.clip = Music[currentBGMIndex];
         audioSource.Play();
     }
-}
+
+    public void StopBGM()
+    {
+        audioSource.Pause(); 
+    }
+    public void PlayBGM()
+    {
+        audioSource.UnPause();
+    }
+
+    }
