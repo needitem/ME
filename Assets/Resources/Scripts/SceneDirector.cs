@@ -52,7 +52,8 @@ public class SceneDirector : MonoBehaviour
 
     void Update()
     {
-/*        if(UnityEditor.EditorApplication.isPlaying)
+        /*
+       if(UnityEditor.EditorApplication.isPlaying)
         {
 
         }
@@ -60,7 +61,8 @@ public class SceneDirector : MonoBehaviour
         {
             UnityEditor.EditorApplication.isPlaying = false;
             PlayerPrefs.DeleteAll();
-        }*/
+        }
+        */
     }
 
     public void OnClick_Quitbtn()
@@ -75,5 +77,6 @@ public class SceneDirector : MonoBehaviour
         UnityEditor.EditorApplication.isPlaying = false;
         PlayerPrefs.DeleteAll();
         Application.Quit(); // 어플리케이션 종료
-    }*/
+    }
+    */
 }
