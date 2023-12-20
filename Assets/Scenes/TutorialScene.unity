@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 47156305}
   - component: {fileID: 47156307}
   - component: {fileID: 47156306}
-  m_Layer: 5
+  m_Layer: 4
   m_Name: cnt1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -969,7 +969,7 @@ GameObject:
   - component: {fileID: 135863350}
   - component: {fileID: 135863352}
   - component: {fileID: 135863351}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Recipe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -993,7 +993,7 @@ RectTransform:
   - {fileID: 776887923}
   - {fileID: 1410989196}
   m_Father: {fileID: 836274723}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.261875, y: 0.7191841}
   m_AnchorMax: {x: 0.261875, y: 0.7191841}
@@ -1473,9 +1473,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1643514486}
-  - {fileID: 1108251114}
   - {fileID: 2003977477}
   - {fileID: 1288810857}
+  - {fileID: 1108251114}
   m_Father: {fileID: 1019827333}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1634,8 +1634,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 245199647}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -471.3, y: -284.49, z: -0.68972933}
-  m_LocalScale: {x: 20.8357, y: 10.5431, z: 1}
+  m_LocalPosition: {x: -1131.7571, y: -597.9495, z: -0.68972933}
+  m_LocalScale: {x: 24.570892, y: 11.866259, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1924145901}
@@ -2099,7 +2099,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 316321022}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -475.6, y: -285.9993, z: -0.68972933}
+  m_LocalPosition: {x: -1134.34, y: -599.88934, z: -0.68972933}
   m_LocalScale: {x: 7.36542, y: 10.189905, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3271,7 +3271,7 @@ GameObject:
   - component: {fileID: 511607702}
   - component: {fileID: 511607704}
   - component: {fileID: 511607703}
-  m_Layer: 5
+  m_Layer: 4
   m_Name: Ingredient1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3612,7 +3612,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 538479799}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -476.4, y: -282.2995, z: -0.68972933}
+  m_LocalPosition: {x: -1134.8, y: -596.4, z: -0.68972933}
   m_LocalScale: {x: 7.0633016, y: 7.8640976, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3696,7 +3696,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 552058385}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -462.45, y: -284.49, z: -0.68972933}
+  m_LocalPosition: {x: -1120.8501, y: -598.5905, z: -0.68972933}
   m_LocalScale: {x: 20.8357, y: 10.543099, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4957,7 +4957,7 @@ GameObject:
   - component: {fileID: 776887923}
   - component: {fileID: 776887925}
   - component: {fileID: 776887924}
-  m_Layer: 5
+  m_Layer: 4
   m_Name: Ingredient3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5377,8 +5377,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 833198575}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -455.91, y: -281.469, z: -0.68972933}
-  m_LocalScale: {x: 9.942516, y: 9.604765, z: 1}
+  m_LocalPosition: {x: -1114.8497, y: -595.59, z: -0.68972933}
+  m_LocalScale: {x: 9.242563, y: 9.604765, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1924145901}
@@ -5530,11 +5530,11 @@ RectTransform:
   m_Children:
   - {fileID: 239685667}
   - {fileID: 1675066276}
-  - {fileID: 1177734135}
   - {fileID: 1059360819}
   - {fileID: 2092120138}
   - {fileID: 1741054953}
   - {fileID: 135863350}
+  - {fileID: 1177734135}
   - {fileID: 1281525781}
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -6233,7 +6233,7 @@ RectTransform:
   m_Children:
   - {fileID: 1788666566}
   m_Father: {fileID: 836274723}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6463,12 +6463,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1108251113}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -471.13, y: -283, z: -0.68972933}
+  m_LocalPosition: {x: -1129.11, y: -597.18, z: -0.68972933}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 237379355}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1108251115
 SpriteRenderer:
@@ -6848,7 +6848,7 @@ GameObject:
   - component: {fileID: 1161027262}
   - component: {fileID: 1161027264}
   - component: {fileID: 1161027263}
-  m_Layer: 5
+  m_Layer: 4
   m_Name: cnt2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6954,7 +6954,7 @@ RectTransform:
   - {fileID: 1320063933}
   - {fileID: 1144176204}
   m_Father: {fileID: 836274723}
-  m_RootOrder: 2
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7182,7 +7182,7 @@ GameObject:
   - component: {fileID: 1207105099}
   - component: {fileID: 1207105101}
   - component: {fileID: 1207105100}
-  m_Layer: 5
+  m_Layer: 4
   m_Name: cnt3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7859,12 +7859,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1288810856}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -463.91003, y: -283, z: -0.68972933}
+  m_LocalPosition: {x: -1121.7899, y: -597.18, z: -0.68972933}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 237379355}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &1288810858
 SpriteRenderer:
@@ -8483,7 +8483,7 @@ GameObject:
   - component: {fileID: 1389619864}
   - component: {fileID: 1389619866}
   - component: {fileID: 1389619865}
-  m_Layer: 5
+  m_Layer: 4
   m_Name: cnt4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8568,7 +8568,7 @@ GameObject:
   - component: {fileID: 1410989196}
   - component: {fileID: 1410989198}
   - component: {fileID: 1410989197}
-  m_Layer: 5
+  m_Layer: 4
   m_Name: Ingredient4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8760,7 +8760,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1433313518}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -471.61, y: -284.22, z: -0.68972933}
+  m_LocalPosition: {x: -1130.1, y: -598.22, z: -0.68972933}
   m_LocalScale: {x: 4.778079, y: 4.0669928, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9789,7 +9789,7 @@ GameObject:
   - component: {fileID: 1541541974}
   - component: {fileID: 1541541976}
   - component: {fileID: 1541541975}
-  m_Layer: 5
+  m_Layer: 4
   m_Name: Ingredient2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11192,7 +11192,7 @@ RectTransform:
   m_Children:
   - {fileID: 1215468158}
   m_Father: {fileID: 836274723}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -11771,7 +11771,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1796484596}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -461.5, y: -284.45, z: -0.68972933}
+  m_LocalPosition: {x: -1120.24, y: -598.34, z: -0.68972933}
   m_LocalScale: {x: 20.8357, y: 10.189, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -12662,12 +12662,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2003977476}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -467.46997, y: -283, z: -0.68972933}
+  m_LocalPosition: {x: -1125.35, y: -597.18, z: -0.68972933}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 237379355}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2003977478
 SpriteRenderer:
@@ -13293,7 +13293,7 @@ RectTransform:
   m_Children:
   - {fileID: 964842858}
   m_Father: {fileID: 836274723}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
