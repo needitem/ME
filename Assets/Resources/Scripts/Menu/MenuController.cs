@@ -13,16 +13,24 @@ public class MenuController : MonoBehaviour
     private bool isMuted1 = false;                      // SFX 토글의 음소거 여부
     private bool isMuted2 = false;                      // BGM 토글의 음소거 여부
 
+
     public void Click_Menu()                            // 메뉴 버튼을 클릭했을 경우
     {
-        Time.timeScale = 0;                             // 게임 시간을 일시적으로 멈춥니다.
+
         Panel_menu.SetActive(true);                     // 메뉴 패널을 활성화합니다.
+        Time.timeScale = 0f;                             // 게임 시간을 일시적으로 멈춥니다.
+
+
     }
 
     public void Click_Continue() // 메뉴패널의 CONTINUE 버튼 클릭했을 경우
     {
-        Time.timeScale = 1;                             // 게임 시간을 다시 시작합니다.
+
+
         Panel_menu.SetActive(false);                    // 메뉴 패널을 비활성화합니다.
+        Time.timeScale = 1f;                             // 게임 시간을 다시 시작합니다.
+
+
     }
 
     public void Click_Exit() // 메뉴패널의 QUIT 버튼 클릭했을 경우
