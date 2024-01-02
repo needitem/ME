@@ -71,8 +71,11 @@ public class Generator : MonoBehaviour
     //파일 읽어들이는 함수
     private void ReadTrackFile()
     {
+        /*
         string filePath = $"Assets/Resources/BGM_text";
         string[] txtFiles = Directory.GetFiles(filePath, "*.txt");
+
+
         foreach (string file in txtFiles)
         {
             StreamReader sr = new StreamReader(file);
@@ -87,7 +90,16 @@ public class Generator : MonoBehaviour
             timeArray.Add(new List<string>(temp));
             temp.Clear();
         }
-        
+        */
+        string folderPath = "BGM_text";
+        TextAsset[] txtFiles = Resources.LoadAll<TextAsset>(folderPath);
+
+        foreach (TextAsset textAsset in txtFiles)
+        {
+            string[] lines = textAsset.text.Split('\n');
+            timeArray.Add(new List<string>(lines));
+        }
+
     }
 
 
