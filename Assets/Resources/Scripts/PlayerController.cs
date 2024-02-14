@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
             {
                 LButton.GetComponent<Button>().interactable = false;
                 RButton.GetComponent<Button>().interactable = false;
-                Invoke("NewButtonDelay", 0.3f);
+                Invoke("NewButtonDelay", 0.18f);
             }
 
                 foreach (Collider2D collider in colliders)
@@ -116,7 +116,7 @@ public class PlayerController : MonoBehaviour
             {
                 LButton.GetComponent<Button>().interactable = false;
                 RButton.GetComponent<Button>().interactable = false;
-                Invoke("NewButtonDelay", 0.3f);
+                Invoke("NewButtonDelay", 0.18f);
             }
             else
                 foreach (Collider2D collider in colliders)

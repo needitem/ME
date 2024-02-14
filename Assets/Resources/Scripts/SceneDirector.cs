@@ -52,17 +52,17 @@ public class SceneDirector : MonoBehaviour
 
     void Update()
     {
-        /*
-       if(UnityEditor.EditorApplication.isPlaying)
-        {
 
-        }
-        else
-        {
-            UnityEditor.EditorApplication.isPlaying = false;
-            PlayerPrefs.DeleteAll();
-        }
-        */
+        //if (UnityEditor.EditorApplication.isPlaying)
+        //{
+           
+        //}
+        //else
+        //{
+        //    UnityEditor.EditorApplication.isPlaying = false;
+        //    PlayerPrefs.DeleteAll();
+        //}
+
     }
 
     public void OnClick_Quitbtn()
