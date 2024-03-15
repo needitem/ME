@@ -40,12 +40,14 @@ public class SceneDirector : MonoBehaviour
     }
     void Start()
     {
+        bestScore = PlayerPrefs.GetInt(KeyName, bestScore);
+
         if (Recipe.score > bestScore)
         {
+            bestScore = Recipe.score;
             PlayerPrefs.SetInt(KeyName, Recipe.score);
         }
-        bestScore = PlayerPrefs.GetInt(KeyName, 0);
-
+        //UI에 점수 정보를 업데이트
         ScoreText.text = "SCORE: " + Recipe.score.ToString();  // 시작할 때 점수 텍스트를 업데이트합니다.
         BestScoreText.text = $"Best Score: {bestScore.ToString()}";
     }
@@ -55,7 +57,7 @@ public class SceneDirector : MonoBehaviour
 
         //if (UnityEditor.EditorApplication.isPlaying)
         //{
-           
+
         //}
         //else
         //{

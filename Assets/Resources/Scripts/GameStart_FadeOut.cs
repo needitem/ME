@@ -7,7 +7,7 @@ using TMPro;
 
 public class GameStart_FadeOut : MonoBehaviour
 {
-    // 게임 시작 메시지를 관리하기 위한 타이머
+    // 게임 시작 메시지를 관리하기 위한 타이머 
     [SerializeField] 
     private float GameStartMs_Timer = 0;
 
