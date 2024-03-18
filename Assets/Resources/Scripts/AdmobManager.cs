@@ -21,7 +21,7 @@ public class AdmobManager : MonoBehaviour
         });
 
 #if UNITY_ANDROID
-        adUnitId = "ca-app-pub-9502063417523657/3825819460";
+        adUnitId = ""; //광고단위ID
 #else
         adUnitId = "unexpected_platform";
 #endif
